@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Search } from "./navbar/searchBar";
+import { Login } from "./navbar/login";
 
 export const AppNavbar = () => {
   return (
@@ -35,9 +36,10 @@ export const AppNavbar = () => {
           </div>
 
           {/* Botones de registro e inicio de sesión */}
+
           <Nav className="ml-auto">
             <Nav.Link href="/registro">Registro</Nav.Link>
-            <Nav.Link href="/inicio-sesion">Iniciar Sesión</Nav.Link>
+            <Login />
           </Nav>
         </Navbar.Collapse>
       </Navbar>
