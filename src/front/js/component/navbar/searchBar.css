@@ -85,13 +85,13 @@
   background: linear-gradient(
     135deg,
     rgb(239, 247, 255) 0%,
-    rgb(214, 229, 247) 100%
+    rgb(125, 171, 228) 100%
   );
 }
 
 .search__icon {
   width: 50px;
-  aspect-ratio: 1;
+  /* aspect-ratio: 0.2; */
   background-color: #d9e7f7;
   border-left: 2px solid white;
   border-top: 3px solid transparent;
@@ -102,7 +102,7 @@
 }
 
 .search__icon:hover {
-  border-left: 5px solid white;
+  border: 5px solid rgb(255, 255, 255);
 }
 
 .search__icon path {

@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Search } from "./navbar/searchBar";
 import { Login } from "./navbar/login";
+import "./navbar/buttonJoin.css";
 
 export const AppNavbar = () => {
   return (
@@ -13,7 +14,7 @@ export const AppNavbar = () => {
         style={{ boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}
       >
         {/* Logo o nombre de la aplicación */}
-        <Navbar.Brand href="/">Mi App</Navbar.Brand>
+        <Navbar.Brand href="/">BeatBooK</Navbar.Brand>
 
         {/* Botón para colapsar el menú en dispositivos pequeños */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -37,8 +38,9 @@ export const AppNavbar = () => {
 
           {/* Botones de registro e inicio de sesión */}
 
-          <Nav className="ml-auto">
-            <Nav.Link href="/registro">Registro</Nav.Link>
+          <Nav className="ml-auto ps-2 pe-0 m-0">
+            <button className="buttonSpecial">Registro</button>
+
             <Login />
           </Nav>
         </Navbar.Collapse>

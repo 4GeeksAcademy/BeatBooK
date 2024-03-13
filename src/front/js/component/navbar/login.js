@@ -22,7 +22,7 @@ export const Login = () => {
         <Modal.Header closeButton>
           <Modal.Title>Iniciar sesión</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body closeButton>
           <form className="form">
             <div className="flex-column">
               <label>Email </label>

@@ -3,8 +3,6 @@ import { Container, Form, InputGroup } from "react-bootstrap";
 import "./searchBar.css";
 
 export const Search = () => {
-  const [isActive, setIsActive] = useState(false);
-
   return (
     <Container className={`search-container `}>
       <InputGroup>
