@@ -1,0 +1,111 @@
+
+@font-face {
+  font-family: 'roboto';
+  src: url('/public/Fuentes/Roboto/Roboto-Bold.ttf');
+  font-weight: bold;
+  font-style: bold;
+}
+@font-face {
+  font-family: 'roboto';
+  src: url('/public/Fuentes/Roboto/Roboto-Bold.ttf');
+  font-weight: bold;
+  font-style: bold;
+}
+#form {
+  max-width: 710px;
+  background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+  border-radius: 40px;
+  padding: 25px 35px;
+  border: 5px solid rgb(255, 255, 255);
+  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
+  margin: 20px;
+  }
+
+  .inputBox {
+    position: relative;
+  }
+  
+  .inputBox span  {
+    position: absolute;
+    left: 0;
+    font-size: 0.8em;
+    transform: translateX(14px) translateY(-7.5px);
+    padding: 0 6px 1px 5px;
+    border-radius: 2px;
+    background: #ac85fc;
+    letter-spacing: 1px;
+    border: 1px solid #212121;
+    color: #212121;
+  }
+
+  .inputBox input {
+    padding: 15px 20px;
+    outline: none;
+    /*background: transparent;*/
+    border-radius: 5px;
+    color: #212121;
+    border: 1px solid#212121;
+    font-size: 1em;
+  }
+
+  .heading {
+    text-align: center;
+    font-weight: 900;
+    font-size: 30px;
+    color: rgb(16, 137, 211);
+    font-family: 'roboto';
+  }
+
+  .box span  {
+    position: absolute;
+    font-size: 0.8em;
+    transform: translateX(13px) translateY(-10.5px);
+    padding: 0 6px 1px 5px;
+    border-radius: 2px;
+    background: #ac85fc;
+    letter-spacing: 1px;
+    border: 1px solid #212121;
+    color: #212121;
+  }
+
+  .box input {
+    padding: 15px 20px;
+    outline: none;
+    /*background: transparent;*/
+    border-radius: 5px;
+    color: #212121;
+    border: 1px solid#212121;
+    font-size: 1em;
+  }
+
+  #login-button {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
+    color: white;
+    padding-block: 15px;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #login-button:hover {
+    transform: scale(1.03);
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
+  }
+  
+  #login-button:active {
+    transform: scale(0.95);
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
+  }
+  
+  
+
+
+
+
+
+  
