@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { Search } from "./navbar/searchBar";
+
+import { Search } from "./navbar/search";
 import { Login } from "./navbar/login";
 import "./navbar/buttonJoin.css";
 
@@ -32,7 +33,7 @@ export const AppNavbar = () => {
           </Nav>
 
           {/* Barra de búsqueda */}
-          <div style={{ flex: 1, justifyContent: "center", display: "flex" }}>
+          <div style={{ flex: 0.8, justifyContent: "center", display: "flex" }}>
             <Search />
           </div>
 

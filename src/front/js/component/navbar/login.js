@@ -3,22 +3,39 @@ import { Button, Modal, Form, Container } from "react-bootstrap";
 import "./buttonJoin.css";
 import "./modalJoin.css";
 
-export const Login = () => {
+export const Login = ({ onClick }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (event) => {
+    event.stopPropagation();
+    setShow(true);
+  };
+
+  const handleModalClick = (event) => {
+    event.stopPropagation();
+  };
 
   return (
     <Container
       className="login d-flex align-items-center justify-content-center"
       style={{ height: "100%" }}
     >
-      <button className="buttonSpecial" onClick={handleShow}>
+      <button
+        className="buttonSpecial"
+        onClick={
+          onClick
+            ? (event) => {
+                event.stopPropagation();
+                onClick(event);
+              }
+            : handleShow
+        }
+      >
         Inicia sesión
       </button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} onClick={handleModalClick}>
         <Modal.Header closeButton>
           <Modal.Title>Iniciar sesión</Modal.Title>
         </Modal.Header>
