@@ -40,7 +40,7 @@ export const AppNavbar = () => {
           {/* Botones de registro e inicio de sesión */}
 
           <Nav className="ml-auto ps-2 pe-0 m-0">
-            <button className="buttonSpecial">Registro</button>
+            {/* <button className="buttonSpecial">Registro</button> */}
 
             <Login />
           </Nav>

@@ -7,6 +7,10 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+import { Private } from "./pages/private";
+
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 import { AppNavbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -23,6 +27,7 @@ const Layout = () => {
   return (
     <div>
       <BrowserRouter basename={basename}>
+        <ToastContainer />
         <ScrollToTop>
           <AppNavbar />
           <Routes>
@@ -30,6 +35,7 @@ const Layout = () => {
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<h1>Not found!</h1>} />
+            <Route element={<Private />} path="/private" />
           </Routes>
           <Footer />
         </ScrollToTop>
