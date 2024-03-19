@@ -69,8 +69,10 @@ def log_in():
 @api.route("/private", methods=["GET"])
 @jwt_required()
 def protected():
-    # Accede a la identidad del usuario actual con get_jwt_identity
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     
-    return jsonify({"id": user.id, "email": user.email }), 200
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+
+    return jsonify({"id": user.id, "email": user.email ,"username":user.username}), 200

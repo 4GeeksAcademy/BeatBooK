@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "./searchBar";
 import { SearchResults } from "./SearchResults";
 import "./search.css";
 

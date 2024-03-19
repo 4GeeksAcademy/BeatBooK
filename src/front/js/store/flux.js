@@ -104,6 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error logging in", error);
           throw error; // Asegúrate de volver a lanzar el error para que pueda ser capturado en tu componente
         }
+        const user = setStore({ user }); // Obtén la información del usuario aquí...
       },
       logOut: () => {
         // Borra el objeto user del estado global
@@ -131,8 +132,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const data = await resp.json();
 
-          // Aquí puedes actualizar el estado global con la información obtenida
-          // setStore({ ... });
+          // Actualiza el estado global con la información obtenida
+          setStore({ user: data });
 
           return data;
         } catch (error) {

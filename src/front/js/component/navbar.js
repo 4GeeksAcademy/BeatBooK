@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Col, Row } from "react-bootstrap";
 
 import { Search } from "./navbar/search";
 import { Login } from "./navbar/login";
@@ -7,7 +7,7 @@ import "./navbar/buttonJoin.css";
 
 export const AppNavbar = () => {
   return (
-    <Container className="mb-3 mt-3">
+    <Container className="mb-3 mt-3 ">
       <Navbar
         bg="light"
         expand="lg"
@@ -21,29 +21,33 @@ export const AppNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         {/* Contenido del menú */}
-        <Navbar.Collapse id="basic-navbar-nav" className="align-items-center">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            {/* Vistas de la página */}
-            <Nav.Link href="/">Inicio</Nav.Link>
-            <Nav.Link href="/recomendados">Recomendados</Nav.Link>
-          </Nav>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Container fluid>
+            <Row className="align-items-center flex-column flex-lg-row">
+              {/* Categorías */}
+              <Col xs={12} lg={3}>
+                <Nav
+                  className="me-auto my-2 my-lg-0"
+                  style={{ maxHeight: "100px" }}
+                  navbarScroll
+                >
+                  <Nav>Todas las categorías</Nav>
+                </Nav>
+              </Col>
 
-          {/* Barra de búsqueda */}
-          <div style={{ flex: 0.8, justifyContent: "center", display: "flex" }}>
-            <Search />
-          </div>
+              {/* Barra de búsqueda */}
+              <Col xs={12} lg={6}>
+                <Search />
+              </Col>
 
-          {/* Botones de registro e inicio de sesión */}
-
-          <Nav className="ml-auto ps-2 pe-0 m-0">
-            {/* <button className="buttonSpecial">Registro</button> */}
-
-            <Login />
-          </Nav>
+              {/* Botones de registro e inicio de sesión */}
+              <Col xs={12} lg={3} className="d-flex justify-content-end">
+                <Nav className="ps-2 pe-0 m-0">
+                  <Login />
+                </Nav>
+              </Col>
+            </Row>
+          </Container>
         </Navbar.Collapse>
       </Navbar>
     </Container>
