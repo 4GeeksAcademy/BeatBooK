@@ -9,6 +9,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import JWTManager
+import bcrypt
 
 api = Blueprint('api', __name__)
 
@@ -27,6 +28,13 @@ def handle_hello():
 @api.route('/sign_up', methods=['POST'])
 def sign_up():
     request_body = request.get_json()
+    # Genera una sal
+    salt = bcrypt.gensalt()
+    # Hashea la contraseña
+    hashed_password = bcrypt.hashpw(request_body["password"].encode(), salt)
+    # Convierte los bytes a una cadena
+    hashed_password_str = hashed_password.decode()
+
     if not 'username'in request_body:
         return jsonify("Username is required"), 400
     if not 'email'in request_body:
@@ -36,11 +44,10 @@ def sign_up():
     if not 'password_confirmation'in request_body:
         return jsonify("Password confirmation is required"), 400
     
-    user = User(username=request_body["username"],email=request_body["email"], password=request_body["password"], is_active=True)
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password_str, is_active=True)
     db.session.add(user)
     db.session.commit()
-      # Genera un token para el nuevo usuario
-    
+    # Genera un token para el nuevo usuario
     access_token = create_access_token(identity=str(user.id))
 
     return jsonify({ 'message': 'User created', 'token': access_token }), 200
@@ -56,11 +63,10 @@ def log_in():
 
     user = User.query.filter_by(email=request_body["email"]).first()
 
-    if user is None or user.password != request_body["password"]:
+    if user is None or not bcrypt.checkpw(request_body["password"].encode(), user.password.encode()):
         return jsonify("Invalid email or password"), 400
 
     # Genera un token para el usuario que inició sesión
-    
     access_token = create_access_token(identity=str(user.id))
 
     return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email }), 200
