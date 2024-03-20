@@ -1,0 +1,22 @@
+#banner {
+    height: 450px;
+    width: 1300px;
+}
+
+#profilepicture {
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    background-size: cover;
+    transform: translateX(33px) translateY(-46.5px);
+}
+
+#btnprofile {
+    transform: translateX(-12px) translateY(62.5px);
+    border-radius: 50%;
+}
+
+.username {
+    margin-left: 230px;
+}
+
