@@ -1,0 +1,7 @@
+
+.carousel-item img {
+    max-width: 100%; /* Ancho máximo del 100% del contenedor del carrusel */
+    max-height: 620px; /* Altura máxima de 300px */
+    object-fit: contain;
+    object-position: center;
+}
