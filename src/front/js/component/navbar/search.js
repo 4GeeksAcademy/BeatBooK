@@ -13,7 +13,13 @@ export const Search = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <div
         className={`overlay ${isOpen ? "show" : ""}`}
         onMouseDown={handleOutsideMousedown}
