@@ -10,6 +10,14 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import JWTManager
 import bcrypt
+import cloudinary
+from cloudinary.uploader import upload
+          
+cloudinary.config( 
+  cloud_name = "daxbjkj1j", 
+  api_key = "574451846233591", 
+  api_secret = "mANHC3PpErxBwVy2gGxvMgTFXos" 
+)
 
 api = Blueprint('api', __name__)
 
@@ -82,3 +90,24 @@ def protected():
         return jsonify({"error": "User not found"}), 404
 
     return jsonify({"id": user.id, "email": user.email ,"username":user.username}), 200
+
+
+@api.route('/upload_profile_image', methods=['POST'])
+@jwt_required()
+def upload_profile_image():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+
+    user.profile_image_url = url
+    db.session.commit()
+
+    return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200

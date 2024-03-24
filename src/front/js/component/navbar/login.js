@@ -55,20 +55,18 @@ export const Login = ({ onClick }) => {
     handleClose();
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     if (password !== passwordConfirmation) {
       toast.error("Tus contraseñas no coinciden");
     } else {
-      actions
-        .signUp(username, email, password, passwordConfirmation)
-        .then(() => {
-          toast.success("Tu usuario ha sido creado correctamente");
-          setIsFlipped(false); // Cambia a la vista de inicio de sesión después de un registro exitoso
-        })
-        .catch((error) => {
-          toast.error("Hubo un error al crear tu usuario");
-        });
+      try {
+        await actions.signUp(username, email, password, passwordConfirmation);
+        toast.success("Tu usuario ha sido creado correctamente");
+        setIsFlipped(false); // Cambia a la vista de inicio de sesión después de un registro exitoso
+      } catch (error) {
+        toast.error("Hubo un error al crear tu usuario");
+      }
     }
   };
 
