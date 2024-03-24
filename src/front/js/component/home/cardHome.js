@@ -5,35 +5,20 @@ import "/workspaces/BeatBooK/src/front/js/component/home/cardHome.css"
 
 export const CardHome = () => {
     return (
-        <div className="container mt-5">
-            <div className="card-container">
-                <div className="card">
-                    <div className="img-content">
-                    <img src="https://i.pinimg.com/originals/ae/fe/44/aefe44950145a0930843a855831670e2.jpg" />
-                    </div>
-                    <div className="content">
-                        <p className="heading">Card Hover</p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipii
-                            voluptas ten mollitia pariatur odit, ab
-                            minus ratione adipisci accusamus vel est excepturi laboriosam magnam
-                            necessitatibus dignissimos molestias.
-                        </p>
-                        
-                    </div>
-                    
-                </div>
+        <div className="card-wrapper-home mt-3">
+            <div className="card-top-home">
+                <img className="image-home" src="https://images.unsplash.com/photo-1499676763409-c0211693a66b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" />
+            </div>
+
+            <div className="card-bottom-home">
+                <span className="top-text-home">Premium Membership</span><br />
+                <span className="bottom-text-home">Join our membership program to download music for free, listen offline and skip songs</span>
+                <br />
+                <button className="button-home">Join Us</button>
             </div>
         </div>
     );
 };
-
-
-
-
-
-
-
 
 
 

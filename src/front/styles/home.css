@@ -1,7 +1,52 @@
-/*
-    home.css: This website contains selectors only used in home.css
-
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+/* Estilos base */
+body {
+    background-color: #e8e8e8;
+  }
+  
+  .categorias {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "cardLarge cardLarge cardsmall cardHome"
+      "cardHome2 cardSmall2 cardLarge2 cardLarge2"
+      ". . . .";
+  }
+  
+  .cardLarge { grid-area: cardLarge; }
+  
+  .cardsmall { grid-area: cardsmall; }
+  
+  .cardHome { grid-area: cardHome; }
+  
+  .cardHome2 { grid-area: cardHome2; }
+  
+  .cardSmall2 { grid-area: cardSmall2; }
+  
+  .cardLarge2 { grid-area: cardLarge2; }
+  
+  .musica {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "cardSmall cardLarge cardLarge cardHome"
+      "cardLarge2 cardLarge2 cardHome2 cardSmall2";
+  }
+  
+  .cardLarge { grid-area: cardLarge; }
+  
+  .cardSmall { grid-area: cardSmall; }
+  
+  .cardHome { grid-area: cardHome; }
+  
+  .cardLarge2 { grid-area: cardLarge2; }
+  
+  .cardHome2 { grid-area: cardHome2; }
+  
+  .cardSmall2 { grid-area: cardSmall2; }
+  
