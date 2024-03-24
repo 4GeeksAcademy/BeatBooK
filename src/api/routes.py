@@ -89,7 +89,12 @@ def protected():
     if user is None:
         return jsonify({"error": "User not found"}), 404
 
-    return jsonify({"id": user.id, "email": user.email ,"username":user.username}), 200
+    return jsonify({
+        "id": user.id, 
+        "email": user.email,
+        "username": user.username,
+        "profile_image_url": user.profile_image_url  # agrega la URL de la imagen de perfil a la respuesta
+    }), 200
 
 
 @api.route('/upload_profile_image', methods=['POST'])

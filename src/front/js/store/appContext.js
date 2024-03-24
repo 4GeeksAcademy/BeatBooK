@@ -37,8 +37,8 @@ const injectContext = (PassedComponent) => {
             user: { token: token },
           },
         }));
-        // Llama a getUser para obtener la información del usuario
-        state.actions.getUser();
+        // Llama a getPrivateData para obtener la información del usuario
+        state.actions.getPrivateData();
       }
       state.actions.getMessage(); // <---- calling this function from the flux.js actions
     }, []);
