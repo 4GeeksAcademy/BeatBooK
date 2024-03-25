@@ -12,11 +12,12 @@ from flask_jwt_extended import JWTManager
 import bcrypt
 import cloudinary
 from cloudinary.uploader import upload
+import os
           
 cloudinary.config( 
   cloud_name = "daxbjkj1j", 
-  api_key = "574451846233591", 
-  api_secret = "mANHC3PpErxBwVy2gGxvMgTFXos" 
+ api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
 )
 
 api = Blueprint('api', __name__)
@@ -39,9 +40,9 @@ def sign_up():
     # Genera una sal
     salt = bcrypt.gensalt()
     # Hashea la contraseña
-    hashed_password = bcrypt.hashpw(request_body["password"].encode(), salt)
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
     # Convierte los bytes a una cadena
-    hashed_password_str = hashed_password.decode()
+    # hashed_password_str = hashed_password.decode()
 
     if not 'username'in request_body:
         return jsonify("Username is required"), 400
@@ -52,7 +53,7 @@ def sign_up():
     if not 'password_confirmation'in request_body:
         return jsonify("Password confirmation is required"), 400
     
-    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password_str, is_active=True)
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
     db.session.add(user)
     db.session.commit()
     # Genera un token para el nuevo usuario
@@ -71,7 +72,7 @@ def log_in():
 
     user = User.query.filter_by(email=request_body["email"]).first()
 
-    if user is None or not bcrypt.checkpw(request_body["password"].encode(), user.password.encode()):
+    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password.encode('utf-8')):
         return jsonify("Invalid email or password"), 400
 
     # Genera un token para el usuario que inició sesión
