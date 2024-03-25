@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Band, Event
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -34,6 +34,7 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
 @api.route('/sign_up', methods=['POST'])
 def sign_up():
     request_body = request.get_json()
@@ -117,3 +118,67 @@ def upload_profile_image():
     db.session.commit()
 
     return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
+
+
+#----------------------------Creacion de banda--------------------------------------------------------------------------------------------------------#
+@api.route('/bands', methods=['POST'])
+def create_band():
+    data = request.json
+    name = data.get('name')
+    email = data.get('email')
+    profile_picture = data.get('profile_picture')
+    banner_picture = data.get('banner_picture')
+    social_networks = data.get('social_networks')
+
+    if not name or not email or not profile_picture or not banner_picture or not social_networks:
+        return jsonify({'message': 'Todos los campos son requeridos'}), 400
+
+    new_band = Band(name=name, email=email, profile_picture=profile_picture, banner_picture=banner_picture, social_networks=social_networks)
+    db.session.add(new_band)
+    db.session.commit()
+
+    return jsonify({'message': 'Banda creada exitosamente', 'band_id': new_band.id}), 201
+#----------------------------Creacion de banda--------------------------------------------------------------------------------------------------------#
+
+#----------------------------Creacion de Evento--------------------------------------------------------------------------------------------------------#
+# Ruta para crear un evento
+@api.route('/events', methods=['POST'])
+def create_event():
+    data = request.json
+    name = data.get('name')
+    place = data.get('place')
+    pictures = data.get('pictures')
+    media = data.get('media')
+    description = data.get('description')
+    date = data.get('date')
+    social_networks = data.get('social_networks')
+    price = data.get('price')
+    band_name = data.get('band_name')
+
+    if not name or not place or not pictures or not media or not description or not date or not social_networks or not price or not band_name:
+        return jsonify({'message': 'Todos los campos son requeridos'}), 400
+
+    # Busca la banda por su nombre
+    band = Band.query.filter_by(name=band_name).first()
+    if not band:
+        return jsonify({'message': 'No se encontró ninguna banda con el nombre proporcionado'}), 404
+
+    new_event = Event(
+        name=name,
+        place=place,
+        pictures=pictures,
+        media=media,
+        description=description,
+        date=date,
+        social_networks=social_networks,
+        price=price
+    )
+
+    # Asigna la banda al evento
+    new_event.bands.append(band)
+
+    db.session.add(new_event)
+    db.session.commit()
+
+    return jsonify({'message': 'Evento creado exitosamente', 'event_id': new_event.id}), 201
+#----------------------------Creacion de Evento--------------------------------------------------------------------------------------------------------#
