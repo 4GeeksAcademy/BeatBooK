@@ -5,6 +5,20 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import JWTManager
+import bcrypt
+import cloudinary
+from cloudinary.uploader import upload
+import os
+          
+cloudinary.config( 
+  cloud_name = "daxbjkj1j", 
+ api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
+)
 
 api = Blueprint('api', __name__)
 
@@ -20,3 +34,86 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+@api.route('/sign_up', methods=['POST'])
+def sign_up():
+    request_body = request.get_json()
+    # Genera una sal
+    salt = bcrypt.gensalt()
+    # Hashea la contraseña
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+    # Convierte los bytes a una cadena
+    # hashed_password_str = hashed_password.decode()
+
+    if not 'username'in request_body:
+        return jsonify("Username is required"), 400
+    if not 'email'in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password'in request_body:
+        return jsonify("Password is required"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    # Genera un token para el nuevo usuario
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+
+@api.route('/log_in', methods=['POST'])
+def log_in():
+    request_body = request.get_json()
+
+    if not 'email' in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password' in request_body:
+        return jsonify("Password is required"), 400
+
+    user = User.query.filter_by(email=request_body["email"]).first()
+
+    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
+        return jsonify("Invalid email or password"), 400
+
+    # Genera un token para el usuario que inició sesión
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email }), 200
+
+
+@api.route("/private", methods=["GET"])
+@jwt_required()
+def protected():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+
+    return jsonify({
+        "id": user.id, 
+        "email": user.email,
+        "username": user.username,
+        "profile_image_url": user.profile_image_url  # agrega la URL de la imagen de perfil a la respuesta
+    }), 200
+
+
+@api.route('/upload_profile_image', methods=['POST'])
+@jwt_required()
+def upload_profile_image():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+
+    user.profile_image_url = url
+    db.session.commit()
+
+    return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
