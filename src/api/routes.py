@@ -72,7 +72,7 @@ def log_in():
 
     user = User.query.filter_by(email=request_body["email"]).first()
 
-    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password.encode('utf-8')):
+    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
         return jsonify("Invalid email or password"), 400
 
     # Genera un token para el usuario que inició sesión
