@@ -24,7 +24,7 @@ class Event(db.Model):
     name = db.Column(db.String(120), unique=True, nullable=False)
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    place = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(120), nullable=False)
     price = db.Column(db.String(120), nullable=False)
     pictures = db.Column(db.String(120), unique=True, nullable=True)
     media = db.Column(db.String(120), nullable=True)
@@ -38,7 +38,7 @@ class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    address = db.Column(db.String(120), nullable=False)  # Corregido de "adress" a "address"
+    address = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(120), unique=True, nullable=True)
     profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
