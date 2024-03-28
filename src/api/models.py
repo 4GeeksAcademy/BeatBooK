@@ -34,6 +34,22 @@ class Event(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'date': self.date,
+            'description': self.description,
+            'address': self.address,
+            'price': self.price,
+            'pictures': self.pictures,
+            'media': self.media,
+            'social_networks': self.social_networks,
+            'user_id': self.user_id,
+            'place_id': self.place_id,
+            'band_id': self.band_id
+        }
+
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
@@ -70,6 +86,9 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(120), nullable=False)
+
+    user = db.relationship('User', backref='reviews', lazy=True)
+    event = db.relationship('Event', backref='reviews', lazy=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
