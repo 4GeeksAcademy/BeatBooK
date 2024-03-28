@@ -1,87 +1,75 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey
 
 db = SQLAlchemy()
 
 class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     is_active = db.Column(db.Boolean(), nullable=False)
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=True)
-    username = db.Column(db.String(120), unique=True, nullable=True)
-    password = db.Column(db.String(80), nullable=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    username = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(80), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
-    gender = db.Column(db.String(20), nullable=False)
-    city = db.Column(db.String(100), nullable=False)
-    profile_picture = db.Column(db.String(120), nullable=False)
-    banner_picture = db.Column(db.String(120), nullable=False)
-    social_networks = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(120), nullable=True)
+    gender = db.Column(db.String(20), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    profile_picture = db.Column(db.String(120), nullable=True)
+    banner_picture = db.Column(db.String(120), nullable=True)
+    social_networks = db.Column(db.String(120), nullable=True)
 
-    place = db.Column(db.String(120), nullable=False)
-    music_category = db.relationship('MusicCategory', backref='user')
-    band_id = db.relationship('Band', backref='user')
+    events = db.relationship('Event', backref='user_events', lazy=True)
+    places = db.relationship('Place', backref='user_places', lazy=True)
     
-class Place(db.Model):
-    
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    phone = db.Column(db.String(120), unique=True, nullable=False)
-    place = db.Column(db.String(120), nullable=False)
-    profile_picture = db.Column(db.String(120), nullable=False)
-    banner_picture = db.Column(db.String(120), nullable=False)
-    social_networks = db.Column(db.String(120), nullable=False)
-
-class Band(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    profile_picture = db.Column(db.String(120), nullable=False)
-    banner_picture = db.Column(db.String(120), nullable=False)
-    social_networks = db.Column(db.String(120), nullable=False)
-    
-    music_category = db.relationship('MusicCategory', backref='band')
-    events = db.relationship('Event', backref='band')
-    followers = db.relationship('Follower', foreign_keys='Follower.user_to_id', backref='followed')
-
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
-    place = db.Column(db.String(120), nullable=False)
-    pictures = db.Column(db.String(120), unique=True, nullable=False)
-    media = db.Column(db.String(120), nullable=False)
-    description = db.Column(db.String(120), nullable=False)
     date = db.Column(db.Date, nullable=False)
-    social_networks = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(120), nullable=False)
+    place = db.Column(db.String(120), nullable=False)
     price = db.Column(db.String(120), nullable=False)
-    
-    place_id = db.relationship('Place', backref='event')
-    music_category = db.relationship('MusicCategory', backref='event')
-    band_id = db.relationship('Band', backref='event')
+    pictures = db.Column(db.String(120), unique=True, nullable=True)
+    media = db.Column(db.String(120), nullable=True)
+    social_networks = db.Column(db.String(120), nullable=True)
 
-class MusicCategory(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
+    band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
+
+class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(120), nullable=False)  # Corregido de "adress" a "address"
+    phone = db.Column(db.String(120), unique=True, nullable=True)
+    profile_picture = db.Column(db.String(120), nullable=True)
+    banner_picture = db.Column(db.String(120), nullable=True)
+    social_networks = db.Column(db.String(120), nullable=True)
 
-class BandMusicCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    band_id = db.Column(db.Integer, ForeignKey('band.id'))
-    music_category_id = db.Column(db.Integer, ForeignKey('music_category.id'))
+    events = db.relationship('Event', backref='event_place', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-class UserFavouriteCategory(db.Model):
+class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    music_category_id = db.Column(db.Integer, ForeignKey('music_category.id'))
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.String(120), nullable=False)
+    profile_picture = db.Column(db.String(120), nullable=True)
+    banner_picture = db.Column(db.String(120), nullable=True)
+    social_networks = db.Column(db.String(120), nullable=True)
 
-class Assitance(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    event_id = db.Column(db.Integer, ForeignKey('event.id'))
+    events = db.relationship('Event', backref='event_band', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
-class review(db.Model):
+class Assistance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    event_id = db.Column(db.Integer, ForeignKey('event.id'))
-    band_score = db.Column(db.Integer, nullable=False)
-    place_score = db.Column(db.Integer, nullable=False)
-    event_score = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.String(120), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+
+    user = db.relationship('User', backref='assistances', lazy=True)
+    event = db.relationship('Event', backref='assistances', lazy=True)
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    rating = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String(120), nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
