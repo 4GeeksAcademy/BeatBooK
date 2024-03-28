@@ -11,7 +11,7 @@ import { SecondaryNavbar } from "./navbar/navbarSecondary";
 export const AppNavbar = () => {
   return (
     <div className="container mb-3 mt-3">
-      <div className="row">
+      <div className="row  d-flex justify-content-between">
         <nav
           className="navbar navbar-expand bg-light rounded-top p-3 d-flex justify-content-between mt-3"
           style={{
