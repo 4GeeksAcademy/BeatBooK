@@ -16,23 +16,22 @@ class User(db.Model):
     banner_picture = db.Column(db.String(120), nullable=True)
     social_networks = db.Column(db.String(120), nullable=True)
 
-    events = db.relationship('Event', backref='user_events', lazy=True)
-    places = db.relationship('Place', backref='user_places', lazy=True)
-    
+    events = db.relationship('Event', backref='user', lazy=True)
+
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
+    name = db.Column(db.String(120), nullable=False)
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120), nullable=False)
     price = db.Column(db.String(120), nullable=False)
-    pictures = db.Column(db.String(120), unique=True, nullable=True)
+    pictures = db.Column(db.String(120), nullable=True)
     media = db.Column(db.String(120), nullable=True)
     social_networks = db.Column(db.String(120), nullable=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def serialize(self):
         return {
@@ -47,12 +46,11 @@ class Event(db.Model):
             'social_networks': self.social_networks,
             'user_id': self.user_id,
             'place_id': self.place_id,
-            'band_id': self.band_id
         }
 
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
+    name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(120), unique=True, nullable=True)
@@ -60,19 +58,39 @@ class Place(db.Model):
     banner_picture = db.Column(db.String(120), nullable=True)
     social_networks = db.Column(db.String(120), nullable=True)
 
-    events = db.relationship('Event', backref='event_place', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    events = db.relationship('Event', backref='place', lazy=True)
+    
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'address': self.address,
+            'phone': self.phone,
+            'profile_picture': self.profile_picture,
+            'banner_picture': self.banner_picture,
+            'social_networks': self.social_networks,
+        }
 
 class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
+    name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(120), nullable=False)
     profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
     social_networks = db.Column(db.String(120), nullable=True)
 
-    events = db.relationship('Event', backref='event_band', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    events = db.relationship('Event', backref='band', lazy=True)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'profile_picture': self.profile_picture,
+            'banner_picture': self.banner_picture,
+            'social_networks': self.social_networks,
+        }
 
 class Assistance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -82,13 +100,29 @@ class Assistance(db.Model):
     user = db.relationship('User', backref='assistances', lazy=True)
     event = db.relationship('Event', backref='assistances', lazy=True)
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'event_id': self.event_id,
+        }
+
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(120), nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+
     user = db.relationship('User', backref='reviews', lazy=True)
     event = db.relationship('Event', backref='reviews', lazy=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+    def serialize(self):
+        return {
+            'id': self.id,
+            'rating': self.rating,
+            'comment': self.comment,
+            'user_id': self.user_id,
+            'event_id': self.event_id,
+        }
