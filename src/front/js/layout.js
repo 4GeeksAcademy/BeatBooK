@@ -8,6 +8,9 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { Private } from "./pages/private";
+import { Eventos } from "./pages/eventos";
+import { Locales } from "./pages/locales";
+import { Bandas } from "./pages/bandas";
 
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -32,6 +35,9 @@ const Layout = () => {
           <AppNavbar />
           <Routes>
             <Route element={<Home />} path="/" />
+            <Route element={<Eventos />} path="/events" />
+            <Route element={<Locales />} path="/places" />
+            <Route element={<Bandas />} path="/Bands" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<h1>Not found!</h1>} />
