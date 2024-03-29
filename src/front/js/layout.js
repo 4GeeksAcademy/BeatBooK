@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 import { AppNavbar } from "./component/navbar";
+
 import { Footer } from "./component/footer";
 
 //create your first component
@@ -33,6 +34,7 @@ const Layout = () => {
         <ToastContainer />
         <ScrollToTop>
           <AppNavbar />
+
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Eventos />} path="/events" />

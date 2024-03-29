@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+
 import "./searchBar.css";
 
 export const SearchBar = ({ setIsOpen }) => {
@@ -9,9 +11,9 @@ export const SearchBar = ({ setIsOpen }) => {
 
   return (
     <input
-      className="barraBusqueda "
+      className="barraBusqueda d-none d-lg-block text-center"
       type="text"
-      placeholder="Buscar"
+      placeholder="Buscar Eventos"
       onFocus={handleSearchFocus}
     />
   );

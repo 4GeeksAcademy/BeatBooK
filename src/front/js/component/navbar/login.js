@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { UserDrop } from "./userDrop";
 import "./modalJoin.css";
 import "./flipCard.css";
+import LogoVertical from "./beatBoxVertical.png";
+import "./logo.css";
+import "./modal.css";
 
 export const Login = ({ onClick }) => {
   const [show, setShow] = useState(false);
@@ -52,20 +55,18 @@ export const Login = ({ onClick }) => {
     handleClose();
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     if (password !== passwordConfirmation) {
       toast.error("Tus contraseñas no coinciden");
     } else {
-      actions
-        .signUp(username, email, password, passwordConfirmation)
-        .then(() => {
-          toast.success("Tu usuario ha sido creado correctamente");
-          setIsFlipped(false); // Cambia a la vista de inicio de sesión después de un registro exitoso
-        })
-        .catch((error) => {
-          toast.error("Hubo un error al crear tu usuario");
-        });
+      try {
+        await actions.signUp(username, email, password, passwordConfirmation);
+        toast.success("Tu usuario ha sido creado correctamente");
+        setIsFlipped(false); // Cambia a la vista de inicio de sesión después de un registro exitoso
+      } catch (error) {
+        toast.error("Hubo un error al crear tu usuario");
+      }
     }
   };
 
@@ -78,7 +79,7 @@ export const Login = ({ onClick }) => {
         <UserDrop />
       ) : (
         <button
-          className="buttonSpecial"
+          className="white-button "
           onClick={
             onClick
               ? (event) => {
@@ -92,11 +93,23 @@ export const Login = ({ onClick }) => {
         </button>
       )}
 
-      <Modal show={show} onHide={handleClose} onClick={handleModalClick}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        onClick={handleModalClick}
+        className="my-modal"
+      >
         <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
           <div className="flip-card-inner">
             <div className="flip-card-front">
               <form className="form" onSubmit={handleLogin}>
+                <div className="flex justify-content-center">
+                  <img
+                    src={LogoVertical}
+                    alt="My Image"
+                    className="logoVertical"
+                  />
+                </div>
                 <div className="flex-column">
                   <label>Email </label>
                 </div>
@@ -139,6 +152,13 @@ export const Login = ({ onClick }) => {
             </div>
             <div className="flip-card-back">
               <form className="form" onSubmit={handleSignUp}>
+                <div className="flex justify-content-center">
+                  <img
+                    src={LogoVertical}
+                    alt="My Image"
+                    className="logoVertical"
+                  />
+                </div>
                 <div className="flex-column">
                   <label>Username </label>
                 </div>
