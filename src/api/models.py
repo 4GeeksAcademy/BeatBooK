@@ -1,23 +1,37 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from sqlalchemy import LargeBinary
 db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    is_active = db.Column(db.Boolean(), nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    username = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.LargeBinary)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     city = db.Column(db.String(100), nullable=True)
-    profile_picture = db.Column(db.String(120), nullable=True)
+    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)  # new field
     banner_picture = db.Column(db.String(120), nullable=True)
     social_networks = db.Column(db.String(120), nullable=True)
 
-    events = db.relationship('Event', backref='user', lazy=True)
+    events = db.relationship('Event', backref='user_events', lazy=True)
+    places = db.relationship('Place', backref='user_places', lazy=True)
 
+    def __repr__(self):
+        return f'<User {self.username}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "profile_image_url": self.profile_image_url,  # include in serialized output
+            # do not serialize the password, its a security breach
+        }
+  
+    
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
