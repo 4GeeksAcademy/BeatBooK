@@ -153,4 +153,20 @@ def add_member_to_band(band_id):
 
         return jsonify({"message": "Usuario añadido correctamente a la banda"}), 200
 
+# Borrar un usuario de la banda
+@api.route('/band/<int:band_id>/member/<int:user_id>', methods=['DELETE'])
+def delete_member(band_id, user_id):
+    band = Band.query.get(band_id)
+    if band:
+        member = User.query.filter_by(id=user_id, band_id=band_id).first()
+        if member:
+            db.session.delete(member)
+            db.session.commit()
+            return jsonify({'message': 'Miembro eliminado correctamente'}), 200
+        else:
+            return jsonify({'message': 'Miembro no encontrado en la banda'}), 404
+    else:
+        return jsonify({'message': 'Banda no encontrada'}), 404
+    #----------------------------------------------------#
+
 
