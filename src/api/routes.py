@@ -5,6 +5,20 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Event, Place, Band, Review
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import JWTManager
+import bcrypt
+import cloudinary
+from cloudinary.uploader import upload
+import os
+          
+cloudinary.config( 
+  cloud_name = "daxbjkj1j", 
+ api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
+)
 
 api = Blueprint('api', __name__)
 

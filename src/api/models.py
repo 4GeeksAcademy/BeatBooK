@@ -1,18 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from sqlalchemy import LargeBinary
 db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    is_active = db.Column(db.Boolean(), nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    username = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.LargeBinary)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     city = db.Column(db.String(100), nullable=True)
-    profile_picture = db.Column(db.String(120), nullable=True)
+    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)  # new field
     banner_picture = db.Column(db.String(120), nullable=True)
     social_networks = db.Column(db.String(120), nullable=True)
 
@@ -29,6 +29,22 @@ class Event(db.Model):
 
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'date': self.date,
+            'description': self.description,
+            'address': self.address,
+            'price': self.price,
+            'pictures': self.pictures,
+            'media': self.media,
+            'social_networks': self.social_networks,
+            'user_id': self.user_id,
+            'place_id': self.place_id,
+        }
 
     def serialize(self):
         return {

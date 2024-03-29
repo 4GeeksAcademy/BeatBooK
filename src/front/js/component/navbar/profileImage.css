@@ -1,0 +1,11 @@
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+@media (max-width: 1000px) {
+  .username {
+    display: none;
+  }
+}
