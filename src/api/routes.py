@@ -5,20 +5,11 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Band, Event
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import JWTManager
+
 import bcrypt
-import cloudinary
-from cloudinary.uploader import upload
+
 import os
           
-cloudinary.config( 
-  cloud_name = "daxbjkj1j", 
- api_key = os.environ["CLOUDINARY_API_KEY"], 
-  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
-)
 
 api = Blueprint('api', __name__)
 
@@ -35,93 +26,8 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@api.route('/sign_up', methods=['POST'])
-def sign_up():
-    request_body = request.get_json()
-    # Genera una sal
-    salt = bcrypt.gensalt()
-    # Hashea la contraseña
-    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
-    # Convierte los bytes a una cadena
-    # hashed_password_str = hashed_password.decode()
-
-    if not 'username'in request_body:
-        return jsonify("Username is required"), 400
-    if not 'email'in request_body:
-        return jsonify("Email is required"), 400
-    if not 'password'in request_body:
-        return jsonify("Password is required"), 400
-    if not 'password_confirmation'in request_body:
-        return jsonify("Password confirmation is required"), 400
-    
-    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
-    db.session.add(user)
-    db.session.commit()
-    # Genera un token para el nuevo usuario
-    access_token = create_access_token(identity=str(user.id))
-
-    return jsonify({ 'message': 'User created', 'token': access_token }), 200
-
-@api.route('/log_in', methods=['POST'])
-def log_in():
-    request_body = request.get_json()
-
-    if not 'email' in request_body:
-        return jsonify("Email is required"), 400
-    if not 'password' in request_body:
-        return jsonify("Password is required"), 400
-
-    user = User.query.filter_by(email=request_body["email"]).first()
-
-    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
-        return jsonify("Invalid email or password"), 400
-
-    # Genera un token para el usuario que inició sesión
-    access_token = create_access_token(identity=str(user.id))
-
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email }), 200
-
-
-@api.route("/private", methods=["GET"])
-@jwt_required()
-def protected():
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    
-    if user is None:
-        return jsonify({"error": "User not found"}), 404
-
-    return jsonify({
-        "id": user.id, 
-        "email": user.email,
-        "username": user.username,
-        "profile_image_url": user.profile_image_url  # agrega la URL de la imagen de perfil a la respuesta
-    }), 200
-
-
-@api.route('/upload_profile_image', methods=['POST'])
-@jwt_required()
-def upload_profile_image():
-    if 'image' not in request.files:
-        return jsonify({"error": "No image provided"}), 400
-
-    file = request.files['image']
-    upload_result = upload(file)
-    url = upload_result['url']
-
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    if user is None:
-        return jsonify({"error": "User not found"}), 404
-
-    user.profile_image_url = url
-    db.session.commit()
-
-    return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
-
-
 #----------------------------Creacion de banda--------------------------------------------------------------------------------------------------------#
-@api.route('/bands', methods=['POST'])
+@api.route('/band', methods=['POST'])
 def create_band():
     data = request.json
     name = data.get('name')
@@ -140,45 +46,127 @@ def create_band():
     return jsonify({'message': 'Banda creada exitosamente', 'band_id': new_band.id}), 201
 #----------------------------Creacion de banda--------------------------------------------------------------------------------------------------------#
 
-#----------------------------Creacion de Evento--------------------------------------------------------------------------------------------------------#
-# Ruta para crear un evento
-@api.route('/events', methods=['POST'])
-def create_event():
-    data = request.json
-    name = data.get('name')
-    place = data.get('place')
-    pictures = data.get('pictures')
-    media = data.get('media')
-    description = data.get('description')
-    date = data.get('date')
-    social_networks = data.get('social_networks')
-    price = data.get('price')
-    band_name = data.get('band_name')
+#Obtener todas las bandas
+@api.route('/bands', methods=['GET']) 
+def all_bands():
+    
+    bands = Band.query.all()        #instancias de Band desde la base de datos
+    if not bands:
+            return jsonify({"message": "No se encontraron bandas"}), 404
+    
+    bands_json = [band.serialize() for band in bands]           # Serializar Band en formato JSON
 
-    if not name or not place or not pictures or not media or not description or not date or not social_networks or not price or not band_name:
-        return jsonify({'message': 'Todos los campos son requeridos'}), 400
+    return jsonify(bands_json)
+#----------------------------------------------------#
 
-    # Busca la banda por su nombre
-    band = Band.query.filter_by(name=band_name).first()
+#Obtener solo una banda
+@api.route('/band/<int:band_id>', methods=['GET'])
+def get_band(band_id):
+    band = Band.query.get(band_id)
     if not band:
-        return jsonify({'message': 'No se encontró ninguna banda con el nombre proporcionado'}), 404
+        return jsonify({"message": "Banda no encontrada"}), 404
 
-    new_event = Event(
-        name=name,
-        place=place,
-        pictures=pictures,
-        media=media,
-        description=description,
-        date=date,
-        social_networks=social_networks,
-        price=price
-    )
+    return jsonify({
+        "id": band.id, 
+        "email": band.email,
+        "profile_picture": band.profile_picture,
+        "social_networks": band.social_networks,
+        "users": [user.serialize() for user in band.users],  # Serializar los usuarios
+    }), 200
+#----------------------------------------------------#
 
-    # Asigna la banda al evento
-    new_event.bands.append(band)
+#obtener los usuarios de una banda  Preguntar si lo manejamos asi o con el endpoint anterior
+#@api.route('/bands/<int:band_id>/users', methods=['GET'])
+#def get_band_users(band_id):
+    
+        #band = Band.query.get(band_id)
+        #if band is None:
+        #    return jsonify({"message": "No se encontró la banda"}), 404
 
-    db.session.add(new_event)
-    db.session.commit()
+         # Serializar los usuarios de la banda en formato JSON
+        #users_json = [user.serialize() for user in band.users]
 
-    return jsonify({'message': 'Evento creado exitosamente', 'event_id': new_event.id}), 201
-#----------------------------Creacion de Evento--------------------------------------------------------------------------------------------------------#
+        # Devolver los usuarios en formato JSON
+        #return jsonify(users_json), 200
+#----------------------------------------------------#
+
+#Actualizar una banda
+@api.route('/band/<int:band_id>', methods=['POST'])
+def update_band(band_id):
+    
+        band = Band.query.get(band_id)
+        if not band:
+            return jsonify({"message": "Banda no encontrada"}), 404
+        
+        data = request.json
+        
+        # Actualizar los atributos de la banda con los datos proporcionados
+        band.name = data.get('name', band.name)
+        band.email = data.get('email', band.email)
+        band.profile_picture = data.get('profile_picture', band.profile_picture)
+        band.banner_picture = data.get('banner_picture', band.banner_picture)
+        band.social_networks = data.get('social_networks', band.social_networks)
+        
+        db.session.commit()
+        
+        # Devolver la banda actualizada en formato JSON
+        return jsonify(band.serialize()), 200
+#----------------------------------------------------#
+
+#Borrar una banda 
+@api.route('/band/<int:band_id>', methods=['DELETE'])
+def delete_band(band_id):
+
+        band = Band.query.get(band_id)
+        if not band:
+            return jsonify({"message": "Banda no encontrada"}), 404
+
+        db.session.delete(band)
+        db.session.commit()
+        return jsonify({"message": "Banda eliminada correctamente"}), 200
+#----------------------------------------------------#
+
+
+@api.route('/band/<int:band_id>/add_member', methods=['POST'])
+def add_member_to_band(band_id):
+   
+        band = Band.query.get(band_id)
+        if not band:
+            return jsonify({"message": "Banda no encontrada"}), 404
+
+        # Obtener los datos del miembro a añadir desde el cuerpo de la solicitud
+        data = request.json
+        user_id = data.get('user_id')
+
+        # Verificar si el usuario existe
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({"message": "Usuario no encontrado"}), 404
+
+        # Verificar si el usuario ya es miembro de otra banda
+        if user.band_id:
+            return jsonify({"message": "El usuario ya es miembro de otra banda"}), 400
+
+        
+        user.band_id = band_id
+        db.session.commit()
+
+        return jsonify({"message": "Usuario añadido correctamente a la banda"}), 200
+
+# Borrar un usuario de la banda
+@api.route('/band/<int:band_id>/member/<int:user_id>', methods=['DELETE'])
+def delete_member(band_id, user_id):
+    band = Band.query.get(band_id)
+    if band:
+        member = User.query.filter_by(id=user_id, band_id=band_id).first()
+        if member:
+            db.session.delete(member)
+            db.session.commit()
+            return jsonify({'message': 'Miembro eliminado correctamente'}), 200
+        else:
+            return jsonify({'message': 'Miembro no encontrado en la banda'}), 404
+    else:
+        return jsonify({'message': 'Banda no encontrada'}), 404
+    #----------------------------------------------------#
+
+
