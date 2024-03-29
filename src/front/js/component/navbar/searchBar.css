@@ -4,7 +4,7 @@
   align-items: center;
   width: 400px;
   height: 40px;
-  background-color: #ffffff;
+  background-color: grey;
   border-radius: 20px;
   border-color: none;
   border-style: none;
@@ -12,6 +12,12 @@
   margin: 0 10px;
   box-shadow: 0 0 10px 0 rgba(79, 72, 72, 0.2);
 }
+
+.barraBusqueda::placeholder {
+  color: white;
+  font-weight: bold;
+}
+
 .barraBusqueda1 {
   display: flex;
   justify-content: center;
