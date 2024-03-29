@@ -79,7 +79,7 @@ export const Login = ({ onClick }) => {
         <UserDrop />
       ) : (
         <button
-          className="buttonSpecial"
+          className="white-button "
           onClick={
             onClick
               ? (event) => {
