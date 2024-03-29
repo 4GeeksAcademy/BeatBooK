@@ -8,7 +8,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.LargeBinary)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-    birthdate = db.Column(db.Date, nullable=False)
+    birthdate = db.Column(db.Date, nullable=True)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     city = db.Column(db.String(100), nullable=True)
