@@ -1,12 +1,12 @@
 import React from "react";
-import bbLogo from "./footer/bbLogo.png"
+import beatBoxHorizontalBlanco from "/workspaces/BeatBooK/src/front/js/component/navbar/beatBoxHorizontalBlanco.png"
 
 
 
 export const Footer = () => (
-    <footer className="mt-5" style={{ backgroundColor: '#f8f9fa', color: '#212529', padding: '20px', textAlign: 'center' }}>
+    <footer className="mt-5" style={{ backgroundColor: 'black', color: '#212529', padding: '20px', textAlign: 'center' }}>
         <div>
-            <img src={bbLogo} alt="Logo" style={{ maxWidth: '200px'}}/>
+            <img src={beatBoxHorizontalBlanco} alt="Logo" style={{ maxWidth: '200px'}}/>
         </div>
         <div style={{ marginTop: '20px' }}>
             <a href="#" style={{ color: '#212529', textDecoration: 'none', marginRight: '15px' }}>Facebook</a>

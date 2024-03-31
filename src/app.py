@@ -24,6 +24,10 @@ app.url_map.strict_slashes = False
 # Inicialización de JWTManager
 jwt = JWTManager(app)
 
+# Configuración de JWT
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Reemplaza esto con tu propia clave secreta
+app.config['Cloudinary_Secret_key'] = os.environ["CLOUDINARY_API_SECRET"]
+
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
