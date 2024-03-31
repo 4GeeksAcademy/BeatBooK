@@ -38,7 +38,7 @@ export const Search = () => {
           <FontAwesomeIcon
             className="lupa"
             icon={faSearch}
-            setIsOpen={setIsOpen}
+            onClick={() => setIsOpen(true)}
           />
         </div>
       </div>
