@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       user: null,
       message: null,
+      events: [],
       demo: [
         {
           title: "FIRST",
@@ -146,6 +147,29 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log("Error al obtener datos privados", error);
           throw error;
+        }
+      },
+      getEvents: async (searchTerm) => {
+        const store = getStore();
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/events");
+          const data = await resp.json();
+          setStore({ events: data });
+          return data;
+        } catch (error) {
+          console.log("Error loading events from backend", error);
+        }
+      },
+      getEvent: async (id) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + `/api/events/${id}`
+          );
+          const data = await resp.json();
+          setStore({ event: data });
+          return data;
+        } catch (error) {
+          console.log("Error loading event from backend", error);
         }
       },
     },

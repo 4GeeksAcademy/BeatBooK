@@ -30,16 +30,17 @@ export const Search = () => {
       <div
         className={`overlay ${isOpen ? "show" : ""}`}
         onMouseDown={handleOutsideMousedown}
-      ></div>
-      <div style={{ position: "relative" }}>
-        <SearchBar setIsOpen={setIsOpen} />
-        <div
-          className="d-block d-lg-none busqueda_lupa"
-          onClick={handleSearchxocus}
-        >
-          <FontAwesomeIcon className="lupa" icon={faSearch} />
-        </div>
+      >
         <SearchResults isOpen={isOpen} setIsOpen={setIsOpen} />
+      </div>
+      <div style={{ position: "relative" }}>
+        <div className="busqueda_lupa" onClick={handleSearchxocus}>
+          <FontAwesomeIcon
+            className="lupa"
+            icon={faSearch}
+            setIsOpen={setIsOpen}
+          />
+        </div>
       </div>
     </div>
   );
