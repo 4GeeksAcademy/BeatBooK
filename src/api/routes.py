@@ -22,6 +22,19 @@ CORS(api)
 
 #LOGIN Y PRIVADOS#
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 @api.route('/log_in', methods=['POST'])
 def log_in():
     request_body = request.get_json()
