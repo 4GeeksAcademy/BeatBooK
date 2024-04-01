@@ -38,7 +38,7 @@ export const AppNavbar = () => {
               />
             </Link>
             <button className="white-button text-center text-nowrap ">
-              Todas las categorías
+              Categorías
             </button>
           </div>
           {/* Barra de búsqueda */}

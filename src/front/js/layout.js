@@ -8,6 +8,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Event } from "./pages/event";
+import { CreateEvent } from "./pages/createEvent";
 import { Private } from "./pages/private";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -36,7 +37,7 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Event />} path="/event" />
-            {/* <Route element={<Event />} path="/event/:theid" /> */}
+            <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<h1>Not found!</h1>} />

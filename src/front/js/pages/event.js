@@ -72,6 +72,7 @@ export const Event = () => {
               alt="Descripción de la imagen"
             />{" "}
           </div>
+          o
           <EventMedia eventData={eventData} />
           <EventMembers eventData={eventData} />
           <EventTeams eventData={eventData} />
