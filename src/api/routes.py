@@ -73,7 +73,6 @@ def log_in():
 
     return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email }), 200
 
-
 @api.route("/private", methods=["GET"])
 @jwt_required()
 def protected():
