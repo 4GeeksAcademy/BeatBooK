@@ -1,6 +1,6 @@
 import os
 from flask_admin import Admin
-from .models import db, User, Event, Place, Band, Assistance, Review
+from .models import db, User, Event, Place, Band, Assistance, Review, MusicalCategory
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
@@ -15,6 +15,7 @@ def setup_admin(app):
     admin.add_view(ModelView(Band, db.session))
     admin.add_view(ModelView(Assistance, db.session))
     admin.add_view(ModelView(Review, db.session))
+    admin.add_view(ModelView(MusicalCategory, db.session))
 
     # You can duplicate that line to add new models
     # admin.add_view(ModelView(YourModelName, db.session))
