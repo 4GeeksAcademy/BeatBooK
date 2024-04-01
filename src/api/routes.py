@@ -5,39 +5,20 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Event, Place, Band, Review
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import JWTManager
 import bcrypt
-
+import cloudinary
+from cloudinary.uploader import upload
 import os
-          
 
+  
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
-
-
-
-#----------------------------Creacion de banda--------------------------------------------------------------------------------------------------------#
-@api.route('/band', methods=['POST'])
-def create_band():
-    data = request.json
-    name = data.get('name')
-    email = data.get('email')
-    profile_picture = data.get('profile_picture')
-    banner_picture = data.get('banner_picture')
-    social_networks = data.get('social_networks')
-
-    if not name or not email or not profile_picture or not banner_picture or not social_networks:
-        return jsonify({'message': 'Todos los campos son requeridos'}), 400
-
-    new_band = Band(name=name, email=email, profile_picture=profile_picture, banner_picture=banner_picture, social_networks=social_networks)
-    db.session.add(new_band)
-    db.session.commit()
-    # Genera un token para el nuevo usuario
-    access_token = create_access_token(identity=str(user.id))
-
-    return jsonify({ 'message': 'User created', 'token': access_token }), 200
 
 
 @api.route('/log_in', methods=['POST'])
