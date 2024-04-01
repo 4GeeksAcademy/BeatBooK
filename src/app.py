@@ -21,6 +21,7 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 # Configuración de JWT
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Reemplaza esto con tu propia clave secreta
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 86400  # El token expirará después de 1 día
 app.config['Cloudinary_Secret_key'] = os.environ["CLOUDINARY_API_SECRET"]  
 
 # Inicialización de JWTManager

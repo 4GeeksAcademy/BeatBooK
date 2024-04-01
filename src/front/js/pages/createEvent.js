@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import "../component/createEvent/createEvent.css";
+import { MembersGet } from "../component/createEvent/membersGet";
+import { CreateMusicGroup } from "../component/createEvent/createMusicGroup";
 
 export const CreateEvent = () => {
+  const { store } = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt-token");
+
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
+
+  //   Comentar de la Linea 8 a la 17 si quieres trabajar tranquilamente en el view si no te pedira que inicies sesion
+
   const [eventData, setEventData] = useState({
     name: "",
     date: "",
@@ -175,6 +192,18 @@ export const CreateEvent = () => {
                 className="myFormControlClass"
               />
             </Form.Group>
+            <Form.Group controlId="formEventYoutube">
+              <Form.Label className="title_inputs">Tiktok</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Link de Tiktok"
+                name="youtube"
+                onChange={handleChange}
+                className="myFormControlClass"
+              />
+            </Form.Group>
+            <MembersGet />
+            {/* <CreateMusicGroup /> */}
           </Col>
         </Row>
         <div className="create_event">

@@ -112,6 +112,13 @@ def upload_profile_image():
     return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
 
 
+@api.route('/get-all-users', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+    users = list(map(lambda x: x.serialize(), users))
+    return jsonify(users), 200
+
+
 @api.route('/events', methods=['GET'])
 def get_events():
     events = Event.query.all()

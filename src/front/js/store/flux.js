@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: null,
       message: null,
       events: [],
+      allUsers: [],
       demo: [
         {
           title: "FIRST",
@@ -170,6 +171,21 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error loading event from backend", error);
+        }
+      },
+      getAllUsers: async () => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/get-all-users"
+          );
+          const data = await resp.json();
+
+          // Actualiza el estado global con la información obtenida
+          setStore({ allUsers: data });
+
+          return data;
+        } catch (error) {
+          console.log("Error loading users from backend", error);
         }
       },
     },
