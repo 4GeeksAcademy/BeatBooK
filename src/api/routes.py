@@ -326,11 +326,7 @@ def get_band_events(band_id):
 
 #EVENTOS#
 
-@api.route('/get-all-users', methods=['GET'])
-def get_all_users():
-    users = User.query.all()
-    users = list(map(lambda x: x.serialize(), users))
-    return jsonify(users), 200
+
 
 
 @api.route('/events', methods=['GET'])
