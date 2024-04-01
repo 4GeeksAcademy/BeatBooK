@@ -82,6 +82,61 @@ def get_single_user(user_id):
         raise APIException('User not found', status_code=404)
     return jsonify(user.serialize()), 200
 
+@api.route('/users', methods=['POST'])
+def create_user():
+        request_body = request.get_json()
+        email = request_body.get('email')
+        password = request_body.get('password')
+        username = request_body.get('username')
+        birthdate = request_body.get('birthdate')
+        description = request_body.get('description')
+        gender = request_body.get('gender')
+        city = request_body.get('city')
+        profile_picture = request_body.get('profile_picture')
+        banner_picture = request_body.get('banner_picture')
+        social_networks = request_body.get('social_networks')
+        is_active = request_body.get('is_active', True)
+
+        if not email:
+            raise APIException('Email is required', status_code=400)
+        if not password:
+            raise APIException('Password is required', status_code=400)
+        if not username:
+            raise APIException('Username is required', status_code=400)
+        if not birthdate:
+            raise APIException('Birthdate is required', status_code=400)
+        if not description:
+            raise APIException('Description is required', status_code=400)
+        if not gender:
+            raise APIException('Gender is required', status_code=400)
+        if not city:
+            raise APIException('City is required', status_code=400)
+
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            raise APIException('Email already exists', status_code=400)
+
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+        new_user = User(
+            email=email,
+            password=hashed_password,
+            username=username,
+            birthdate=birthdate,
+            description=description,
+            gender=gender,
+            city=city,
+            profile_picture=profile_picture,
+            banner_picture=banner_picture,
+            social_networks=social_networks,
+            is_active=is_active
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify(new_user.serialize()), 201
+
 @api.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     user = User.query.get(user_id)
@@ -130,6 +185,32 @@ def get_user_favorite_categories(user_id):
     categories = user.user_categories
     categories = list(map(lambda x: x.serialize(), categories))
     return jsonify(categories), 200
+
+@api.route('/users/<int:user_id>/favorite_categories', methods=['POST'])
+def add_user_favorite_category(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        raise APIException('User not found', status_code=404)
+    request_body = request.get_json()
+    category_id = request_body['category_id']
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    user.user_categories.append(category)
+    db.session.commit()
+    return jsonify(user.serialize()), 200
+
+@api.route('/users/<int:user_id>/favorite_categories/<int:category_id>', methods=['DELETE'])
+def remove_user_favorite_category(user_id, category_id):
+    user = User.query.get(user_id)
+    if user is None:
+        raise APIException('User not found', status_code=404)
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    user.user_categories.remove(category)
+    db.session.commit()
+    return jsonify(user.serialize()), 200
 
 #BANDS#
 
@@ -362,3 +443,174 @@ def create_place():
     db.session.add(place)
     db.session.commit()
     return jsonify(place.serialize()), 201
+
+@api.route('/places/<int:place_id>', methods=['PUT'])
+def update_place(place_id):
+    place = Place.query.get(place_id)
+    if place is None:
+        raise APIException('Place not found', status_code=404)
+    request_body = request.get_json()
+    place.name = request_body['name']
+    place.description = request_body['description']
+    place.address = request_body['address']
+    place.phone = request_body['phone']
+    place.profile_picture = request_body['profile_picture']
+    place.banner_picture = request_body['banner_picture']
+    place.social_networks = request_body['social_networks']
+    db.session.commit()
+    return jsonify(place.serialize()), 200
+
+@api.route('/places/<int:place_id>', methods=['DELETE'])
+def delete_place(place_id):
+    place = Place.query.get(place_id)
+    if place is None:
+        raise APIException('Place not found', status_code=404)
+    db.session.delete(place)
+    db.session.commit()
+    return jsonify(place.serialize()), 200
+
+@api.route('/places/<int:place_id>/events', methods=['GET'])
+def get_place_events(place_id):
+    place = Place.query.get(place_id)
+    if place is None:
+        raise APIException('Place not found', status_code=404)
+    events = place.events
+    events = list(map(lambda x: x.serialize(), events))
+    return jsonify(events), 200
+
+@api.route('/places/<int:place_id>/music_categories', methods=['GET'])
+def get_place_music_categories(place_id):
+    place = Place.query.get(place_id)
+    if place is None:
+        raise APIException('Place not found', status_code=404)
+    events = place.events
+    unique_categories = set()
+    for event in events:
+        bands = event.band
+        if isinstance(bands, Band):
+            bands = [bands]
+        for band in bands:
+            categories = band.musical_categories
+            unique_categories.update(categories)
+    serialized_categories = [category.serialize() for category in unique_categories]
+    return jsonify(serialized_categories), 200
+
+#REVIEWS#
+
+@api.route('/reviews', methods=['GET'])
+def get_reviews():
+    reviews = Review.query.all()
+    serialized_reviews = [review.serialize() for review in reviews]
+    return jsonify(serialized_reviews), 200
+
+@api.route('/reviews/<int:review_id>', methods=['GET'])
+def get_review(review_id):
+    review = Review.query.get(review_id)
+    if review is None:
+        raise APIException('Review not found', status_code=404)
+    return jsonify(review.serialize()), 200
+
+@api.route('/reviews', methods=['POST'])
+def create_review():
+    request_body = request.get_json()
+    review = Review(
+        user_id=request_body['user_id'],
+        event_id=request_body['event_id'],
+        rating=request_body['rating'], 
+        comment=request_body['comment']
+        )
+    db.session.add(review)
+    db.session.commit()
+    return jsonify(review.serialize()), 201
+
+@api.route('/reviews/<int:review_id>', methods=['PUT'])
+def update_review(review_id):
+    review = Review.query.get(review_id)
+    if review is None:
+        raise APIException('Review not found', status_code=404)
+    request_body = request.get_json()
+    review.rating = request_body['rating']
+    review.comment = request_body['comment']
+    review.user_id = request_body['user_id']
+    review.event_id = request_body['event_id']
+    db.session.commit()
+    return jsonify(review.serialize()), 200
+
+@api.route('/reviews/<int:review_id>', methods=['DELETE'])
+def delete_review(review_id):
+    review = Review.query.get(review_id)
+    if review is None:
+        raise APIException('Review not found', status_code=404)
+    db.session.delete(review)
+    db.session.commit()
+    return jsonify(review.serialize()), 200
+
+#CATEGORIAS MUSICALES#
+
+@api.route('/musical_categories', methods=['GET'])
+def get_all_musical_categories():
+    categories = MusicalCategory.query.all()
+    categories = list(map(lambda x: x.serialize(), categories))
+    return jsonify(categories), 200
+
+@api.route('/musical_categories/<int:category_id>', methods=['GET'])
+def get_single_musical_category(category_id):
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    return jsonify(category.serialize()), 200
+
+@api.route('/musical_categories', methods=['POST'])
+def create_musical_category():
+    request_body = request.get_json()
+    category = MusicalCategory(
+        name=request_body['name'],
+        description=request_body['description']
+    )
+    db.session.add(category)
+    db.session.commit()
+    return jsonify(category.serialize()), 201
+
+@api.route('/musical_categories/<int:category_id>', methods=['PUT'])
+def update_musical_category(category_id):
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    request_body = request.get_json()
+    category.name = request_body['name']
+    category.description = request_body['description']
+    db.session.commit()
+    return jsonify(category.serialize()), 200
+
+@api.route('/musical_categories/<int:category_id>', methods=['DELETE'])
+def delete_musical_category(category_id):
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    db.session.delete(category)
+    db.session.commit()
+    return jsonify(category.serialize()), 200
+
+@api.route('/musical_categories/<int:category_id>/bands', methods=['GET'])
+def get_musical_category_bands(category_id):
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    bands = category.bands
+    bands = list(map(lambda x: x.serialize(), bands))
+    return jsonify(bands), 200
+
+@api.route('/musical_categories/<int:category_id>/events', methods=['GET'])
+def get_musical_category_events(category_id):
+    category = MusicalCategory.query.get(category_id)
+    if category is None:
+        raise APIException('Category not found', status_code=404)
+    
+    events = []
+    for band in category.bands:
+        band_events = Event.query.filter_by(band_id=band.id).all()
+        events.extend(band_events)
+
+    serialized_events = [event.serialize() for event in events]
+    return jsonify(serialized_events), 200
+

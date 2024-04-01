@@ -7,7 +7,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(300), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
@@ -125,7 +125,7 @@ class Assistance(db.Model):
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.String(120), nullable=False)
+    comment = db.Column(db.String(300), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
@@ -145,6 +145,7 @@ class Review(db.Model):
 class MusicalCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.String(300), nullable=False)
     bands = db.relationship('Band', secondary='band_musical_category', back_populates='musical_categories')
     users = db.relationship('User', secondary='user_favorite_category', back_populates='user_categories')
 
@@ -152,6 +153,7 @@ class MusicalCategory(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'description': self.description,
         }
 
 band_events = db.Table('band_events',
