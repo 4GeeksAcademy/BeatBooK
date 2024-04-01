@@ -87,63 +87,6 @@ def get_single_user(user_id):
         raise APIException('User not found', status_code=404)
     return jsonify(user.serialize()), 200
 
-@api.route('/users', methods=['POST'])
-def create_user():
-        request_body = request.get_json()
-        email = request_body.get('email')
-        password = request_body.get('password')
-        username = request_body.get('username')
-        birthdate = request_body.get('birthdate')
-        description = request_body.get('description')
-        gender = request_body.get('gender')
-        city = request_body.get('city')
-        profile_picture = request_body.get('profile_picture')
-        banner_picture = request_body.get('banner_picture')
-        instagram = request_body.get('instagram')
-        tiktok = request_body.get('tiktok')
-        is_active = request_body.get('is_active', True)
-
-        if not email:
-            raise APIException('Email is required', status_code=400)
-        if not password:
-            raise APIException('Password is required', status_code=400)
-        if not username:
-            raise APIException('Username is required', status_code=400)
-        if not birthdate:
-            raise APIException('Birthdate is required', status_code=400)
-        if not description:
-            raise APIException('Description is required', status_code=400)
-        if not gender:
-            raise APIException('Gender is required', status_code=400)
-        if not city:
-            raise APIException('City is required', status_code=400)
-
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            raise APIException('Email already exists', status_code=400)
-
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-        new_user = User(
-            email=email,
-            password=hashed_password,
-            username=username,
-            birthdate=birthdate,
-            description=description,
-            gender=gender,
-            city=city,
-            profile_picture=profile_picture,
-            banner_picture=banner_picture,
-            instagram=instagram,
-            tiktok=tiktok,
-            is_active=is_active
-        )
-
-        db.session.add(new_user)
-        db.session.commit()
-
-        return jsonify(new_user.serialize()), 201
-
 @api.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     user = User.query.get(user_id)
