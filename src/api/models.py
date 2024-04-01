@@ -1,8 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-import json
 
 db = SQLAlchemy()
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,20 +8,13 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.LargeBinary)
-    # password = db.Column(db.String(120), nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     birthdate = db.Column(db.Date, nullable=True)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     city = db.Column(db.String(100), nullable=True)
-    profile_image_url = db.Column(db.String(500), unique=False, nullable=True) 
+    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)  # new field
     banner_picture = db.Column(db.String(120), nullable=True)
-    social_networks = db.Column(db.String(120), nullable=True)
-    band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
-    user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
-
-    events = db.relationship('Event', backref='user_events', lazy=True)
-    places = db.relationship('Place', backref='user_places', lazy=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
 
@@ -34,44 +25,18 @@ class User(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
-            "username": self.username,
-            "email": self.email,
-            "profile_image_url": self.profile_image_url,
-        }
-
-class Band(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    profile_picture_url = db.Column(db.String(1200), nullable=False)
-    banner_picture = db.Column(db.String(1200), nullable=False)
-    social_networks = db.Column(db.String(1200), nullable=False)
-    users = db.relationship('User', backref='band', lazy=False)
-    events = db.relationship('Event', secondary='band_events', back_populates='bands')
-    musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
-
-    def __repr__(self):
-        return f'<Band {self.name}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "email": self.email,
+            'id': self.id,
+            'is_active': self.is_active,
+            'email': self.email,
+            'username': self.username,
+            'birthdate': self.birthdate,
+            'description': self.description,
             'profile_image_url': self.profile_image_url,
         }
 
-class MusicalCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    bands = db.relationship('Band', secondary='band_musical_category', back_populates='musical_categories')
-    users = db.relationship('User', secondary='user_favorite_category', back_populates='user_categories')
-
-
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
+    name = db.Column(db.String(120), nullable=False)
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120), nullable=False)
@@ -82,7 +47,7 @@ class Event(db.Model):
     tiktok = db.Column(db.String(120), nullable=True)
 
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
-    bands = db.relationship('Band', secondary='band_events', back_populates='events')
+    band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
 
     def serialize(self):
         return {
