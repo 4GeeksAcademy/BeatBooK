@@ -21,18 +21,32 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 #LOGIN Y PRIVADOS#
+@api.route('/sign_up', methods=['POST'])
+def sign_up():
+    request_body = request.get_json()
+    # Genera una sal
+    salt = bcrypt.gensalt()
+    # Hashea la contraseña
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+    # Convierte los bytes a una cadena
+    # hashed_password_str = hashed_password.decode()
 
+    if not 'username'in request_body:
+        return jsonify("Username is required"), 400
+    if not 'email'in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password'in request_body:
+        return jsonify("Password is required"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    # Genera un token para el nuevo usuario
+    access_token = create_access_token(identity=str(user.id))
 
-
-
-
-
-
-
-
-
-
-
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
 
 
 @api.route('/log_in', methods=['POST'])
