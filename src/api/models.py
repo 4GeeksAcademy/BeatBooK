@@ -14,7 +14,8 @@ class User(db.Model):
     city = db.Column(db.String(100), nullable=True)
     profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
-    social_networks = db.Column(db.String(120), nullable=True)
+    instagram = db.Column(db.String(120), nullable=True)
+    tiktok = db.Column(db.String(120), nullable=True)
 
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
 
@@ -40,7 +41,8 @@ class Event(db.Model):
     price = db.Column(db.String(120), nullable=False)
     pictures = db.Column(db.String(120), nullable=True)
     media = db.Column(db.String(120), nullable=True)
-    social_networks = db.Column(db.String(120), nullable=True)
+    instagram = db.Column(db.String(120), nullable=True)
+    tiktok = db.Column(db.String(120), nullable=True)
 
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
@@ -55,7 +57,8 @@ class Event(db.Model):
             'price': self.price,
             'pictures': self.pictures,
             'media': self.media,
-            'social_networks': self.social_networks,
+            'instagram': self.instagram,
+            'tiktok': self.tiktok,
             'place_id': self.place_id,
         }
 
@@ -67,7 +70,8 @@ class Place(db.Model):
     phone = db.Column(db.String(120), unique=True, nullable=True)
     profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
-    social_networks = db.Column(db.String(120), nullable=True)
+    instagram = db.Column(db.String(120), nullable=True)
+    tiktok = db.Column(db.String(120), nullable=True)
 
     events = db.relationship('Event', backref='place', lazy=True)
     
@@ -80,7 +84,8 @@ class Place(db.Model):
             'phone': self.phone,
             'profile_picture': self.profile_picture,
             'banner_picture': self.banner_picture,
-            'social_networks': self.social_networks,
+            'instagram': self.instagram,
+            'tiktok': self.tiktok,
         }
 
 class Band(db.Model):
@@ -89,7 +94,8 @@ class Band(db.Model):
     description = db.Column(db.String(120), nullable=False)
     profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
-    social_networks = db.Column(db.String(120), nullable=True)
+    instagram = db.Column(db.String(120), nullable=True)
+    tiktok = db.Column(db.String(120), nullable=True)
 
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
@@ -104,7 +110,8 @@ class Band(db.Model):
             'description': self.description,
             'profile_picture': self.profile_picture,
             'banner_picture': self.banner_picture,
-            'social_networks': self.social_networks,
+            'instagram': self.instagram,
+            'tiktok': self.tiktok,
         }
 
 class Assistance(db.Model):

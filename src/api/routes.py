@@ -46,8 +46,13 @@ def protected():
     return jsonify({
         "id": user.id, 
         "email": user.email,
+        "username": user.username,
+        "description": user.description,
+        "birthdate": user.birthdate,
         "profile_picture": user.profile_picture,
-        "social_networks": user.social_networks,
+        "banner_picture": user.banner_picture,
+        "instagram": user.instagram,
+        "tiktok": user.tiktok,
         "users": [user.serialize() for user in user.users],
     }), 200
 
@@ -94,7 +99,8 @@ def create_user():
         city = request_body.get('city')
         profile_picture = request_body.get('profile_picture')
         banner_picture = request_body.get('banner_picture')
-        social_networks = request_body.get('social_networks')
+        instagram = request_body.get('instagram')
+        tiktok = request_body.get('tiktok')
         is_active = request_body.get('is_active', True)
 
         if not email:
@@ -128,7 +134,8 @@ def create_user():
             city=city,
             profile_picture=profile_picture,
             banner_picture=banner_picture,
-            social_networks=social_networks,
+            instagram=instagram,
+            tiktok=tiktok,
             is_active=is_active
         )
 
@@ -151,7 +158,8 @@ def update_user(user_id):
     user.city = request_body['city']
     user.profile_picture = request_body['profile_picture']
     user.banner_picture = request_body['banner_picture']
-    user.social_networks = request_body['social_networks']
+    user.instagram = request_body['instagram']
+    user.tiktok = request_body['tiktok']
     db.session.commit()
     return jsonify(user.serialize()), 200
 
@@ -237,7 +245,8 @@ def create_band():
         description=data.get('description'),
         profile_picture=data.get('profile_picture'),
         banner_picture=data.get('banner_picture'),
-        social_networks=data.get('social_networks')
+        instagram=data.get('instagram'),
+        tiktok=data.get('tiktok'),
     )
     db.session.add(band)
     db.session.commit()
@@ -253,7 +262,8 @@ def update_band(band_id):
     band.description = data.get('description')
     band.profile_picture = data.get('profile_picture')
     band.banner_picture = data.get('banner_picture')
-    band.social_networks = data.get('social_networks')
+    band.instagram = data.get('instagram')
+    band.tiktok = data.get('tiktok')
     db.session.commit()
     return jsonify(band.serialize()), 200
 
@@ -340,7 +350,7 @@ def create_event():
         price=request_body['price'], 
         pictures=request_body['pictures'], 
         media=request_body['media'], 
-        social_networks=request_body['social_networks']
+        instagram=request_body['instagram'],
         )
     db.session.add(event)
     db.session.commit()
@@ -359,7 +369,8 @@ def update_event(event_id):
     event.price = request_body['price']
     event.pictures = request_body['pictures']
     event.media = request_body['media']
-    event.social_networks = request_body['social_networks']
+    event.instagram = request_body['instagram']
+    event.tiktok = request_body['tiktok']
     db.session.commit()
     return jsonify(event.serialize()), 200
 
@@ -438,7 +449,8 @@ def create_place():
         phone=request_body['phone'],
         profile_picture=request_body['profile_picture'],
         banner_picture=request_body['banner_picture'],
-        social_networks=request_body['social_networks']
+        instagram=request_body['instagram'],
+        tiktok=request_body['tiktok']
     )
     db.session.add(place)
     db.session.commit()
@@ -456,7 +468,8 @@ def update_place(place_id):
     place.phone = request_body['phone']
     place.profile_picture = request_body['profile_picture']
     place.banner_picture = request_body['banner_picture']
-    place.social_networks = request_body['social_networks']
+    place.instagram = request_body['instagram']
+    place.tiktok = request_body['tiktok']
     db.session.commit()
     return jsonify(place.serialize()), 200
 
