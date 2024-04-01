@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "./profileImage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export const UserDrop = () => {
   const { store, actions } = useContext(Context);
@@ -40,7 +42,7 @@ export const UserDrop = () => {
             id=""
             style={{ border: "none", backgroundColor: "transparent" }}
           >
-            <span className="username">
+            <span className="username text-light">
               {store.user ? store.user.username : "Acceder"}
             </span>
             {store.user && store.user.profile_image_url ? (
@@ -50,15 +52,11 @@ export const UserDrop = () => {
                 alt="Profile image"
               ></img>
             ) : (
-              <img
-                className="profile-image"
-                src="/beatBoxVertical.png"
-                alt="Default profile image"
-              ></img>
+              <FontAwesomeIcon icon={faUser} className="faUser" />
             )}
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu align="end">
             <Dropdown.Item href="#action/3.1">Perfil</Dropdown.Item>
             <Dropdown.Item href="#action/3.2">Eventos</Dropdown.Item>
             <Dropdown.Item href="#action/3.3">Something</Dropdown.Item>
