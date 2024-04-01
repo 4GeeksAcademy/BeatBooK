@@ -1,26 +1,40 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import React from "react";
 import "../../styles/home.css";
+import { Carousel } from "../component/home/carousel";
+import { Cards } from "../component/home/card";
+
+
+
+
+
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+    return (
+        <div className="container">
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+            <div className="container text-center">
+                <a href=""> <h1 className="display-2 fw-bold pt-5">¿Necesitas un plan?</h1></a>
+                <h6 className="mb-5">Elije el mejor</h6>
+            </div>
+            <div className="container">
+                <div className="row d-flex justify-content-center">
+                    <div className="col">
+                        <Carousel />
+                    </div>
+                </div>
+            </div>
+            <div className="container">
+                <h1 className="locales text-start my-5">Mejores locales</h1>
+                <div className="row justify-content-center">
+                    <Cards />
+                </div>
+                <h1 className="locales text-start my-5">Mejores Bandas</h1>
+                <div className="row justify-content-center">
+                    <Cards />
+                </div>
+            </div>
+
+
+        </div>
+    );
 };

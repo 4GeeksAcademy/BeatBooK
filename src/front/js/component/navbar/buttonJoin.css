@@ -43,3 +43,44 @@
     background-position: var(--width);
   }
 }
+
+.white-button {
+  --timing: 2s;
+  border: none;
+  width: auto;
+  padding-block: 0.3em;
+  background-color: transparent;
+  color: grey;
+  font-weight: bold;
+  font-size: 1em;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-right: 0.1rem;
+  margin-left: 0.1rem;
+}
+
+.white-button:hover {
+  transform: scale(1.1) translateY(-1px);
+  color: rgb(255, 250, 250);
+}
+
+.white-button-xl {
+  --width: 160px;
+  --timing: 2s;
+  border: none;
+  width: var(--width);
+  padding-block: 0.3em;
+  background-color: transparent;
+  color: grey;
+  font-weight: bold;
+  font-size: 1em;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-right: 0.1rem;
+  margin-left: 0.1rem;
+}
+
+.white-button-xl:hover {
+  transform: scale(1.1) translateY(-1px);
+  color: rgb(255, 250, 250);
+}

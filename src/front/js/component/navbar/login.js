@@ -79,7 +79,7 @@ export const Login = ({ onClick }) => {
         <UserDrop />
       ) : (
         <button
-          className="buttonSpecial"
+          className="white-button me-2"
           onClick={
             onClick
               ? (event) => {
@@ -89,7 +89,7 @@ export const Login = ({ onClick }) => {
               : handleShow
           }
         >
-          Inicia sesión
+          Identificate
         </button>
       )}
 

@@ -1,7 +1,30 @@
-/*
-    home.css: This website contains selectors only used in home.css
+body {
+  min-height: 100%;
+  background: #222; /* Color de fondo negro */
+  background-image: radial-gradient(circle, rgba(0,255,0,0.2) 10%, transparent 70%, transparent 90%); /* Degradado con luz verde */
+  background-size: 400% 400%; /* Tamaño del fondo para la animación */
+  animation: gradientAnimation 10s ease infinite; /* Animación de movimiento suave */
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%; /* Posición inicial del fondo */
+  }
+  50% {
+    background-position: 100% 50%; /* Posición intermedia del fondo (derecha) */
+  }
+  100% {
+    background-position: 0% 50%; /* Posición final del fondo (izquierda) */
+  }
+}
+
+h1, h6 {
+  color: white;
+}
+
+
+a {
+  color: inherit; 
+  text-decoration: none; 
+}
+
