@@ -12,7 +12,7 @@ class User(db.Model):
     description = db.Column(db.String(300), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     city = db.Column(db.String(100), nullable=True)
-    profile_picture = db.Column(db.String(300), nullable=True)
+    profile_image_url = db.Column(db.String(300), nullable=True)
     banner_picture = db.Column(db.String(300), nullable=True)
     instagram = db.Column(db.String(300), nullable=True)
     tiktok = db.Column(db.String(300), nullable=True)
@@ -30,6 +30,7 @@ class User(db.Model):
             'username': self.username,
             'birthdate': self.birthdate,
             'description': self.description,
+            'profile_image_url': self.profile_image_url,
         }
 
 class Event(db.Model):
@@ -68,7 +69,7 @@ class Place(db.Model):
     description = db.Column(db.String(300), nullable=False)
     address = db.Column(db.String(300), nullable=False)
     phone = db.Column(db.String(300), unique=True, nullable=True)
-    profile_picture = db.Column(db.String(300), nullable=True)
+    profile_image_url = db.Column(db.String(300), nullable=True)
     banner_picture = db.Column(db.String(300), nullable=True)
     instagram = db.Column(db.String(300), nullable=True)
     tiktok = db.Column(db.String(300), nullable=True)
@@ -82,7 +83,7 @@ class Place(db.Model):
             'description': self.description,
             'address': self.address,
             'phone': self.phone,
-            'profile_picture': self.profile_picture,
+            'profile_image_url': self.profile_image_url,
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
@@ -92,7 +93,7 @@ class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(300), nullable=False)
     description = db.Column(db.String(300), nullable=False)
-    profile_picture = db.Column(db.String(300), nullable=True)
+    profile_image_url = db.Column(db.String(300), nullable=True)
     banner_picture = db.Column(db.String(300), nullable=True)
     instagram = db.Column(db.String(300), nullable=True)
     tiktok = db.Column(db.String(300), nullable=True)
@@ -108,7 +109,7 @@ class Band(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'profile_picture': self.profile_picture,
+            'profile_image_url': self.profile_image_url,
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,

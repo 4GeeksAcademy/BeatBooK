@@ -11,9 +11,9 @@ export const SearchBar = ({ setIsOpen }) => {
 
   return (
     <input
-      className="barraBusqueda d-none d-lg-block"
+      className="barraBusqueda d-none d-lg-block text-center"
       type="text"
-      placeholder="Buscar"
+      placeholder="Buscar Eventos"
       onFocus={handleSearchFocus}
     />
   );

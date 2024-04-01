@@ -49,7 +49,7 @@ def protected():
         "username": user.username,
         "description": user.description,
         "birthdate": user.birthdate,
-        "profile_picture": user.profile_picture,
+        "profile_image_url": user.profile_image_url,
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
         "tiktok": user.tiktok,
@@ -99,7 +99,7 @@ def update_user(user_id):
     user.description = request_body['description']
     user.gender = request_body['gender']
     user.city = request_body['city']
-    user.profile_picture = request_body['profile_picture']
+    user.profile_image_url = request_body['profile_image_url']
     user.banner_picture = request_body['banner_picture']
     user.instagram = request_body['instagram']
     user.tiktok = request_body['tiktok']
@@ -186,7 +186,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        profile_picture=data.get('profile_picture'),
+        profile_image_url=data.get('profile_image_url'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
@@ -203,7 +203,7 @@ def update_band(band_id):
     data = request.json
     band.name = data.get('name')
     band.description = data.get('description')
-    band.profile_picture = data.get('profile_picture')
+    band.profile_image_url = data.get('profile_image_url')
     band.banner_picture = data.get('banner_picture')
     band.instagram = data.get('instagram')
     band.tiktok = data.get('tiktok')
@@ -390,7 +390,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        profile_picture=request_body['profile_picture'],
+        profile_image_url=request_body['profile_image_url'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']
@@ -409,7 +409,7 @@ def update_place(place_id):
     place.description = request_body['description']
     place.address = request_body['address']
     place.phone = request_body['phone']
-    place.profile_picture = request_body['profile_picture']
+    place.profile_image_url = request_body['profile_image_url']
     place.banner_picture = request_body['banner_picture']
     place.instagram = request_body['instagram']
     place.tiktok = request_body['tiktok']

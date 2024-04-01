@@ -1,11 +1,11 @@
 .logoHorizontal {
-  width: 160px;
+  width: 140px;
   height: auto;
   transition: transform 0.3s ease;
 }
 .logoHorizontal:hover {
   cursor: pointer;
-  transform: scale(1.3);
+  transform: scale(1.1);
 }
 .logoVertical {
   width: 160px;
