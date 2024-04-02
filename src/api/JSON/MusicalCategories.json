@@ -1,40 +1,42 @@
-{
-    "name": "Jazz",
-    "description": "Un género de música que se originó en las comunidades afroamericanas de Nueva Orleans, Estados Unidos, a finales del siglo XIX y principios del XX. Surgió a partir de estilos de blues y ragtime."
-}
-{
-    "name": "Rock",
-    "description": "Un género amplio de música popular que se originó como 'rock and roll' en Estados Unidos a finales de la década de 1940 y principios de la década de 1950, desarrollándose en una variedad de estilos diferentes en la década de 1960 y posteriormente, incluyendo punk rock, rock alternativo e indie rock."
-}
-{
-    "name": "Clásica",
-    "description": "Un género de música que abarca más de mil años y se caracteriza por su composición compleja, variedad instrumental y rica historia. Incluye varios periodos como el Barroco, Clásico, Romántico y Moderno."
-}
-{
-    "name": "Hip Hop",
-    "description": "Un género de música que se originó en las comunidades afroamericanas y latinas del Bronx en la ciudad de Nueva York en la década de 1970. Se caracteriza por música rítmica acompañada de vocales de rap."
-}
-{
-    "name": "Pop",
-    "description": "Un género de música popular que se caracteriza por su enfoque en la melodía y la accesibilidad. Ha sido influenciado por una variedad de estilos musicales y es conocido por su apelación a un amplio público."
-}
-{
-    "name": "Electrónica",
-    "description": "Un género de música que utiliza instrumentos electrónicos y tecnología de producción para crear sonidos. Incluye subgéneros como techno, house, trance y dubstep."
-}
-{
-    "name": "Reggae",
-    "description": "Un género de música originario de Jamaica que se caracteriza por su ritmo distintivo y letras sociales o políticas. Es conocido por su influencia en la cultura popular mundial."
-}
-{
-    "name": "R&B (Rhythm and Blues)",
-    "description": "Un género de música afroamericana que combina elementos de jazz, blues y gospel. Se centra en la expresión emocional y a menudo se asocia con temas de amor y relaciones."
-}
-{
-    "name": "Salsa",
-    "description": "Un género de música y baile originario de Cuba que combina elementos de música africana, caribeña y española. Es conocido por su energía contagiosa y ritmos vibrantes."
-}
-{
-    "name": "Metal",
-    "description": "Un género de música que se caracteriza por su énfasis en la distorsión, la velocidad y la agresión. Incluye subgéneros como heavy metal, thrash metal y death metal."
-}
+[
+    {
+        "name": "Jazz",
+        "description": "Un género de música que se originó en las comunidades afroamericanas de Nueva Orleans, Estados Unidos, a finales del siglo XIX y principios del XX. Surgió a partir de estilos de blues y ragtime."
+    },
+    {
+        "name": "Rock",
+        "description": "Un género amplio de música popular que se originó como 'rock and roll' en Estados Unidos a finales de la década de 1940 y principios de la década de 1950, desarrollándose en una variedad de estilos diferentes en la década de 1960 y posteriormente, incluyendo punk rock, rock alternativo e indie rock."
+    },
+    {
+        "name": "Clásica",
+        "description": "Un género de música que abarca más de mil años y se caracteriza por su composición compleja, variedad instrumental y rica historia. Incluye varios periodos como el Barroco, Clásico, Romántico y Moderno."
+    },
+    {
+        "name": "Hip Hop",
+        "description": "Un género de música que se originó en las comunidades afroamericanas y latinas del Bronx en la ciudad de Nueva York en la década de 1970. Se caracteriza por música rítmica acompañada de vocales de rap."
+    },
+    {
+        "name": "Pop",
+        "description": "Un género de música popular que se caracteriza por su enfoque en la melodía y la accesibilidad. Ha sido influenciado por una variedad de estilos musicales y es conocido por su apelación a un amplio público."
+    },
+    {
+        "name": "Electrónica",
+        "description": "Un género de música que utiliza instrumentos electrónicos y tecnología de producción para crear sonidos. Incluye subgéneros como techno, house, trance y dubstep."
+    },
+    {
+        "name": "Reggae",
+        "description": "Un género de música originario de Jamaica que se caracteriza por su ritmo distintivo y letras sociales o políticas. Es conocido por su influencia en la cultura popular mundial."
+    },
+    {
+        "name": "R&B (Rhythm and Blues)",
+        "description": "Un género de música afroamericana que combina elementos de jazz, blues y gospel. Se centra en la expresión emocional y a menudo se asocia con temas de amor y relaciones."
+    },
+    {
+        "name": "Salsa",
+        "description": "Un género de música y baile originario de Cuba que combina elementos de música africana, caribeña y española. Es conocido por su energía contagiosa y ritmos vibrantes."
+    },
+    {
+        "name": "Metal",
+        "description": "Un género de música que se caracteriza por su énfasis en la distorsión, la velocidad y la agresión. Incluye subgéneros como heavy metal, thrash metal y death metal."
+    }
+]

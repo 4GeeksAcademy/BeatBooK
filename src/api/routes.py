@@ -20,6 +20,154 @@ api = Blueprint('api', __name__)
 # Allow CORS requests to this API
 CORS(api)
 
+#SUBIR JSONs DE GOLPE#
+
+@api.route('/upload_users', methods=['POST'])
+def upload_users():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for user_data in data:
+            user = User(
+                email=user_data['email'],
+                username=user_data['username'],
+                password=user_data['password'],
+                birthdate=user_data['birthdate'],
+                description=user_data['description'],
+                gender=user_data['gender'],
+                city=user_data['city'],
+                profile_image_url=user_data['profile_picture'],
+                banner_picture=user_data['banner_picture'],
+                instagram=user_data['instagram'],
+                tiktok=user_data['tiktok'],
+                is_active=user_data['is_active']
+            )
+            db.session.add(user)
+        db.session.commit()
+        return jsonify({'message': 'Datos de usuarios subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+@api.route('/upload_bands', methods=['POST'])
+def upload_bands():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for band_data in data:
+            band = Band(
+                name=band_data['name'],
+                description=band_data['description'],
+                profile_image_url=band_data['profile_picture'],
+                banner_picture=band_data['banner_picture'],
+                instagram=band_data['instagram'],
+                tiktok=band_data['tiktok']
+            )
+            db.session.add(band)
+        db.session.commit()
+        return jsonify({'message': 'Datos de bandas subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@api.route('/upload_events', methods=['POST'])
+def upload_events():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for event_data in data:
+            event = Event(
+                name=event_data['name'],
+                date=event_data['date'],
+                description=event_data['description'],
+                address=event_data['address'],
+                price=event_data['price'],
+                pictures=event_data['pictures'],
+                media=event_data['media'],
+                instagram=event_data['instagram'],
+                tiktok=event_data['tiktok']
+            )
+            db.session.add(event)
+        db.session.commit()
+        return jsonify({'message': 'Datos de eventos subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/upload_places', methods=['POST'])
+def upload_places():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for place_data in data:
+            place = Place(
+                name=place_data['name'],
+                description=place_data['description'],
+                address=place_data['address'],
+                phone=place_data['phone'],
+                profile_image_url=place_data['profile_picture'],
+                banner_picture=place_data['banner_picture'],
+                instagram=place_data['instagram'],
+                tiktok=place_data['tiktok']
+            )
+            db.session.add(place)
+        db.session.commit()
+        return jsonify({'message': 'Datos de lugares subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/upload_reviews', methods=['POST'])
+def upload_reviews():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for review_data in data:
+            review = Review(
+                user_id=review_data['user_id'],
+                event_id=review_data['event_id'],
+                rating=review_data['rating'],
+                comment=review_data['comment']
+            )
+            db.session.add(review)
+        db.session.commit()
+        return jsonify({'message': 'Datos de reseñas subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@api.route('/upload_musical_categories', methods=['POST'])
+def upload_musical_categories():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for category_data in data:
+            category = MusicalCategory(
+                name=category_data['name'],
+                description=category_data['description']
+            )
+            db.session.add(category)
+        db.session.commit()
+        return jsonify({'message': 'Datos de categorías musicales subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 #LOGIN Y PRIVADOS#
 
 @api.route('/log_in', methods=['POST'])

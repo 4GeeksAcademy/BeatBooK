@@ -1,91 +1,93 @@
-{
-  "name": "Rock & Roll Palace",
-  "description": "Un bar emblemático donde la música en vivo es la protagonista.",
-  "address": "Calle del Rock, 123",
-  "phone": "555-123-4567",
-  "profile_picture": "rock_roll_palace.jpg",
-  "banner_picture": "rock_roll_palace_banner.jpg",
-  "instagram": "rocknrollpalace",
-  "tiktok": "rocknrollpalace"
-}
-{
-  "name": "Jazz Enclave",
-  "description": "Una sala íntima donde el jazz resuena en cada rincón.",
-  "address": "Avenida del Jazz, 456",
-  "phone": "555-987-6543",
-  "profile_picture": "jazz_enclave.jpg",
-  "banner_picture": "jazz_enclave_banner.jpg",
-  "instagram": "jazzenclave",
-  "tiktok": "jazzenclave"
-}
-{
-  "name": "Blues Alley",
-  "description": "Un rincón acogedor donde el blues fluye como el whisky.",
-  "address": "Calle del Blues, 789",
-  "phone": "555-456-7890",
-  "profile_picture": "blues_alley.jpg",
-  "banner_picture": "blues_alley_banner.jpg",
-  "instagram": "bluesalley",
-  "tiktok": "bluesalley"
-}
-{
-  "name": "ElectroBeat",
-  "description": "Una sala vibrante donde la música electrónica te lleva a otra dimensión.",
-  "address": "Calle de la Electricidad, 321",
-  "phone": "555-789-0123",
-  "profile_picture": "electrobeat.jpg",
-  "banner_picture": "electrobeat_banner.jpg",
-  "instagram": "electrobeat",
-  "tiktok": "electrobeat"
-}
-{
-  "name": "Indie Oasis",
-  "description": "Un oasis para los amantes de la música indie y alternativa.",
-  "address": "Avenida Indie, 987",
-  "phone": "555-234-5678",
-  "profile_picture": "indie_oasis.jpg",
-  "banner_picture": "indie_oasis_banner.jpg",
-  "instagram": "indieoasis",
-  "tiktok": "indieoasis"
-}
-{
-  "name": "Funky Groove Lounge",
-  "description": "Un lugar donde la música funky y el buen ambiente se encuentran.",
-  "address": "Calle del Ritmo, 567",
-  "phone": "555-345-6789",
-  "profile_picture": "funky_groove_lounge.jpg",
-  "banner_picture": "funky_groove_lounge_banner.jpg",
-  "instagram": "funkygroovelounge",
-  "tiktok": "funkygroovelounge"
-}
-{
-  "name": "Soulful",
-  "description": "Una sala dedicada a la música soul y sus derivados.",
-  "address": "Avenida del Alma, 890",
-  "phone": "555-678-9012",
-  "profile_picture": "soulful.jpg",
-  "banner_picture": "soulful_banner.jpg",
-  "instagram": "soulfulmusic",
-  "tiktok": "soulfulmusic"
-}
-{
-  "name": "Country Junction",
-  "description": "Un rincón del país donde la música country es ley.",
-  "address": "Carretera del Vaquero, 123",
-  "phone": "555-901-2345",
-  "profile_picture": "country_junction.jpg",
-  "banner_picture": "country_junction_banner.jpg",
-  "instagram": "countryjunction",
-  "tiktok": "countryjunction"
-}
-{
-  "name": "Alternative Underground",
-  "description": "Una sala que abraza la diversidad de la música alternativa.",
-  "address": "Calle de la Subversión, 456",
-  "phone": "5552345678",
-  "profile_picture": "alternative_underground.jpg",
-  "banner_picture": "alternative_underground_banner.jpg",
-  "instagram": "alternativeunderground",
-  "tiktok": "alternativeunderground"
-}
+[
+  {
+    "name": "Rock & Roll Palace",
+    "description": "Un bar emblemático donde la música en vivo es la protagonista.",
+    "address": "Calle del Rock, 123",
+    "phone": "555-123-4567",
+    "profile_picture": "rock_roll_palace.jpg",
+    "banner_picture": "rock_roll_palace_banner.jpg",
+    "instagram": "rocknrollpalace",
+    "tiktok": "rocknrollpalace"
+  },
+  {
+    "name": "Jazz Enclave",
+    "description": "Una sala íntima donde el jazz resuena en cada rincón.",
+    "address": "Avenida del Jazz, 456",
+    "phone": "555-987-6543",
+    "profile_picture": "jazz_enclave.jpg",
+    "banner_picture": "jazz_enclave_banner.jpg",
+    "instagram": "jazzenclave",
+    "tiktok": "jazzenclave"
+  },
+  {
+    "name": "Blues Alley",
+    "description": "Un rincón acogedor donde el blues fluye como el whisky.",
+    "address": "Calle del Blues, 789",
+    "phone": "555-456-7890",
+    "profile_picture": "blues_alley.jpg",
+    "banner_picture": "blues_alley_banner.jpg",
+    "instagram": "bluesalley",
+    "tiktok": "bluesalley"
+  },
+  {
+    "name": "ElectroBeat",
+    "description": "Una sala vibrante donde la música electrónica te lleva a otra dimensión.",
+    "address": "Calle de la Electricidad, 321",
+    "phone": "555-789-0123",
+    "profile_picture": "electrobeat.jpg",
+    "banner_picture": "electrobeat_banner.jpg",
+    "instagram": "electrobeat",
+    "tiktok": "electrobeat"
+  },
+  {
+    "name": "Indie Oasis",
+    "description": "Un oasis para los amantes de la música indie y alternativa.",
+    "address": "Avenida Indie, 987",
+    "phone": "555-234-5678",
+    "profile_picture": "indie_oasis.jpg",
+    "banner_picture": "indie_oasis_banner.jpg",
+    "instagram": "indieoasis",
+    "tiktok": "indieoasis"
+  },
+  {
+    "name": "Funky Groove Lounge",
+    "description": "Un lugar donde la música funky y el buen ambiente se encuentran.",
+    "address": "Calle del Ritmo, 567",
+    "phone": "555-345-6789",
+    "profile_picture": "funky_groove_lounge.jpg",
+    "banner_picture": "funky_groove_lounge_banner.jpg",
+    "instagram": "funkygroovelounge",
+    "tiktok": "funkygroovelounge"
+  },
+  {
+    "name": "Soulful",
+    "description": "Una sala dedicada a la música soul y sus derivados.",
+    "address": "Avenida del Alma, 890",
+    "phone": "555-678-9012",
+    "profile_picture": "soulful.jpg",
+    "banner_picture": "soulful_banner.jpg",
+    "instagram": "soulfulmusic",
+    "tiktok": "soulfulmusic"
+  },
+  {
+    "name": "Country Junction",
+    "description": "Un rincón del país donde la música country es ley.",
+    "address": "Carretera del Vaquero, 123",
+    "phone": "555-901-2345",
+    "profile_picture": "country_junction.jpg",
+    "banner_picture": "country_junction_banner.jpg",
+    "instagram": "countryjunction",
+    "tiktok": "countryjunction"
+  },
+  {
+    "name": "Alternative Underground",
+    "description": "Una sala que abraza la diversidad de la música alternativa.",
+    "address": "Calle de la Subversión, 456",
+    "phone": "5552345678",
+    "profile_picture": "alternative_underground.jpg",
+    "banner_picture": "alternative_underground_banner.jpg",
+    "instagram": "alternativeunderground",
+    "tiktok": "alternativeunderground"
+  }
+]
 

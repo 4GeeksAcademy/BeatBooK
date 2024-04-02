@@ -1,119 +1,121 @@
-{
-    "name": "Conciertos a tutiplen",
-    "date": "Sun, 24 Mar 2024 00:00:00 GMT",
-    "description": "Mini Festival al aire libre",
-    "address": "calle falsa 124",
-    "price": 65,
-    "pictures": "ConciertosATutiplen.jpg",
-    "media": "ConciertosATutiplen.jpg",
-    "instagram": "ConciertosATutiplen",
-    "tiktok": "ConciertosATutiplen"
-}
+[
+    {
+        "name": "Conciertos a tutiplen",
+        "date": "Sun, 24 Mar 2024 00:00:00 GMT",
+        "description": "Mini Festival al aire libre",
+        "address": "calle falsa 124",
+        "price": 65,
+        "pictures": "ConciertosATutiplen.jpg",
+        "media": "ConciertosATutiplen.jpg",
+        "instagram": "ConciertosATutiplen",
+        "tiktok": "ConciertosATutiplen"
+    },
 
-{
-    "name": "Concierto en el Parque",
-    "date": "Sat, 30 Mar 2024 00:00:00 GMT",
-    "description": "Noche de música en vivo bajo las estrellas.",
-    "address": "Parque Central",
-    "price": 50,
-    "pictures": "ConciertoEnElParque.jpg",
-    "media": "ConciertoEnElParque.jpg",
-    "instagram": "ConciertoEnElParque",
-    "tiktok": "ConciertoEnElParque"
-}
+    {
+        "name": "Concierto en el Parque",
+        "date": "Sat, 30 Mar 2024 00:00:00 GMT",
+        "description": "Noche de música en vivo bajo las estrellas.",
+        "address": "Parque Central",
+        "price": 50,
+        "pictures": "ConciertoEnElParque.jpg",
+        "media": "ConciertoEnElParque.jpg",
+        "instagram": "ConciertoEnElParque",
+        "tiktok": "ConciertoEnElParque"
+    },
 
-{
-    "name": "Jazz en la Plaza",
-    "date": "Fri, 5 Apr 2024 00:00:00 GMT",
-    "description": "Disfruta de una tarde de jazz en la plaza principal.",
-    "address": "Plaza Mayor",
-    "price": 40,
-    "pictures": "JazzEnLaPlaza.jpg",
-    "media": "JazzEnLaPlaza.jpg",
-    "instagram": "JazzEnLaPlaza",
-    "tiktok": "JazzEnLaPlaza"
-}
+    {
+        "name": "Jazz en la Plaza",
+        "date": "Fri, 5 Apr 2024 00:00:00 GMT",
+        "description": "Disfruta de una tarde de jazz en la plaza principal.",
+        "address": "Plaza Mayor",
+        "price": 40,
+        "pictures": "JazzEnLaPlaza.jpg",
+        "media": "JazzEnLaPlaza.jpg",
+        "instagram": "JazzEnLaPlaza",
+        "tiktok": "JazzEnLaPlaza"
+    },
 
-{
-    "name": "Festival de Rock del Verano",
-    "date": "Sat, 20 Jul 2024 00:00:00 GMT",
-    "description": "¡El festival de rock más grande del año!",
-    "address": "Estadio Municipal",
-    "price": 80,
-    "pictures": "FestivalDeRockDelVerano.jpg",
-    "media": "FestivalDeRockDelVerano.jpg",
-    "instagram": "FestivalDeRockDelVerano",
-    "tiktok": "FestivalDeRockDelVerano"
-}
+    {
+        "name": "Festival de Rock del Verano",
+        "date": "Sat, 20 Jul 2024 00:00:00 GMT",
+        "description": "¡El festival de rock más grande del año!",
+        "address": "Estadio Municipal",
+        "price": 80,
+        "pictures": "FestivalDeRockDelVerano.jpg",
+        "media": "FestivalDeRockDelVerano.jpg",
+        "instagram": "FestivalDeRockDelVerano",
+        "tiktok": "FestivalDeRockDelVerano"
+    },
 
-{
-    "name": "Noche de Electrónica en el Teatro",
-    "date": "Fri, 2 Aug 2024 00:00:00 GMT",
-    "description": "Una noche llena de ritmos electrónicos en el histórico teatro de la ciudad.",
-    "address": "Teatro Municipal",
-    "price": 55,
-    "pictures": "NocheDeElectronicaEnElTeatro.jpg",
-    "media": "NocheDeElectronicaEnElTeatro.jpg",
-    "instagram": "NocheDeElectronicaEnElTeatro",
-    "tiktok": "NocheDeElectronicaEnElTeatro"
-}
+    {
+        "name": "Noche de Electrónica en el Teatro",
+        "date": "Fri, 2 Aug 2024 00:00:00 GMT",
+        "description": "Una noche llena de ritmos electrónicos en el histórico teatro de la ciudad.",
+        "address": "Teatro Municipal",
+        "price": 55,
+        "pictures": "NocheDeElectronicaEnElTeatro.jpg",
+        "media": "NocheDeElectronicaEnElTeatro.jpg",
+        "instagram": "NocheDeElectronicaEnElTeatro",
+        "tiktok": "NocheDeElectronicaEnElTeatro"
+    },
 
-{
-    "name": "Festival de Música Indie",
-    "date": "Sat, 14 Sep 2024 00:00:00 GMT",
-    "description": "Descubre las últimas bandas de música indie en este festival único.",
-    "address": "Parque de la Ciudad",
-    "price": 40,
-    "pictures": "FestivalDeMusicaIndie.jpg",
-    "media": "FestivalDeMusicaIndie.jpg",
-    "instagram": "FestivalDeMusicaIndie",
-    "tiktok": "FestivalDeMusicaIndie"
-}
+    {
+        "name": "Festival de Música Indie",
+        "date": "Sat, 14 Sep 2024 00:00:00 GMT",
+        "description": "Descubre las últimas bandas de música indie en este festival único.",
+        "address": "Parque de la Ciudad",
+        "price": 40,
+        "pictures": "FestivalDeMusicaIndie.jpg",
+        "media": "FestivalDeMusicaIndie.jpg",
+        "instagram": "FestivalDeMusicaIndie",
+        "tiktok": "FestivalDeMusicaIndie"
+    },
 
-{
-    "name": "Concierto Acústico en el Café",
-    "date": "Fri, 20 Sep 2024 00:00:00 GMT",
-    "description": "Disfruta de una noche íntima con música acústica en vivo y café.",
-    "address": "Café del Centro",
-    "price": 20,
-    "pictures": "ConciertoAcusticoEnElCafe.jpg",
-    "media": "ConciertoAcusticoEnElCafe.jpg",
-    "instagram": "ConciertoAcusticoEnElCafe",
-    "tiktok": "ConciertoAcusticoEnElCafe"
-}
-  
-{
-    "name": "Fiesta Latina en la Playa",
-    "date": "Sat, 28 Sep 2024 00:00:00 GMT",
-    "description": "¡Baila al ritmo de la música latina en la arena y bajo las estrellas!",
-    "address": "Playa del Este",
-    "price": 25,
-    "pictures": "FiestaLatinaEnLaPlaya.jpg",
-    "media": "FiestaLatinaEnLaPlaya.jpg",
-    "instagram": "FiestaLatinaEnLaPlaya",
-    "tiktok": "FiestaLatinaEnLaPlaya"
-}
+    {
+        "name": "Concierto Acústico en el Café",
+        "date": "Fri, 20 Sep 2024 00:00:00 GMT",
+        "description": "Disfruta de una noche íntima con música acústica en vivo y café.",
+        "address": "Café del Centro",
+        "price": 20,
+        "pictures": "ConciertoAcusticoEnElCafe.jpg",
+        "media": "ConciertoAcusticoEnElCafe.jpg",
+        "instagram": "ConciertoAcusticoEnElCafe",
+        "tiktok": "ConciertoAcusticoEnElCafe"
+    },
+    
+    {
+        "name": "Fiesta Latina en la Playa",
+        "date": "Sat, 28 Sep 2024 00:00:00 GMT",
+        "description": "¡Baila al ritmo de la música latina en la arena y bajo las estrellas!",
+        "address": "Playa del Este",
+        "price": 25,
+        "pictures": "FiestaLatinaEnLaPlaya.jpg",
+        "media": "FiestaLatinaEnLaPlaya.jpg",
+        "instagram": "FiestaLatinaEnLaPlaya",
+        "tiktok": "FiestaLatinaEnLaPlaya"
+    },
 
-{
-    "name": "Noche de Rock Clásico",
-    "date": "Sat, 5 Oct 2024 00:00:00 GMT",
-    "description": "Revive los éxitos del rock clásico en esta noche llena de energía.",
-    "address": "Bar del Rincón",
-    "price": 30,
-    "pictures": "NocheDeRockClasico.jpg",
-    "media": "NocheDeRockClasico.jpg",
-    "instagram": "NocheDeRockClasico",
-    "tiktok": "NocheDeRockClasico"
-}
+    {
+        "name": "Noche de Rock Clásico",
+        "date": "Sat, 5 Oct 2024 00:00:00 GMT",
+        "description": "Revive los éxitos del rock clásico en esta noche llena de energía.",
+        "address": "Bar del Rincón",
+        "price": 30,
+        "pictures": "NocheDeRockClasico.jpg",
+        "media": "NocheDeRockClasico.jpg",
+        "instagram": "NocheDeRockClasico",
+        "tiktok": "NocheDeRockClasico"
+    },
 
-{
-    "name": "Concierto de Orquesta Sinfónica",
-    "date": "Fri, 11 Oct 2024 00:00:00 GMT",
-    "description": "Experimenta la majestuosidad de la música clásica con la orquesta sinfónica.",
-    "address": "Teatro Municipal",
-    "price": 50,
-    "pictures": "ConciertoDeOrquestaSinfonica.jpg",
-    "media": "ConciertoDeOrquestaSinfonica.jpg",
-    "instagram": "ConciertoDeOrquestaSinfonica",
-    "tiktok": "ConciertoDeOrquestaSinfonica"
-}
+    {
+        "name": "Concierto de Orquesta Sinfónica",
+        "date": "Fri, 11 Oct 2024 00:00:00 GMT",
+        "description": "Experimenta la majestuosidad de la música clásica con la orquesta sinfónica.",
+        "address": "Teatro Municipal",
+        "price": 50,
+        "pictures": "ConciertoDeOrquestaSinfonica.jpg",
+        "media": "ConciertoDeOrquestaSinfonica.jpg",
+        "instagram": "ConciertoDeOrquestaSinfonica",
+        "tiktok": "ConciertoDeOrquestaSinfonica"
+    }
+]
