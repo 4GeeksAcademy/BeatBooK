@@ -349,9 +349,6 @@ def get_band_events(band_id):
 
 #EVENTOS#
 
-
-
-
 @api.route('/events', methods=['GET'])
 def get_all_events():
     events = Event.query.all()
@@ -377,6 +374,7 @@ def create_event():
         pictures=request_body['pictures'], 
         media=request_body['media'], 
         instagram=request_body['instagram'],
+        tiktok=request_body['tiktok'],
         )
     db.session.add(event)
     db.session.commit()
