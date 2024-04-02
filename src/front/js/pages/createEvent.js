@@ -4,21 +4,16 @@ import { Context } from "../store/appContext";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import "../component/createEvent/createEvent.css";
 import { MembersGet } from "../component/createEvent/membersGet";
+import { PlacesGet } from "../component/createEvent/PlacesGet";
+import { BandsGet } from "../component/createEvent/BandsGet";
+import { UploadMainImage } from "../component/createEvent/UploadMaintImage";
+import { UploadMedia } from "../component/createEvent/UploadMedia";
 import { CreateMusicGroup } from "../component/createEvent/createMusicGroup";
+import { jwtDecode } from "jwt-decode";
 
 export const CreateEvent = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context); // Agrega actions aquí
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt-token");
-
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
-  //   Comentar de la Linea 8 a la 17 si quieres trabajar tranquilamente en el view si no te pedira que inicies sesion
 
   const [eventData, setEventData] = useState({
     name: "",
@@ -26,29 +21,77 @@ export const CreateEvent = () => {
     description: "",
     address: "",
     price: "",
-    pictures: "",
-    media: "",
+    picture_url: "",
     social_networks: "",
-    user_id: "",
+    creator_id: "",
     place_id: "",
     band_id: "",
   });
 
+  const [selectedFiles, setSelectedFiles] = useState({
+    main: null,
+    media: [],
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt-token");
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      console.log(decodedToken.sub);
+
+      if (decodedToken.sub) {
+        setEventData((prevState) => {
+          const updatedState = { ...prevState, creator_id: decodedToken.sub };
+          // console.log(updatedState); // Debería mostrar el estado actualizado
+          return updatedState;
+        });
+      } else {
+        console.log("El token decodificado no contiene la propiedad sub");
+      }
+    } else {
+      navigate("/");
+    }
+  }, []);
+
   const handleChange = (e) => {
-    setEventData({ ...eventData, [e.target.name]: e.target.value });
+    const value = e.target.value || null; // Si el valor es una cadena vacía, usa null
+    setEventData({ ...eventData, [e.target.name]: value });
+  };
+
+  const handleMembersChange = (selected) => {
+    setEventData({ ...eventData, members: selected.map((item) => item.value) });
+  };
+
+  const uploadFilesAndCreateEvent = async () => {
+    let mainImageUrl = "";
+    if (selectedFiles.mainImage) {
+      const data = await actions.uploadEventPicture(selectedFiles.mainImage);
+      mainImageUrl = data.url;
+    }
+
+    // Sube los archivos de medios
+    const mediaUrls = [];
+    for (let i = 0; i < selectedFiles.media.length; i++) {
+      const data = await actions.uploadEventMedia(selectedFiles.media[i]);
+      mediaUrls.push(data.url);
+    }
+
+    // Crea el evento con las URLs de los archivos subidos
+    const completeEventData = {
+      ...eventData,
+      user_id: store.user_id,
+      picture_url: mainImageUrl,
+      media: mediaUrls.join(","),
+    };
+    const data = await actions.createEvent(completeEventData);
+    console.log(data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(eventData),
-    });
-    const data = await response.json();
-    console.log(data);
+    uploadFilesAndCreateEvent();
   };
 
   return (
@@ -127,6 +170,11 @@ export const CreateEvent = () => {
                     className="myFormControlClass"
                   />
                 </Col>
+                <PlacesGet
+                  onChange={(selected) =>
+                    setEventData({ ...eventData, place_id: selected.value })
+                  }
+                />
               </Row>
             </Form.Group>
 
@@ -146,31 +194,16 @@ export const CreateEvent = () => {
 
           <Col xs={12} md={6}>
             {/* Campos a la derecha */}
-            <Form.Group>
-              <Form.Label className="title_inputs">
-                Imagen principal del evento
-              </Form.Label>
-              <Form.Control
-                type="file"
-                name="mainImage"
-                onChange={handleChange}
-                className="myFormControlClass"
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label className="title_inputs">Fotos y videos</Form.Label>
-              <Form.Control
-                type="file"
-                name="media"
-                onChange={handleChange}
-                className="myFormControlClass"
-                multiple
-              />
-            </Form.Group>
-
-            {/* Aquí puedes agregar los campos para los miembros y los grupos */}
-
+            <UploadMainImage
+              onUpload={(url) =>
+                setEventData({ ...eventData, picture_url: url })
+              }
+            />
+            <UploadMedia
+              onUpload={(urls) =>
+                setEventData({ ...eventData, media: urls.join(",") })
+              }
+            />
             <Form.Group controlId="formEventInstagram">
               <Form.Label className="title_inputs">Instagram</Form.Label>
               <Form.Control
@@ -192,22 +225,30 @@ export const CreateEvent = () => {
                 className="myFormControlClass"
               />
             </Form.Group>
-            <Form.Group controlId="formEventYoutube">
+            <Form.Group controlId="formEventTiktok">
               <Form.Label className="title_inputs">Tiktok</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Link de Tiktok"
-                name="youtube"
+                name="tiktok"
                 onChange={handleChange}
                 className="myFormControlClass"
               />
             </Form.Group>
-            <MembersGet />
+            <MembersGet onChange={handleMembersChange} />
+
+            <BandsGet
+              onChange={(selected) =>
+                setEventData({ ...eventData, band_id: selected.value })
+              }
+            />
             {/* <CreateMusicGroup /> */}
           </Col>
         </Row>
         <div className="create_event">
-          <button className="create_event_button">Crear evento</button>
+          <button className="create_event_button" type="submit">
+            Crear evento
+          </button>
         </div>
       </Form>
     </Container>

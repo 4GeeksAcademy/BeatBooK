@@ -2,23 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import Select from "react-select";
 import { Context } from "../../store/appContext";
 
-export const MembersGet = ({ onChange }) => {
-  const [users, setUsers] = useState([]);
+export const PlacesGet = ({ onChange }) => {
+  const [places, setPlaces] = useState([]);
   const { actions } = useContext(Context);
   useEffect(() => {
-    actions.getAllUsers().then((data) => {
+    actions.getAllPlaces().then((data) => {
       if (Array.isArray(data)) {
-        setUsers(data);
+        setPlaces(data);
       } else {
-        console.error("getAllUsers did not return an array:", data);
+        console.error("getAllPlaces did not return an array:", data);
       }
     });
   }, []);
-
-  const handleChange = (selected) => {
-    // Aquí puedes manejar los usuarios seleccionados
-    console.log(selected);
-  };
 
   const customStyles = {
     control: (provided) => ({
@@ -31,17 +26,16 @@ export const MembersGet = ({ onChange }) => {
     }),
   };
 
-  const options = users.map((user) => ({
-    value: user.id,
-    label: user.username,
+  const options = places.map((place) => ({
+    value: place.id,
+    label: place.name,
   }));
 
   return (
     <div>
-      <label className="title_inputs">Miembros</label>
+      <label className="title_inputs">Lugar del Evento</label>
       <Select
-        isMulti
-        name="members"
+        name="place"
         options={options}
         className="mutliSelect"
         onChange={onChange}
