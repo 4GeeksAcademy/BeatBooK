@@ -82,7 +82,7 @@ class Event(db.Model):
             'assistances': [assistance.serialize() for assistance in self.assistances],
             'members': [member.serialize() for member in self.members],
         }
-    
+
 class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(120), nullable=False)

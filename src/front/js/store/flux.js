@@ -126,6 +126,30 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       
+      createEvent: async (eventData) => {
+        try {
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/events",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(eventData),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error creating event");
+          }
+
+          const data = await response.json();
+          // Aquí puedes actualizar tu store con la nueva información del evento si es necesario
+          return data;
+        } catch (error) {
+          console.log("Error creating event", error);
+        }
+      },
       getEvents: async (searchTerm) => {
         const store = getStore();
         try {
@@ -153,9 +177,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getAllUsers: async () => {
         try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/get-all-users"
-          );
+          const resp = await fetch(process.env.BACKEND_URL + "/api/users");
           const data = await resp.json();
 
           // Actualiza el estado global con la información obtenida
@@ -166,32 +188,91 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading users from backend", error);
         }
       },
+      getAllPlaces: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/places");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const places = await resp.json();
+          return places;
+        } catch (error) {
+          console.log("Error loading places from backend", error);
+        }
+      },
 
       getAllBands: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
-          const data = await resp.json();
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const bands = await resp.json();
+          return bands;
+        } catch (error) {
+          console.log("Error loading bands from backend", error);
+        }
+      },
+      uploadEventPicture: async (image) => {
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("image", image);
 
-          setStore({bands: data});
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_event_picture",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
 
-          return data;
-        } catch(error) { 
-          console.log("Error loading Bands from backend", error);
+          if (!response.ok) {
+            throw new Error("Error uploading event picture");
+          }
+
+          const data = await response.json();
+          console.log(data);
+
+          // Asegúrate de que estás devolviendo un objeto con una propiedad url
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading event picture", error);
         }
       },
 
-      getAllPlaces: async () => {
+      uploadEventMedia: async (imageUrl) => {
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/places");
-          const data = await resp.json(); // 
-          
-          setStore({ places: data });
-          
-          return data;
+          const token = localStorage.getItem("jwt-token");
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_event_media",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ image: imageUrl }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error uploading event media");
+          }
+
+          const data = await response.json();
+          console.log(data);
+
+          // Asegúrate de que estás devolviendo un objeto con una propiedad url
+          return { url: data.url };
         } catch (error) {
-          console.log("Error loading Places from backend", error);
+          console.log("Error uploading event media", error);
         }
-      }
+      },
     },
   };
 };
