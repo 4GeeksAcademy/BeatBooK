@@ -3,7 +3,7 @@ body {
   background: #222; /* Color de fondo negro */
   background-image: radial-gradient(circle, rgba(0,255,0,0.2) 10%, transparent 70%, transparent 90%); /* Degradado con luz verde */
   background-size: 400% 400%; /* Tamaño del fondo para la animación */
-  animation: gradientAnimation 10s ease infinite; /* Animación de movimiento suave */
+  animation: gradientAnimation 50s ease infinite; /* Animación de movimiento suave */
 }
 
 @keyframes gradientAnimation {

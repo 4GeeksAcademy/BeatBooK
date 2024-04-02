@@ -505,6 +505,7 @@ def create_event():
         picture_url=request_body['picture_url'], 
         media=request_body['media'], 
         instagram=request_body['instagram'],
+        tiktok=request_body['tiktok'],
         )
     db.session.add(event)
     db.session.commit()

@@ -245,7 +245,7 @@ body {
     transparent 90%
   ); /* Degradado con luz verde */
   background-size: 400% 400%; /* Tamaño del fondo para la animación */
-  animation: gradientAnimation 10s ease infinite; /* Animación de movimiento suave */
+  animation: gradientAnimation 50s ease infinite; /* Animación de movimiento suave */
 }
 @keyframes gradientAnimation {
   0% {
