@@ -12,8 +12,15 @@ from flask_jwt_extended import JWTManager
 import bcrypt
 import cloudinary
 from cloudinary.uploader import upload
+import cloudinary.api
 import os
 
+
+cloudinary.config( 
+  cloud_name = "daxbjkj1j", 
+ api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
+)
   
 api = Blueprint('api', __name__)
 
@@ -381,8 +388,11 @@ def get_single_event(event_id):
     return jsonify(event.serialize()), 200
 
 @api.route('/events', methods=['POST'])
+@jwt_required()
 def create_event():
     request_body = request.get_json()
+
+    picture_url = request_body.get('picture_url', None)
 
     # Crear objetos Media a partir de las URLs de medios
     media_urls = request_body.get('media', [])
@@ -394,7 +404,7 @@ def create_event():
         description=request_body['description'], 
         address=request_body['address'], 
         price=request_body['price'], 
-        picture_url=request_body.get('pictures', None),  
+        picture_url=picture_url,  # Usar la URL de la imagen subida a Cloudinary
         media=media_objects,  # Asignar los objetos Media a la relación media
         instagram=request_body.get('instagram', None),
         tiktok=request_body.get('tiktok', None),
@@ -494,19 +504,17 @@ def upload_event_picture():
 @api.route('/upload_event_media', methods=['POST'])
 @jwt_required()
 def upload_event_media():
-    url = request.json.get('image')
-    if not url:
+    if 'image' not in request.files:
         return jsonify({"error": "No image provided"}), 400
-
-    current_user_id = get_jwt_identity()
-    event = Event.query.filter_by(creator_id=current_user_id).first()
-    if event is None:
-        return jsonify({"error": "Event not found"}), 404
-
-    media = Media(url=url, event_id=event.id)
+    event_id = request.json.get('event_id')
+    if not event_id:
+        return jsonify({"error": "No event_id provided"}), 400
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+    media = Media(url=url, event_id=event_id)
     db.session.add(media)
     db.session.commit()
-
     return jsonify({"message": "Event media uploaded successfully", "url": url}), 200
 
 

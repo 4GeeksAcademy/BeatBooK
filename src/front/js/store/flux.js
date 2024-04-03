@@ -152,12 +152,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       createEvent: async (eventData) => {
         try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
           const response = await fetch(
             process.env.BACKEND_URL + "/api/events",
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
               },
               body: JSON.stringify(eventData),
             }
@@ -172,17 +175,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error creating event", error);
-        }
-      },
-      getEvents: async (searchTerm) => {
-        const store = getStore();
-        try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/events");
-          const data = await resp.json();
-          setStore({ events: data });
-          return data;
-        } catch (error) {
-          console.log("Error loading events from backend", error);
         }
       },
       getEvent: async (id) => {
@@ -200,6 +192,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       getAllUsers: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/users");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
           const data = await resp.json();
 
           // Actualiza el estado global con la información obtenida
@@ -208,6 +203,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error loading users from backend", error);
+          throw error;
         }
       },
       getAllPlaces: async () => {
@@ -236,10 +232,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       uploadEventPicture: async (image) => {
+        console.log("uploadEventPicture se ha llamado"); // Nuevo registro de consola
         try {
           const token = localStorage.getItem("jwt-token");
           const formData = new FormData();
           formData.append("image", image);
+
+          console.log("Subiendo imagen con token:", token); // Nuevo registro de consola
 
           const response = await fetch(
             process.env.BACKEND_URL + "/api/upload_event_picture",
@@ -251,13 +250,14 @@ const getState = ({ getStore, getActions, setStore }) => {
               body: formData,
             }
           );
-
+          console.log(image);
           if (!response.ok) {
             throw new Error("Error uploading event picture");
           }
 
           const data = await response.json();
-          console.log(data);
+          console.log("Respuesta del servidor:", data); // Nuevo registro de consola
+          console.log("URL de la imagen:", data.url); // Nuevo registro de consola
 
           // Asegúrate de que estás devolviendo un objeto con una propiedad url
           return { url: data.url };
@@ -266,9 +266,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      uploadEventMedia: async (imageUrl) => {
+      uploadEventMedia: async (file, eventId) => {
         try {
           const token = localStorage.getItem("jwt-token");
+
+          const formData = new FormData();
+          formData.append("image", file);
+          formData.append("event_id", eventId);
 
           const response = await fetch(
             process.env.BACKEND_URL + "/api/upload_event_media",
@@ -276,9 +280,8 @@ const getState = ({ getStore, getActions, setStore }) => {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
               },
-              body: JSON.stringify({ image: imageUrl }),
+              body: formData,
             }
           );
 

@@ -10,29 +10,9 @@ import { UploadMainImage } from "../component/createEvent/UploadMaintImage";
 import { UploadMedia } from "../component/createEvent/UploadMedia";
 import { CreateMusicGroup } from "../component/createEvent/createMusicGroup";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 export const CreateEvent = () => {
-  const { store, actions } = useContext(Context); // Agrega actions aquí
-  const navigate = useNavigate();
-
-  const [eventData, setEventData] = useState({
-    name: "",
-    date: "",
-    description: "",
-    address: "",
-    price: "",
-    picture_url: "",
-    social_networks: "",
-    creator_id: "",
-    place_id: "",
-    band_id: "",
-  });
-
-  const [selectedFiles, setSelectedFiles] = useState({
-    main: null,
-    media: [],
-  });
-
   useEffect(() => {
     const token = localStorage.getItem("jwt-token");
 
@@ -55,6 +35,31 @@ export const CreateEvent = () => {
     }
   }, []);
 
+  const { store, actions } = useContext(Context); // Agrega actions aquí
+  const navigate = useNavigate();
+
+  const [eventData, setEventData] = useState({
+    name: "",
+    date: "",
+    description: "",
+    address: "",
+    price: "",
+    picture_url: "",
+    social_networks: "",
+    creator_id: "",
+    place_id: "",
+    band_id: "",
+  });
+
+  const [selectedFiles, setSelectedFiles] = useState({
+    main: null,
+    media: [],
+  });
+
+  const handleMainImageUpload = (url) => {
+    setEventData({ ...eventData, picture_url: url });
+  };
+
   const handleChange = (e) => {
     const value = e.target.value || null; // Si el valor es una cadena vacía, usa null
     setEventData({ ...eventData, [e.target.name]: value });
@@ -65,24 +70,21 @@ export const CreateEvent = () => {
   };
 
   const uploadFilesAndCreateEvent = async () => {
-    let mainImageUrl = "";
-    if (selectedFiles.mainImage) {
-      const data = await actions.uploadEventPicture(selectedFiles.mainImage);
-      mainImageUrl = data.url;
-    }
-
     // Sube los archivos de medios
     const mediaUrls = [];
     for (let i = 0; i < selectedFiles.media.length; i++) {
       const data = await actions.uploadEventMedia(selectedFiles.media[i]);
-      mediaUrls.push(data.url);
+      if (data && data.url) {
+        mediaUrls.push(data.url);
+      } else {
+        console.error("Error al subir el archivo de medios: ", data);
+      }
     }
 
     // Crea el evento con las URLs de los archivos subidos
     const completeEventData = {
       ...eventData,
       user_id: store.user_id,
-      picture_url: mainImageUrl,
       media: mediaUrls.join(","),
     };
     const data = await actions.createEvent(completeEventData);
@@ -91,7 +93,16 @@ export const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    uploadFilesAndCreateEvent();
+
+    try {
+      await uploadFilesAndCreateEvent();
+      console.log("Evento creado con éxito");
+      navigate("/"); // Redirige a la página de inicio
+      toast.success("Evento creado con éxito");
+    } catch (error) {
+      console.error("Error al crear el evento: ", error);
+      toast.error("Error al crear el evento");
+    }
   };
 
   return (
@@ -194,16 +205,12 @@ export const CreateEvent = () => {
 
           <Col xs={12} md={6}>
             {/* Campos a la derecha */}
-            <UploadMainImage
-              onUpload={(url) =>
-                setEventData({ ...eventData, picture_url: url })
-              }
-            />
-            <UploadMedia
+            <UploadMainImage onUpload={handleMainImageUpload} />
+            {/* <UploadMedia
               onUpload={(urls) =>
                 setEventData({ ...eventData, media: urls.join(",") })
               }
-            />
+            /> */}
             <Form.Group controlId="formEventInstagram">
               <Form.Label className="title_inputs">Instagram</Form.Label>
               <Form.Control
