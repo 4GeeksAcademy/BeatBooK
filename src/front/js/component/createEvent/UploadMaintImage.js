@@ -1,43 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useContext } from "react";
+import { Context } from "../../store/appContext";
 
 export const UploadMainImage = ({ onUpload }) => {
-  const [publicId, setPublicId] = useState("");
-  const cloudName = "daxbjkj1j"; // Reemplaza con el nombre de tu nube
-  const uploadPreset = "u25sxqdb"; // Reemplaza con tu propio preset de subida
+  const { actions } = useContext(Context); // Agrega actions aquí
 
-  useEffect(() => {
-    // Carga el script del widget de Cloudinary
-    const script = document.createElement("script");
-    script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    console.log(file); // Nuevo registro de consola
 
-  const handleUpload = () => {
-    const widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: cloudName,
-        uploadPreset: uploadPreset,
-      },
-      (error, result) => {
-        if (!error && result && result.event === "success") {
-          setPublicId(result.info.public_id);
-          onUpload(result.info.secure_url);
-        }
-      }
-    );
-    widget.open();
+    // Sube la imagen y obtén la URL de la imagen subida
+    const data = await actions.uploadEventPicture(file);
+    const imageUrl = data.url;
+
+    // Pasa la URL de la imagen subida a handleMainImageUpload
+    onUpload(imageUrl);
   };
 
-  return (
-    <div>
-      <button onClick={handleUpload}>Subir imagen principal</button>
-      {publicId && (
-        <img
-          src={`https://res.cloudinary.com/${cloudName}/image/upload/${publicId}`}
-          alt="Uploaded"
-        />
-      )}
-    </div>
-  );
+  return <input type="file" onChange={handleFileChange} />;
 };

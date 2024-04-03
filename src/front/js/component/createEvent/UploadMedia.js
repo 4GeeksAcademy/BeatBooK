@@ -32,12 +32,16 @@ export const UploadMedia = ({ onUpload }) => {
           const blob = await response.blob();
           const file = new File([blob], "image.jpg", { type: "image/jpeg" });
 
-          // Llamar a uploadEventMedia con el archivo
-          const data = await actions.uploadEventMedia(file);
+          // Llamar a uploadEventMedia con el archivo y el id del evento
+          // const eventId = ...; // Obtén el id del evento de alguna manera
+          const data = await actions.uploadEventMedia(file, eventId);
 
           if (data && data.url) {
-            setUrls((prevUrls) => [...prevUrls, data.url]);
-            onUpload(urls);
+            setUrls((prevUrls) => {
+              const newUrls = [...prevUrls, data.url];
+              onUpload(newUrls);
+              return newUrls;
+            });
           } else {
             console.error("Error subiendo la imagen al backend");
           }
