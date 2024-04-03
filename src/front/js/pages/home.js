@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Carousel } from "../component/home/carousel";
-import { Cards } from "../component/home/card";
+import { Cards } from "../component/home/cardBands";
 import { Login } from "../component/navbar/sessionLog";
+import { CardPlaces } from "../component/home/cardPlaces";
 
 export const Home = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -57,7 +58,8 @@ export const Home = () => {
             <div className="container">
                 <h1 className="locales text-start my-5">Mejores locales</h1>
                 <div className="row justify-content-center">
-                    <Cards />
+					<CardPlaces/>
+                    
                 </div>
                 <h1 className="locales text-start my-5">Mejores Bandas</h1>
                 <div className="row justify-content-center">

@@ -5,6 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: null,
       events: [],
       allUsers: [],
+      bands:[],
+      places:[],
       demo: [
         {
           title: "FIRST",
@@ -45,6 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error signing up", error);
         }
       },
+
       logIn: async (email, password) => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/log_in", {
@@ -78,6 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         const user = setStore({ user }); // Obtén la información del usuario aquí...
       },
+
       logOut: () => {
         // Borra el objeto user del estado global
         setStore({ user: null });
@@ -88,6 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         // Muestra un mensaje de éxito
         // toast.success("Has cerrado sesión correctamente");
       },
+
       getPrivateData: async () => {
         try {
           const token = localStorage.getItem("jwt-token");
@@ -145,6 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading event from backend", error);
         }
       },
+
       getAllUsers: async () => {
         try {
           const resp = await fetch(
@@ -160,6 +166,32 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading users from backend", error);
         }
       },
+
+      getAllBands: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
+          const data = await resp.json();
+
+          setStore({bands: data});
+
+          return data;
+        } catch(error) { 
+          console.log("Error loading Bands from backend", error);
+        }
+      },
+
+      getAllPlaces: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/places");
+          const data = await resp.json(); // 
+          
+          setStore({ places: data });
+          
+          return data;
+        } catch (error) {
+          console.log("Error loading Places from backend", error);
+        }
+      }
     },
   };
 };
