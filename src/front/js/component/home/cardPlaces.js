@@ -1,5 +1,6 @@
-import React, { useRef, useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect} from 'react';
 import { Context } from '../../store/appContext';
+import { useNavigate } from 'react-router-dom';
 import "/workspaces/BeatBooK/src/front/js/component/home/card.css"
 
 
@@ -11,6 +12,7 @@ export const CardPlaces = () => {
   const [startScrollLeft, setStartScrollLeft] = useState(0);
   const firstCardRef = useRef(null);
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
 
 
 
@@ -43,17 +45,25 @@ export const CardPlaces = () => {
     }
   };
 
+  const handleLearnMore = (id) => {
+    navigate(`/api/places/${id}`); // Navega a la página de detalles del evento utilizando useNavigate
+  };
+
   return (
     <div className="wrapper">
        <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
        {store.places.map((place, index) => (
-        <li className="card" key={index} ref={firstCardRef}>
+        <li className="card-c" key={index} ref={firstCardRef}>
           <div className='img'>
             <img src={place.pictures} alt='img' draggable="false" className='img' />
           </div>
+          <div className='card-c-content'>
           <h2 className='name'>{place.name}</h2>
           <span className='description'>{place.description}</span>
-          <button className='button'>Saber mas</button>
+          </div>
+          <div className='card-c-footer'>
+          <button className='button' onClick={() => handleLearnMore(place.id)}> Saber más </button>
+          </div>
         </li>
       ))}
       </ul>

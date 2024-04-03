@@ -5,12 +5,14 @@
   font-family: sans-serif;
 }
 
-.card {
+.card-c {
   width: 300px;
-  height: auto;
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .wrapper{
   max-width: 1100px;
@@ -31,29 +33,22 @@
 .carousel::-webkit-scrollbar{
   display: none;
 }
-.carousel :where(.card, .img){
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .carousel.dragging{
   scroll-behavior: auto;
   scroll-snap-type: none;
 }
-.carousel.dragging .card {
+.carousel.dragging .card-c {
   cursor: grab;
   user-select: none;
 }
-.carousel .card{
+.carousel .card-c{
   scroll-snap-align: start;
   height: 410px;
   list-style: none;
-  display: flex;
+  
   cursor: pointer;
-  padding-bottom: 15px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  
   border-radius: 10px;
   backdrop-filter: blur(30px);
   background-color: rgba(65, 65, 65, 0.308);
@@ -61,51 +56,65 @@
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.card .img img {
+.card-c .img img {
   width: 325px;
-  height: 250px;
+  height: 210px;
   object-fit: cover;
   border-radius: 5%;
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   transition: transform 0.3s ease; /* Agregar transición suave al zoom */
   overflow: hidden;
+
 }
 
-.card .img img:hover {
+.card-c .img img:hover {
   transform: scale(1.1); /* Aplicar un zoom del 10% al hacer hover */
   
 }
-.card h2{
+
+.card-c-content{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: 5px;
+  
+
+}
+.card-c h2{
   font-weight: 500;
-  font-size: 1.56rem;
+  font-size: 28px;
   margin: 0 10px 10px 10px;
   color: white;
 }
-.card span {
+.card-c span {
   color: black;
-  font-size: 13px;
-  text-align: center;
-  margin: 0 15px 10px 15px;
+  font-size: 15px;
   color: white;
 }
 
-.card .button {
+.card-c-footer {
+  padding: 5px;
+ 
+}
+.card-c .button {
   border: 1px solid white; /* Añadir borde blanco */
   font-size: 16px;
   color: white;
-  padding: 7px 16px;
+  padding:  7px 16px;
   border-radius: 6px;
-  margin: 14px;
+  margin: 0 14px 14px 14px;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(30px);
   background-color: rgba(65, 65, 65, 0.308);
 }
 
-.card .button:hover {
+.card-c .button:hover {
   background: white; /* Cambiar el color de fondo */
   color: black; /* Cambiar el color del texto */
 }
+
+
 
 @media screen and (max-width: 900px) {
   .wrapper .carousel {
@@ -115,7 +124,7 @@
 
 @media screen and (max-width: 601px) {
   .wrapper .carousel {
-    grid-auto-columns: calc((100%) - -25px);
+    grid-auto-columns: calc((100%) - -50px);
   }
 }
 
