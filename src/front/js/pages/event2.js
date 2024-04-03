@@ -1,5 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import ImagenPrueba from "../component/eventt/imagenEventoPrueba.png";
 import "../component/eventt/evento.css";
@@ -34,31 +36,45 @@ async function getCoordinates(address) {
 
 export const Event = () => {
   // Asegúrate de reemplazar 'eventData' con los datos de tu evento
+  const { id } = useParams();
+  const { actions } = useContext(Context);
+  const [eventData, setEventData] = useState(null);
 
-  const eventData = {
-    name: "Luis Mola Mazo",
-    date: "28/08/2024 20:00",
-    description:
-      "¡Ven a este evento increíble! ¡No te lo pierdas! ¡Trae a tus amigos! pop rock todo lo que te gusta 1 bebida incluida con tu entrada",
-    members: ["Miembro 1", "Miembro 2"],
-    price: "10$",
-    location: "Sa sinia 11,Soller,Baleares,España",
-    media: [
-      "https://imgs.search.brave.com/pWU7M3Fbm2sDBzwUZ6RLgOy9vFxlRRPFcKzfnD7Wbkc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9iaWxs/ZXR0by5lcy9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2hhbm55LW5h/aWJhaG8tMzg4NTc5/LXVuc3BsYXNoLWUx/NTU0NDYxMDYzNTE3/LTgwMHg0NDAuanBn",
-      "https://imgs.search.brave.com/OxBEau_JAbPgCDg7yHVB7BnQ9m5RH9PRITLAu3MQZM0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9iaWxs/ZXR0by5lcy9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2Rlbi00NTM1/NTEtdW5zcGxhc2gt/ZTE1NTQyODY5NjU1/NjQtODAweDQ0MC5q/cGc",
-    ],
-    teams: ["AC/DC", "Queen"],
-  };
+  useEffect(() => {
+    actions.getEvent(id).then(setEventData);
+  }, [id, actions]);
+  // const eventData = {
+  //   name: "Luis Mola Mazo",
+  //   date: "28/08/2024 20:00",
+  //   description:
+  //     "¡Ven a este evento increíble! ¡No te lo pierdas! ¡Trae a tus amigos! pop rock todo lo que te gusta 1 bebida incluida con tu entrada",
+  //   members: ["Miembro 1", "Miembro 2"],
+  //   price: "10$",
+  //   location: "Sa sinia 11,Soller,Baleares,España",
+  //   media: [
+  //     "https://imgs.search.brave.com/pWU7M3Fbm2sDBzwUZ6RLgOy9vFxlRRPFcKzfnD7Wbkc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9iaWxs/ZXR0by5lcy9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2hhbm55LW5h/aWJhaG8tMzg4NTc5/LXVuc3BsYXNoLWUx/NTU0NDYxMDYzNTE3/LTgwMHg0NDAuanBn",
+  //     "https://imgs.search.brave.com/OxBEau_JAbPgCDg7yHVB7BnQ9m5RH9PRITLAu3MQZM0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9iaWxs/ZXR0by5lcy9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2Rlbi00NTM1/NTEtdW5zcGxhc2gt/ZTE1NTQyODY5NjU1/NjQtODAweDQ0MC5q/cGc",
+  //   ],
+  //   teams: ["AC/DC", "Queen"],
+  // };
   const [coordinates, setCoordinates] = useState(null);
 
   useEffect(() => {
-    getCoordinates(eventData.location).then(setCoordinates);
-  }, [eventData.location]);
+    if (!eventData) {
+      return;
+    }
+
+    getCoordinates(eventData.address).then(setCoordinates);
+  }, [eventData]);
 
   function isUserLoggedIn() {
     // Comprueba si hay un token en el almacenamiento local
     const token = localStorage.getItem("jwt-token");
     return token !== null;
+  }
+
+  if (!eventData) {
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -98,7 +114,10 @@ export const Event = () => {
                 {eventData.price === "0" ? "Gratis" : eventData.price}{" "}
               </h5>{" "}
               <div className="event-map">
-                {coordinates && <MapComponent coordinates={coordinates} />}
+                {" "}
+                {coordinates && (
+                  <MapComponent address={eventData.location} />
+                )}{" "}
               </div>{" "}
             </div>{" "}
           </div>{" "}

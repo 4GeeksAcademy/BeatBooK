@@ -81,6 +81,7 @@ class Event(db.Model):
             'creator_id': self.creator_id,
             'assistances': [assistance.serialize() for assistance in self.assistances],
             'members': [member.serialize() for member in self.members],
+            
         }
 
 class Media(db.Model):

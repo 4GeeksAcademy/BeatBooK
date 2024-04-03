@@ -1,9 +1,11 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../store/appContext";
+import "./createEvent.css";
 
 export const UploadMainImage = ({ onUpload }) => {
   const { actions } = useContext(Context); // Agrega actions aquí
+  const [isImageSelected, setIsImageSelected] = useState(false);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -11,11 +13,31 @@ export const UploadMainImage = ({ onUpload }) => {
 
     // Sube la imagen y obtén la URL de la imagen subida
     const data = await actions.uploadEventPicture(file);
-    const imageUrl = data.url;
 
-    // Pasa la URL de la imagen subida a handleMainImageUpload
-    onUpload(imageUrl);
+    if (data) {
+      const imageUrl = data.url;
+
+      // Pasa la URL de la imagen subida a handleMainImageUpload
+      onUpload(imageUrl);
+
+      // Establece isImageSelected en true
+      setIsImageSelected(true);
+    } else {
+      console.error("Error uploading image");
+    }
   };
 
-  return <input type="file" onChange={handleFileChange} />;
+  return (
+    <div className=" ">
+      <p className="p_upload">Imagen Evento</p>
+      <input
+        className="upload_selector"
+        type="file"
+        onChange={handleFileChange}
+        required
+        accept="image/*"
+        disabled={isImageSelected}
+      />
+    </div>
+  );
 };
