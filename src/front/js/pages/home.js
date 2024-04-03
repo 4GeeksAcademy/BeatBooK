@@ -12,7 +12,7 @@ export const Home = () => {
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate()
     const { store, actions } = useContext(Context);
-
+  
  
 
     const checkAuthentication = () => {
@@ -39,6 +39,8 @@ export const Home = () => {
     const handleCloseModal = () => {
         setShowModal(false);
     };
+
+    
 
     return (
         <div className="container">
