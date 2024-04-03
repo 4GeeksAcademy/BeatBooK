@@ -1,6 +1,11 @@
 import React from "react";
 
 export const EventTeams = ({ eventData }) => {
+  // Comprueba si eventData y eventData.teams están definidos
+  if (!eventData || !eventData.teams) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="pt-3  ">
       <h4>

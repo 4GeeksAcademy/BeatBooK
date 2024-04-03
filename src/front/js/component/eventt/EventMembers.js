@@ -1,6 +1,11 @@
 import React from "react";
 
 export const EventMembers = ({ eventData }) => {
+  // Comprueba si eventData y eventData.members están definidos
+  if (!eventData || !eventData.members) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div>
       <h4>

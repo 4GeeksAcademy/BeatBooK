@@ -38,11 +38,15 @@ export const CreateEvent = () => {
   const { store, actions } = useContext(Context); // Agrega actions aquí
   const navigate = useNavigate();
 
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+
   const [eventData, setEventData] = useState({
     name: "",
     date: "",
     description: "",
-    address: "",
+
     price: "",
     picture_url: "",
     social_networks: "",
@@ -81,11 +85,15 @@ export const CreateEvent = () => {
       }
     }
 
+    // Combina los valores de street, city y country en una sola cadena
+    const address = `${street}, ${city}, ${country}`;
+
     // Crea el evento con las URLs de los archivos subidos
     const completeEventData = {
       ...eventData,
       user_id: store.user_id,
       media: mediaUrls.join(","),
+      address: address, // Añade la dirección completa a eventData
     };
     const data = await actions.createEvent(completeEventData);
     console.log(data);
@@ -121,17 +129,21 @@ export const CreateEvent = () => {
                 name="name"
                 onChange={handleChange}
                 className="myFormControlClass"
+                required
               />
             </Form.Group>
 
             <Form.Group controlId="formEventDate">
-              <Form.Label className="title_inputs">Fecha del evento</Form.Label>
+              <Form.Label className="title_inputs">
+                Fecha y hora del evento
+              </Form.Label>
               <Form.Control
-                type="date"
-                placeholder="Fecha del evento"
+                type="datetime-local"
+                placeholder="Fecha y hora del evento"
                 name="date"
                 onChange={handleChange}
                 className="myFormControlClass"
+                required
               />
             </Form.Group>
 
@@ -146,6 +158,7 @@ export const CreateEvent = () => {
                 onChange={handleChange}
                 maxLength={2500}
                 className=" myFormControlClass_textarea"
+                required
               />
             </Form.Group>
 
@@ -159,8 +172,9 @@ export const CreateEvent = () => {
                     type="text"
                     placeholder="Calle"
                     name="address"
-                    onChange={handleChange}
+                    onChange={(e) => setStreet(e.target.value)}
                     className="myFormControlClass"
+                    required
                   />
                 </Col>
                 <Col>
@@ -168,8 +182,9 @@ export const CreateEvent = () => {
                     type="text"
                     placeholder="Ciudad"
                     name="city"
-                    onChange={handleChange}
+                    onChange={(e) => setCity(e.target.value)}
                     className="myFormControlClass"
+                    required
                   />
                 </Col>
                 <Col>
@@ -177,28 +192,31 @@ export const CreateEvent = () => {
                     type="text"
                     placeholder="País"
                     name="country"
-                    onChange={handleChange}
+                    onChange={(e) => setCountry(e.target.value)}
                     className="myFormControlClass"
+                    required
                   />
                 </Col>
-                <PlacesGet
-                  onChange={(selected) =>
-                    setEventData({ ...eventData, place_id: selected.value })
-                  }
-                />
               </Row>
             </Form.Group>
+            <PlacesGet
+              onChange={(selected) =>
+                setEventData({ ...eventData, place_id: selected.value })
+              }
+              required
+            />
 
             <Form.Group controlId="formEventPrice">
               <Form.Label className="title_inputs">
                 Precio del evento
               </Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Precio del evento"
                 name="price"
                 onChange={handleChange}
                 className="myFormControlClass"
+                required
               />
             </Form.Group>
           </Col>
@@ -211,14 +229,15 @@ export const CreateEvent = () => {
                 setEventData({ ...eventData, media: urls.join(",") })
               }
             /> */}
-            <Form.Group controlId="formEventInstagram">
-              <Form.Label className="title_inputs">Instagram</Form.Label>
+            <Form.Group controlId="formEventInstagram mt-0">
+              <Form.Label className="title_inputs ">Instagram</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Link de Instagram"
                 name="instagram"
                 onChange={handleChange}
                 className="myFormControlClass"
+                required
               />
             </Form.Group>
 
@@ -230,6 +249,7 @@ export const CreateEvent = () => {
                 name="youtube"
                 onChange={handleChange}
                 className="myFormControlClass"
+                required
               />
             </Form.Group>
             <Form.Group controlId="formEventTiktok">
@@ -240,6 +260,7 @@ export const CreateEvent = () => {
                 name="tiktok"
                 onChange={handleChange}
                 className="myFormControlClass"
+                required
               />
             </Form.Group>
             <MembersGet onChange={handleMembersChange} />
