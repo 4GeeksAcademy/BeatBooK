@@ -22,7 +22,8 @@ export const Home = () => {
             <div className="container">
                 <h1 className="locales text-start my-5">Mejores locales</h1>
                 <div className="row justify-content-center">
-                    <Cards />
+					<CardPlaces/>
+                    
                 </div>
                 <h1 className="locales text-start my-5">Mejores Bandas</h1>
                 <div className="row justify-content-center">
