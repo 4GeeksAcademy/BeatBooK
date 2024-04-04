@@ -90,12 +90,7 @@
 		"react-leaflet": "^2.8.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
-<<<<<<< HEAD
-		"react-select": "^5.8.0",
-		"react-toastify": "^6.2.0"
-=======
 		"react-toastify": "^6.2.0",
 		"swiper": "^11.1.0"
->>>>>>> origin/Home
 	}
 }

@@ -110,7 +110,6 @@
   }
 }
 
-
 @media screen and (max-width: 601px) {
   .wrapper .carousel {
     grid-auto-columns: calc((100%) - -25px);

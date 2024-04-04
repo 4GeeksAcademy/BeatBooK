@@ -3,11 +3,6 @@ import "../../styles/home.css";
 import { Carousel } from "../component/home/carousel";
 import { Cards } from "../component/home/card";
 
-
-
-
-
-
 export const Home = () => {
     return (
         <div className="container">

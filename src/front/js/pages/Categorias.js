@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import CategoriesCard from '../component/CategoriesCard';
 
+
 export const Categorias = () => {
 	const { store, actions } = useContext(Context);
 
