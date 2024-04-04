@@ -1,0 +1,25 @@
+.layoutgrid{  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "a a b"
+      "c d b"
+      ". f f";
+  }
+  
+  .a { grid-area: a; }
+  
+  .b { grid-area: b; }
+  
+  .c { grid-area: c; }
+  
+  .d { grid-area: d; }
+  
+  .f { grid-area: f; }
+  
+  img {
+    width: 300px;
+    height: 300px;
+  }

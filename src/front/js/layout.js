@@ -10,6 +10,7 @@ import { Single } from "./pages/single";
 import { Event } from "./pages/event";
 import { CreateEvent } from "./pages/createEvent";
 import { Private } from "./pages/private";
+import { Categorias } from "./pages/Categorias";
 
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";

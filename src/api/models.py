@@ -48,6 +48,9 @@ class Event(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
 
+    def __repr__(self):
+        return '<Event %r>' % self.name
+
     def serialize(self):
         return {
             'id': self.id,
@@ -75,6 +78,9 @@ class Place(db.Model):
     tiktok = db.Column(db.String(300), nullable=True)
 
     events = db.relationship('Event', backref='place', lazy=True)
+
+    def __repr__(self):
+        return '<Place %r>' % self.name
     
     def serialize(self):
         return {
@@ -103,6 +109,8 @@ class Band(db.Model):
 
     members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
 
+    def __repr__(self):
+        return '<Band %r>' % self.name
 
     def serialize(self):
         return {
@@ -133,6 +141,7 @@ class Assistance(db.Model):
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String(300), nullable=False)
     comment = db.Column(db.String(300), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
@@ -141,10 +150,14 @@ class Review(db.Model):
     user = db.relationship('User', backref='reviews', lazy=True)
     event = db.relationship('Event', backref='reviews', lazy=True)
 
+    def __repr__(self):
+        return '<Review %r>' % self.title
+
     def serialize(self):
         return {
             'id': self.id,
             'rating': self.rating,
+            'title': self.title,
             'comment': self.comment,
             'user_id': self.user_id,
             'event_id': self.event_id,
@@ -154,14 +167,19 @@ class MusicalCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(300), unique=True, nullable=False)
     description = db.Column(db.String(300), nullable=False)
+    image_url = db.Column(db.String(300), nullable=True)
     bands = db.relationship('Band', secondary='band_musical_category', back_populates='musical_categories')
     users = db.relationship('User', secondary='user_favorite_category', back_populates='user_categories')
+
+    def __repr__(self):
+        return '<MusicalCategory %r>' % self.name
 
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'image_url': self.image_url,
         }
 
 band_events = db.Table('band_events',
