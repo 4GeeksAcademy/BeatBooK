@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { MapComponent } from "../component/eventt/map";
 import "leaflet/dist/leaflet.css";
+import { EventDescription } from "../component/eventt/EventDescription";
 import { EventDetails } from "../component/eventt/EventDetails";
 import { EventMedia } from "../component/eventt/EventMedia";
 import { EventMembers } from "../component/eventt/EventMembers";
@@ -76,7 +77,7 @@ export const Event = () => {
               alt="Descripción de la imagen"
             />{" "}
           </div>
-
+          <EventDescription eventData={eventData} />
           <EventMedia eventData={eventData} />
           <EventMembers eventData={eventData} />
           <EventTeams eventData={eventData} />
