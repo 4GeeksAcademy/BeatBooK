@@ -14,6 +14,11 @@ import cloudinary
 from cloudinary.uploader import upload
 import os
 
+cloudinary.config( 
+  cloud_name = "daxbjkj1j", 
+ api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
+)
   
 api = Blueprint('api', __name__)
 
