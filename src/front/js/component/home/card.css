@@ -97,7 +97,7 @@
  
 }
 .card-c .button {
-  border: 1px solid white; /* Añadir borde blanco */
+  border: 1px solid white; 
   font-size: 16px;
   color: white;
   padding:  7px 16px;
