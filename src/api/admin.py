@@ -10,12 +10,12 @@ def setup_admin(app):
 
     # Add your models here, for example this is how we add a the User model to the admin
     admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Band, db.session))
     admin.add_view(ModelView(Event, db.session))
-    admin.add_view(ModelView(MusicalCategory, db.session))
     admin.add_view(ModelView(Place, db.session))
+    admin.add_view(ModelView(Band, db.session))
     admin.add_view(ModelView(Assistance, db.session))
     admin.add_view(ModelView(Review, db.session))
+    admin.add_view(ModelView(MusicalCategory, db.session))
 
     # You can duplicate that line to add new models
     # admin.add_view(ModelView(YourModelName, db.session))
