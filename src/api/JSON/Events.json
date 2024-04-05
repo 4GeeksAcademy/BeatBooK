@@ -5,7 +5,7 @@
         "description": "Mini Festival al aire libre",
         "address": "calle falsa 124",
         "price": 65,
-        "pictures": "ConciertosATutiplen.jpg",
+        "picture_url": "ConciertosATutiplen.jpg",
         "media": "ConciertosATutiplen.jpg",
         "instagram": "ConciertosATutiplen",
         "tiktok": "ConciertosATutiplen"
@@ -17,7 +17,7 @@
         "description": "Noche de música en vivo bajo las estrellas.",
         "address": "Parque Central",
         "price": 50,
-        "pictures": "ConciertoEnElParque.jpg",
+        "picture_url": "ConciertoEnElParque.jpg",
         "media": "ConciertoEnElParque.jpg",
         "instagram": "ConciertoEnElParque",
         "tiktok": "ConciertoEnElParque"
@@ -29,7 +29,7 @@
         "description": "Disfruta de una tarde de jazz en la plaza principal.",
         "address": "Plaza Mayor",
         "price": 40,
-        "pictures": "JazzEnLaPlaza.jpg",
+        "picture_url": "JazzEnLaPlaza.jpg",
         "media": "JazzEnLaPlaza.jpg",
         "instagram": "JazzEnLaPlaza",
         "tiktok": "JazzEnLaPlaza"
@@ -41,7 +41,7 @@
         "description": "¡El festival de rock más grande del año!",
         "address": "Estadio Municipal",
         "price": 80,
-        "pictures": "FestivalDeRockDelVerano.jpg",
+        "picture_url": "FestivalDeRockDelVerano.jpg",
         "media": "FestivalDeRockDelVerano.jpg",
         "instagram": "FestivalDeRockDelVerano",
         "tiktok": "FestivalDeRockDelVerano"
@@ -53,7 +53,7 @@
         "description": "Una noche llena de ritmos electrónicos en el histórico teatro de la ciudad.",
         "address": "Teatro Municipal",
         "price": 55,
-        "pictures": "NocheDeElectronicaEnElTeatro.jpg",
+        "picture_url": "NocheDeElectronicaEnElTeatro.jpg",
         "media": "NocheDeElectronicaEnElTeatro.jpg",
         "instagram": "NocheDeElectronicaEnElTeatro",
         "tiktok": "NocheDeElectronicaEnElTeatro"
@@ -65,7 +65,7 @@
         "description": "Descubre las últimas bandas de música indie en este festival único.",
         "address": "Parque de la Ciudad",
         "price": 40,
-        "pictures": "FestivalDeMusicaIndie.jpg",
+        "picture_url": "FestivalDeMusicaIndie.jpg",
         "media": "FestivalDeMusicaIndie.jpg",
         "instagram": "FestivalDeMusicaIndie",
         "tiktok": "FestivalDeMusicaIndie"
@@ -77,7 +77,7 @@
         "description": "Disfruta de una noche íntima con música acústica en vivo y café.",
         "address": "Café del Centro",
         "price": 20,
-        "pictures": "ConciertoAcusticoEnElCafe.jpg",
+        "picture_url": "ConciertoAcusticoEnElCafe.jpg",
         "media": "ConciertoAcusticoEnElCafe.jpg",
         "instagram": "ConciertoAcusticoEnElCafe",
         "tiktok": "ConciertoAcusticoEnElCafe"
@@ -89,7 +89,7 @@
         "description": "¡Baila al ritmo de la música latina en la arena y bajo las estrellas!",
         "address": "Playa del Este",
         "price": 25,
-        "pictures": "FiestaLatinaEnLaPlaya.jpg",
+        "picture_url": "FiestaLatinaEnLaPlaya.jpg",
         "media": "FiestaLatinaEnLaPlaya.jpg",
         "instagram": "FiestaLatinaEnLaPlaya",
         "tiktok": "FiestaLatinaEnLaPlaya"
@@ -101,7 +101,7 @@
         "description": "Revive los éxitos del rock clásico en esta noche llena de energía.",
         "address": "Bar del Rincón",
         "price": 30,
-        "pictures": "NocheDeRockClasico.jpg",
+        "picture_url": "NocheDeRockClasico.jpg",
         "media": "NocheDeRockClasico.jpg",
         "instagram": "NocheDeRockClasico",
         "tiktok": "NocheDeRockClasico"
@@ -113,7 +113,7 @@
         "description": "Experimenta la majestuosidad de la música clásica con la orquesta sinfónica.",
         "address": "Teatro Municipal",
         "price": 50,
-        "pictures": "ConciertoDeOrquestaSinfonica.jpg",
+        "picture_url": "ConciertoDeOrquestaSinfonica.jpg",
         "media": "ConciertoDeOrquestaSinfonica.jpg",
         "instagram": "ConciertoDeOrquestaSinfonica",
         "tiktok": "ConciertoDeOrquestaSinfonica"

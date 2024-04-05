@@ -20,6 +20,14 @@ api = Blueprint('api', __name__)
 # Allow CORS requests to this API
 CORS(api)
 
+@api.route('/hello', methods=['POST', 'GET'])
+def handle_hello():
+
+    response_body = {
+        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
+    }
+
+    return jsonify(response_body), 200
 
 #SUBIR JSONs DE GOLPE#
 
@@ -30,15 +38,17 @@ def upload_users():
         if not isinstance(data, list):
             return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
         for user_data in data:
+            salt = bcrypt.gensalt()
+            hashed_password = bcrypt.hashpw(user_data['password'].encode('utf-8'), salt)
             user = User(
                 email=user_data['email'],
                 username=user_data['username'],
-                password=user_data['password'],
+                password=hashed_password,
                 birthdate=user_data['birthdate'],
                 description=user_data['description'],
                 gender=user_data['gender'],
                 city=user_data['city'],
-                profile_image_url=user_data['profile_picture'],
+                profile_image_url=user_data['profile_image_url'],
                 banner_picture=user_data['banner_picture'],
                 instagram=user_data['instagram'],
                 tiktok=user_data['tiktok'],
@@ -65,7 +75,7 @@ def upload_bands():
             band = Band(
                 name=band_data['name'],
                 description=band_data['description'],
-                profile_image_url=band_data.get('profile_image_url'),
+                profile_picture=band_data.get('profile_picture'),
                 banner_picture=band_data.get('banner_picture'),
                 instagram=band_data.get('instagram'),
                 tiktok=band_data.get('tiktok')
@@ -92,7 +102,7 @@ def upload_events():
                 description=event_data['description'],
                 address=event_data['address'],
                 price=event_data['price'],
-                pictures=event_data.get('pictures'),
+                picture_url=event_data.get('picture_url'),
                 media=event_data.get('media'),
                 instagram=event_data.get('instagram'),
                 tiktok=event_data.get('tiktok')
@@ -118,7 +128,7 @@ def upload_places():
                 description=place_data['description'],
                 address=place_data['address'],
                 phone=place_data['phone'],
-                profile_image_url=place_data.get('profile_image_url'),
+                profile_picture=place_data.get('profile_picture'),
                 banner_picture=place_data.get('banner_picture'),
                 instagram=place_data.get('instagram'),
                 tiktok=place_data.get('tiktok')
@@ -194,6 +204,34 @@ def upload_categories():
 
 #LOGIN Y PRIVADOS#
 
+@api.route('/sign_up', methods=['POST'])
+def sign_up():
+    request_body = request.get_json()
+    # Genera una sal
+    salt = bcrypt.gensalt()
+    # Hashea la contraseña
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+    # Convierte los bytes a una cadena
+    # hashed_password_str = hashed_password.decode()
+
+    if not 'username'in request_body:
+        return jsonify("Username is required"), 400
+    if not 'email'in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password'in request_body:
+        return jsonify("Password is required"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    # Genera un token para el nuevo usuario
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+
+
 @api.route('/log_in', methods=['POST'])
 def log_in():
     request_body = request.get_json()
@@ -206,7 +244,7 @@ def log_in():
         return jsonify("Invalid email or password"), 400
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email }), 200
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username }), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()
@@ -225,7 +263,7 @@ def protected():
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
         "tiktok": user.tiktok,
-        "users": [user.serialize() for user in user.users],
+       
     }), 200
 
 @api.route('/upload_profile_image', methods=['POST'])
@@ -358,7 +396,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        profile_image_url=data.get('profile_image_url'),
+        profile_picture=data.get('profile_picture'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
@@ -375,7 +413,7 @@ def update_band(band_id):
     data = request.json
     band.name = data.get('name')
     band.description = data.get('description')
-    band.profile_image_url = data.get('profile_image_url')
+    band.profile_picture = data.get('profile_picture')
     band.banner_picture = data.get('banner_picture')
     band.instagram = data.get('instagram')
     band.tiktok = data.get('tiktok')
@@ -463,7 +501,7 @@ def create_event():
         description=request_body['description'], 
         address=request_body['address'], 
         price=request_body['price'], 
-        pictures=request_body['pictures'], 
+        picture_url=request_body['picture_url'], 
         media=request_body['media'], 
         instagram=request_body['instagram'],
         )
@@ -482,7 +520,7 @@ def update_event(event_id):
     event.description = request_body['description']
     event.address = request_body['address']
     event.price = request_body['price']
-    event.pictures = request_body['pictures']
+    event.picture_url = request_body['picture_url']
     event.media = request_body['media']
     event.instagram = request_body['instagram']
     event.tiktok = request_body['tiktok']
@@ -562,7 +600,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        profile_image_url=request_body['profile_image_url'],
+        profile_picture=request_body['profile_picture'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']
@@ -581,7 +619,7 @@ def update_place(place_id):
     place.description = request_body['description']
     place.address = request_body['address']
     place.phone = request_body['phone']
-    place.profile_image_url = request_body['profile_image_url']
+    place.profile_picture = request_body['profile_picture']
     place.banner_picture = request_body['banner_picture']
     place.instagram = request_body['instagram']
     place.tiktok = request_body['tiktok']

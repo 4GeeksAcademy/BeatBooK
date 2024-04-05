@@ -1,12 +1,10 @@
 import React from "react";
-import "../../styles/home.css";
 import { Carousel } from "../component/home/carousel";
 import { Cards } from "../component/home/card";
 
 export const Home = () => {
     return (
         <div className="container">
-
             <div className="container text-center">
                 <a href=""> <h1 className="display-2 fw-bold pt-5">¿Necesitas un plan?</h1></a>
                 <h6 className="mb-5">Elije el mejor</h6>
@@ -28,8 +26,6 @@ export const Home = () => {
                     <Cards />
                 </div>
             </div>
-
-
         </div>
     );
 };

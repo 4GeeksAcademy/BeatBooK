@@ -12,6 +12,7 @@ def setup_admin(app):
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Event, db.session))
     admin.add_view(ModelView(Place, db.session))
+    admin.add_view(ModelView(Band, db.session))
     admin.add_view(ModelView(Assistance, db.session))
     admin.add_view(ModelView(Review, db.session))
     admin.add_view(ModelView(MusicalCategory, db.session))
