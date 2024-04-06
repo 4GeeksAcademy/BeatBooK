@@ -17,7 +17,7 @@ const markerIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-export const MapComponent = ({ address }) => {
+export const MapComponent = ({ eventData }) => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
@@ -43,7 +43,7 @@ export const MapComponent = ({ address }) => {
 
   useEffect(() => {
     if (map) {
-      getCoordinates(address).then((coordinates) => {
+      getCoordinates(eventData.address).then((coordinates) => {
         map.setView(coordinates, 13);
         if (marker) {
           map.removeLayer(marker);
@@ -55,7 +55,12 @@ export const MapComponent = ({ address }) => {
         setMarker(newMarker);
       });
     }
-  }, [map, address]);
+  }, [map, eventData.address]);
 
-  return <div ref={mapRef} style={{ height: "100%", width: "100%" }}></div>;
+  return (
+    <div>
+      <h4>{eventData.address}</h4>
+      <div ref={mapRef} style={{ height: "100%", width: "100%" }}></div>
+    </div>
+  );
 };

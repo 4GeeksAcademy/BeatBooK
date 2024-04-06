@@ -18,31 +18,43 @@ import { EventMedia } from "../component/eventt/EventMedia";
 import { EventMembers } from "../component/eventt/EventMembers";
 import { EventTeams } from "../component/eventt/EventTeams";
 import { EventComments } from "../component/eventt/EventComments";
+import { EventDescription } from "../component/eventt/EventDescription";
 
 async function getCoordinates(address) {
-  const response = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
-  );
-  const data = await response.json();
-  if (data[0]) {
-    return [data[0].lat, data[0].lon];
-  } else {
-    console.error(
-      `No se pudo encontrar ninguna ubicación para la dirección: ${address}`
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
     );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    if (data[0]) {
+      return [data[0].lat, data[0].lon];
+    } else {
+      console.error(
+        `No se pudo encontrar ninguna ubicación para la dirección: ${address}`
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error("Ha ocurrido un error:", error);
     return null;
   }
 }
 
-export const Event = () => {
+export const Event2 = (props) => {
   // Asegúrate de reemplazar 'eventData' con los datos de tu evento
   const { id } = useParams();
   const { actions } = useContext(Context);
   const [eventData, setEventData] = useState(null);
 
   useEffect(() => {
-    actions.getEvent(id).then(setEventData);
-  }, [id, actions]);
+    actions.getEvent(id).then((data) => {
+      setEventData(data);
+      console.log("eventData", data);
+    });
+  }, [id]);
   // const eventData = {
   //   name: "Luis Mola Mazo",
   //   date: "28/08/2024 20:00",
@@ -88,13 +100,13 @@ export const Event = () => {
             {" "}
             <img
               className="img-event"
-              src={ImagenPrueba}
+              src={eventData.picture_url || ImagenPrueba}
               alt="Descripción de la imagen"
             />{" "}
           </div>
-
+          <EventDescription eventData={eventData} />
           <EventMedia eventData={eventData} />
-          <EventMembers eventData={eventData} />
+          {/* <EventMembers eventData={eventData} /> */}
           <EventTeams eventData={eventData} />
         </Col>
         <Col
@@ -116,7 +128,10 @@ export const Event = () => {
               <div className="event-map">
                 {" "}
                 {coordinates && (
-                  <MapComponent address={eventData.location} />
+                  <MapComponent
+                    address={eventData.location}
+                    eventData={eventData}
+                  />
                 )}{" "}
               </div>{" "}
             </div>{" "}

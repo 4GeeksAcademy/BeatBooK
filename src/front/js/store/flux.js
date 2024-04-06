@@ -220,6 +220,21 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading bands from backend", error);
         }
       },
+      getBand: async (bandId) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/bands/" + bandId
+          );
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const band = await resp.json();
+          return band;
+        } catch (error) {
+          console.log("Error loading band from backend", error);
+          throw error;
+        }
+      },
       uploadEventPicture: async (image) => {
         console.log("uploadEventPicture se ha llamado"); // Nuevo registro de consola
         try {

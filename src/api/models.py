@@ -72,7 +72,7 @@ class Event(db.Model):
             'address': self.address,
             'price': self.price,
             'picture_url': self.picture_url,
-            'media': self.media,
+            'media': [m.serialize() for m in self.media],
             'instagram': self.instagram,
             'tiktok': self.tiktok,
             'place_id': self.place_id,
@@ -92,6 +92,7 @@ class Media(db.Model):
         return {
             'id': self.id,
             'url': self.url,
+            'event_id': self.event_id,
         }    
 
 class Place(db.Model):
