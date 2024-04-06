@@ -12,6 +12,7 @@ import { Event2 } from "./pages/event2";
 import { CreateEvent } from "./pages/createEvent";
 import { Private } from "./pages/private";
 
+
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
@@ -39,8 +40,6 @@ const Layout = () => {
             <Route element={<Home />} path="/" />
             {/* <Route element={<Event />} path="/event" /> */}
             <Route element={<Event />} path="/event" />
-            <Route element={<Event2 />} path="/events/:id" />
-            <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<h1>Not found!</h1>} />

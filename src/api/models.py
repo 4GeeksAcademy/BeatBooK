@@ -17,7 +17,7 @@ class User(db.Model):
     banner_picture = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
-    created_events = db.relationship('Event', back_populates='creator', lazy=True)
+    created_events = db.relationship('Event', backref='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user_assistances', lazy=True)
 
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
@@ -53,14 +53,16 @@ class Event(db.Model):
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
     youtube = db.Column(db.String(120), nullable=True)
-    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # This is a column
-    creator = db.relationship('User', back_populates='created_events')  # This is a relationship
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     members = db.relationship('User', secondary='assistance', backref=db.backref('events', lazy='dynamic'))
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
 
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
+
+    def __repr__(self):
+        return '<Event %r>' % self.name
 
     def serialize(self):
         return {
@@ -106,6 +108,9 @@ class Place(db.Model):
     tiktok = db.Column(db.String(120), nullable=True)
 
     events = db.relationship('Event', backref='place', lazy=True)
+
+    def __repr__(self):
+        return '<Place %r>' % self.name
     
     def serialize(self):
         return {
@@ -134,6 +139,8 @@ class Band(db.Model):
 
     members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
 
+    def __repr__(self):
+        return '<Band %r>' % self.name
 
     def serialize(self):
         return {
@@ -163,6 +170,7 @@ class Assistance(db.Model):
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(300), nullable=False)
 
@@ -185,6 +193,7 @@ class MusicalCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.String(300), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
     bands = db.relationship('Band', secondary='band_musical_category', back_populates='musical_categories')
     users = db.relationship('User', secondary='user_favorite_category', back_populates='user_categories')
 
