@@ -43,7 +43,7 @@ export const Event = () => {
       "¡Ven a este evento increíble! ¡No te lo pierdas! ¡Trae a tus amigos! pop rock todo lo que te gusta 1 bebida incluida con tu entrada",
     members: ["Miembro 1", "Miembro 2"],
     price: "10$",
-    location: "Sa sinia 11,Soller,Baleares,España",
+    address: "Sa sinia 11,Soller,Baleares,España",
     media: [
       "https://imgs.search.brave.com/pWU7M3Fbm2sDBzwUZ6RLgOy9vFxlRRPFcKzfnD7Wbkc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9iaWxs/ZXR0by5lcy9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2hhbm55LW5h/aWJhaG8tMzg4NTc5/LXVuc3BsYXNoLWUx/NTU0NDYxMDYzNTE3/LTgwMHg0NDAuanBn",
       "https://imgs.search.brave.com/OxBEau_JAbPgCDg7yHVB7BnQ9m5RH9PRITLAu3MQZM0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9iaWxs/ZXR0by5lcy9ibG9n/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE5/LzA0L2Rlbi00NTM1/NTEtdW5zcGxhc2gt/ZTE1NTQyODY5NjU1/NjQtODAweDQ0MC5q/cGc",

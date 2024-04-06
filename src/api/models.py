@@ -17,7 +17,7 @@ class User(db.Model):
     banner_picture = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
-    created_events = db.relationship('Event', backref='creator', lazy=True)
+    created_events = db.relationship('Event', back_populates='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user_assistances', lazy=True)
 
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
@@ -53,7 +53,8 @@ class Event(db.Model):
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
     youtube = db.Column(db.String(120), nullable=True)
-    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # This is a column
+    creator = db.relationship('User', back_populates='created_events')  # This is a relationship
     members = db.relationship('User', secondary='assistance', backref=db.backref('events', lazy='dynamic'))
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
