@@ -13,6 +13,7 @@ import { CreateEvent } from "./pages/createEvent";
 import { Private } from "./pages/private";
 import { Profile } from "./pages/profile";
 
+import { Categorias } from "./pages/categorias";
 
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -48,6 +49,7 @@ const Layout = () => {
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
+            <Route element={<Categorias />} path="/categorias" />
           </Routes>
           <Footer />
         </ScrollToTop>
