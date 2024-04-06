@@ -1,3 +1,9 @@
+import React, { useState, useContext } from "react";
+import { Modal, Form } from "react-bootstrap";
+import { Context } from "../../store/appContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 import { LoginModal } from "./LoginModal";
 
 export const Login = ({ onClick }) => {
