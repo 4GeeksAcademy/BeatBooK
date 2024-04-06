@@ -46,9 +46,7 @@
   scroll-snap-align: start;
   height: 410px;
   list-style: none;
-  
   cursor: pointer;
-  
   border-radius: 10px;
   backdrop-filter: blur(30px);
   background-color: rgba(65, 65, 65, 0.308);
@@ -77,9 +75,8 @@
   height: 100%;
   text-align: center;
   margin: 5px;
-  
-
 }
+
 .card-c h2{
   font-weight: 500;
   font-size: 28px;

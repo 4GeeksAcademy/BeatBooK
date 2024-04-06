@@ -64,7 +64,6 @@ export const Cards = () => {
        </li>
       ))}
       </ul>
-     
     </div>
   );
 }
