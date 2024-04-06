@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import "../component/createEvent/createEvent.css";
-import { MembersGet } from "../component/createEvent/membersGet";
+// import { MembersGet } from "../component/createEvent/membersGet";
 import { PlacesGet } from "../component/createEvent/PlacesGet";
 import { BandsGet } from "../component/createEvent/BandsGet";
 import { UploadMainImage } from "../component/createEvent/UploadMaintImage";
@@ -46,7 +46,6 @@ export const CreateEvent = () => {
     name: "",
     date: "",
     description: "",
-
     price: "",
     picture_url: "",
     social_networks: "",
@@ -69,30 +68,18 @@ export const CreateEvent = () => {
     setEventData({ ...eventData, [e.target.name]: value });
   };
 
-  const handleMembersChange = (selected) => {
-    setEventData({ ...eventData, members: selected.map((item) => item.value) });
-  };
+  // const handleMembersChange = (selected) => {
+  //   setEventData({ ...eventData, members: selected.map((item) => item.value) });
+  // };
 
-  const uploadFilesAndCreateEvent = async () => {
-    // Sube los archivos de medios
-    const mediaUrls = [];
-    for (let i = 0; i < selectedFiles.media.length; i++) {
-      const data = await actions.uploadEventMedia(selectedFiles.media[i]);
-      if (data && data.url) {
-        mediaUrls.push(data.url);
-      } else {
-        console.error("Error al subir el archivo de medios: ", data);
-      }
-    }
-
+  const xcreateEvent = async () => {
     // Combina los valores de street, city y country en una sola cadena
     const address = `${street}, ${city}, ${country}`;
 
-    // Crea el evento con las URLs de los archivos subidos
+    // Crea el evento
     const completeEventData = {
       ...eventData,
       user_id: store.user_id,
-      media: mediaUrls.join(","),
       address: address, // Añade la dirección completa a eventData
     };
     const data = await actions.createEvent(completeEventData);
@@ -103,7 +90,7 @@ export const CreateEvent = () => {
     e.preventDefault();
 
     try {
-      await uploadFilesAndCreateEvent();
+      await xcreateEvent();
       console.log("Evento creado con éxito");
       navigate("/"); // Redirige a la página de inicio
       toast.success("Evento creado con éxito");
@@ -263,7 +250,7 @@ export const CreateEvent = () => {
                 required
               />
             </Form.Group>
-            <MembersGet onChange={handleMembersChange} />
+            {/* <MembersGet onChange={handleMembersChange} /> */}
 
             <BandsGet
               onChange={(selected) =>

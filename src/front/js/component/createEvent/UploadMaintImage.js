@@ -15,6 +15,7 @@ export const UploadMainImage = ({ onUpload }) => {
     const data = await actions.uploadEventPicture(file);
 
     if (data) {
+      console.log(data); // Nuevo registro de consola (opcional)
       const imageUrl = data.url;
 
       // Pasa la URL de la imagen subida a handleMainImageUpload
