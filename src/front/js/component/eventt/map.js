@@ -17,18 +17,10 @@ const markerIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-export const MapComponent = ({ eventData }) => {
+export const MapComponent = ({ coordinates }) => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
-
-  async function getCoordinates(address) {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
-    );
-    const data = await response.json();
-    return [data[0].lat, data[0].lon];
-  }
 
   useEffect(() => {
     if (mapRef.current) {
@@ -42,24 +34,21 @@ export const MapComponent = ({ eventData }) => {
   }, []);
 
   useEffect(() => {
-    if (map) {
-      getCoordinates(eventData.address).then((coordinates) => {
-        map.setView(coordinates, 13);
-        if (marker) {
-          map.removeLayer(marker);
-        }
-        const newMarker = L.marker(coordinates, { icon: markerIcon }) // Usa el icono definido
-          .addTo(map)
-          .bindPopup("Aqui es el evento")
-          .openPopup();
-        setMarker(newMarker);
-      });
+    if (map && coordinates) {
+      map.setView(coordinates, 13);
+      if (marker) {
+        map.removeLayer(marker);
+      }
+      const newMarker = L.marker(coordinates, { icon: markerIcon }) // Usa el icono definido
+        .addTo(map)
+        .bindPopup("Aqui es el evento")
+        .openPopup();
+      setMarker(newMarker);
     }
-  }, [map, eventData.address]);
+  }, [map, coordinates]);
 
   return (
-    <div>
-      <h4>{eventData.address}</h4>
+    <div style={{ height: "100%", width: "100%" }}>
       <div ref={mapRef} style={{ height: "100%", width: "100%" }}></div>
     </div>
   );
