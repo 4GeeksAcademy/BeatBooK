@@ -47,18 +47,81 @@
   border-bottom: 3px solid white;
   padding: 10px;
 }
-.picture {
+.modal-img {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
-.modal-title {
+.image-title{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+.image-title .btns {
+ width: 80px;
+ height: 30px;
+}
+.image-title h6 {
   color: black;
-  text-align: start;
+  font-weight: bold;
+  font-family: sans-serif;
 }
 
+.modal-img img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  justify-content: center;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.banner-img .img-fluid {
+  height: 200px;
+  width: 100%;
+  border-radius: 20px;
+  padding:10px ;
+}
+
+.modal-detail {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.modal-detail textarea {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+}
 /*------------------------------Profile Banner---------------------------------------*/
+.inputGroup {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  align-items: center;
+}
+.input {
+  max-width: 300px;
+  min-height: 40px;
+  padding: 10px;
+  font-family: sans-serif;
+  outline: none;
+  background: #e8e8e8;
+  border: white;
+  border-radius: 10px;
+  transition: all .5s;
+  margin: 8px 4px 2px 3px;
+}
+
+.input:focus {
+  background: #e8e8e8;
+  box-shadow: inset 5px 5px 17px #c8c8c8,
+            inset -5px -5px 17px #ffffff;
+}
 
 /*------------------------------Profile----------------------------------------------*/
 

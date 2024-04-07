@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import "../profile/profile.css"
+import { ProfileBody } from './profileBody';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -58,25 +59,54 @@ export const ProfileBanner = () => {
                 </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Editar perfil</Modal.Title>
+                        <Modal.Title className='modal-title'>Editar perfil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div className='picture'>
-                            <h6 className='modal-title'>Foto de perfil</h6>
-                            <img className='img' src='https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600' alt='perfil' />
+                        <div className='edit-image'>
+                            <div className='image-title'>
+                                <h6>Foto de perfil</h6>
+                                <Button className='btns'>Editar</Button>
+                            </div>
+                            <div className='modal-img'>
+                                <img className='img' src='https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600' alt='perfil' />
+                            </div>
                         </div>
-
-
-
-
+                        <div className='edit-banner'>
+                            <div className='image-title'>
+                                <h6>Foto de portada</h6>
+                                <Button className='btns'>Editar</Button>
+                            </div>
+                            <div className='banner-img'>
+                                <img src={bannerImage} className="img-fluid" alt="fotoBanner" />
+                            </div>
+                        </div>
+                        <div className='edit-detail'>
+                            <div className='image-title'>
+                                <h6>Detalles</h6>
+                                <Button className='btns'>Editar</Button>
+                            </div>
+                            <div className='modal-detail'>
+                                <textarea>Versátil artista con un estilo musical único. Destaca en el canto y domina el piano con pasión. 🎶🎤🎹</textarea>
+                            </div>
+                        </div>
+                        <div className='edit-info'>
+                            <div className='image-title'>
+                                <h6>Información</h6>
+                                <Button className='btns'>Editar</Button>
+                            </div>
+                            <div className='modal-info'>
+                                <div class="inputGroup">
+                                    <input placeholder="Fecha de nacimiento" class="input" name="fecha" type="text" />
+                                    <input placeholder="Genero" class="input" name="genero" type="text" />
+                                    <input placeholder="Ciudad" class="input" name="ciudad" type="text" />
+                                    <input placeholder="Instagram" class="input" name="instagram" type="text" />
+                                    <input placeholder="Tiktok" class="input" name="tiktok" type="text" />
+                                </div>
+                            </div>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
-                        </Button>
+
                     </Modal.Footer>
                 </Modal>
             </div>
