@@ -19,6 +19,7 @@ import { EventMembers } from "../component/eventt/EventMembers";
 import { EventTeams } from "../component/eventt/EventTeams";
 import { EventComments } from "../component/eventt/EventComments";
 import { EventDescription } from "../component/eventt/EventDescription";
+import L from "leaflet";
 
 async function getCoordinates(address) {
   try {
@@ -79,6 +80,10 @@ export const Event2 = (props) => {
     getCoordinates(eventData.address).then(setCoordinates);
   }, [eventData]);
 
+  useEffect(() => {
+    console.log("coordinates2", coordinates);
+  }, [coordinates]);
+
   function isUserLoggedIn() {
     // Comprueba si hay un token en el almacenamiento local
     const token = localStorage.getItem("jwt-token");
@@ -126,17 +131,12 @@ export const Event2 = (props) => {
                 {eventData.price === "0" ? "Gratis" : eventData.price}{" "}
               </h5>{" "}
               <div className="event-map">
-                {" "}
-                {coordinates && (
-                  <MapComponent
-                    address={eventData.location}
-                    eventData={eventData}
-                  />
-                )}{" "}
-              </div>{" "}
+                <h4>{eventData.address}</h4>
+                {coordinates && <MapComponent coordinates={coordinates} />}
+              </div>
             </div>{" "}
           </div>{" "}
-          <div className="d-flex-column justify-content-center align-items-center text-center">
+          <div className="d-flex-column justify-content-center align-items-center text-center mt-5">
             {" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {" "}
