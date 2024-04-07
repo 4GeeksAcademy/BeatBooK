@@ -13,28 +13,6 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
 export const CreateEvent = () => {
-  useEffect(() => {
-    const token = localStorage.getItem("jwt-token");
-
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
-      console.log(decodedToken.sub);
-
-      if (decodedToken.sub) {
-        setEventData((prevState) => {
-          const updatedState = { ...prevState, creator_id: decodedToken.sub };
-          // console.log(updatedState); // Debería mostrar el estado actualizado
-          return updatedState;
-        });
-      } else {
-        console.log("El token decodificado no contiene la propiedad sub");
-      }
-    } else {
-      navigate("/");
-    }
-  }, []);
-
   const { store, actions } = useContext(Context); // Agrega actions aquí
   const navigate = useNavigate();
 
@@ -53,6 +31,29 @@ export const CreateEvent = () => {
     place_id: "",
     band_id: "",
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt-token");
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      console.log(decodedToken.sub);
+
+      if (decodedToken.sub) {
+        setEventData((prevState) => {
+          const updatedState = { ...prevState, creator_id: decodedToken.sub };
+          // console.log(updatedState); // Debería mostrar el estado actualizado
+          return updatedState;
+        });
+      } else {
+        console.log("El token decodificado no contiene la propiedad sub");
+      }
+    } else {
+      // Navega solo si no hay token
+      navigate("/");
+    }
+  }, [navigate]); // Agrega navigate como dependencia
 
   const [selectedFiles, setSelectedFiles] = useState({
     main: null,
