@@ -30,6 +30,7 @@ export const Home = () => {
                 <div className="row justify-content-center">
                     <Cards />
                 </div>
+                {showModal && <Login />}
             </div>
         </div>
     );

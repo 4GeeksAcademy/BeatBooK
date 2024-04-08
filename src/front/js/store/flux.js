@@ -324,6 +324,44 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading event media", error);
         }
       },
+
+      getAllBands: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
+          const data = await resp.json();
+
+          setStore({bands: data});
+
+          return data;
+        } catch(error) { 
+          console.log("Error loading Bands from backend", error);
+        }
+      },
+
+      getAllPlaces: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/places");
+          const data = await resp.json(); // 
+          
+          setStore({ places: data });
+          
+          return data;
+        } catch (error) {
+          console.log("Error loading Places from backend", error);
+        }
+      },
+      getUser: async (id) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + `/api/user/${id}`
+          );
+          const data = await resp.json();
+          setStore({ user: data });
+          return data;
+        } catch (error) {
+          console.log("Error user not found", error);
+        }
+      },
     },
   };
 };

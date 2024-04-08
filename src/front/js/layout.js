@@ -11,6 +11,7 @@ import { Event } from "./pages/event";
 import { Event2 } from "./pages/event2";
 import { CreateEvent } from "./pages/createEvent";
 import { Private } from "./pages/private";
+import { Profile } from "./pages/profile";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -43,9 +44,10 @@ const Layout = () => {
             <Route element={<Event2 />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<Demo />} path="/demo" />
-            <Route element={<Single />} path="/single/:theid" />
+            <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
+            <Route element={<Profile />} path="/profile" />
           </Routes>
           <Footer />
         </ScrollToTop>

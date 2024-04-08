@@ -46,9 +46,7 @@
   scroll-snap-align: start;
   height: 410px;
   list-style: none;
-  
   cursor: pointer;
-  
   border-radius: 10px;
   backdrop-filter: blur(30px);
   background-color: rgba(65, 65, 65, 0.308);
@@ -77,9 +75,8 @@
   height: 100%;
   text-align: center;
   margin: 5px;
-  
-
 }
+
 .card-c h2{
   font-weight: 500;
   font-size: 28px;
@@ -97,7 +94,7 @@
  
 }
 .card-c .button {
-  border: 1px solid white; /* Añadir borde blanco */
+  border: 1px solid white; 
   font-size: 16px;
   color: white;
   padding:  7px 16px;
