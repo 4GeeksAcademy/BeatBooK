@@ -127,8 +127,8 @@ class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    profile_picture = db.Column(db.String(120), nullable=True)
-    banner_picture = db.Column(db.String(120), nullable=True)
+    profile_picture = db.Column(db.String(500), nullable=True)
+    banner_picture = db.Column(db.String(500), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
 

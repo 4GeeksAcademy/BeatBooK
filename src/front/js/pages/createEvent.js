@@ -228,7 +228,7 @@ export const CreateEvent = () => {
               />
             </Form.Group>
 
-            <Form.Group controlId="formEventYoutube">
+            {/* <Form.Group controlId="formEventYoutube">
               <Form.Label className="title_inputs">Youtube</Form.Label>
               <Form.Control
                 type="text"
@@ -238,7 +238,7 @@ export const CreateEvent = () => {
                 className="myFormControlClass"
                 required
               />
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group controlId="formEventTiktok">
               <Form.Label className="title_inputs">Tiktok</Form.Label>
               <Form.Control

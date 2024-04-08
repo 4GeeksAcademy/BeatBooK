@@ -160,7 +160,7 @@ export const Event2 = (props) => {
               <h4>Redes Sociales</h4>{" "}
               <FontAwesomeIcon icon={faInstagram} className="icons" />{" "}
               <FontAwesomeIcon icon={faTiktok} className="icons" />{" "}
-              <FontAwesomeIcon icon={faYoutube} className="icons" />{" "}
+              {/* <FontAwesomeIcon icon={faYoutube} className="icons" />{" "} */}
             </div>{" "}
           </div>{" "}
         </Col>

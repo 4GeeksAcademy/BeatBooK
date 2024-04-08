@@ -6,8 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       event: [],
       allEvents: [],
       allUsers: [],
-      bands:[],
-      places:[],
+      bands: [],
+      places: [],
       demo: [
         {
           title: "FIRST",
@@ -22,7 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
     },
     actions: {
-     
+
       signUp: async (username, email, password, passwordConfirmation) => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
@@ -126,7 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      
+
       createEvent: async (eventData) => {
         try {
           const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
