@@ -2,23 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import Select from "react-select";
 import { Context } from "../../store/appContext";
 
-export const MembersGet = () => {
-  const [users, setUsers] = useState([]);
+export const BandsGet = ({ onChange }) => {
+  const [bands, setBands] = useState([]);
   const { actions } = useContext(Context);
-
   useEffect(() => {
-    actions.getAllUsers().then((data) => setUsers(data));
+    actions.getAllBands().then((data) => {
+      if (Array.isArray(data)) {
+        setBands(data);
+      } else {
+        console.error("getAllBands did not return an array:", data);
+      }
+    });
   }, []);
-
-  const options = users.map((user) => ({
-    value: user.id,
-    label: user.username,
-  }));
-
-  const handleChange = (selected) => {
-    // Aquí puedes manejar los usuarios seleccionados
-    console.log(selected);
-  };
 
   const customStyles = {
     control: (provided) => ({
@@ -31,15 +26,19 @@ export const MembersGet = () => {
     }),
   };
 
+  const options = bands.map((band) => ({
+    value: band.id,
+    label: band.name,
+  }));
+
   return (
     <div>
-      <label className="title_inputs">Miembros</label>
+      <label className="title_inputs">Bandas</label>
       <Select
-        isMulti
-        name="members"
+        name="band"
         options={options}
         className="mutliSelect"
-        onChange={handleChange}
+        onChange={onChange}
         styles={customStyles}
       />
     </div>

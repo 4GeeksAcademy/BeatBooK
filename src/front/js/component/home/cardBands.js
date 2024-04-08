@@ -14,6 +14,11 @@ export const Cards = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    actions.getAllBands();
+
+  }, []);
+
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.pageX);

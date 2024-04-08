@@ -1,0 +1,72 @@
+[
+  {
+    "user_id": 1,
+    "event_id": 1,
+    "rating": 9,
+    "comment": "¡Qué noche tan épica! La banda arrasó en el escenario con su potente sonido y presencia imponente. No pude evitar saltar y cantar junto a la multitud. Sin duda, uno de los mejores conciertos a los que he asistido.",
+    "title": "Noche épica"
+  },
+  {
+    "user_id": 2,
+    "event_id": 2,
+    "rating": 8,
+    "comment": "Una experiencia verdaderamente mágica. La música fluía libremente en el ambiente mientras nos sumergíamos en el talento de cada músico. El ambiente relajado y la calidad de las actuaciones hicieron de este festival una experiencia inolvidable.",
+    "title": "Experiencia mágica"
+  },
+  {
+    "user_id": 3,
+    "event_id": 3,
+    "rating": 9,
+    "comment": "Increíble energía en la pista de baile. Los DJ se lucieron mezclando beats hipnóticos que nos mantuvieron en movimiento toda la noche. Definitivamente, una experiencia sensorial que superó mis expectativas.",
+    "title": "Energía en la pista de baile"
+  },
+  {
+    "user_id": 4,
+    "event_id": 4,
+    "rating": 8,
+    "comment": "Una noche íntima y emotiva. La conexión entre el artista y el público fue palpable, y su habilidad para transmitir emociones a través de la música fue sobresaliente. Sin duda, un concierto que tocará tu corazón.",
+    "title": "Noche íntima y emotiva"
+  },
+  {
+    "user_id": 5,
+    "event_id": 5,
+    "rating": 9,
+    "comment": "Revivir los éxitos de mi juventud en vivo fue simplemente asombroso. La banda conserva toda su energía y carisma, y la audiencia estaba entregada. Un viaje en el tiempo que me dejó con una sonrisa en el rostro durante días.",
+    "title": "Reviviendo los éxitos de mi juventud"
+  },
+  {
+    "user_id": 6,
+    "event_id": 6,
+    "rating": 8,
+    "comment": "Una noche llena de magia y talento. Cada nota resonaba en el alma y el público estaba completamente absorto en la música. Definitivamente, un concierto que recordaré durante mucho tiempo.",
+    "title": "Noche llena de magia y talento"
+  },
+  {
+    "user_id": 7,
+    "event_id": 7,
+    "rating": 9,
+    "comment": "¡Increíble experiencia! La banda no solo interpretó sus canciones, sino que también nos llevó en un viaje emocional. La energía en el lugar era palpable y dejó una marca duradera en mi corazón.",
+    "title": "Increíble experiencia"
+  },
+  {
+    "user_id": 8,
+    "event_id": 8,
+    "rating": 8,
+    "comment": "Un concierto que superó todas las expectativas. La pasión y el compromiso de los músicos se reflejaban en cada acorde. Salí del lugar con una sensación de euforia que aún perdura.",
+    "title": "Concierto que superó expectativas"
+  },
+  {
+    "user_id": 9,
+    "event_id": 9,
+    "rating": 9,
+    "comment": "Una noche mágica e inolvidable. La música envolvía el ambiente y creaba una atmósfera de pura felicidad. Los artistas conectaron con el público de una manera extraordinaria, dejándonos a todos con ganas de más.",
+    "title": "Noche mágica e inolvidable"
+  },
+  {
+    "user_id": 10,
+    "event_id": 10,
+    "rating": 9,
+    "comment": "¡Simplemente espectacular! La banda entregó una actuación impecable y su entusiasmo era contagioso. Cada canción era una obra maestra y el público respondía con aplausos y vítores. Sin duda, un concierto que nunca olvidaré.",
+    "title": "Actuación espectacular"
+  }
+]

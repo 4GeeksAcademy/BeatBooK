@@ -3,7 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       user: null,
       message: null,
-      events: [],
+      event: [],
+      allEvents: [],
       allUsers: [],
       bands:[],
       places:[],
@@ -126,6 +127,33 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       
+      createEvent: async (eventData) => {
+        try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/events",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
+              },
+              body: JSON.stringify(eventData),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error creating event");
+          }
+
+          const data = await response.json();
+          // Aquí puedes actualizar tu store con la nueva información del evento si es necesario
+          return data;
+        } catch (error) {
+          console.log("Error creating event", error);
+        }
+      },
       getEvents: async (searchTerm) => {
         const store = getStore();
         try {
@@ -151,11 +179,29 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getAllEvents: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/events");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const data = await resp.json();
+
+          setStore({ allEvents: data });
+
+          return data;
+        } catch (error) {
+          console.log("Error loading users from backend", error);
+          throw error;
+        }
+      },
+
       getAllUsers: async () => {
         try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/get-all-users"
-          );
+          const resp = await fetch(process.env.BACKEND_URL + "/api/users");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
           const data = await resp.json();
 
           // Actualiza el estado global con la información obtenida
@@ -164,6 +210,118 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error loading users from backend", error);
+          throw error;
+        }
+      },
+
+      getAllPlaces: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/places");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const places = await resp.json();
+          return places;
+        } catch (error) {
+          console.log("Error loading places from backend", error);
+        }
+      },
+
+      getAllBands: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const data = await resp.json();
+
+          setStore({ bands: data });
+          return data;
+        } catch (error) {
+          console.log("Error loading bands from backend", error);
+        }
+      },
+
+      getBand: async (bandId) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/bands/" + bandId
+          );
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const band = await resp.json();
+          return band;
+        } catch (error) {
+          console.log("Error loading band from backend", error);
+          throw error;
+        }
+      },
+      uploadEventPicture: async (image) => {
+        console.log("uploadEventPicture se ha llamado"); // Nuevo registro de consola
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("image", image);
+
+          console.log("Subiendo imagen con token:", token); // Nuevo registro de consola
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_event_picture",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(image);
+          if (!response.ok) {
+            throw new Error("Error uploading event picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data); // Nuevo registro de consola
+          console.log("URL de la imagen:", data.url); // Nuevo registro de consola
+
+          // Asegúrate de que estás devolviendo un objeto con una propiedad url
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading event picture", error);
+        }
+      },
+
+      uploadEventMedia: async (file, eventId) => {
+        try {
+          const token = localStorage.getItem("jwt-token");
+
+          const formData = new FormData();
+          formData.append("image", file);
+          formData.append("event_id", eventId);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_event_media",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error uploading event media");
+          }
+
+          const data = await response.json();
+          console.log(data);
+
+          // Asegúrate de que estás devolviendo un objeto con una propiedad url
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading event media", error);
         }
       },
 

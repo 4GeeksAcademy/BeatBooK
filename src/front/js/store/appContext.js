@@ -42,6 +42,7 @@ const injectContext = (PassedComponent) => {
       }
         state.actions.getAllBands();
         
+
         state.actions.getAllPlaces();
      
     }, []);

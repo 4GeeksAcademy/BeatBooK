@@ -1,0 +1,81 @@
+[
+  {
+    "name": "The Time Travelers Trio",
+    "description": "Trío musical que se especializa en viajar en el tiempo a través de su música, interpretando versiones modernas de canciones clásicas y viceversa.",
+    "profile_picture": "https://static.muziekburo.nl/image.5151.640.elastic.time.traveler.jpg",
+    "banner_picture": "TheTimeTravelersTrio_banner.jpg",
+    "instagram": "TheTimeTravelersTrio",
+    "tiktok": "TheTimeTravelersTrio"
+  },
+  {
+    "name": "Galactic Groovers",
+    "description": "Banda intergaláctica que mezcla sonidos de diferentes planetas para crear música única que trasciende las fronteras del universo.",
+    "profile_picture": "https://i.ytimg.com/vi/a1y5n-6qMrY/hqdefault.jpg",
+    "banner_picture": "GalacticGroovers_banner.jpg",
+    "instagram": "GalacticGroovers",
+    "tiktok": "GalacticGroovers"
+  },
+  {
+    "name": "Neon Nights Ensemble",
+    "description": "Grupo de música electrónica que fusiona elementos retro con sonidos futuristas para crear paisajes sonoros hipnóticos.",
+    "profile_picture": "https://brightsidemusic.com.au/wp-content/uploads/2021/05/Neon-Nights-Band-1280x854.jpg",
+    "banner_picture": "NeonNightsEnsemble_banner.jpg",
+    "social_networks": "NeonNightsEnsemble"
+  },
+  {
+    "name": "Echoes of Eternity",
+    "description": "Orquesta mística que canaliza la energía de antiguas civilizaciones en sus composiciones, creando música que transporta a otros mundos.",
+    "profile_picture": "https://metalodyssey.files.wordpress.com/2011/11/echoes-of-eternity-1-group-promo-pic-2011.png?w=450&h=278",
+    "banner_picture": "EchoesOfEternity_banner.jpg",
+    "instagram": "EchoesOfEternity",
+    "tiktok": "EchoesOfEternity"
+  },
+  {
+    "name": "Vivid Vibes Collective",
+    "description": "Colectivo de artistas que exploran la conexión entre el arte visual y la música, creando experiencias sensoriales inmersivas.",
+    "profile_picture": "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/288183032_5339943372732664_347873362760364656_n.jpg?stp=dst-jpg_p720x720&_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=v7J5tWUle2wAb7hOfDV&_nc_ht=scontent-mad1-1.xx&oh=00_AfAM_QBA6ZE1MplKte6c7fLPqhgF67ChYWQNDpTXxnpHeg&oe=66160A39",
+    "banner_picture": "VividVibesCollective_banner.jpg",
+    "instagram": "VividVibesCollective",
+    "tiktok": "VividVibesCollective"
+  },
+  {
+    "name": "Cosmic Cadence Quartet",
+    "description": "Cuarteto interplanetario que fusiona ritmos cósmicos con melodías terrestres para crear una experiencia auditiva fuera de este mundo.",
+    "profile_picture": "https://npr.brightspotcdn.com/dims4/default/c52c573/2147483647/strip/true/crop/4356x2450+0+0/resize/1760x990!/format/webp/quality/90/?url=https%3A%2F%2Fmedia.npr.org%2Fassets%2Fimg%2F2023%2F06%2F28%2Fred_standing_highres-credit-shervin-lainez-fix_wide-d66402788e36095b13332ada52fafc585c43ee89.jpg",
+    "banner_picture": "CosmicCadenceQuartet_banner.jpg",
+    "instagram": "CosmicCadenceQuartet",
+    "tiktok": "CosmicCadenceQuartet"
+  },
+  {
+    "name": "Dreamscape Symphony",
+    "description": "Orquesta onírica que transforma los sueños en música, explorando los límites de la imaginación y la creatividad sonora.",
+    "profile_picture": "https://www.rocknrock.com/wp-content/uploads/2015/09/Melted-Space-foto.jpg",
+    "banner_picture": "DreamscapeSymphony_banner.jpg",
+    "instagram": "DreamscapeSymphony",
+    "tiktok": "DreamscapeSymphony"
+  },
+  {
+    "name": "Nebula Funk Syndicate",
+    "description": "Sindicato de funk interestelar que canaliza la energía de las estrellas para crear ritmos contagiosos que hacen bailar a todo el universo.",
+    "profile_picture": "https://omnientertainment.com/wp-content/uploads/2021/02/funk-syndicate-band-1170x659.jpg",
+    "banner_picture": "NebulaFunkSyndicate_banner.jpg",
+    "instagram": "NebulaFunkSyndicate",
+    "tiktok": "NebulaFunkSyndicate"
+  },
+  {
+    "name": "Electric Aurora Ensemble",
+    "description": "Ensamble eléctrico que captura la esencia de las auroras boreales en su música, creando paisajes sonoros llenos de energía y misterio.",
+    "profile_picture": "https://steemitimages.com/p/TZjG7hXReeVoAvXt2X6pMxYAb3q65xMju8wryWxKrsghkLQRSHCHdUJE7DWSVyZYwS91Z3RDPBfeKusbJgXHC6YYG9F8cabibkxXbePYGLd5EFgUunvRFedmTPb3BBPZjA6rgZaZZbi5NE?format=match&mode=fit&width=640",
+    "banner_picture": "ElectricAuroraEnsemble_banner.jpg",
+    "instagram": "ElectricAuroraEnsemble",
+    "tiktok": "ElectricAuroraEnsemble"
+  },
+  {
+    "name": "Techno Tribe Collective",
+    "description": "Colectivo tribal que fusiona ritmos ancestrales con sonidos electrónicos contemporáneos, creando una experiencia de baile trascendental.",
+    "profile_picture": "https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/299865991_444345131043809_8455959852353296339_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=5IAgXEp5UPkAb5Tc3AH&_nc_ht=scontent-mad1-1.xx&oh=00_AfD1P8tnMzO7DKurHmIkc9C0kOHa5SDC8DROEU9CmDvNng&oe=6615D879",
+    "banner_picture": "TechnoTribeCollective_banner.jpg",
+    "instagram": "TechnoTribeCollective",
+    "tiktok": "TechnoTribeCollective"
+  }
+]
