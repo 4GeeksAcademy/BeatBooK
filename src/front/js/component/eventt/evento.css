@@ -54,7 +54,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-  background-image: url("https://imgs.search.brave.com/PilnYXebBXizqnXHc5VYS_Dtd68tNsIM9kx_z84bR6I/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9zdDUu/ZGVwb3NpdHBob3Rv/cy5jb20vNzkyOTYw/OC82NDc1MS9pLzQ1/MC9kZXBvc2l0cGhv/dG9zXzY0NzUxNzA5/Ni1zdG9jay1waG90/by1oYXJkLXJvY2st/bmVvbi1zaWduLWlz/b2xhdGVkLmpwZw");
+  /* background-image: url("https://imgs.search.brave.com/PilnYXebBXizqnXHc5VYS_Dtd68tNsIM9kx_z84bR6I/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9zdDUu/ZGVwb3NpdHBob3Rv/cy5jb20vNzkyOTYw/OC82NDc1MS9pLzQ1/MC9kZXBvc2l0cGhv/dG9zXzY0NzUxNzA5/Ni1zdG9jay1waG90/by1oYXJkLXJvY2st/bmVvbi1zaWduLWlz/b2xhdGVkLmpwZw"); */
   background-size: cover;
   background-position: center;
   border-radius: 20px;
@@ -235,26 +235,4 @@
   color: white;
 }
 
-body {
-  min-height: 100%;
-  background: #222; /* Color de fondo negro */
-  background-image: radial-gradient(
-    circle,
-    rgba(0, 255, 0, 0.2) 10%,
-    transparent 70%,
-    transparent 90%
-  ); /* Degradado con luz verde */
-  background-size: 400% 400%; /* Tamaño del fondo para la animación */
-  animation: gradientAnimation 10s ease infinite; /* Animación de movimiento suave */
-}
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%; /* Posición inicial del fondo */
-  }
-  50% {
-    background-position: 100% 50%; /* Posición intermedia del fondo (derecha) */
-  }
-  100% {
-    background-position: 0% 50%; /* Posición final del fondo (izquierda) */
-  }
-}
+

@@ -28,7 +28,7 @@ export const Login = ({ onClick }) => {
     setIsFlipped(false);
   };
   const handleShow = (event) => {
-    event.stopPropagation();
+   event.stopPropagation();
     setShow(true);
   };
 

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Event, Place, Band, Review, Assistance, MusicalCategory
+from api.models import db, User, Event, Place, Band, Review, Assistance, MusicalCategory,Media
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -12,7 +12,9 @@ from flask_jwt_extended import JWTManager
 import bcrypt
 import cloudinary
 from cloudinary.uploader import upload
+import cloudinary.api
 import os
+
 
 cloudinary.config( 
   cloud_name = "daxbjkj1j", 
@@ -208,6 +210,33 @@ def upload_categories():
         return jsonify({'error': str(e)}), 500
 
 #LOGIN Y PRIVADOS#
+@api.route('/sign_up', methods=['POST'])
+def sign_up():
+    request_body = request.get_json()
+    # Genera una sal
+    salt = bcrypt.gensalt()
+    # Hashea la contraseña
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+    # Convierte los bytes a una cadena
+    # hashed_password_str = hashed_password.decode()
+
+    if not 'username'in request_body:
+        return jsonify("Username is required"), 400
+    if not 'email'in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password'in request_body:
+        return jsonify("Password is required"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    # Genera un token para el nuevo usuario
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+
 
 @api.route('/log_in', methods=['POST'])
 def log_in():
@@ -222,30 +251,6 @@ def log_in():
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
     return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username }), 200
-
-@api.route('/sign_up', methods=['POST'])
-def sign_up():
-    request_body = request.get_json()
-    # Genera una sal
-    salt = bcrypt.gensalt()
-    # Hashea la contraseña
-    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
-    # Convierte los bytes a una cadena
-    # hashed_password_str = hashed_password.decode()
-    if not 'username'in request_body:
-        return jsonify("Username is required"), 400
-    if not 'email'in request_body:
-        return jsonify("Email is required"), 400
-    if not 'password'in request_body:
-        return jsonify("Password is required"), 400
-    if not 'password_confirmation'in request_body:
-        return jsonify("Password confirmation is required"), 400
-    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
-    db.session.add(user)
-    db.session.commit()
-    # Genera un token para el nuevo usuario
-    access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'User created', 'token': access_token }), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()
@@ -285,7 +290,7 @@ def upload_profile_image():
 
 #USER#
 
-@api.route('/get-all-users', methods=['GET'])
+@api.route('/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
     users = list(map(lambda x: x.serialize(), users))
@@ -397,7 +402,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        profile_picture=data.get('profile_picture'),
+        profile_image_url=data.get('profile_image_url'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
@@ -480,6 +485,9 @@ def get_band_events(band_id):
 
 #EVENTOS#
 
+
+
+
 @api.route('/events', methods=['GET'])
 def get_all_events():
     events = Event.query.all()
@@ -494,18 +502,31 @@ def get_single_event(event_id):
     return jsonify(event.serialize()), 200
 
 @api.route('/events', methods=['POST'])
+@jwt_required()
 def create_event():
     request_body = request.get_json()
+
+    picture_url = request_body.get('picture_url', None)
+
+    # Crear objetos Media a partir de las URLs de medios
+    media_urls = request_body.get('media', [])
+    media_objects = [Media(url=url) for url in media_urls]
+
     event = Event(
         name=request_body['name'], 
         date=request_body['date'], 
         description=request_body['description'], 
         address=request_body['address'], 
         price=request_body['price'], 
-        picture_url=request_body['picture_url'], 
-        media=request_body['media'], 
-        instagram=request_body['instagram'],
-        )
+        picture_url=picture_url,  # Usar la URL de la imagen subida a Cloudinary
+        media=media_objects,  # Asignar los objetos Media a la relación media
+        instagram=request_body.get('instagram', None),
+        tiktok=request_body.get('tiktok', None),
+        youtube=request_body.get('youtube', None),
+        creator_id=request_body.get('creator_id', None),
+        place_id=request_body.get('place_id', None),
+        band_id=request_body.get('band_id', None)
+    )
     db.session.add(event)
     db.session.commit()
     return jsonify(event.serialize()), 201
@@ -578,6 +599,40 @@ def remove_assistance(event_id):
     db.session.commit()
     return jsonify(assistance.serialize()), 200
 
+@api.route('/upload_event_picture', methods=['POST'])
+@jwt_required()
+def upload_event_picture():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+    current_user_id = get_jwt_identity()
+    event = Event.query.filter_by(creator_id=current_user_id).first()
+    if event is None:
+        return jsonify({"error": "Event not found"}), 404
+    event.picture_url = url
+    db.session.commit()
+    return jsonify({"message": "Event picture uploaded successfully", "url": url}), 200
+
+@api.route('/upload_event_media', methods=['POST'])
+@jwt_required()
+def upload_event_media():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    event_id = request.json.get('event_id')
+    if not event_id:
+        return jsonify({"error": "No event_id provided"}), 400
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+    media = Media(url=url, event_id=event_id)
+    db.session.add(media)
+    db.session.commit()
+    return jsonify({"message": "Event media uploaded successfully", "url": url}), 200
+
+
+
 #PLACES#
 
 @api.route('/places', methods=['GET'])
@@ -601,7 +656,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        profile_picture=request_body['profile_picture'],
+        profile_image_url=request_body['profile_image_url'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']

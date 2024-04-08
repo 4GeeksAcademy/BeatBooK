@@ -1,8 +1,13 @@
 import React from "react";
 
 export const EventMembers = ({ eventData }) => {
+  // Comprueba si eventData y eventData.members están definidos
+  if (!eventData || !eventData.members) {
+    return <div>Cargando...</div>;
+  }
+
   return (
-    <div>
+    <div className="mt-3">
       <h4>
         Miembros(<span>{eventData.members.length}</span>)
       </h4>

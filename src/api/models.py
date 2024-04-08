@@ -8,7 +8,6 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.LargeBinary)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     birthdate = db.Column(db.Date, nullable=True)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
@@ -54,7 +53,6 @@ class Event(db.Model):
     tiktok = db.Column(db.String(120), nullable=True)
     youtube = db.Column(db.String(120), nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    members = db.relationship('User', secondary='assistance', backref=db.backref('events', lazy='dynamic'))
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
 
@@ -73,16 +71,17 @@ class Event(db.Model):
             'address': self.address,
             'price': self.price,
             'picture_url': self.picture_url,
-            'media': self.media,
+            'media': [m.serialize() for m in self.media],
             'instagram': self.instagram,
             'tiktok': self.tiktok,
             'place_id': self.place_id,
             'band_id': self.band_id,
             'creator_id': self.creator_id,
             'assistances': [assistance.serialize() for assistance in self.assistances],
-            'members': [member.serialize() for member in self.members],
+            
+            
         }
-    
+
 class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(120), nullable=False)
@@ -92,6 +91,7 @@ class Media(db.Model):
         return {
             'id': self.id,
             'url': self.url,
+            'event_id': self.event_id,
         }    
 
 class Place(db.Model):
