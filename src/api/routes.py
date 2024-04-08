@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Event, Place, Band, Review, Assistance, MusicalCategory
+from api.models import db, User, Event, Place, Band, Review, Assistance, MusicalCategory,Media
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -12,15 +12,231 @@ from flask_jwt_extended import JWTManager
 import bcrypt
 import cloudinary
 from cloudinary.uploader import upload
+import cloudinary.api
 import os
 
+
+cloudinary.config( 
+  cloud_name = "daxbjkj1j", 
+ api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_secret = os.environ["CLOUDINARY_API_SECRET"]  
+)
   
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
 
+@api.route('/hello', methods=['POST', 'GET'])
+def handle_hello():
+
+    response_body = {
+        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
+    }
+
+    return jsonify(response_body), 200
+
+#SUBIR JSONs DE GOLPE#
+
+@api.route('/upload_users', methods=['POST'])
+def upload_users():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for user_data in data:
+            salt = bcrypt.gensalt()
+            hashed_password = bcrypt.hashpw(user_data['password'].encode('utf-8'), salt)
+            user = User(
+                email=user_data['email'],
+                username=user_data['username'],
+                password=hashed_password,
+                birthdate=user_data['birthdate'],
+                description=user_data['description'],
+                gender=user_data['gender'],
+                city=user_data['city'],
+                profile_image_url=user_data['profile_image_url'],
+                banner_picture=user_data['banner_picture'],
+                instagram=user_data['instagram'],
+                tiktok=user_data['tiktok'],
+                is_active=user_data['is_active']
+            )
+            db.session.add(user)
+        db.session.commit()
+        return jsonify({'message': 'Datos de usuarios subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/upload_bands', methods=['POST'])
+def upload_bands():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for band_data in data:
+            existing_band = Band.query.filter_by(name=band_data['name']).first()
+            if existing_band:
+                continue
+            band = Band(
+                name=band_data['name'],
+                description=band_data['description'],
+                profile_picture=band_data.get('profile_picture'),
+                banner_picture=band_data.get('banner_picture'),
+                instagram=band_data.get('instagram'),
+                tiktok=band_data.get('tiktok')
+            )
+            db.session.add(band)
+        db.session.commit()
+        return jsonify({'message': 'Datos de bandas subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@api.route('/upload_events', methods=['POST'])
+def upload_events():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+
+        for event_data in data:
+            event = Event(
+                name=event_data['name'],
+                date=event_data['date'],
+                description=event_data['description'],
+                address=event_data['address'],
+                price=event_data['price'],
+                picture_url=event_data.get('picture_url'),
+                media=event_data.get('media'),
+                instagram=event_data.get('instagram'),
+                tiktok=event_data.get('tiktok')
+            )
+            db.session.add(event)
+
+        db.session.commit()
+        return jsonify({'message': 'Eventos subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/upload_places', methods=['POST'])
+def upload_places():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for place_data in data:
+            place = Place(
+                name=place_data['name'],
+                description=place_data['description'],
+                address=place_data['address'],
+                phone=place_data['phone'],
+                profile_picture=place_data.get('profile_picture'),
+                banner_picture=place_data.get('banner_picture'),
+                instagram=place_data.get('instagram'),
+                tiktok=place_data.get('tiktok')
+            )
+            db.session.add(place)
+        db.session.commit()
+        return jsonify({'message': 'Lugares subidos correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@api.route('/upload_reviews', methods=['POST'])
+def upload_reviews():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for review_data in data:
+            review = Review(
+                user_id=review_data['user_id'],
+                event_id=review_data['event_id'],
+                rating=review_data['rating'],
+                title=review_data['title'],
+                comment=review_data['comment']
+            )
+            db.session.add(review)
+        db.session.commit()
+        return jsonify({'message': 'Reseñas subidas correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@api.route('/upload_assistances', methods=['POST'])
+def upload_assistances():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for assistance_data in data:
+            assistance = Assistance(
+                user_id=assistance_data['user_id'],
+                event_id=assistance_data['event_id']
+            )
+            db.session.add(assistance)
+        db.session.commit()
+        return jsonify({'message': 'Asistencias subidas correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@api.route('/upload_categories', methods=['POST'])
+def upload_categories():
+    try:
+        data = request.json
+        if not isinstance(data, list):
+            return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
+        for category_data in data:
+            category = MusicalCategory(
+                name=category_data['name'],
+                description=category_data['description'],
+                image_url=category_data['image_url']
+            )
+            db.session.add(category)
+        db.session.commit()
+        return jsonify({'message': 'Categorías subidas correctamente'}), 200
+    except KeyError as e:
+        return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 #LOGIN Y PRIVADOS#
+@api.route('/sign_up', methods=['POST'])
+def sign_up():
+    request_body = request.get_json()
+    # Genera una sal
+    salt = bcrypt.gensalt()
+    # Hashea la contraseña
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+    # Convierte los bytes a una cadena
+    # hashed_password_str = hashed_password.decode()
+
+    if not 'username'in request_body:
+        return jsonify("Username is required"), 400
+    if not 'email'in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password'in request_body:
+        return jsonify("Password is required"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    # Genera un token para el nuevo usuario
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+
 
 @api.route('/log_in', methods=['POST'])
 def log_in():
@@ -34,31 +250,7 @@ def log_in():
         return jsonify("Invalid email or password"), 400
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email }), 200
-
-@api.route('/sign_up', methods=['POST'])
-def sign_up():
-    request_body = request.get_json()
-    # Genera una sal
-    salt = bcrypt.gensalt()
-    # Hashea la contraseña
-    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
-    # Convierte los bytes a una cadena
-    # hashed_password_str = hashed_password.decode()
-    if not 'username'in request_body:
-        return jsonify("Username is required"), 400
-    if not 'email'in request_body:
-        return jsonify("Email is required"), 400
-    if not 'password'in request_body:
-        return jsonify("Password is required"), 400
-    if not 'password_confirmation'in request_body:
-        return jsonify("Password confirmation is required"), 400
-    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
-    db.session.add(user)
-    db.session.commit()
-    # Genera un token para el nuevo usuario
-    access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username }), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()
@@ -77,6 +269,7 @@ def protected():
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
         "tiktok": user.tiktok,
+       
     }), 200
 
 @api.route('/upload_profile_image', methods=['POST'])
@@ -97,7 +290,7 @@ def upload_profile_image():
 
 #USER#
 
-@api.route('/get-all-users', methods=['GET'])
+@api.route('/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
     users = list(map(lambda x: x.serialize(), users))
@@ -109,63 +302,6 @@ def get_single_user(user_id):
     if user is None:
         raise APIException('User not found', status_code=404)
     return jsonify(user.serialize()), 200
-
-@api.route('/users', methods=['POST'])
-def create_user():
-        request_body = request.get_json()
-        email = request_body.get('email')
-        password = request_body.get('password')
-        username = request_body.get('username')
-        birthdate = request_body.get('birthdate')
-        description = request_body.get('description')
-        gender = request_body.get('gender')
-        city = request_body.get('city')
-        profile_image_url = request_body.get('profile_image_url')
-        banner_picture = request_body.get('banner_picture')
-        instagram = request_body.get('instagram')
-        tiktok = request_body.get('tiktok')
-        is_active = request_body.get('is_active', True)
-
-        if not email:
-            raise APIException('Email is required', status_code=400)
-        if not password:
-            raise APIException('Password is required', status_code=400)
-        if not username:
-            raise APIException('Username is required', status_code=400)
-        if not birthdate:
-            raise APIException('Birthdate is required', status_code=400)
-        if not description:
-            raise APIException('Description is required', status_code=400)
-        if not gender:
-            raise APIException('Gender is required', status_code=400)
-        if not city:
-            raise APIException('City is required', status_code=400)
-
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            raise APIException('Email already exists', status_code=400)
-
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-        new_user = User(
-            email=email,
-            password=hashed_password,
-            username=username,
-            birthdate=birthdate,
-            description=description,
-            gender=gender,
-            city=city,
-            profile_image_url=profile_image_url,
-            banner_picture=banner_picture,
-            instagram=instagram,
-            tiktok=tiktok,
-            is_active=is_active
-        )
-
-        db.session.add(new_user)
-        db.session.commit()
-
-        return jsonify(new_user.serialize()), 201
 
 @api.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
@@ -266,7 +402,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        pictures=data.get('pictures'),
+        profile_image_url=data.get('profile_image_url'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
@@ -283,7 +419,7 @@ def update_band(band_id):
     data = request.json
     band.name = data.get('name')
     band.description = data.get('description')
-    band.profile_image_url = data.get('profile_image_url')
+    band.profile_picture = data.get('profile_picture')
     band.banner_picture = data.get('banner_picture')
     band.instagram = data.get('instagram')
     band.tiktok = data.get('tiktok')
@@ -363,19 +499,31 @@ def get_single_event(event_id):
     return jsonify(event.serialize()), 200
 
 @api.route('/events', methods=['POST'])
+@jwt_required()
 def create_event():
     request_body = request.get_json()
+
+    picture_url = request_body.get('picture_url', None)
+
+    # Crear objetos Media a partir de las URLs de medios
+    media_urls = request_body.get('media', [])
+    media_objects = [Media(url=url) for url in media_urls]
+
     event = Event(
         name=request_body['name'], 
         date=request_body['date'], 
         description=request_body['description'], 
         address=request_body['address'], 
         price=request_body['price'], 
-        pictures=request_body['pictures'], 
-        media=request_body['media'], 
-        instagram=request_body['instagram'],
-        tiktok=request_body['tiktok'],
-        )
+        picture_url=picture_url,  # Usar la URL de la imagen subida a Cloudinary
+        media=media_objects,  # Asignar los objetos Media a la relación media
+        instagram=request_body.get('instagram', None),
+        tiktok=request_body.get('tiktok', None),
+        youtube=request_body.get('youtube', None),
+        creator_id=request_body.get('creator_id', None),
+        place_id=request_body.get('place_id', None),
+        band_id=request_body.get('band_id', None)
+    )
     db.session.add(event)
     db.session.commit()
     return jsonify(event.serialize()), 201
@@ -391,7 +539,7 @@ def update_event(event_id):
     event.description = request_body['description']
     event.address = request_body['address']
     event.price = request_body['price']
-    event.pictures = request_body['pictures']
+    event.picture_url = request_body['picture_url']
     event.media = request_body['media']
     event.instagram = request_body['instagram']
     event.tiktok = request_body['tiktok']
@@ -448,6 +596,38 @@ def remove_assistance(event_id):
     db.session.commit()
     return jsonify(assistance.serialize()), 200
 
+@api.route('/upload_event_picture', methods=['POST'])
+@jwt_required()
+def upload_event_picture():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+    current_user_id = get_jwt_identity()
+    event = Event.query.filter_by(creator_id=current_user_id).first()
+    if event is None:
+        return jsonify({"error": "Event not found"}), 404
+    event.picture_url = url
+    db.session.commit()
+    return jsonify({"message": "Event picture uploaded successfully", "url": url}), 200
+
+@api.route('/upload_event_media', methods=['POST'])
+@jwt_required()
+def upload_event_media():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    event_id = request.json.get('event_id')
+    if not event_id:
+        return jsonify({"error": "No event_id provided"}), 400
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+    media = Media(url=url, event_id=event_id)
+    db.session.add(media)
+    db.session.commit()
+    return jsonify({"message": "Event media uploaded successfully", "url": url}), 200
+
 #PLACES#
 
 @api.route('/places', methods=['GET'])
@@ -471,7 +651,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        pictures=request_body['pictures'],
+        profile_image_url=request_body['profile_image_url'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']
@@ -490,7 +670,7 @@ def update_place(place_id):
     place.description = request_body['description']
     place.address = request_body['address']
     place.phone = request_body['phone']
-    place.profile_image_url = request_body['profile_image_url']
+    place.profile_picture = request_body['profile_picture']
     place.banner_picture = request_body['banner_picture']
     place.instagram = request_body['instagram']
     place.tiktok = request_body['tiktok']
@@ -553,6 +733,7 @@ def create_review():
     review = Review(
         user_id=request_body['user_id'],
         event_id=request_body['event_id'],
+        title=request_body['title'],
         rating=request_body['rating'], 
         comment=request_body['comment']
         )
@@ -567,6 +748,7 @@ def update_review(review_id):
         raise APIException('Review not found', status_code=404)
     request_body = request.get_json()
     review.rating = request_body['rating']
+    review.title = request_body['title']
     review.comment = request_body['comment']
     review.user_id = request_body['user_id']
     review.event_id = request_body['event_id']
@@ -602,7 +784,8 @@ def create_musical_category():
     request_body = request.get_json()
     category = MusicalCategory(
         name=request_body['name'],
-        description=request_body['description']
+        description=request_body['description'],
+        image_url=request_body['image_url']
     )
     db.session.add(category)
     db.session.commit()
@@ -616,6 +799,7 @@ def update_musical_category(category_id):
     request_body = request.get_json()
     category.name = request_body['name']
     category.description = request_body['description']
+    category.image_url = request_body['image_url']
     db.session.commit()
     return jsonify(category.serialize()), 200
 
