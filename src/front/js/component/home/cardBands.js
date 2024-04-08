@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import "/workspaces/BeatBooK/src/front/js/component/home/card.css"
@@ -13,6 +13,11 @@ export const Cards = () => {
   const firstCardRef = useRef(null);
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    actions.getAllBands();
+
+  }, []);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -42,9 +47,9 @@ export const Cards = () => {
     }
   };
 
-  const handleLearnMore = (id) => {
-    navigate(`/api/bands/${id}`);
-  };
+  //const handleLearnMore = (id) => {
+    //navigate(`/api/bands/${id}`);
+  //};
 
   return (
     <div className="wrapper">

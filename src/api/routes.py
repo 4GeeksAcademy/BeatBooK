@@ -290,7 +290,7 @@ def upload_profile_image():
 
 #USER#
 
-@api.route('/get-all-users', methods=['GET'])
+@api.route('/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
     users = list(map(lambda x: x.serialize(), users))
@@ -402,7 +402,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        profile_picture=data.get('profile_picture'),
+        profile_image_url=data.get('profile_image_url'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
@@ -484,6 +484,9 @@ def get_band_events(band_id):
     return jsonify(events_data), 200
 
 #EVENTOS#
+
+
+
 
 @api.route('/events', methods=['GET'])
 def get_all_events():
@@ -653,7 +656,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        profile_picture=request_body['profile_picture'],
+        profile_image_url=request_body['profile_image_url'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']

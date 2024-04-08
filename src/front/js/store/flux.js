@@ -3,7 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       user: null,
       message: null,
-      events: [],
+      event: [],
+      allEvents: [],
       allUsers: [],
       bands:[],
       places:[],
@@ -178,6 +179,23 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getAllEvents: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/events");
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const data = await resp.json();
+
+          setStore({ allEvents: data });
+
+          return data;
+        } catch (error) {
+          console.log("Error loading users from backend", error);
+          throw error;
+        }
+      },
+
       getAllUsers: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/users");
@@ -195,6 +213,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
+
       getAllPlaces: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/places");
@@ -214,12 +233,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!resp.ok) {
             throw new Error(`HTTP error! status: ${resp.status}`);
           }
-          const bands = await resp.json();
-          return bands;
+          const data = await resp.json();
+
+          setStore({ bands: data });
+          return data;
         } catch (error) {
           console.log("Error loading bands from backend", error);
         }
       },
+
       getBand: async (bandId) => {
         try {
           const resp = await fetch(

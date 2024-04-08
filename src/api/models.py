@@ -101,7 +101,7 @@ class Place(db.Model):
     description = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(120), unique=True, nullable=True)
-    pictures = db.Column(db.String(120), nullable=True)
+    profile_image_url = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
@@ -118,7 +118,7 @@ class Place(db.Model):
             'description': self.description,
             'address': self.address,
             'phone': self.phone,
-            'pictures': self.pictures,
+            'profile_image_url': self.profile_image_url,
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
@@ -128,10 +128,10 @@ class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    pictures = db.Column(db.String(500), nullable=True)
+    profile_image_url = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
-    instagram = db.Column(db.String(1200), nullable=True)
-    tiktok = db.Column(db.String(1200), nullable=True)
+    instagram = db.Column(db.String(120), nullable=True)
+    tiktok = db.Column(db.String(120), nullable=True)
 
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
@@ -146,7 +146,7 @@ class Band(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'pictures': self.pictures,
+            'profile_image_url': self.profile_image_url,
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
