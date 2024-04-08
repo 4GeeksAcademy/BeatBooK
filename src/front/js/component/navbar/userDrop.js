@@ -57,7 +57,7 @@ export const UserDrop = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu align="end">
-            <Dropdown.Item href="#action/3.1">Perfil</Dropdown.Item>
+            <Dropdown.Item href="/profile">Perfil</Dropdown.Item>
             <Dropdown.Item href="#action/3.2">Eventos</Dropdown.Item>
             <Dropdown.Item href="#action/3.3">Something</Dropdown.Item>
             <Dropdown.Divider />

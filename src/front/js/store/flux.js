@@ -191,7 +191,19 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log("Error loading Places from backend", error);
         }
-      }
+      },
+      getUser: async (id) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + `/api/user/${id}`
+          );
+          const data = await resp.json();
+          setStore({ user: data });
+          return data;
+        } catch (error) {
+          console.log("Error user not found", error);
+        }
+      },
     },
   };
 };
