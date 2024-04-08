@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "/workspaces/BeatBooK/src/front/styles/categorias.css";
 
-export const Categorias = () => {
-    const [categories, setCategories] = useState([]);
+export const Lugares = () => { 
+    const [places, setPlaces] = useState([]);
 
     useEffect(() => {
-        fetch(process.env.BACKEND_URL + "/api/musical_categories")
+        fetch(process.env.BACKEND_URL + "/api/places")
             .then(response => response.json())
-            .then(data => setCategories(data))
+            .then(data => setPlaces(data))
             .catch(error => console.log(error));
     }, []);
 
     return (
         <div className="container text-center">
-            <h1>Categorias</h1>
+            <br></br>
+            <h1>Lugares</h1>
+            <br></br>
             <div className='bentobox'>
-                {categories.map((category, index) => (
+                {places.map((place, index) => (
                     <div key={index} className='item'>
-                        <img src={category.image_url} alt={category.name} />
+                        <img src={place.profile_picture} alt={place.name} />
                     </div>
                 ))}
             </div>
         </div>
     );
-};
+}

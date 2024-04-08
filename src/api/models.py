@@ -12,7 +12,7 @@ class User(db.Model):
     description = db.Column(db.String(500), nullable=True)
     gender = db.Column(db.String(500), nullable=True)
     city = db.Column(db.String(500), nullable=True)
-    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)  # new field
+    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)
     banner_picture = db.Column(db.String(500), nullable=True)
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
@@ -47,11 +47,10 @@ class Event(db.Model):
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(500), nullable=False)
     address = db.Column(db.String(500), nullable=False)
-    price = db.Column(db.String(500), nullable=False)
+    price = db.Column(db.Integer, nullable=True)
     picture_url = db.Column(db.String(500), nullable=True)
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
-    youtube = db.Column(db.String(500), nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
@@ -206,6 +205,7 @@ class MusicalCategory(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'image_url': self.image_url,
         }
 
 band_events = db.Table('band_events',
