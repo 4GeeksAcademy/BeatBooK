@@ -1,7 +1,8 @@
 import React from "react"; // Importa useContext de 'react'
 import "../../styles/home.css";
 import { Carousel } from "../component/home/carousel";
-import { Cards } from "../component/home/card";
+import { CardPlaces } from "../component/home/cardPlaces";
+import { Cards } from "../component/home/cardBands";
 
 
 export const Home = () => {

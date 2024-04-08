@@ -8,7 +8,6 @@ import { PlacesGet } from "../component/createEvent/PlacesGet";
 import { BandsGet } from "../component/createEvent/BandsGet";
 import { UploadMainImage } from "../component/createEvent/UploadMaintImage";
 import { UploadMedia } from "../component/createEvent/UploadMedia";
-import { CreateMusicGroup } from "../component/createEvent/createMusicGroup";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 

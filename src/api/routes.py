@@ -485,9 +485,6 @@ def get_band_events(band_id):
 
 #EVENTOS#
 
-
-
-
 @api.route('/events', methods=['GET'])
 def get_all_events():
     events = Event.query.all()
@@ -630,8 +627,6 @@ def upload_event_media():
     db.session.add(media)
     db.session.commit()
     return jsonify({"message": "Event media uploaded successfully", "url": url}), 200
-
-
 
 #PLACES#
 
