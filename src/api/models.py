@@ -8,7 +8,6 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.LargeBinary)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     birthdate = db.Column(db.Date, nullable=True)
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
@@ -101,7 +100,7 @@ class Place(db.Model):
     description = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(120), unique=True, nullable=True)
-    profile_image_url = db.Column(db.String(120), nullable=True)
+    profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
@@ -118,7 +117,7 @@ class Place(db.Model):
             'description': self.description,
             'address': self.address,
             'phone': self.phone,
-            'profile_image_url': self.profile_image_url,
+            'profile_picture': self.profile_picture,
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
@@ -128,7 +127,7 @@ class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    profile_image_url = db.Column(db.String(120), nullable=True)
+    profile_picture = db.Column(db.String(120), nullable=True)
     banner_picture = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
@@ -146,7 +145,7 @@ class Band(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'profile_image_url': self.profile_image_url,
+            'profile_picture': self.profile_picture,
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
