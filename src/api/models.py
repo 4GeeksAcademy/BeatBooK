@@ -12,7 +12,7 @@ class User(db.Model):
     description = db.Column(db.String(120), nullable=True)
     gender = db.Column(db.String(20), nullable=True)
     city = db.Column(db.String(100), nullable=True)
-    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)  # new field
+    profile_image_url = db.Column(db.String(600), unique=False, nullable=True)  # new field
     banner_picture = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)

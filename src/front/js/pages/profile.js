@@ -6,6 +6,7 @@ import { Context } from "../store/appContext";
 
 export const Profile = () => {
     const { actions, store } = useContext(Context);
+    const params = useParams();
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -14,15 +15,18 @@ export const Profile = () => {
         if (!token) {
             navigate("/");
         }
+        if(!store.currentUser) {
+            actions.getPrivateData()
+        }
     }, []);
 
     return (
         <div className="container">
             <div>
-                <ProfileBanner userData />
+                <ProfileBanner/>
             </div>
             <div className="">
-                <ProfileBody userData />
+                <ProfileBody/>
             </div>
         </div>
     );

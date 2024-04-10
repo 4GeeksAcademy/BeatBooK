@@ -24,13 +24,7 @@ export const UserDrop = () => {
     toast.success("Has cerrado sesión correctamente");
     navigate("/");
   };
-  // useEffect(() => {
-  //   if (!store.user) {
-  //     actions.getUser(); // obtén los datos del usuario cuando el componente se monta
-  //   }
-  // }, []); // pasa un array vacío como segundo argumento pa
 
-  // ...
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -57,7 +51,7 @@ export const UserDrop = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu align="end">
-            <Dropdown.Item href="/profile/">Perfil</Dropdown.Item>
+            <Dropdown.Item href="/profile">Perfil</Dropdown.Item>
             <Dropdown.Item href="#action/3.2">Eventos</Dropdown.Item>
             <Dropdown.Item href="#action/3.3">Something</Dropdown.Item>
             <Dropdown.Divider />

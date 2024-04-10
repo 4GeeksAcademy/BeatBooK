@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       user: null,
+      currentUser: null,
       message: null,
       event: [],
       allEvents: [],
@@ -107,7 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (resp.status === 401) {
             // El token no es válido o ha expirado
             localStorage.removeItem("jwt-token");
-            setStore({ user: null });
+            setStore({ currentUser: null });
             throw new Error("Token inválido o expirado");
           }
 
@@ -118,12 +119,46 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
 
           // Actualiza el estado global con la información obtenida
-          setStore({ user: data });
+          setStore({ currentUser: data });
 
           return data;
         } catch (error) {
           console.log("Error al obtener datos privados", error);
           throw error;
+        }
+      },
+
+      editUser: async (id) => {
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const resp = await fetch(process.env.BACKEND_URL + `/api/users/${id}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (resp.status === 401) {
+            // El token no es válido o ha expirado
+            localStorage.removeItem("jwt-token");
+            setStore({ currentUser: null });
+            throw new Error("Token inválido o expirado");
+          }
+
+          if (!resp.ok) {
+            throw new Error("Error al obtener datos privados");
+          }
+
+          const data = await resp.json();
+
+          // Actualiza el estado global con la información obtenida
+          setStore({ currentUser: data });
+
+          return data;
+        } catch (error) {
+          console.log("Error al obtener datos privados", error);
+          throw error;
+
         }
       },
       
@@ -197,16 +232,36 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getUser: async (id) => {
         try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + `/api/users/${id}`
-          );
+          const token = localStorage.getItem("jwt-token");
+          const resp = await fetch(process.env.BACKEND_URL + `/api/users/${id}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (resp.status === 401) {
+            // El token no es válido o ha expirado
+            localStorage.removeItem("jwt-token");
+            setStore({ user: data });
+            throw new Error("Token inválido o expirado");
+          }
+
+          if (!resp.ok) {
+            throw new Error("Error al obtener datos privados");
+          }
+
           const data = await resp.json();
+
+          // Actualiza el estado global con la información obtenida
           setStore({ user: data });
+
           return data;
         } catch (error) {
-          console.log("Error user not found", error);
+          console.log("Error al obtener datos privados", error);
+          throw error;
         }
       },
+      
 
       getAllUsers: async () => {
         try {
