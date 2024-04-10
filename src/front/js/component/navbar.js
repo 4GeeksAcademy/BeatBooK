@@ -38,9 +38,16 @@ export const AppNavbar = () => {
                   className="logoHorizontal"
                 />
               </Link>
-              <button className="white-button text-center text-nowrap ">
+              <Link to="/categorias" className="white-button text-center text-nowrap">
                 Categorías
-              </button>
+              </Link>
+              <Link to="/eventos" className="white-button text-center text-nowrap">
+                Eventos
+              </Link>
+              <Link to="/grupos" className="white-button text-center text-nowrap">
+                Grupos </Link>
+              <Link to="/lugares" className="white-button text-center text-nowrap">
+                Lugares </Link>
             </div>
             {/* Barra de búsqueda */}
             <div className="d-flex justify-content-center"></div>
