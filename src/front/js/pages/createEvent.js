@@ -11,6 +11,7 @@ import { UploadMedia } from "../component/createEvent/UploadMedia";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
+
 export const CreateEvent = () => {
   const { store, actions } = useContext(Context); // Agrega actions aquí
   const navigate = useNavigate();
@@ -84,15 +85,17 @@ export const CreateEvent = () => {
     };
     const data = await actions.createEvent(completeEventData);
     console.log(data);
+
+    return eventData.id;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      await xcreateEvent();
+      const eventId = await xcreateEvent();
       console.log("Evento creado con éxito");
-      navigate("/"); // Redirige a la página de inicio
+      navigate(`/event/registre/media/${eventId}`); // Redirige a la página de inicio
       toast.success("Evento creado con éxito");
     } catch (error) {
       console.error("Error al crear el evento: ", error);
@@ -186,26 +189,7 @@ export const CreateEvent = () => {
                 </Col>
               </Row>
             </Form.Group>
-            <PlacesGet
-              onChange={(selected) =>
-                setEventData({ ...eventData, place_id: selected.value })
-              }
-              required
-            />
 
-            <Form.Group controlId="formEventPrice">
-              <Form.Label className="title_inputs">
-                Precio del evento
-              </Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Precio del evento"
-                name="price"
-                onChange={handleChange}
-                className="myFormControlClass"
-                required
-              />
-            </Form.Group>
           </Col>
 
           <Col xs={12} md={6}>
@@ -258,7 +242,28 @@ export const CreateEvent = () => {
               }
             />
             {/* <CreateMusicGroup /> */}
+            <PlacesGet
+              onChange={(selected) =>
+                setEventData({ ...eventData, place_id: selected.value })
+              }
+              required
+            />
+
+            <Form.Group controlId="formEventPrice">
+              <Form.Label className="title_inputs">
+                Precio del evento
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Precio del evento"
+                name="price"
+                onChange={handleChange}
+                className="myFormControlClass"
+                required
+              />
+            </Form.Group>
           </Col>
+
         </Row>
         <div className="create_event">
           <button className="create_event_button" type="submit">

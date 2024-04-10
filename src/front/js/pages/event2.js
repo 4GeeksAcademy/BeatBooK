@@ -91,7 +91,11 @@ export const Event2 = (props) => {
   }
 
   if (!eventData) {
-    return <div>Cargando...</div>;
+    return <div class="text-center mt-5 pt-5 pb-5">
+      <div class="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>;
   }
 
   return (

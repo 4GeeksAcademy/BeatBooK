@@ -53,7 +53,17 @@ export const UploadMedia = ({ onUpload }) => {
 
   return (
     <div>
+      <p className="p_upload">Media Evento</p>
+      <input
+        className="upload_selector"
+        type="file"
+        multiple
+        required
+        accept="image/*"
+
+      />
       <button onClick={handleUpload}>Subir medios</button>
     </div>
+
   );
 };
