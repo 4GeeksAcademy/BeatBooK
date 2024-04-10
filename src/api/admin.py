@@ -16,6 +16,8 @@ def setup_admin(app):
     admin.add_view(ModelView(Assistance, db.session))
     admin.add_view(ModelView(Review, db.session))
     admin.add_view(ModelView(Media, db.session))
+    admin.add_view(ModelView(MusicalCategory, db.session))
+
 
     # You can duplicate that line to add new models
     # admin.add_view(ModelView(YourModelName, db.session))
