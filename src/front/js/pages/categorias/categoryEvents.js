@@ -29,7 +29,7 @@ export const CategoryEvents = () => {
             <div className='bentobox'>
                 {events.map((event, index) => (
                     <div key={index} className='item'>
-                        <img src={event.image_url} alt={event.name} />
+                        <img src={event.image_url} alt={event.name} className="image"/>
                     </div>
                 ))}
             </div>

@@ -19,7 +19,7 @@ export const Eventos = () => {
             <div className='bentobox'>
                 {events.map((event, index) => (
                     <div key={index} className='item'>
-                        <img src={event.picture_url} alt={event.name} />
+                        <img src={event.picture_url} alt={event.name} className="image"/>
                     </div>
                 ))}
             </div>

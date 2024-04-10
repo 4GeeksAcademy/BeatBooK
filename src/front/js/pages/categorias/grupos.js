@@ -19,7 +19,7 @@ export const Grupos = () => {
             <div className='bentobox'>
                 {groups.map((band, index) => (
                     <div key={index} className='item'>
-                        <img src={band.profile_picture} alt={band.name} />
+                        <img src={band.profile_picture} alt={band.name} className="image"/>
                     </div>
                 ))}
             </div>

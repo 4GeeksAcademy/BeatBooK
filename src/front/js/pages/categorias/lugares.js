@@ -19,7 +19,7 @@ export const Lugares = () => {
             <div className='bentobox'>
                 {places.map((place, index) => (
                     <div key={index} className='item'>
-                        <img src={place.profile_picture} alt={place.name} />
+                        <img src={place.profile_picture} alt={place.name} className="image"/>
                     </div>
                 ))}
             </div>
