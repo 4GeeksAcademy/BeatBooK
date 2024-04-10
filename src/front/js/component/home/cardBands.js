@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import "/workspaces/BeatBooK/src/front/js/component/home/card.css"
@@ -57,7 +57,7 @@ export const Cards = () => {
         {store.bands.map((band, index) => (
          <li className="card-c" key={index} ref={firstCardRef}>
          <div className='img'>
-           <img src={band.pictures} alt='img' draggable="false" className='img' />
+           <img src={band.profile_picture} alt='img' draggable="false" className='img' />
          </div>
          <div className='card-c-content'>
          <h2 className='name'>{band.name}</h2>
