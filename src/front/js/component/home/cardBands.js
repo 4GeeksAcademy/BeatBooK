@@ -57,7 +57,7 @@ export const Cards = () => {
         {store.bands.map((band, index) => (
          <li className="card-c" key={index} ref={firstCardRef}>
          <div className='img'>
-           <img src={band.pictures} alt='img' draggable="false" className='img' />
+           <img src={band.profile_picture} alt='img' draggable="false" className='img' />
          </div>
          <div className='card-c-content'>
          <h2 className='name'>{band.name}</h2>
