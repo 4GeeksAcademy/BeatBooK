@@ -55,7 +55,7 @@ export const CardPlaces = () => {
        {store.places.map((place, index) => (
         <li className="card-c" key={index} ref={firstCardRef}>
           <div className='img'>
-            <img src={place.pictures} alt='img' draggable="false" className='img' />
+            <img src={place.profile_picture} alt='img' draggable="false" className='img' />
           </div>
           <div className='card-c-content'>
           <h2 className='name'>{place.name}</h2>

@@ -33,6 +33,14 @@ export const ProfileBanner = () => {
         alert('Eliminar imagen');
     }
 
+    const handleCreateEvent = () => {
+       navigate('/event/registre')
+    }
+
+    const handleCreateBand = () => {
+        navigate('/band/registre')
+    }
+
     return (
         <div className="container d-flex flex-column justify-content-center">
             <div className='row'>
@@ -54,8 +62,10 @@ export const ProfileBanner = () => {
                 </div>
                 <div className='col-12 col-md-4 col-xl-5 d-flex align-items-end justify-content-end' id="botones">
                     <button className='btns' onClick={handleShow}><i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil</button>
-                    <button className='btns'><i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear evento </button>
-                    <button className='btns'><i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear Banda </button>
+                    
+                    <button className='btns' onClick={() => {handleCreateEvent()}}><i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear evento </button>
+                   
+                    <button className='btns' onClick={() => {handleCreateBand()}}><i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear Banda </button>
                 </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>

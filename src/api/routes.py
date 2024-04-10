@@ -82,10 +82,10 @@ def upload_bands():
             band = Band(
                 name=band_data['name'],
                 description=band_data['description'],
-                profile_picture=band_data.get('profile_picture'),
-                banner_picture=band_data.get('banner_picture'),
-                instagram=band_data.get('instagram'),
-                tiktok=band_data.get('tiktok')
+                profile_picture=band_data('profile_picture'),
+                banner_picture=band_data('banner_picture'),
+                instagram=band_data('instagram'),
+                tiktok=band_data('tiktok')
             )
             db.session.add(band)
         db.session.commit()
