@@ -5,24 +5,24 @@ import "../profile/profile.css";
 export const ProfileBody = () => {
     const { store, actions } = useContext(Context);
 
-
-
     useEffect(() => {
-        actions.getEvents();
+        actions.getAllEvents();
     }, []);
 
+    
     return (
         <div className="container p-0">
             <div className="container row">
                 <div className="details col-5">
                     <div className="card-detail my-4">
-                        <div className="card-detail-content">
-                            <h5 className="card-title">Detalles</h5>
-                            
-                            <p className="card-text">Versátil artista con un estilo musical único. Destaca en el canto y domina el piano con pasión. 🎶🎤🎹</p>
-                            <a href="#" className="card-link"> <i className="fab fa-instagram"></i> Miritzila</a>
-                            <a href="#" className="card-link"><i className="fab fa-tiktok"></i> Musicmiri</a>
+                            {store.user.map((user, index) => (
+                        <div className="card-detail-content" key={index}>
+                                <h5 className="card-title">Detalles</h5>
+                                <p className="card-text">{user.description}</p>
+                                <a href="#" className="card-link"> <i className="fab fa-instagram"></i> {user.instagram}</a>
+                                <a href="#" className="card-link"><i className="fab fa-tiktok"></i> {user.tiktok}</a>
                         </div>
+                            ))}
                     </div>
                     <div className="card-music mt-4">
                         <div className="card-music-detail">
@@ -49,10 +49,10 @@ export const ProfileBody = () => {
                     </nav>
                     <div className="wrapper-e">
                         <ul className='carousel-e'>
-                            {store.events.map((event, index) => (
+                            {store.allEvents.map((event, index) => (
                                 <li className="card-e" key={index}>
                                     <div className='img'>
-                                        <img src={event.pictures} alt='img' draggable="false" className='img' />
+                                        <img src={event.picture_url} alt='img' draggable="false" className='img' />
                                     </div>
                                     <div className='card-c-content'>
                                         <h2 className='name'>{event.name}</h2>
