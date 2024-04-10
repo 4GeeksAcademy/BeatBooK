@@ -148,6 +148,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await response.json();
+          // console.log(data)
           // Aquí puedes actualizar tu store con la nueva información del evento si es necesario
           return data;
         } catch (error) {
@@ -292,13 +293,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      uploadEventMedia: async (file, eventId) => {
+      uploadEventMedia: async (files, eventId) => {
         try {
           const token = localStorage.getItem("jwt-token");
 
           const formData = new FormData();
-          formData.append("image", file);
-          formData.append("event_id", eventId);
+          for (const file of files) {
+            formData.append("images", file); // Asegúrate de que el servidor espera "images" como el nombre del campo para los archivos
+          }
+          formData.append("event_id", eventId); // Asegúrate de que el servidor espera "event_id" como el nombre del campo para el id del evento
 
           const response = await fetch(
             process.env.BACKEND_URL + "/api/upload_event_media",
@@ -312,14 +315,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (!response.ok) {
-            throw new Error("Error uploading event media");
+            const errorData = await response.json(); // Intenta obtener más información sobre el error del cuerpo de la respuesta
+            throw new Error("Error uploading event media: " + JSON.stringify(errorData));
           }
 
           const data = await response.json();
           console.log(data);
 
-          // Asegúrate de que estás devolviendo un objeto con una propiedad url
-          return { url: data.url };
+          // Asegúrate de que estás devolviendo un objeto con una propiedad urls que es un array
+          return { urls: data.urls };
         } catch (error) {
           console.log("Error uploading event media", error);
         }

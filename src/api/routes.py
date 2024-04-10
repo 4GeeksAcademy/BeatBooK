@@ -615,19 +615,27 @@ def upload_event_picture():
 @api.route('/upload_event_media', methods=['POST'])
 @jwt_required()
 def upload_event_media():
-    if 'image' not in request.files:
+    if 'images' not in request.files:
         return jsonify({"error": "No image provided"}), 400
-    event_id = request.json.get('event_id')
-    if not event_id:
-        return jsonify({"error": "No event_id provided"}), 400
-    file = request.files['image']
-    upload_result = upload(file)
-    url = upload_result['url']
-    media = Media(url=url, event_id=event_id)
-    db.session.add(media)
-    db.session.commit()
-    return jsonify({"message": "Event media uploaded successfully", "url": url}), 200
+    try:
+        event_id = int(request.form.get('event_id'))  # Convertir event_id a un entero
+    except ValueError:
+        return jsonify({"error": "Invalid event_id"}), 400
 
+    print(f"Received event_id: {event_id}")  # Debug print
+
+    urls = []
+    for image in request.files.getlist('images'):
+        upload_result = upload(image)
+        print(f"Upload result: {upload_result}")  # Debug print
+        url = upload_result['url']
+        media = Media(url=url, event_id=event_id)
+        db.session.add(media)
+        urls.append(url)
+
+    db.session.commit()
+    print("Database commit successful")  # Debug print
+    return jsonify({"message": "Upload successful"}), 200
 #PLACES#
 
 @api.route('/places', methods=['GET'])

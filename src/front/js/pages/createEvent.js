@@ -30,6 +30,7 @@ export const CreateEvent = () => {
     creator_id: "",
     place_id: "",
     band_id: "",
+    id: "",
   });
 
   useEffect(() => {
@@ -86,16 +87,20 @@ export const CreateEvent = () => {
     const data = await actions.createEvent(completeEventData);
     console.log(data);
 
-    return eventData.id;
+    // Actualiza el estado con la respuesta de la creación del evento
+    setEventData({ ...eventData, id: data.id });
+
+    // Devuelve el ID del evento creado
+    return data.id;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const eventId = await xcreateEvent();
       console.log("Evento creado con éxito");
-      navigate(`/event/registre/media/${eventId}`); // Redirige a la página de inicio
+      navigate(`/event/registre/media/${eventId}`);
       toast.success("Evento creado con éxito");
     } catch (error) {
       console.error("Error al crear el evento: ", error);

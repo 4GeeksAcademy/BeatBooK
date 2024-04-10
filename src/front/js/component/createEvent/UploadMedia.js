@@ -1,69 +1,33 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
+import { useParams } from "react-router-dom";
 
 export const UploadMedia = ({ onUpload }) => {
-  const [publicIds, setPublicIds] = useState([]);
-  const [urls, setUrls] = useState([]);
   const { actions } = useContext(Context);
-  const cloudName = "daxbjkj1j"; // Reemplaza con el nombre de tu nube
-  const uploadPreset = "u25sxqdb"; // Reemplaza con tu propio preset de subida
+  const { id } = useParams(); // Extrae el id de la URL
 
-  useEffect(() => {
-    // Carga el script del widget de Cloudinary
-    const script = document.createElement("script");
-    script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
-
-  const handleUpload = () => {
-    const widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: cloudName,
-        uploadPreset: uploadPreset,
-        multiple: true,
-      },
-      async (error, result) => {
-        if (!error && result && result.event === "success") {
-          setPublicIds((ids) => [...ids, result.info.public_id]);
-
-          // Obtener el archivo de la URL
-          const response = await fetch(result.info.secure_url);
-          const blob = await response.blob();
-          const file = new File([blob], "image.jpg", { type: "image/jpeg" });
-
-          // Llamar a uploadEventMedia con el archivo y el id del evento
-          // const eventId = ...; // Obtén el id del evento de alguna manera
-          const data = await actions.uploadEventMedia(file, eventId);
-
-          if (data && data.url) {
-            setUrls((prevUrls) => {
-              const newUrls = [...prevUrls, data.url];
-              onUpload(newUrls);
-              return newUrls;
-            });
-          } else {
-            console.error("Error subiendo la imagen al backend");
-          }
-        }
-      }
-    );
-    widget.open();
+  const handleFileChange = async (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length > 4) {
+      alert('No puedes subir más de 4 imágenes a la vez.');
+      return;
+    }
+    const urls = await actions.uploadEventMedia(files, id); // Reemplaza "eventId" con el id del evento real
+    onUpload(urls);
   };
 
   return (
     <div>
-      <p className="p_upload">Media Evento</p>
+      <p className="p_upload">Media Evento <span>"Sube hasta 4 imágenes"</span></p>
+
       <input
         className="upload_selector"
         type="file"
         multiple
         required
         accept="image/*"
-
+        onChange={handleFileChange}
       />
-      <button onClick={handleUpload}>Subir medios</button>
     </div>
-
   );
 };
