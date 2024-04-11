@@ -405,7 +405,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        profile_picture =data.get('profile_picture '),
+        profile_picture=data.get('profile_picture'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
