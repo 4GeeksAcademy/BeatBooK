@@ -101,21 +101,21 @@ def upload_events():
         data = request.json
         if not isinstance(data, list):
             return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
-
         for event_data in data:
+            
+            type(event_data['price'])
+            
             event = Event(
                 name=event_data['name'],
                 date=event_data['date'],
                 description=event_data['description'],
                 address=event_data['address'],
                 price=event_data['price'],
-                picture_url=event_data.get('picture_url'),
-                media=event_data.get('media'),
-                instagram=event_data.get('instagram'),
-                tiktok=event_data.get('tiktok')
+                picture_url=event_data['picture_url'],
+                instagram=event_data['instagram'],
+                tiktok=event_data['tiktok']
             )
             db.session.add(event)
-
         db.session.commit()
         return jsonify({'message': 'Eventos subidos correctamente'}), 200
     except KeyError as e:
@@ -265,6 +265,9 @@ def protected():
         "username": user.username,
         "description": user.description,
         "birthdate": user.birthdate,
+        "gender": user.gender,
+        "city": user.city,
+        "created_events": user.created_events,
         "profile_image_url": user.profile_image_url,
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
@@ -402,7 +405,7 @@ def create_band():
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
-        profile_image_url=data.get('profile_image_url'),
+        profile_picture=data.get('profile_picture'),
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),

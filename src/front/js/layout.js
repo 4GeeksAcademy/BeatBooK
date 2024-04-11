@@ -14,6 +14,13 @@ import { Private } from "./pages/private";
 import { Profile } from "./pages/profile";
 import { BandPage } from "./pages/bandPage";
 
+import { Categorias } from "./pages/categorias/categorias.js";
+import { CategoryEvents } from "./pages/categorias/categoryEvents.js";
+import { Eventos } from "./pages/categorias/eventos.js";
+import { Grupos } from "./pages/categorias/grupos.js";
+import { Lugares } from "./pages/categorias/lugares.js";
+import { PaginaFalsa } from "./pages/paginaFalsa.js";
+
 
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -49,7 +56,12 @@ const Layout = () => {
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
-            <Route element={<BandPage/>} path="/band" />
+            <Route element={<Categorias />} path="/categorias" />
+            <Route element={<CategoryEvents />} path="/categoria/:id/eventos/" />
+            <Route element={<Eventos />} path="/eventos" />
+            <Route element={<Grupos />} path="/grupos" />
+            <Route element={<Lugares />} path="/lugares" />
+            <Route element={<PaginaFalsa />} path="/paginafalsa" />
           </Routes>
           <Footer />
         </ScrollToTop>

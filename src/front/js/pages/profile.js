@@ -19,10 +19,10 @@ export const Profile = () => {
     return (
         <div className="container">
             <div>
-                <ProfileBanner userData />
+                <ProfileBanner />
             </div>
             <div className="">
-                <ProfileBody userData />
+                <ProfileBody />
             </div>
         </div>
     );

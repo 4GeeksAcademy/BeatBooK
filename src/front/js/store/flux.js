@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-      user: null,
+      currentUser: null,
       message: null,
       event: [],
       allEvents: [],
@@ -107,7 +107,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (resp.status === 401) {
             // El token no es válido o ha expirado
             localStorage.removeItem("jwt-token");
-            setStore({ user: null });
+            setStore({ currentUser: null });
             throw new Error("Token inválido o expirado");
           }
 
@@ -118,7 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
 
           // Actualiza el estado global con la información obtenida
-          setStore({ user: data });
+          setStore({ currentUser: data });
 
           return data;
         } catch (error) {
