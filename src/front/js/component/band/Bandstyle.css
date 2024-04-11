@@ -1,0 +1,21 @@
+.banner-band .img-fluid{
+    width: 1272px;
+    height:400px;
+   object-fit: cover;
+   object-position: center;
+   border-radius: 0px 0px 20px 20px;
+  }
+
+ .band-member {
+    margin: 0px;
+    padding: 0px;
+    border-bottom: 1px solid black;
+ }
+ .band-member .avatar {
+    margin-bottom: 20px;
+ }
+
+ .band-data {
+    margin: 10px;
+    padding: 10px;
+ }

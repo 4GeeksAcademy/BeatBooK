@@ -12,6 +12,7 @@ import { Event2 } from "./pages/event2";
 import { CreateEvent } from "./pages/createEvent";
 import { Private } from "./pages/private";
 import { Profile } from "./pages/profile";
+import { BandPage } from "./pages/bandPage";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -48,6 +49,7 @@ const Layout = () => {
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
+            <Route element={<BandPage/>} path="/band" />
           </Routes>
           <Footer />
         </ScrollToTop>
