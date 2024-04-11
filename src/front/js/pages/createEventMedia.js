@@ -4,21 +4,25 @@ import { Context } from "../store/appContext";
 import { Form, Col, Row, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { UploadMedia } from "../component/createEvent/UploadMedia";
-import { Puff } from 'react-loader-spinner'; // Importa Puff en lugar de Loader
+import { UploadMainImage } from "../component/createEvent/UploadMaintImage";
+import { toast } from 'react-toastify';
 
 export const CreateEventMedia = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const { id } = useParams();
     const [uploadSuccessful, setUploadSuccessful] = useState(false);
-    const [isLoading, setIsLoading] = useState(false); // Nuevo estado para controlar la carga
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleUpload = async (urls) => {
-        setIsLoading(true); // Comienza la carga
-        console.log('Cargando:', isLoading); // Agrega esta línea
-        // Tu código aquí...
-        setUploadSuccessful(true);
-        setIsLoading(false); // Termina la carga
+    const handleUpload = async (url) => {
+        setIsLoading(true);
+        if (url) {
+            setUploadSuccessful(true);
+
+        } else {
+            toast.error("Error al subir la imagen");
+        }
+        setIsLoading(false);
     };
 
     const handleSubmit = (event) => {
@@ -33,6 +37,7 @@ export const CreateEventMedia = () => {
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xs={12} md={12}>
+                        <UploadMainImage onUpload={handleUpload} />
                         <UploadMedia onUpload={handleUpload} setUploadSuccessful={setUploadSuccessful} />
                     </Col>
                 </Row>

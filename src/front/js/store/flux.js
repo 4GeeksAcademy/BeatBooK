@@ -258,14 +258,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      uploadEventPicture: async (image) => {
-        console.log("uploadEventPicture se ha llamado"); // Nuevo registro de consola
+      uploadEventPicture: async (image, eventId) => {
+        console.log("uploadEventPicture se ha llamado");
         try {
           const token = localStorage.getItem("jwt-token");
           const formData = new FormData();
           formData.append("image", image);
+          formData.append("event_id", eventId); // Agrega el ID del evento al formulario
 
-          console.log("Subiendo imagen con token:", token); // Nuevo registro de consola
+          console.log("Subiendo imagen con token:", token);
 
           const response = await fetch(
             process.env.BACKEND_URL + "/api/upload_event_picture",
@@ -283,10 +284,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await response.json();
-          console.log("Respuesta del servidor:", data); // Nuevo registro de consola
-          console.log("URL de la imagen:", data.url); // Nuevo registro de consola
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
 
-          // Asegúrate de que estás devolviendo un objeto con una propiedad url
           return { url: data.url };
         } catch (error) {
           console.log("Error uploading event picture", error);

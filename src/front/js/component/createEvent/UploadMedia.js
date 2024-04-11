@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { toast } from 'react-toastify'; // Importa toast de react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Importa los estilos de react-toastify
 
-
 export const UploadMedia = ({ onUpload }) => {
   const { actions } = useContext(Context);
   const { id } = useParams(); // Extrae el id de la URL
@@ -31,24 +30,22 @@ export const UploadMedia = ({ onUpload }) => {
   };
 
   return (
-    <div>
+    <div className=" ">
       <p className="p_upload">Media Evento <span>"Sube hasta 4 imágenes"</span></p>
-      {isLoading ? (
-        <div className="text-center mt-5 pt-5 pb-5">
-          <div className="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+      <input
+        className="upload_selector"
+        type="file"
+        multiple
+        required={!filesSelected} // Solo es requerido si no se han seleccionado archivos
+        accept="image/*"
+        onChange={handleFileChange}
+        disabled={isLoading}
+      />
+      {isLoading && <div className="text-center pt-2">
+        <div className="spinner-border" style={{ width: '2rem', height: '2rem' }} role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
-      ) : (
-        <input
-          className="upload_selector"
-          type="file"
-          multiple
-          required={!filesSelected} // Solo es requerido si no se han seleccionado archivos
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-      )}
+      </div>}
       {selectedFiles.map((file, index) => (
         <p className="text-white" key={index}>{file.name}</p> // Muestra los nombres de los archivos seleccionados
       ))}

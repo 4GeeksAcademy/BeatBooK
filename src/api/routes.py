@@ -602,10 +602,10 @@ def upload_event_picture():
     if 'image' not in request.files:
         return jsonify({"error": "No image provided"}), 400
     file = request.files['image']
+    event_id = request.form.get('event_id')  # Obtiene el ID del evento desde el formulario
     upload_result = upload(file)
     url = upload_result['url']
-    current_user_id = get_jwt_identity()
-    event = Event.query.filter_by(creator_id=current_user_id).first()
+    event = Event.query.get(event_id)  # Busca el evento por ID
     if event is None:
         return jsonify({"error": "Event not found"}), 404
     event.picture_url = url

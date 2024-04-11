@@ -61,9 +61,9 @@ export const CreateEvent = () => {
     media: [],
   });
 
-  const handleMainImageUpload = (url) => {
-    setEventData({ ...eventData, picture_url: url });
-  };
+  // const handleMainImageUpload = (url) => {
+  //   setEventData({ ...eventData, picture_url: url });
+  // };
 
   const handleChange = (e) => {
     const value = e.target.value || null; // Si el valor es una cadena vacía, usa null
@@ -199,7 +199,7 @@ export const CreateEvent = () => {
 
           <Col xs={12} md={6}>
             {/* Campos a la derecha */}
-            <UploadMainImage onUpload={handleMainImageUpload} />
+            {/* <UploadMainImage onUpload={handleMainImageUpload} /> */}
             {/* <UploadMedia
               onUpload={(urls) =>
                 setEventData({ ...eventData, media: urls.join(",") })
