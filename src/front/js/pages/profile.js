@@ -14,7 +14,7 @@ export const Profile = () => {
         if (!token) {
             navigate("/");
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <div className="container">

@@ -37,6 +37,7 @@ class User(db.Model):
             'instagram': self.instagram,
             'tiktok': self.tiktok,
             'city': self.city,
+            'gender': self.gender,
             'created_events': [event.serialize() for event in self.created_events],
             'assistances': [assistance.serialize() for assistance in self.assistances],
         }
