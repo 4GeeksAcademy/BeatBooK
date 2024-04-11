@@ -33,21 +33,13 @@ export const CreateEventMedia = () => {
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xs={12} md={12}>
-                        <UploadMedia onUpload={handleUpload} />
+                        <UploadMedia onUpload={handleUpload} setUploadSuccessful={setUploadSuccessful} />
                     </Col>
                 </Row>
                 <div className="create_event">
-                    {isLoading ? (
-                        <div className="text-center mt-5 pt-5 pb-5">
-                            <div className="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    ) : (
-                        <button className="create_event_button" type="submit" disabled={!uploadSuccessful}>
-                            Subir Media
-                        </button>
-                    )}
+                    <button className="create_event_button" type="submit" disabled={!uploadSuccessful}  >
+                        Subir Media
+                    </button>
                 </div>
             </Form>
         </Container>
