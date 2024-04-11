@@ -4,6 +4,14 @@ import "../profile/profile.css";
 
 export const ProfileBody = (props) => {
     const { store, actions } = useContext(Context);
+    const birthdate = store.currentUser?.birthdate;
+
+  // Función para formatear la fecha en el formato deseado
+  const formatBirthdate = (birthdate) => {
+    if (!birthdate) return ""; // Manejar el caso de que birthdate sea null o undefined
+    const date = new Date(birthdate);
+    return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
 
     useEffect(() => {
         actions.getAllEvents();
@@ -23,12 +31,12 @@ export const ProfileBody = (props) => {
                             <a href="{store.currentUser?.tiktok}" className="card-link"><i class="fa-brands fa-tiktok fa-2xl" style={{color: "#000000"}}></i></a>
                         </div>
                     </div>
-                    <div className="card-detail my-4">
-                        <div className="card-detail-content">
+                    <div className="card-info my-4">
+                        <div className="card-detail-info">
                             <h5 className="card-title">Información</h5>
-                            <p className="card-text">{store.currentUser?.city}</p>
-                            <p className="card-text">{store.currentUser?.gender}</p>
-                            <p className="card-text">{store.currentUser?.birthdate}</p>
+                            <p className="card-text"><strong>Ciudad:</strong> {store.currentUser?.city}</p>
+                            <p className="card-text"><strong>Genero:</strong> {store.currentUser?.gender}</p>
+                            <p className="card-text"><strong>Cumpleaños:</strong> {formatBirthdate(birthdate)}</p>
                            
                         </div>
                     </div>
