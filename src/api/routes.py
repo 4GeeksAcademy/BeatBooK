@@ -312,16 +312,16 @@ def update_user(user_id):
     if user is None:
         raise APIException('User not found', status_code=404)
     request_body = request.get_json()
-    user.email = request_body['email']
-    user.username = request_body['username']
-    user.birthdate = request_body['birthdate']
-    user.description = request_body['description']
-    user.gender = request_body['gender']
-    user.city = request_body['city']
-    user.profile_image_url = request_body['profile_image_url']
-    user.banner_picture = request_body['banner_picture']
-    user.instagram = request_body['instagram']
-    user.tiktok = request_body['tiktok']
+    # user.email = request_body['email'] or user.email # ctrl + c + k para comentar multiples lineas
+    # user.username = request_body['username'] or user.username # se debe mantener asi para que no de conflicto con la edicion del perfil!!!!!!
+    user.birthdate = request_body['birthdate'] or user.birthdate
+    user.description = request_body['description'] or user.description
+    user.gender = request_body['gender'] or user.gender
+    user.city = request_body['city'] or user.city
+    user.profile_image_url = request_body['profile_image_url'] or user.profile_image_url
+    user.banner_picture = request_body['banner_picture'] or user.banner_picture
+    user.instagram = request_body['instagram'] or user.instagram 
+    user.tiktok = request_body['tiktok'] or user.tiktok 
     db.session.commit()
     return jsonify(user.serialize()), 200
 

@@ -22,7 +22,7 @@ export const ProfileBanner = () => {
         profile_image_url: '',
         banner_picture: '',
         instagram: '',
-        tiktok: ''
+        tiktok: '',
     });
 
       const handleChange = (e) => {
@@ -32,8 +32,9 @@ export const ProfileBanner = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData);
         try {
-            const response = await fetch(`/api/users/${store.currentUser.id}`, {
+            const response = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -145,7 +146,7 @@ export const ProfileBanner = () => {
                                 <textarea>{store.currentUser?.description}</textarea>
                             </div>
                         </div>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={e=>handleSubmit(e)}>
                         <div className='edit-info'>
                             <div className='image-title'>
                                 <h6>Información</h6>
@@ -158,6 +159,7 @@ export const ProfileBanner = () => {
                                     <input placeholder="Ciudad" className="input" name="city" type="text" value={formData.city} onChange={handleChange} />
                                     <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
                                     <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
+
                                 </div>
                             </div>
                         </div>
