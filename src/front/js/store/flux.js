@@ -307,6 +307,74 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading event picture", error);
         }
       },
+      uploadUserPicture: async (image, userId) => {
+        console.log("uploadUserPicture se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("image", image);
+          formData.append("user_id", userId); // Agrega el ID del user al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_profile_image",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(image);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading user picture", error);
+        }
+      },
+      uploadBannerPicture: async (banner, userId) => {
+        console.log("uploadUserPicture se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("banner", banner);
+          formData.append("user_id", userId); // Agrega el ID del user al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_banner_image",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(banner);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading user picture", error);
+        }
+      },
 
       uploadEventMedia: async (files, eventId) => {
         try {

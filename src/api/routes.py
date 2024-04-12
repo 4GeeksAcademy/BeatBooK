@@ -301,6 +301,27 @@ def upload_profile_image():
     db.session.commit()
     return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
 
+@api.route('/upload_banner_image', methods=['POST'])
+@jwt_required()
+def upload_banner_image():
+    if 'banner' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    
+    file = request.files['banner']
+    upload_result = upload(file)
+    url = upload_result['url']
+    
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+    
+    user.banner_picture = url
+    db.session.commit()
+    
+    return jsonify({"message": "Banner image uploaded successfully", "url": url}), 200
+
 #USER#
 
 @api.route('/users', methods=['GET'])

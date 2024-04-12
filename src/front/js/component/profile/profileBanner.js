@@ -1,11 +1,13 @@
 import React, { useRef, useState, useContext } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import "../profile/profile.css"
 import { ProfileBody } from './profileBody';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { toast } from "react-toastify";
 
 
 
@@ -13,6 +15,44 @@ export const ProfileBanner = () => {
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
+    const { id } = useParams();
+    const [isImageSelected, setIsImageSelected] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleFileChange = async (e) => {
+        setIsLoading(true);
+        const file = e.target.files[0];
+
+        // Pasa el ID del evento al método uploadEventPicture
+        const data = await actions.uploadUserPicture(file, id);
+
+        if (data) {
+            const imageUrl = data.url;
+            setIsImageSelected(true);
+            toast.success("Imagen subida con éxito");
+        } else {
+            console.error("Error uploading image");
+            toast.error("Error al subir la imagen");
+        }
+        setIsLoading(false);
+    };
+    const handleBannerChange = async (e) => {
+        setIsLoading(true);
+        const file = e.target.files[0];
+
+        // Pasa el ID del evento al método uploadEventPicture
+        const data = await actions.uploadBannerPicture(file, id);
+
+        if (data) {
+            const bannerUrl = data.url;
+            setIsImageSelected(true);
+            toast.success("Imagen subida con éxito");
+        } else {
+            console.error("Error uploading image");
+            toast.error("Error al subir la imagen");
+        }
+        setIsLoading(false);
+    };
 
     const [formData, setFormData] = useState({
         birthdate: '',
@@ -25,12 +65,12 @@ export const ProfileBanner = () => {
         tiktok: '',
     });
 
-      const handleChange = (e) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-      };
-    
-      const handleSubmit = async (e) => {
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formData);
         try {
@@ -71,7 +111,7 @@ export const ProfileBanner = () => {
                 </div>
             </div>
             <div className='row profile-picture'>
-                    {/* Foto de perfil */}
+                {/* Foto de perfil */}
                 <div className='col-12 col-md-4 col-xl-2 picture'>
                     <div className='container'>
                         <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
@@ -83,8 +123,8 @@ export const ProfileBanner = () => {
                     </div>
                 </div>
                 <div className='col-12 col-md-4 col-xl-5 d-flex align-items-end justify-content-end' id="botones">
-                    <button className='btns' 
-                    onClick={handleShow}>
+                    <button className='btns'
+                        onClick={handleShow}>
                         <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil
                     </button>
 
@@ -107,48 +147,63 @@ export const ProfileBanner = () => {
                         <div className='edit-image'>
                             <div className='image-title'>
                                 <h6>Foto de perfil</h6>
-                                <Button className='btns'>Editar</Button>
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                    
+                                />
                             </div>
                             <div className='modal-img'>
-                                <img className='img' src={store.currentUser?.banner_picture} alt='perfil' />
+                                <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
                             </div>
+                            {isLoading && <div className="text-center pt-2">
+                                <div className="spinner-border" style={{ width: '2rem', height: '2rem' }} role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>}
                         </div>
                         <div className='edit-banner'>
                             <div className='image-title'>
                                 <h6>Foto de portada</h6>
-                                <Button className='btns'>Editar</Button>
+                                <input
+                                    type="file"
+                                    onChange={handleBannerChange}
+                                    accept="image/*"
+                                />
                             </div>
+                           
                             <div className='banner-img'>
                                 <img src={store.currentUser?.banner_picture} className="img-fluid" alt="fotoBanner" />
                             </div>
                         </div>
-                        <form onSubmit={e=>handleSubmit(e)}>
-                        <div className='edit-info'>
-                        <div className='edit-detail'>
-                            <div className='image-title'>
-                                <h6>Detalles</h6>
-                            </div>
-                            <div className='modal-detail'>
-                                <textarea name='description' value={formData.description} onChange={handleChange}></textarea>
-                            </div>
-                        </div>
-                            <div className='image-title'>
-                                <h6>Información</h6>
-                            </div>
-                            <div className='modal-info'>
-                                <div className="inputGroup">
-                                    <input placeholder="Fecha de nacimiento" className="input" name="birthdate" type="date" value={formData.birthdate} onChange={handleChange} />
-                                    <input placeholder="Género" className="input" name="gender" type="text" value={formData.gender} onChange={handleChange} />
-                                    <input placeholder="Ciudad" className="input" name="city" type="text" value={formData.city} onChange={handleChange} />
-                                    <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
-                                    <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
+                        <form onSubmit={e => handleSubmit(e)}>
+                            <div className='edit-info'>
+                                <div className='edit-detail'>
+                                    <div className='image-title'>
+                                        <h6>Detalles</h6>
+                                    </div>
+                                    <div className='modal-detail'>
+                                        <textarea name='description' value={formData.description} onChange={handleChange}></textarea>
+                                    </div>
+                                </div>
+                                <div className='image-title'>
+                                    <h6>Información</h6>
+                                </div>
+                                <div className='modal-info'>
+                                    <div className="inputGroup">
+                                        <input placeholder="Fecha de nacimiento" className="input" name="birthdate" type="date" value={formData.birthdate} onChange={handleChange} />
+                                        <input placeholder="Género" className="input" name="gender" type="text" value={formData.gender} onChange={handleChange} />
+                                        <input placeholder="Ciudad" className="input" name="city" type="text" value={formData.city} onChange={handleChange} />
+                                        <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
+                                        <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <Modal.Footer>
-                    <Button className='btns' type="submit">Guardar cambios</Button>
-                    </Modal.Footer>
-                    </form>
+                            <Modal.Footer>
+                                <Button className='btns' type="submit">Guardar cambios</Button>
+                            </Modal.Footer>
+                        </form>
                     </Modal.Body>
                 </Modal>
             </div>
