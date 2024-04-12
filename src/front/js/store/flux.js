@@ -8,6 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       allUsers: [],
       bands:[],
       places:[],
+      allCategories: [],
+      userFavorite: [],
       demo: [
         {
           title: "FIRST",
@@ -22,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
     },
     actions: {
-     
+
       signUp: async (username, email, password, passwordConfirmation) => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
@@ -126,7 +128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      
+
       createEvent: async (eventData) => {
         try {
           const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
@@ -148,6 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await response.json();
+          // console.log(data)
           // Aquí puedes actualizar tu store con la nueva información del evento si es necesario
           return data;
         } catch (error) {
@@ -270,14 +273,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      uploadEventPicture: async (image) => {
-        console.log("uploadEventPicture se ha llamado"); // Nuevo registro de consola
+      uploadEventPicture: async (image, eventId) => {
+        console.log("uploadEventPicture se ha llamado");
         try {
           const token = localStorage.getItem("jwt-token");
           const formData = new FormData();
           formData.append("image", image);
+          formData.append("event_id", eventId); // Agrega el ID del evento al formulario
 
-          console.log("Subiendo imagen con token:", token); // Nuevo registro de consola
+          console.log("Subiendo imagen con token:", token);
 
           const response = await fetch(
             process.env.BACKEND_URL + "/api/upload_event_picture",
@@ -295,23 +299,92 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
 
           const data = await response.json();
-          console.log("Respuesta del servidor:", data); // Nuevo registro de consola
-          console.log("URL de la imagen:", data.url); // Nuevo registro de consola
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
 
-          // Asegúrate de que estás devolviendo un objeto con una propiedad url
           return { url: data.url };
         } catch (error) {
           console.log("Error uploading event picture", error);
         }
       },
+      uploadUserPicture: async (image, userId) => {
+        console.log("uploadUserPicture se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("image", image);
+          formData.append("user_id", userId); // Agrega el ID del user al formulario
 
-      uploadEventMedia: async (file, eventId) => {
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_profile_image",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(image);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading user picture", error);
+        }
+      },
+      uploadBannerPicture: async (banner, userId) => {
+        console.log("uploadUserPicture se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("banner", banner);
+          formData.append("user_id", userId); // Agrega el ID del user al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_banner_image",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(banner);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading user picture", error);
+        }
+      },
+
+      uploadEventMedia: async (files, eventId) => {
         try {
           const token = localStorage.getItem("jwt-token");
 
           const formData = new FormData();
-          formData.append("image", file);
-          formData.append("event_id", eventId);
+          for (const file of files) {
+            formData.append("images", file); // Asegúrate de que el servidor espera "images" como el nombre del campo para los archivos
+          }
+          formData.append("event_id", eventId); // Asegúrate de que el servidor espera "event_id" como el nombre del campo para el id del evento
 
           const response = await fetch(
             process.env.BACKEND_URL + "/api/upload_event_media",
@@ -325,24 +398,57 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (!response.ok) {
-            throw new Error("Error uploading event media");
+            const errorData = await response.json(); // Intenta obtener más información sobre el error del cuerpo de la respuesta
+            throw new Error("Error uploading event media: " + JSON.stringify(errorData));
           }
 
           const data = await response.json();
           console.log(data);
 
-          // Asegúrate de que estás devolviendo un objeto con una propiedad url
-          return { url: data.url };
+          // Asegúrate de que estás devolviendo un objeto con una propiedad urls que es un array
+          return { urls: data.urls };
         } catch (error) {
           console.log("Error uploading event media", error);
         }
       },
 
-    
+      getMusicalCategories: async () => {
+        try {
+            const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
+            if (!response.ok) {
+                throw new Error('Failed to fetch musical categories');
+            }
+            const data = await response.json();
+            setStore({ allCategories: data });
+            return data
 
-      
-    
+        } catch (error) {
+            console.error('Error fetching musical categories:', error);
+            // Manejar el error de acuerdo a tus necesidades
+        }  
     },
+    saveUserCategory: async (id, categoryId) => {
+      try {
+          const response = await fetch(process.env.BACKEND_URL +`user/${id}/categories`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ categories: [categoryId] }), // Envía un arreglo con el ID de la categoría
+          });
+          if (!response.ok) {
+              throw new Error('Failed to save user category');
+          }
+          const data = await response.json();
+          setStore({userFavorite: data});
+          console.log(data.message); //
+      } catch (error) {
+          console.error('Error saving user category:', error);
+          // Manejar el error de acuerdo a tus necesidades
+      }
+  }
+  
+  }
   };
 };
 

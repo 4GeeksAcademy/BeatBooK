@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Importa useParams y useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import { ProfileBanner } from "../component/profile/profileBanner";
 import { ProfileBody } from "../component/profile/profileBody";
 import { Context } from "../store/appContext";
@@ -7,23 +7,30 @@ import { Context } from "../store/appContext";
 export const Profile = () => {
     const { actions, store } = useContext(Context);
     const navigate = useNavigate();
-  
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     useEffect(() => {
         const token = localStorage.getItem("jwt-token");
 
-        if (!token) {
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
             navigate("/");
         }
     }, []);
 
     return (
         <div className="container">
-            <div>
-                <ProfileBanner />
-            </div>
-            <div className="">
-                <ProfileBody />
-            </div>
+            {isLoggedIn && (
+                <>
+                    <div>
+                        <ProfileBanner />
+                    </div>
+                    <div className="">
+                        <ProfileBody />
+                    </div>
+                </>
+            )}
         </div>
     );
 };

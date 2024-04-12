@@ -259,6 +259,15 @@ def protected():
     user = User.query.get(current_user_id)
     if user is None:
         return jsonify({"error": "User not found"}), 404
+    
+    # Serializar las categorías del usuario manualmente
+    user_categories_serialized = []
+    for category in user.user_categories:
+        user_categories_serialized.append({
+            "id": category.id,
+            "name": category.name,
+            
+        })
     return jsonify({
         "id": user.id, 
         "email": user.email,
@@ -272,6 +281,7 @@ def protected():
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
         "tiktok": user.tiktok,
+        "user_categories": user_categories_serialized 
        
     }), 200
 
@@ -290,6 +300,27 @@ def upload_profile_image():
     user.profile_image_url = url
     db.session.commit()
     return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
+
+@api.route('/upload_banner_image', methods=['POST'])
+@jwt_required()
+def upload_banner_image():
+    if 'banner' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    
+    file = request.files['banner']
+    upload_result = upload(file)
+    url = upload_result['url']
+    
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+    
+    user.banner_picture = url
+    db.session.commit()
+    
+    return jsonify({"message": "Banner image uploaded successfully", "url": url}), 200
 
 #USER#
 
@@ -312,16 +343,16 @@ def update_user(user_id):
     if user is None:
         raise APIException('User not found', status_code=404)
     request_body = request.get_json()
-    user.email = request_body['email']
-    user.username = request_body['username']
-    user.birthdate = request_body['birthdate']
-    user.description = request_body['description']
-    user.gender = request_body['gender']
-    user.city = request_body['city']
-    user.profile_image_url = request_body['profile_image_url']
-    user.banner_picture = request_body['banner_picture']
-    user.instagram = request_body['instagram']
-    user.tiktok = request_body['tiktok']
+    # user.email = request_body['email'] or user.email # ctrl + c + k para comentar multiples lineas
+    # user.username = request_body['username'] or user.username # se debe mantener asi para que no de conflicto con la edicion del perfil!!!!!!
+    user.birthdate = request_body['birthdate'] or user.birthdate
+    user.description = request_body['description'] or user.description
+    user.gender = request_body['gender'] or user.gender
+    user.city = request_body['city'] or user.city
+    user.profile_image_url = request_body['profile_image_url'] or user.profile_image_url
+    user.banner_picture = request_body['banner_picture'] or user.banner_picture
+    user.instagram = request_body['instagram'] or user.instagram 
+    user.tiktok = request_body['tiktok'] or user.tiktok 
     db.session.commit()
     return jsonify(user.serialize()), 200
 
@@ -605,10 +636,10 @@ def upload_event_picture():
     if 'image' not in request.files:
         return jsonify({"error": "No image provided"}), 400
     file = request.files['image']
+    event_id = request.form.get('event_id')  # Obtiene el ID del evento desde el formulario
     upload_result = upload(file)
     url = upload_result['url']
-    current_user_id = get_jwt_identity()
-    event = Event.query.filter_by(creator_id=current_user_id).first()
+    event = Event.query.get(event_id)  # Busca el evento por ID
     if event is None:
         return jsonify({"error": "Event not found"}), 404
     event.picture_url = url
@@ -618,19 +649,27 @@ def upload_event_picture():
 @api.route('/upload_event_media', methods=['POST'])
 @jwt_required()
 def upload_event_media():
-    if 'image' not in request.files:
+    if 'images' not in request.files:
         return jsonify({"error": "No image provided"}), 400
-    event_id = request.json.get('event_id')
-    if not event_id:
-        return jsonify({"error": "No event_id provided"}), 400
-    file = request.files['image']
-    upload_result = upload(file)
-    url = upload_result['url']
-    media = Media(url=url, event_id=event_id)
-    db.session.add(media)
-    db.session.commit()
-    return jsonify({"message": "Event media uploaded successfully", "url": url}), 200
+    try:
+        event_id = int(request.form.get('event_id'))  # Convertir event_id a un entero
+    except ValueError:
+        return jsonify({"error": "Invalid event_id"}), 400
 
+    print(f"Received event_id: {event_id}")  # Debug print
+
+    urls = []
+    for image in request.files.getlist('images'):
+        upload_result = upload(image)
+        print(f"Upload result: {upload_result}")  # Debug print
+        url = upload_result['url']
+        media = Media(url=url, event_id=event_id)
+        db.session.add(media)
+        urls.append(url)
+
+    db.session.commit()
+    print("Database commit successful")  # Debug print
+    return jsonify({"message": "Upload successful"}), 200
 #PLACES#
 
 @api.route('/places', methods=['GET'])
@@ -837,3 +876,25 @@ def get_musical_category_events(category_id):
 
     serialized_events = [event.serialize() for event in events]
     return jsonify(serialized_events), 200
+
+# Ruta para asignar categorías musicales a un usuario
+@api.route('/user/<int:user_id>/categories', methods=['POST'])
+def assign_category_to_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    data = request.json
+    if not data or 'category_id' not in data:
+        return jsonify({'message': 'Data format error'}), 400
+
+    category_id = data['category_id']
+    category = MusicalCategory.query.get(category_id)
+    if not category:
+        return jsonify({'message': 'Category not found'}), 404
+
+    # Asigna la categoría musical al usuario
+    user.user_categories.append(category)
+    db.session.commit()
+
+    return jsonify({'message': 'Category assigned successfully'}), 200

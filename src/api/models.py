@@ -38,6 +38,7 @@ class User(db.Model):
             'tiktok': self.tiktok,
             'city': self.city,
             'gender': self.gender,
+            'user_categories': [category.serialize() for category in self.user_categories],
             'created_events': [event.serialize() for event in self.created_events],
             'assistances': [assistance.serialize() for assistance in self.assistances],
         }
@@ -131,6 +132,7 @@ class Band(db.Model):
     banner_picture = db.Column(db.String(500), nullable=True)
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
+
 
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
