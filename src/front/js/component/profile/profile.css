@@ -138,6 +138,7 @@
 
 .card-detail {
   width: 470px;
+  min-height: 228px;
   display: flex;
   align-items: center;
   flex-direction: column;
