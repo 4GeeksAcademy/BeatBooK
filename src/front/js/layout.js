@@ -10,6 +10,7 @@ import { Single } from "./pages/single";
 import { Event } from "./pages/event";
 import { Event2 } from "./pages/event2";
 import { CreateEvent } from "./pages/createEvent";
+import { CreateEventMedia } from "./pages/createEventMedia";
 import { Private } from "./pages/private";
 import { Profile } from "./pages/profile";
 
@@ -50,6 +51,7 @@ const Layout = () => {
             {/* <Route element={<Event />} path="/event" /> */}
             <Route element={<Event2 />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
+            <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />

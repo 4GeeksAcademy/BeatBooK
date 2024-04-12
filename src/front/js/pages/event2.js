@@ -91,7 +91,11 @@ export const Event2 = (props) => {
   }
 
   if (!eventData) {
-    return <div>Cargando...</div>;
+    return <div class="text-center mt-5 pt-5 pb-5">
+      <div class="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>;
   }
 
   return (
@@ -160,7 +164,7 @@ export const Event2 = (props) => {
               <h4>Redes Sociales</h4>{" "}
               <FontAwesomeIcon icon={faInstagram} className="icons" />{" "}
               <FontAwesomeIcon icon={faTiktok} className="icons" />{" "}
-              <FontAwesomeIcon icon={faYoutube} className="icons" />{" "}
+              {/* <FontAwesomeIcon icon={faYoutube} className="icons" />{" "} */}
             </div>{" "}
           </div>{" "}
         </Col>

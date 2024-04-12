@@ -11,6 +11,7 @@ import { UploadMedia } from "../component/createEvent/UploadMedia";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
+
 export const CreateEvent = () => {
   const { store, actions } = useContext(Context); // Agrega actions aquí
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export const CreateEvent = () => {
     creator_id: "",
     place_id: "",
     band_id: "",
+    id: "",
   });
 
   useEffect(() => {
@@ -59,9 +61,9 @@ export const CreateEvent = () => {
     media: [],
   });
 
-  const handleMainImageUpload = (url) => {
-    setEventData({ ...eventData, picture_url: url });
-  };
+  // const handleMainImageUpload = (url) => {
+  //   setEventData({ ...eventData, picture_url: url });
+  // };
 
   const handleChange = (e) => {
     const value = e.target.value || null; // Si el valor es una cadena vacía, usa null
@@ -84,15 +86,21 @@ export const CreateEvent = () => {
     };
     const data = await actions.createEvent(completeEventData);
     console.log(data);
+
+    // Actualiza el estado con la respuesta de la creación del evento
+    setEventData({ ...eventData, id: data.id });
+
+    // Devuelve el ID del evento creado
+    return data.id;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await xcreateEvent();
+      const eventId = await xcreateEvent();
       console.log("Evento creado con éxito");
-      navigate("/"); // Redirige a la página de inicio
+      navigate(`/event/registre/media/${eventId}`);
       toast.success("Evento creado con éxito");
     } catch (error) {
       console.error("Error al crear el evento: ", error);
@@ -186,6 +194,59 @@ export const CreateEvent = () => {
                 </Col>
               </Row>
             </Form.Group>
+
+          </Col>
+
+          <Col xs={12} md={6}>
+            {/* Campos a la derecha */}
+            {/* <UploadMainImage onUpload={handleMainImageUpload} /> */}
+            {/* <UploadMedia
+              onUpload={(urls) =>
+                setEventData({ ...eventData, media: urls.join(",") })
+              }
+            /> */}
+            <Form.Group controlId="formEventInstagram mt-0">
+              <Form.Label className="title_inputs ">Instagram</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Link de Instagram"
+                name="instagram"
+                onChange={handleChange}
+                className="myFormControlClass"
+                required
+              />
+            </Form.Group>
+
+            {/* <Form.Group controlId="formEventYoutube">
+              <Form.Label className="title_inputs">Youtube</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Link de Youtube"
+                name="youtube"
+                onChange={handleChange}
+                className="myFormControlClass"
+                required
+              />
+            </Form.Group> */}
+            <Form.Group controlId="formEventTiktok">
+              <Form.Label className="title_inputs">Tiktok</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Link de Tiktok"
+                name="tiktok"
+                onChange={handleChange}
+                className="myFormControlClass"
+                required
+              />
+            </Form.Group>
+            {/* <MembersGet onChange={handleMembersChange} /> */}
+
+            <BandsGet
+              onChange={(selected) =>
+                setEventData({ ...eventData, band_id: selected.value })
+              }
+            />
+            {/* <CreateMusicGroup /> */}
             <PlacesGet
               onChange={(selected) =>
                 setEventData({ ...eventData, place_id: selected.value })
@@ -208,57 +269,6 @@ export const CreateEvent = () => {
             </Form.Group>
           </Col>
 
-          <Col xs={12} md={6}>
-            {/* Campos a la derecha */}
-            <UploadMainImage onUpload={handleMainImageUpload} />
-            {/* <UploadMedia
-              onUpload={(urls) =>
-                setEventData({ ...eventData, media: urls.join(",") })
-              }
-            /> */}
-            <Form.Group controlId="formEventInstagram mt-0">
-              <Form.Label className="title_inputs ">Instagram</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Link de Instagram"
-                name="instagram"
-                onChange={handleChange}
-                className="myFormControlClass"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formEventYoutube">
-              <Form.Label className="title_inputs">Youtube</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Link de Youtube"
-                name="youtube"
-                onChange={handleChange}
-                className="myFormControlClass"
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formEventTiktok">
-              <Form.Label className="title_inputs">Tiktok</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Link de Tiktok"
-                name="tiktok"
-                onChange={handleChange}
-                className="myFormControlClass"
-                required
-              />
-            </Form.Group>
-            {/* <MembersGet onChange={handleMembersChange} /> */}
-
-            <BandsGet
-              onChange={(selected) =>
-                setEventData({ ...eventData, band_id: selected.value })
-              }
-            />
-            {/* <CreateMusicGroup /> */}
-          </Col>
         </Row>
         <div className="create_event">
           <button className="create_event_button" type="submit">
