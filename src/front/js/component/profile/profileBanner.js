@@ -52,11 +52,8 @@ export const ProfileBanner = () => {
         }
     };
 
-
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
 
     const handleCreateEvent = () => {
         navigate('/event/registre')
@@ -74,6 +71,7 @@ export const ProfileBanner = () => {
                 </div>
             </div>
             <div className='row profile-picture'>
+                    {/* Foto de perfil */}
                 <div className='col-12 col-md-4 col-xl-2 picture'>
                     <div className='container'>
                         <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
