@@ -196,6 +196,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
+      getUser: async (id) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + `/api/users/${id}`
+          );
+          const data = await resp.json();
+          setStore({ user: data });
+          return data;
+        } catch (error) {
+          console.log("Error user not found", error);
+        }
+      },
 
       getAllUsers: async () => {
         try {
@@ -221,8 +233,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!resp.ok) {
             throw new Error(`HTTP error! status: ${resp.status}`);
           }
-          const places = await resp.json();
-          return places;
+          const data = await resp.json();
+          setStore({ places: data });
+          return data;
         } catch (error) {
           console.log("Error loading places from backend", error);
         }
@@ -242,7 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading bands from backend", error);
         }
       },
-
+     
       getBand: async (bandId) => {
         try {
           const resp = await fetch(
@@ -328,6 +341,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading event media", error);
         }
       },
+
+    
+
+      
+    
     },
   };
 };

@@ -82,10 +82,10 @@ def upload_bands():
             band = Band(
                 name=band_data['name'],
                 description=band_data['description'],
-                profile_picture=band_data.get('profile_picture'),
-                banner_picture=band_data.get('banner_picture'),
-                instagram=band_data.get('instagram'),
-                tiktok=band_data.get('tiktok')
+                profile_picture=band_data('profile_picture'),
+                banner_picture=band_data('banner_picture'),
+                instagram=band_data('instagram'),
+                tiktok=band_data('tiktok')
             )
             db.session.add(band)
         db.session.commit()
@@ -101,21 +101,21 @@ def upload_events():
         data = request.json
         if not isinstance(data, list):
             return jsonify({'error': 'El cuerpo de la solicitud debe ser una lista JSON'}), 400
-
         for event_data in data:
+            
+            type(event_data['price'])
+            
             event = Event(
                 name=event_data['name'],
                 date=event_data['date'],
                 description=event_data['description'],
                 address=event_data['address'],
                 price=event_data['price'],
-                picture_url=event_data.get('picture_url'),
-                media=event_data.get('media'),
-                instagram=event_data.get('instagram'),
-                tiktok=event_data.get('tiktok')
+                picture_url=event_data['picture_url'],
+                instagram=event_data['instagram'],
+                tiktok=event_data['tiktok']
             )
             db.session.add(event)
-
         db.session.commit()
         return jsonify({'message': 'Eventos subidos correctamente'}), 200
     except KeyError as e:

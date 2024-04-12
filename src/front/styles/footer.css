@@ -1,0 +1,33 @@
+.estilofooter {
+    color: #212529;
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+}
+
+li {
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+.sinPuntos {
+    list-style-type: none;
+  }
+
+a {
+    color: white;
+    font-size: 14px;
+}
+
+.redesSociales {
+    width: 35px;
+    height: 35px;
+}
+
+.logo {
+    height: 50px;
+    width: 200px;
+}
