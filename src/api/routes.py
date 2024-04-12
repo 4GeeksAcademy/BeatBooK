@@ -259,6 +259,15 @@ def protected():
     user = User.query.get(current_user_id)
     if user is None:
         return jsonify({"error": "User not found"}), 404
+    
+    # Serializar las categorías del usuario manualmente
+    user_categories_serialized = []
+    for category in user.user_categories:
+        user_categories_serialized.append({
+            "id": category.id,
+            "name": category.name,
+            
+        })
     return jsonify({
         "id": user.id, 
         "email": user.email,
@@ -272,6 +281,7 @@ def protected():
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
         "tiktok": user.tiktok,
+        "user_categories": user_categories_serialized 
        
     }), 200
 
@@ -837,3 +847,25 @@ def get_musical_category_events(category_id):
 
     serialized_events = [event.serialize() for event in events]
     return jsonify(serialized_events), 200
+
+# Ruta para asignar categorías musicales a un usuario
+@api.route('/user/<int:user_id>/categories', methods=['POST'])
+def assign_category_to_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    data = request.json
+    if not data or 'category_id' not in data:
+        return jsonify({'message': 'Data format error'}), 400
+
+    category_id = data['category_id']
+    category = MusicalCategory.query.get(category_id)
+    if not category:
+        return jsonify({'message': 'Category not found'}), 404
+
+    # Asigna la categoría musical al usuario
+    user.user_categories.append(category)
+    db.session.commit()
+
+    return jsonify({'message': 'Category assigned successfully'}), 200

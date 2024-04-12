@@ -41,6 +41,8 @@ const injectContext = (PassedComponent) => {
         state.actions.getPrivateData();
       }
         state.actions.getAllPlaces();
+        state.actions.getMusicalCategories();
+        state.actions.saveUserCategory();
      
     }, []);
 

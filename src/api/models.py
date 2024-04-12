@@ -38,6 +38,7 @@ class User(db.Model):
             'tiktok': self.tiktok,
             'city': self.city,
             'gender': self.gender,
+            'user_categories': [category.serialize() for category in self.user_categories],
             'created_events': [event.serialize() for event in self.created_events],
             'assistances': [assistance.serialize() for assistance in self.assistances],
         }

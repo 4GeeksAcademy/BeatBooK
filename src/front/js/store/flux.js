@@ -8,6 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       allUsers: [],
       bands:[],
       places:[],
+      allCategories: [],
+      userFavorite: [],
       demo: [
         {
           title: "FIRST",
@@ -338,11 +340,43 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-    
+      getMusicalCategories: async () => {
+        try {
+            const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
+            if (!response.ok) {
+                throw new Error('Failed to fetch musical categories');
+            }
+            const data = await response.json();
+            setStore({ allCategories: data });
+            return data
 
-      
-    
+        } catch (error) {
+            console.error('Error fetching musical categories:', error);
+            // Manejar el error de acuerdo a tus necesidades
+        }  
     },
+    saveUserCategory: async (id, categoryId) => {
+      try {
+          const response = await fetch(process.env.BACKEND_URL +`user/${id}/categories`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ categories: [categoryId] }), // Envía un arreglo con el ID de la categoría
+          });
+          if (!response.ok) {
+              throw new Error('Failed to save user category');
+          }
+          const data = await response.json();
+          setStore({userFavorite: data});
+          console.log(data.message); //
+      } catch (error) {
+          console.error('Error saving user category:', error);
+          // Manejar el error de acuerdo a tus necesidades
+      }
+  }
+  
+  }
   };
 };
 

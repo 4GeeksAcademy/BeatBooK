@@ -58,20 +58,6 @@ export const ProfileBanner = () => {
     const handleShow = () => setShow(true);
 
 
-
-    const handleUploadImage = () => {
-        // Aimplementar  lógica para subir una imagen
-
-        alert('Subir una imagen');
-    }
-
-    const handleDeleteImage = () => {
-        // implementar lógica para eliminar la imagen
-
-        setBannerImage("");  // ¿manejarlo asi o de otra manera?
-        alert('Eliminar imagen');
-    }
-
     const handleCreateEvent = () => {
         navigate('/event/registre')
     }
@@ -137,20 +123,18 @@ export const ProfileBanner = () => {
                                 <img src={store.currentUser?.banner_picture} className="img-fluid" alt="fotoBanner" />
                             </div>
                         </div>
+                        <form onSubmit={e=>handleSubmit(e)}>
+                        <div className='edit-info'>
                         <div className='edit-detail'>
                             <div className='image-title'>
                                 <h6>Detalles</h6>
-                                <Button className='btns'>Editar</Button>
                             </div>
                             <div className='modal-detail'>
-                                <textarea>{store.currentUser?.description}</textarea>
+                                <textarea name='description' value={formData.description} onChange={handleChange}></textarea>
                             </div>
                         </div>
-                        <form onSubmit={e=>handleSubmit(e)}>
-                        <div className='edit-info'>
                             <div className='image-title'>
                                 <h6>Información</h6>
-                                <Button className='btns' type="submit">Guardar cambios</Button>
                             </div>
                             <div className='modal-info'>
                                 <div className="inputGroup">
@@ -159,15 +143,14 @@ export const ProfileBanner = () => {
                                     <input placeholder="Ciudad" className="input" name="city" type="text" value={formData.city} onChange={handleChange} />
                                     <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
                                     <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
-
                                 </div>
                             </div>
                         </div>
+                    <Modal.Footer>
+                    <Button className='btns' type="submit">Guardar cambios</Button>
+                    </Modal.Footer>
                     </form>
                     </Modal.Body>
-                    <Modal.Footer>
-
-                    </Modal.Footer>
                 </Modal>
             </div>
         </div>
