@@ -47,8 +47,6 @@ const Layout = () => {
 
           <Routes>
             <Route element={<Home />} path="/" />
-            {/* <Route element={<Event />} path="/event" /> */}
-            {/* <Route element={<Event />} path="/event" /> */}
             <Route element={<Event2 />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<Demo />} path="/demo" />
@@ -56,6 +54,7 @@ const Layout = () => {
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
+            <Route element={<BandPage />} path="/banda" />
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<CategoryEvents />} path="/categoria/:id/eventos/" />
             <Route element={<Eventos />} path="/eventos" />

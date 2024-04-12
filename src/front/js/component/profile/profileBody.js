@@ -58,7 +58,7 @@ export const ProfileBody = (props) => {
                     </div>
                 </div>
                 <div className="events col-7">
-                    <nav className="navbar navbar-expand-lg bg-body-tertiary my-3">
+                    <nav className="navba navbar-expand-lg bg-body-tertiary my-3">
                         <div className="container-fluid">
                             <h5>Eventos</h5>
                             <button className="btns" type="submit">Filtrar</button>

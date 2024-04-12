@@ -1,3 +1,41 @@
+.card-band-body {
+   display: flex;
+   justify-content: center;
+   flex-direction: row;
+   padding: 10px;
+}
+
+.card-band-content, .card-band-info {
+   width: 90%;
+   height: auto;
+   border-radius: 10px;
+   backdrop-filter: blur(30px);
+   background-color: rgba(255, 255, 255, 0.676);
+   border: 1px solid rgba(61, 59, 59, 0.089);
+   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+   position: sticky;
+   top: 100px; /* Establece la posición de arriba donde se quedará pegado el div */
+   gap: 10px;
+ }
+ .card-band-content {
+   width: 50%;
+   height: 100%;
+   text-align: center;
+   margin: 10px;
+   padding: 10px 30px 20px 30px;
+   
+ }
+ .card-band-content h5 {
+   font-size: 18px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: center;
+  margin-bottom: 15px;
+ }
+ .social-network {
+   margin: 15px;
+ }
+
 .banner-band .img-fluid{
     width: 1272px;
     height:400px;
@@ -9,7 +47,7 @@
  .band-member {
     margin: 0px;
     padding: 0px;
-    border-bottom: 1px solid black;
+   
  }
  .band-member .avatar {
     margin-bottom: 20px;
@@ -18,4 +56,38 @@
  .band-data {
     margin: 10px;
     padding: 10px;
+    border-bottom: 1px solid black;
+ }
+
+ .band-events{
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+ }
+
+ .navba{
+   width: 95%;
+   margin-left: 5%;
+   border-radius: 10px;
+   backdrop-filter: blur(30px);
+   background-color: rgba(255, 255, 255, 0.676);
+   border: 1px solid rgba(255, 255, 255, 0.089);
+   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+   padding: 5px;
+ }
+ 
+ .navba h5{
+   color: black;
+ }
+ .btns  {
+   border: 1px solid rgba(255, 255, 255, 0.089);
+   font-size: 16px;
+   color: white;
+   padding: 4px 10px;
+   border-radius: 6px;
+   margin: 0 0px 1px 5px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   backdrop-filter: blur(30px);
+   background-color: rgba(65, 65, 65, 0.308);
  }
