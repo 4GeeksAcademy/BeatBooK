@@ -21,6 +21,7 @@ import { Eventos } from "./pages/categorias/eventos.js";
 import { Grupos } from "./pages/categorias/grupos.js";
 import { Lugares } from "./pages/categorias/lugares.js";
 import { PaginaFalsa } from "./pages/paginaFalsa.js";
+import { LandingPage } from "./pages/landingPage.js";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +30,7 @@ import { ToastContainer } from "react-toastify";
 import { AppNavbar } from "./component/navbar";
 
 import { Footer } from "./component/footer";
+
 
 //create your first component
 const Layout = () => {
@@ -63,6 +65,8 @@ const Layout = () => {
             <Route element={<Grupos />} path="/grupos" />
             <Route element={<Lugares />} path="/lugares" />
             <Route element={<PaginaFalsa />} path="/paginafalsa" />
+            <Route element={<LandingPage />} path="/landingpage" />
+
           </Routes>
           <Footer />
         </ScrollToTop>
