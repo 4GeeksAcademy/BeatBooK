@@ -8,7 +8,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Event } from "./pages/event";
-import { Event2 } from "./pages/event2";
+import { Event2 } from "./pages/event";
 import { CreateEvent } from "./pages/createEvent";
 import { CreateEventMedia } from "./pages/createEventMedia";
 import { Private } from "./pages/private";
