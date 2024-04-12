@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Search } from "./navbar/search";
 import { Login } from "./navbar/login";
+import { useEffect } from "react";
 import "./navbar/buttonJoin.css";
 import LogoHorizontal from "./navbar/beatBoxHorizontal.png";
 import LogoHorizontalBlanco from "./navbar/beatBoxHorizontalBlanco.png";
@@ -11,6 +12,8 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const AppNavbar = () => {
+
+ 
 
   const { store, actions } = useContext(Context);
   useEffect(() => {

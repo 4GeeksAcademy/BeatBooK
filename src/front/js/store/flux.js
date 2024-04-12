@@ -76,6 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           // Guarda el token en la localStorage
           // También deberías almacenar el usuario en la store utilizando la función setItem
           localStorage.setItem("jwt-token", data.token);
+          localStorage.setItem("user", JSON.stringify(data));
 
           return data;
         } catch (error) {
@@ -446,10 +447,19 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error('Error saving user category:', error);
           // Manejar el error de acuerdo a tus necesidades
       }
-  }
+  },
   
+  checkUser: async () => {
+  const token = localStorage.getItem("jwt-token");
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (token && user) {
+    setStore({ user: user });
   }
-  };
+},
+}
+
+};
 };
 
 export default getState;

@@ -23,7 +23,7 @@ export const ProfileBody = (props) => {
 
     useEffect(() => {
         actions.getAllEvents();
-    }, []);
+    }, [store.currentUser]);
 
     const handleCategoryClick = (categoryId) => {
         // Toggle de selección de categorías

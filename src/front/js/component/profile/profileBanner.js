@@ -85,10 +85,17 @@ export const ProfileBanner = () => {
                 throw new Error('Error al enviar el formulario');
             }
             handleClose(); // Cierra el modal después de enviar el formulario
-            // Actualizar estado de la aplicación o mostrar mensaje de éxito
+    
+            // Actualizar datos de usuario en el estado de la aplicación
+            const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
+            const updatedUserData = await updatedUserResponse.json();
+            actions.getPrivateData(updatedUserData); // Esta función debe actualizar el estado del usuario en tu contexto
+    
+            toast.success("Cambios guardados con éxito");
         } catch (error) {
             // Manejar errores de solicitud
             console.error('Error al enviar el formulario:', error);
+            toast.error("Error al guardar los cambios");
         }
     };
 
