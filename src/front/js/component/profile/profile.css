@@ -149,7 +149,7 @@
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: 60px; /* Establece la posición de arriba donde se quedará pegado el div */
+  top: 7%; /* Establece la posición de arriba donde se quedará pegado el div */
   z-index: 1000;
 }
 .card-info {
@@ -164,7 +164,7 @@
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: 22%; /* Establece la posición de arriba donde se quedará pegado el div */
+  top: 29%; /* Establece la posición de arriba donde se quedará pegado el div */
   z-index: 1000;
 }
 
@@ -180,7 +180,7 @@
   border: 1px solid rgba(255, 255, 255, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: 37%; /* Establece la posición de arriba donde se quedará pegado el div */
+  top: 45%; /* Establece la posición de arriba donde se quedará pegado el div */
   z-index: 1000;
 }
  

@@ -133,7 +133,6 @@ class Band(db.Model):
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
 
-
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
 
@@ -142,7 +141,12 @@ class Band(db.Model):
     def __repr__(self):
         return '<Band %r>' % self.name
 
-    def serialize(self):
+    def serialize(self, members_only=False):
+        if members_only:
+            members = [{'id': member.id, 'username': member.username, 'profile_image_url': member.profile_image_url} for member in self.members]
+        else:
+            members = [{'id': member.id, 'username': member.username, 'profile_image_url': member.profile_image_url} for member in self.members]
+
         return {
             'id': self.id,
             'name': self.name,
@@ -151,7 +155,9 @@ class Band(db.Model):
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
+            'members': members
         }
+
 
 class Assistance(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       allEvents: [],
       allUsers: [],
       bands:[],
+      band: [],
       places:[],
       allCategories: [],
       userFavorite: [],
@@ -267,8 +268,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           if (!resp.ok) {
             throw new Error(`HTTP error! status: ${resp.status}`);
           }
-          const band = await resp.json();
-          return band;
+          const data = await resp.json();
+          setStore({band: data})
+          return data;
         } catch (error) {
           console.log("Error loading band from backend", error);
           throw error;

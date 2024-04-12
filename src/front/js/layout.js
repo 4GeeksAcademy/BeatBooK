@@ -49,7 +49,8 @@ const Layout = () => {
           <AppNavbar />
 
           <Routes>
-            <Route element={<Home />} path="/" />
+            <Route element={<LandingPage />} path="/" />
+            <Route element={<Home />} path="/home" />
             <Route element={<Event2 />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
@@ -58,14 +59,13 @@ const Layout = () => {
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
-            <Route element={<BandPage />} path="/banda" />
+            <Route element={<BandPage />} path="/banda/:id" />
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<CategoryEvents />} path="/categoria/:id/eventos/" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<Grupos />} path="/grupos" />
             <Route element={<Lugares />} path="/lugares" />
             <Route element={<PaginaFalsa />} path="/paginafalsa" />
-            <Route element={<LandingPage />} path="/landingpage" />
 
           </Routes>
           <Footer />

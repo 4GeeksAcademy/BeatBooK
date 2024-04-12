@@ -428,7 +428,8 @@ def get_single_band(band_id):
     band = Band.query.get(band_id)
     if not band:
         return jsonify({"message": "Banda no encontrada"}), 404
-    return jsonify(band.serialize()), 200
+    return jsonify(band.serialize(members_only=True)), 200
+
 
 @api.route('/bands', methods=['POST'])
 def create_band():
