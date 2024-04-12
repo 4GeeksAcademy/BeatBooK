@@ -5,17 +5,17 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_active = db.Column(db.Boolean(), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    username = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(500), unique=True, nullable=False)
+    username = db.Column(db.String(500), unique=True, nullable=False)
     password = db.Column(db.LargeBinary)
     birthdate = db.Column(db.Date, nullable=True)
-    description = db.Column(db.String(120), nullable=True)
-    gender = db.Column(db.String(20), nullable=True)
-    city = db.Column(db.String(100), nullable=True)
-    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)  # new field
-    banner_picture = db.Column(db.String(120), nullable=True)
-    instagram = db.Column(db.String(120), nullable=True)
-    tiktok = db.Column(db.String(120), nullable=True)
+    description = db.Column(db.String(500), nullable=True)
+    gender = db.Column(db.String(500), nullable=True)
+    city = db.Column(db.String(500), nullable=True)
+    profile_image_url = db.Column(db.String(500), unique=False, nullable=True)
+    banner_picture = db.Column(db.String(500), nullable=True)
+    instagram = db.Column(db.String(500), nullable=True)
+    tiktok = db.Column(db.String(500), nullable=True)
     created_events = db.relationship('Event', backref='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user_assistances', lazy=True)
 
@@ -43,15 +43,14 @@ class User(db.Model):
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(500), nullable=False)
     date = db.Column(db.Date, nullable=False)
-    description = db.Column(db.String(120), nullable=False)
-    address = db.Column(db.String(120), nullable=False)
-    price = db.Column(db.String(120), nullable=False)
-    picture_url = db.Column(db.String(120), nullable=True)
-    instagram = db.Column(db.String(120), nullable=True)
-    tiktok = db.Column(db.String(120), nullable=True)
-    youtube = db.Column(db.String(120), nullable=True)
+    description = db.Column(db.String(500), nullable=False)
+    address = db.Column(db.String(500), nullable=False)
+    price = db.Column(db.Integer, nullable=True)
+    picture_url = db.Column(db.String(500), nullable=True)
+    instagram = db.Column(db.String(500), nullable=True)
+    tiktok = db.Column(db.String(500), nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
@@ -84,7 +83,7 @@ class Event(db.Model):
 
 class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(120), nullable=False)
+    url = db.Column(db.String(500), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
 
     def serialize(self):
@@ -96,14 +95,14 @@ class Media(db.Model):
 
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    description = db.Column(db.String(120), nullable=False)
-    address = db.Column(db.String(120), nullable=False)
-    phone = db.Column(db.String(120), unique=True, nullable=True)
-    profile_picture = db.Column(db.String(120), nullable=True)
-    banner_picture = db.Column(db.String(120), nullable=True)
-    instagram = db.Column(db.String(120), nullable=True)
-    tiktok = db.Column(db.String(120), nullable=True)
+    name = db.Column(db.String(500), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    address = db.Column(db.String(500), nullable=False)
+    phone = db.Column(db.String(500), unique=True, nullable=True)
+    profile_picture = db.Column(db.String(500), nullable=True)
+    banner_picture = db.Column(db.String(500), nullable=True)
+    instagram = db.Column(db.String(500), nullable=True)
+    tiktok = db.Column(db.String(500), nullable=True)
 
     events = db.relationship('Event', backref='place', lazy=True)
 
@@ -125,12 +124,13 @@ class Place(db.Model):
 
 class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    description = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(500), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
     profile_picture = db.Column(db.String(500), nullable=True)
     banner_picture = db.Column(db.String(500), nullable=True)
-    instagram = db.Column(db.String(120), nullable=True)
-    tiktok = db.Column(db.String(120), nullable=True)
+    instagram = db.Column(db.String(500), nullable=True)
+    tiktok = db.Column(db.String(500), nullable=True)
+
 
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
@@ -168,15 +168,18 @@ class Assistance(db.Model):
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
+    title = db.Column(db.String(500), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.String(300), nullable=False)
+    comment = db.Column(db.String(500), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
 
     # user = db.relationship('User', backref='reviews', lazy=True)
     # event = db.relationship('Event', backref='reviews', lazy=True)
+
+    def __repr__(self):
+        return '<Review %r>' % self.title
 
     def serialize(self):
         return {
@@ -189,17 +192,21 @@ class Review(db.Model):
 
 class MusicalCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    description = db.Column(db.String(300), nullable=False)
+    name = db.Column(db.String(500), unique=True, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(500), nullable=True)
     bands = db.relationship('Band', secondary='band_musical_category', back_populates='musical_categories')
     users = db.relationship('User', secondary='user_favorite_category', back_populates='user_categories')
+
+    def __repr__(self):
+        return '<MusicalCategory %r>' % self.name
 
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'image_url': self.image_url,
         }
 
 band_events = db.Table('band_events',

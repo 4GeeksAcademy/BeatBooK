@@ -10,7 +10,7 @@ export const Home = () => {
     return (
         <div className="container">
             <div className="container text-center">
-                    <h1 className="display-2 fw-bold pt-5">¿Necesitas un plan?</h1>
+                    <h1 className="display-2 fw-bold pt-5">Descubre nuestros eventos</h1>
                 <h6 className="mb-5">Elije el mejor</h6>
             </div>
             <div className="container">

@@ -12,6 +12,14 @@ import { Event2 } from "./pages/event2";
 import { CreateEvent } from "./pages/createEvent";
 import { CreateEventMedia } from "./pages/createEventMedia";
 import { Private } from "./pages/private";
+import { Profile } from "./pages/profile";
+
+import { Categorias } from "./pages/categorias/categorias.js";
+import { CategoryEvents } from "./pages/categorias/categoryEvents.js";
+import { Eventos } from "./pages/categorias/eventos.js";
+import { Grupos } from "./pages/categorias/grupos.js";
+import { Lugares } from "./pages/categorias/lugares.js";
+import { PaginaFalsa } from "./pages/paginaFalsa.js";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -45,9 +53,16 @@ const Layout = () => {
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<Demo />} path="/demo" />
-            <Route element={<Single />} path="/single/:theid" />
+            <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
+            <Route element={<Profile />} path="/profile" />
+            <Route element={<Categorias />} path="/categorias" />
+            <Route element={<CategoryEvents />} path="/categoria/:id/eventos/" />
+            <Route element={<Eventos />} path="/eventos" />
+            <Route element={<Grupos />} path="/grupos" />
+            <Route element={<Lugares />} path="/lugares" />
+            <Route element={<PaginaFalsa />} path="/paginafalsa" />
           </Routes>
           <Footer />
         </ScrollToTop>

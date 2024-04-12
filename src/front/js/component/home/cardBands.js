@@ -47,27 +47,30 @@ export const Cards = () => {
     }
   };
 
-  //const handleLearnMore = (id) => {
-  //navigate(`/api/bands/${id}`);
-  //};
+
+  const handleLearnMore = (id) => {
+    navigate(`/api/bands/${id}`);
+  };
+
 
   return (
     <div className="wrapper">
       <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
         {store.bands.map((band, index) => (
-          <li className="card-c" key={index} ref={firstCardRef}>
-            <div className='img'>
-              <img src={band.profile_picture} alt='img' draggable="false" className='img' />
-            </div>
-            <div className='card-c-content'>
-              <h2 className='name'>{band.name}</h2>
-              <span className='description'>{band.description}</span>
-            </div>
-            <div className='card-c-footer'>
-              <button className='button' onClick={() => handleLearnMore(band.id)}>Saber mas</button>
-            </div>
-          </li>
-        ))}
+
+         <li className="card-c" key={index} ref={firstCardRef}>
+         <div className='img'>
+           <img src={band.profile_picture} alt='img' draggable="false" className='img' />
+         </div>
+         <div className='card-c-content'>
+         <h2 className='name'>{band.name}</h2>
+         <span className='description'>{band.description}</span>
+         </div>
+         <div className='card-c-footer'>
+         <button className='button' onClick={() => handleLearnMore(band.id)}>Saber mas</button>
+         </div>
+       </li>
+      ))}
       </ul>
 
     </div>
