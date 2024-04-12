@@ -519,7 +519,6 @@ def create_event():
         media=media_objects,  # Asignar los objetos Media a la relación media
         instagram=request_body.get('instagram', None),
         tiktok=request_body.get('tiktok', None),
-        youtube=request_body.get('youtube', None),
         creator_id=request_body.get('creator_id', None),
         place_id=request_body.get('place_id', None),
         band_id=request_body.get('band_id', None)

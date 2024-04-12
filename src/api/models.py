@@ -51,7 +51,6 @@ class Event(db.Model):
     picture_url = db.Column(db.String(120), nullable=True)
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
-    youtube = db.Column(db.String(120), nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
