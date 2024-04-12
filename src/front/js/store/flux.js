@@ -6,8 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       event: [],
       allEvents: [],
       allUsers: [],
-      bands:[],
-      places:[],
+      bands: [],
+      places: [],
       allCategories: [],
       userFavorite: [],
       demo: [
@@ -76,6 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           // Guarda el token en la localStorage
           // También deberías almacenar el usuario en la store utilizando la función setItem
           localStorage.setItem("jwt-token", data.token);
+          localStorage.setItem("user", JSON.stringify(data));
 
           return data;
         } catch (error) {
@@ -95,6 +96,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         // Muestra un mensaje de éxito
         // toast.success("Has cerrado sesión correctamente");
       },
+      checkUser: async () => {
+        const token = localStorage.getItem("jwt-token");
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (token && user) {
+          setStore({ user: user });
+        }
+      },
+
 
       getPrivateData: async () => {
         try {
@@ -257,7 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading bands from backend", error);
         }
       },
-     
+
       getBand: async (bandId) => {
         try {
           const resp = await fetch(
@@ -346,41 +356,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getMusicalCategories: async () => {
         try {
-            const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
-            if (!response.ok) {
-                throw new Error('Failed to fetch musical categories');
-            }
-            const data = await response.json();
-            setStore({ allCategories: data });
-            return data
-
-        } catch (error) {
-            console.error('Error fetching musical categories:', error);
-            // Manejar el error de acuerdo a tus necesidades
-        }  
-    },
-    saveUserCategory: async (id, categoryId) => {
-      try {
-          const response = await fetch(process.env.BACKEND_URL +`user/${id}/categories`, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ categories: [categoryId] }), // Envía un arreglo con el ID de la categoría
-          });
+          const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
           if (!response.ok) {
-              throw new Error('Failed to save user category');
+            throw new Error('Failed to fetch musical categories');
           }
           const data = await response.json();
-          setStore({userFavorite: data});
+          setStore({ allCategories: data });
+          return data
+
+        } catch (error) {
+          console.error('Error fetching musical categories:', error);
+          // Manejar el error de acuerdo a tus necesidades
+        }
+      },
+      saveUserCategory: async (id, categoryId) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `user/${id}/categories`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ categories: [categoryId] }), // Envía un arreglo con el ID de la categoría
+          });
+          if (!response.ok) {
+            throw new Error('Failed to save user category');
+          }
+          const data = await response.json();
+          setStore({ userFavorite: data });
           console.log(data.message); //
-      } catch (error) {
+        } catch (error) {
           console.error('Error saving user category:', error);
           // Manejar el error de acuerdo a tus necesidades
+        }
       }
-  }
-  
-  }
+
+    }
   };
 };
 
