@@ -98,6 +98,7 @@ export const ProfileBanner = () => {
                         <i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear Banda
                     </button>
                 </div>
+                {/* Modal para editar Información */}
                 <Modal show={show} onHide={handleClose} onSubmit={handleSubmit}>
                     <Modal.Header closeButton>
                         <Modal.Title className='modal-title'>Editar perfil</Modal.Title>
