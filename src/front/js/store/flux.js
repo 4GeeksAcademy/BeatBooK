@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       currentUser: null,
+      user: null,
       message: null,
       event: [],
       allEvents: [],
@@ -103,6 +104,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (token && user) {
           setStore({ user: user });
         }
+        console.log("user", user);
+        console.log("token", token);
+        console.log("user_id", user.id);
       },
 
 
@@ -165,6 +169,87 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error creating event", error);
+        }
+      },
+      addAssistances: async (eventId, userId) => {
+        try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/events/${eventId}/add_assistances`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
+              },
+              body: JSON.stringify({ user_id: userId }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error al agregar asistencia");
+          }
+
+          const data = await response.json();
+
+          // Aquí puedes actualizar el estado global o hacer algo con los datos recibidos
+
+          return data;
+        } catch (error) {
+          console.log("Error al agregar asistencia", error);
+          throw error;
+        }
+      },
+      removeAssistances: async (eventId, userId) => {
+        try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/events/${eventId}/remove_assistances`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
+              },
+              body: JSON.stringify({ user_id: userId }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error al eliminar asistencia");
+          }
+
+          const data = await response.json();
+
+          // Aquí puedes actualizar el estado global o hacer algo con los datos recibidos
+
+          return data;
+        } catch (error) {
+          console.log("Error al eliminar asistencia", error);
+          throw error;
+        }
+      },
+      getAssistanceStatus: async (eventId, userId) => {
+        try {
+          const resp = await fetch(`${process.env.BACKEND_URL}/api/events/${eventId}/assistances/${userId}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("jwt-token")}`
+            },
+          });
+
+          if (!resp.ok) {
+            throw new Error("Error al obtener el estado de asistencia");
+          }
+
+          const data = await resp.json();
+          return data;
+        } catch (error) {
+          console.log("Error al obtener el estado de asistencia", error);
+          throw error;
         }
       },
       getEvents: async (searchTerm) => {
@@ -351,6 +436,30 @@ const getState = ({ getStore, getActions, setStore }) => {
           return { urls: data.urls };
         } catch (error) {
           console.log("Error uploading event media", error);
+        }
+      },
+      createReview: async (reviewData) => {
+        try {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          myHeaders.append("Cookie", ".Tunnels.Relay.WebForwarding.Cookies=CfDJ8Pjr1fvz4XtAuncu_xvzDVI7iHDJmu_gqZGcDudb6ZNmq-QOkM7O9bICnetvkogFByPc3NXlx10vjcoCR7T96n2b1npFkhRPbmQ_mRnPVbbtjScy1uYLoKSmSWJpJ1niOaTvMlB2PbgnLDQtsDFivO7iEo1FEe7CVd01s9yasrozoCeokWc7A5kz9NExeHt4fvpKWR0BpDIoVAnEP_Hw3WGFtXv5bdIetHUTHxUnGL5i69xhyEYmhWOYxvCfMMfp28ns74katHwGdrAy001DnYGRfbot3lrvJgHB8ID2cy1zKu7nJHHmHQaloyurchLxgzz-WTUU2HMPlYYoybUXKlvxUEPW2mZc19J8_9zr9WdvmmVHcJxXPVNaXQzEareD64bA_Qs8wuITUsqFqvfeS1gQ1HXRtZv9owR8_G4nppykn_H9h9Oft-0pjgB_WZrBcx2aDZbzXSgidcKv-mhukz8B1dWIyZx26UDPrTn4DFuo4OIlXCWYpyYDv0k4nwQ-A4gG0-LDwuHML457zhL9tLU-zf231na3ADo5AaucvHDVLcj8BbTsR83DfFwMa9iI7rj3AVGNYPwCB00JCKCcZGfhImfAMz-RKLtG1zVNDV0CFGITC6M2HuEnpNlB9xHPsAq09mDjFUyaCYtjbFbpFC7tuy80kecBXHZSfqEA82urMoMEd5DkhrCiUcAq9kV1IyTksf_lOHppR7Sc_2LQeh3CVlmA7TU7jJuAi90iY6nr-p0JYUlh1Hyo51fzmQa5ZTRgB6M22QOLye9cU5Y3Q74wEWgIURXxffj-fPd2eiqM4NW7AyQ5n7Amldm1Ry2zW-VdYM2t2UczY7vqXPGQ1c3rpD7mTJRHpmCIN8Rw5JcSiY6mPyKjJpS7LVHfmCaEmiJ8yMzBINQtQwcd5mhL-78Wr3tMVd7o5PQPnpgYuZM4aegRbAIl7mnGDD5CVDlh22sflqoA6N_WCjfIANX-IHo-v_Szt5lfgeUfkqtARzj1");
+
+          const response = await fetch("https://bug-free-bassoon-69gq57r4pjr5fr96r-3001.app.github.dev/api/reviews", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(reviewData),
+            redirect: 'follow'
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log("Error creating review", error);
+          throw error;
         }
       },
 
