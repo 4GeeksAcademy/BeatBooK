@@ -2,13 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Search } from "./navbar/search";
 import { Login } from "./navbar/login";
+import { useEffect } from "react";
 import "./navbar/buttonJoin.css";
 import LogoHorizontal from "./navbar/beatBoxHorizontal.png";
 import LogoHorizontalBlanco from "./navbar/beatBoxHorizontalBlanco.png";
 import "./navbar/logo.css";
 import { SecondaryNavbar } from "./navbar/navbarSecondary";
+import { useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const AppNavbar = () => {
+  const { store, actions } = useContext(Context);
+  useEffect(() => {
+    actions.checkUser();
+  }, []);
   return (
     <div
       style={{
@@ -18,7 +25,7 @@ export const AppNavbar = () => {
       }}
     >
       {" "}
-      <div className="container-fluid">
+      <div className="container-fluid m-0 p-0">
         <div className="row ">
           <nav
             className="navbar navbar-expand bg-black rounded-top p-1 d-flex justify-content-between align-items-center"
@@ -31,7 +38,7 @@ export const AppNavbar = () => {
             {" "}
             <div className="d-flex justify-content-start ps-3">
               {/* Logo o nombre de la aplicación */}
-              <Link to="/" className="ps-3">
+              <Link to="/home" className="ps-3">
                 <img
                   src={LogoHorizontalBlanco}
                   alt="My Image"

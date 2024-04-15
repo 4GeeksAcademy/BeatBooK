@@ -37,7 +37,7 @@ export const Cards = () => {
     carouselRef.current.classList.remove('dragging');
   };
 
-  
+
   const handleTransitionEnd = () => {
     const cardWidth = firstCardRef.current.offsetWidth;
     if (carouselRef.current.scrollLeft === 0) {
@@ -47,14 +47,17 @@ export const Cards = () => {
     }
   };
 
+
   const handleLearnMore = (id) => {
-    navigate(`/api/bands/${id}`);
+    navigate(`/banda/${id}`);
   };
+
 
   return (
     <div className="wrapper">
-       <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
+      <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
         {store.bands.map((band, index) => (
+
          <li className="card-c" key={index} ref={firstCardRef}>
          <div className='img'>
            <img src={band.profile_picture} alt='img' draggable="false" className='img' />
@@ -69,6 +72,7 @@ export const Cards = () => {
        </li>
       ))}
       </ul>
+
     </div>
   );
 }

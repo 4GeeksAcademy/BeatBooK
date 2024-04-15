@@ -1,0 +1,63 @@
+
+
+video {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    z-index: -1;
+}
+
+.image-landing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-158%, -110%);
+    height: 200px;
+    width: 700px;
+}
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-180%, -30%);
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    width: 20%;
+    max-width: 600px;
+    background-color: rgb(252, 252, 252, 0.2);
+    border-radius: 20px;
+    padding: 10px;
+}
+.card-l {
+    width: 300px; /* Ancho fijo de la tarjeta */
+  height: 380px; /* Altura fija de la tarjeta */
+  overflow: hidden; /* Para que la imagen no se salga de la tarjeta */
+  }
+
+  .card-l h5{
+font-weight: bold;
+  font-size: 20px;
+  margin: 0 10px 10px 10px;
+  color: black;
+  }
+
+  .card-l p {
+    margin-top: 15px;
+  }
+  
+  .card-img-l {
+    width: 100%; /* La imagen ocupa el 100% del ancho de la tarjeta */
+    height: 50%; /* La imagen ocupa el 100% de la altura de la tarjeta */
+    object-fit:cover; 
+    object-position: center;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  
+  .card-body {
+    padding: 20px; /* Ajusta el relleno interno según tus necesidades */
+    margin-top: auto;; /* Ajusta el relleno interno según tus necesidades */
+  }
+  

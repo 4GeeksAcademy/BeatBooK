@@ -7,11 +7,13 @@ import injectContext from "./store/appContext";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import { Event } from "./pages/event";
-import { Event2 } from "./pages/event2";
+
+import { Event } from "./pages/event.js";
 import { CreateEvent } from "./pages/createEvent";
+import { CreateEventMedia } from "./pages/createEventMedia";
 import { Private } from "./pages/private";
 import { Profile } from "./pages/profile";
+import { BandPage } from "./pages/bandPage";
 
 import { Categorias } from "./pages/categorias/categorias.js";
 import { CategoryEvents } from "./pages/categorias/categoryEvents.js";
@@ -19,6 +21,7 @@ import { Eventos } from "./pages/categorias/eventos.js";
 import { Grupos } from "./pages/categorias/grupos.js";
 import { Lugares } from "./pages/categorias/lugares.js";
 import { PaginaFalsa } from "./pages/paginaFalsa.js";
+import { LandingPage } from "./pages/landingPage.js";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -26,7 +29,10 @@ import { ToastContainer } from "react-toastify";
 
 import { AppNavbar } from "./component/navbar";
 
+
+
 import { Footer } from "./component/footer";
+
 
 //create your first component
 const Layout = () => {
@@ -45,22 +51,24 @@ const Layout = () => {
           <AppNavbar />
 
           <Routes>
-            <Route element={<Home />} path="/" />
-            {/* <Route element={<Event />} path="/event" /> */}
-            {/* <Route element={<Event />} path="/event" /> */}
-            <Route element={<Event2 />} path="/events/:id" />
+            <Route element={<LandingPage />} path="/" />
+            <Route element={<Home />} path="/home" />
+            <Route element={<Event />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
+            <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
+            <Route element={<BandPage />} path="/banda/:id" />
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<CategoryEvents />} path="/categoria/:id/eventos/" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<Grupos />} path="/grupos" />
             <Route element={<Lugares />} path="/lugares" />
             <Route element={<PaginaFalsa />} path="/paginafalsa" />
+
           </Routes>
           <Footer />
         </ScrollToTop>

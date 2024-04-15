@@ -18,11 +18,15 @@ class User(db.Model):
     tiktok = db.Column(db.String(500), nullable=True)
     created_events = db.relationship('Event', backref='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user_assistances', lazy=True)
+    created_band_id = db.Column(db.Integer, db.ForeignKey('band.id'), unique=True) #añado para poder alamacenar quien crea la banda
+    created_band = db.relationship('Band', backref='creator', uselist=False, foreign_keys='User.created_band_id') #añado para poder alamacenar quien crea la banda
+
 
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
 
     def __repr__(self):
         return '<User %r>' % self.username
+    
 
     def serialize(self):
         return {
@@ -37,8 +41,11 @@ class User(db.Model):
             'instagram': self.instagram,
             'tiktok': self.tiktok,
             'city': self.city,
+            'gender': self.gender,
+            'user_categories': [category.serialize() for category in self.user_categories],
             'created_events': [event.serialize() for event in self.created_events],
             'assistances': [assistance.serialize() for assistance in self.assistances],
+            'created_band': {'id': self.created_band.id, 'name': self.created_band.name, 'profile_picture': self.created_band.profile_picture} if self.created_band else None #añado para poder alamacenar quien crea la banda
         }
 
 class Event(db.Model):
@@ -54,7 +61,7 @@ class Event(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
-
+    reviews = db.relationship('Review', back_populates='event')
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
 
@@ -77,6 +84,7 @@ class Event(db.Model):
             'band_id': self.band_id,
             'creator_id': self.creator_id,
             'assistances': [assistance.serialize() for assistance in self.assistances],
+            'reviews': [review.serialize() for review in self.reviews],
             
             
         }
@@ -130,16 +138,22 @@ class Band(db.Model):
     banner_picture = db.Column(db.String(500), nullable=True)
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id')) #añado para poder alamacenar quien crea la banda
+    
 
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
-
     members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
 
     def __repr__(self):
         return '<Band %r>' % self.name
 
-    def serialize(self):
+    def serialize(self, members_only=False):
+        if members_only:
+            members = [{'id': member.id, 'username': member.username, 'profile_image_url': member.profile_image_url} for member in self.members]
+        else:
+            members = [{'id': member.id, 'username': member.username, 'profile_image_url': member.profile_image_url} for member in self.members]
+
         return {
             'id': self.id,
             'name': self.name,
@@ -148,12 +162,17 @@ class Band(db.Model):
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
+            'members': members,
+            'events': [event.serialize() for event in self.events],
+            'creator': self.creator_id
         }
+
 
 class Assistance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
+    
 
     # user = db.relationship('User', backref='assistances', lazy=True)
     # event = db.relationship('Event', backref='assistances', lazy=True)
@@ -167,15 +186,15 @@ class Assistance(db.Model):
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(500), nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String(500), nullable=True)
+    rating = db.Column(db.Integer, nullable=True)
     comment = db.Column(db.String(500), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
 
-    # user = db.relationship('User', backref='reviews', lazy=True)
-    # event = db.relationship('Event', backref='reviews', lazy=True)
+    user = db.relationship('User', backref='reviews', lazy=True)
+    event = db.relationship('Event', back_populates='reviews')
 
     def __repr__(self):
         return '<Review %r>' % self.title
@@ -187,6 +206,8 @@ class Review(db.Model):
             'comment': self.comment,
             'user_id': self.user_id,
             'event_id': self.event_id,
+            'user': self.user.username,
+            'user_profile_image': self.user.profile_image_url,
         }
 
 class MusicalCategory(db.Model):
