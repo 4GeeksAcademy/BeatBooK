@@ -24,13 +24,16 @@ export const UserDrop = () => {
     toast.success("Has cerrado sesión correctamente");
     navigate("/");
   };
-  // useEffect(() => {
-  //   if (!store.user) {
-  //     actions.getUser(); // obtén los datos del usuario cuando el componente se monta
-  //   }
-  // }, []); // pasa un array vacío como segundo argumento pa
 
-  // ...
+  useEffect(() => {
+    console.log("store.user", store.user);
+    if (!store.user) {
+      actions.getUser(); // obtén los datos del usuario cuando el componente se monta
+    }
+    console.log("store.user", store.user.username);
+  }, []); // pasa un array vacío como segundo argumento pa
+
+
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -45,10 +48,10 @@ export const UserDrop = () => {
             <span className="username text-light">
               {store.user ? store.user.username : "Acceder"}
             </span>
-            {store.user && store.user.profile_image_url ? (
+            {store.user && store.user.profileimage ? (
               <img
                 className="profile-image"
-                src={store.user.profile_image_url}
+                src={store.user.profileimage}
                 alt="Profile image"
               ></img>
             ) : (

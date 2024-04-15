@@ -40,10 +40,10 @@ const injectContext = (PassedComponent) => {
         // Llama a getPrivateData para obtener la información del usuario
         state.actions.getPrivateData();
       }
-        state.actions.getAllPlaces();
-        state.actions.getMusicalCategories();
-      
-     
+      state.actions.getAllPlaces();
+      state.actions.getMusicalCategories();
+      state.actions.getUser();
+
     }, []);
     
 

@@ -7,8 +7,8 @@ import injectContext from "./store/appContext";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import { Event } from "./pages/event";
-import { Event2 } from "./pages/event2";
+
+import { Event } from "./pages/event.js";
 import { CreateEvent } from "./pages/createEvent";
 import { CreateEventMedia } from "./pages/createEventMedia";
 import { Private } from "./pages/private";
@@ -28,6 +28,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 import { AppNavbar } from "./component/navbar";
+
+
 
 import { Footer } from "./component/footer";
 
@@ -51,7 +53,7 @@ const Layout = () => {
           <Routes>
             <Route element={<LandingPage />} path="/" />
             <Route element={<Home />} path="/home" />
-            <Route element={<Event2 />} path="/events/:id" />
+            <Route element={<Event />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<Demo />} path="/demo" />

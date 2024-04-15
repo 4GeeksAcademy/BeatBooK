@@ -61,7 +61,7 @@ class Event(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
-
+    reviews = db.relationship('Review', back_populates='event')
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
 
@@ -84,6 +84,7 @@ class Event(db.Model):
             'band_id': self.band_id,
             'creator_id': self.creator_id,
             'assistances': [assistance.serialize() for assistance in self.assistances],
+            'reviews': [review.serialize() for review in self.reviews],
             
             
         }
@@ -185,15 +186,15 @@ class Assistance(db.Model):
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(500), nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String(500), nullable=True)
+    rating = db.Column(db.Integer, nullable=True)
     comment = db.Column(db.String(500), nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
 
-    # user = db.relationship('User', backref='reviews', lazy=True)
-    # event = db.relationship('Event', backref='reviews', lazy=True)
+    user = db.relationship('User', backref='reviews', lazy=True)
+    event = db.relationship('Event', back_populates='reviews')
 
     def __repr__(self):
         return '<Review %r>' % self.title
@@ -205,6 +206,8 @@ class Review(db.Model):
             'comment': self.comment,
             'user_id': self.user_id,
             'event_id': self.event_id,
+            'user': self.user.username,
+            'user_profile_image': self.user.profile_image_url,
         }
 
 class MusicalCategory(db.Model):

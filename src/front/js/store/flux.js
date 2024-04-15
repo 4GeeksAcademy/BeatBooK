@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       currentUser: null,
+      user: null,
       message: null,
       event: [],
       allEvents: [],
@@ -84,7 +85,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error logging in", error);
           throw error; // Asegúrate de volver a lanzar el error para que pueda ser capturado en tu componente
         }
-        const user = setStore({ user }); // Obtén la información del usuario aquí...
+        // Obtén la información del usuario aquí...
       },
 
       logOut: () => {
@@ -97,6 +98,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         // Muestra un mensaje de éxito
         // toast.success("Has cerrado sesión correctamente");
       },
+      checkUser: async () => {
+        const token = localStorage.getItem("jwt-token");
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (token && user) {
+          setStore({ user: user });
+        }
+        console.log("user", user);
+        console.log("token", token);
+      },
+
 
       getPrivateData: async () => {
         try {
@@ -157,6 +169,87 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error creating event", error);
+        }
+      },
+      addAssistances: async (eventId, userId) => {
+        try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/events/${eventId}/add_assistances`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
+              },
+              body: JSON.stringify({ user_id: userId }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error al agregar asistencia");
+          }
+
+          const data = await response.json();
+
+          // Aquí puedes actualizar el estado global o hacer algo con los datos recibidos
+
+          return data;
+        } catch (error) {
+          console.log("Error al agregar asistencia", error);
+          throw error;
+        }
+      },
+      removeAssistances: async (eventId, userId) => {
+        try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/events/${eventId}/remove_assistances`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
+              },
+              body: JSON.stringify({ user_id: userId }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error al eliminar asistencia");
+          }
+
+          const data = await response.json();
+
+          // Aquí puedes actualizar el estado global o hacer algo con los datos recibidos
+
+          return data;
+        } catch (error) {
+          console.log("Error al eliminar asistencia", error);
+          throw error;
+        }
+      },
+      getAssistanceStatus: async (eventId, userId) => {
+        try {
+          const resp = await fetch(`${process.env.BACKEND_URL}/api/events/${eventId}/assistances/${userId}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("jwt-token")}`
+            },
+          });
+
+          if (!resp.ok) {
+            throw new Error("Error al obtener el estado de asistencia");
+          }
+
+          const data = await resp.json();
+          return data;
+        } catch (error) {
+          console.log("Error al obtener el estado de asistencia", error);
+          throw error;
         }
       },
       getEvents: async (searchTerm) => {
@@ -259,7 +352,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading bands from backend", error);
         }
       },
-     
+
       getBand: async (bandId) => {
         try {
           const resp = await fetch(
@@ -412,6 +505,50 @@ const getState = ({ getStore, getActions, setStore }) => {
           return { urls: data.urls };
         } catch (error) {
           console.log("Error uploading event media", error);
+        }
+      },
+      createReview: async (reviewData) => {
+        try {
+          const token = localStorage.getItem("jwt-token");
+
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          myHeaders.append("Authorization", `Bearer ${token}`);
+
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/reviews`,
+            {
+              method: 'POST',
+              headers: myHeaders,
+              body: JSON.stringify(reviewData),
+              redirect: 'follow'
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log("Error creating review", error);
+          throw error;
+        }
+      },
+      deleteReview: async (reviewId) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/reviews/${reviewId}`, {
+            method: 'DELETE',
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          return response.json();
+        } catch (error) {
+          console.error('Error deleting review', error);
         }
       },
 

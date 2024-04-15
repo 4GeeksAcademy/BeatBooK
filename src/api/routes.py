@@ -250,7 +250,7 @@ def log_in():
         return jsonify("Invalid email or password"), 400
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username }), 200
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url }), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()
@@ -287,7 +287,6 @@ def protected():
         "birthdate": user.birthdate,
         "gender": user.gender,
         "city": user.city,
-        "created_events": user.created_events,
         "profile_image_url": user.profile_image_url,
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
@@ -389,6 +388,16 @@ def get_user_assistance(user_id):
         if event:
             events.append(event.serialize())
     return jsonify(events), 200
+
+@api.route('/events/<int:event_id>/assistances/<int:user_id>', methods=['GET'])
+def get_user_assistance_status(event_id, user_id):
+    event = Event.query.get(event_id)
+    if event is None:
+        raise APIException('Event not found', status_code=404)
+    assistances = event.assistances
+    assistances = list(map(lambda x: x.serialize(), assistances))
+    is_attending = any(assistance['user_id'] == user_id for assistance in assistances)
+    return jsonify({'is_attending': is_attending}), 200
 
 @api.route('/users/<int:user_id>/favorite_categories', methods=['GET'])
 def get_user_favorite_categories(user_id):
@@ -567,7 +576,6 @@ def create_event():
         media=media_objects,  # Asignar los objetos Media a la relación media
         instagram=request_body.get('instagram', None),
         tiktok=request_body.get('tiktok', None),
-        youtube=request_body.get('youtube', None),
         creator_id=request_body.get('creator_id', None),
         place_id=request_body.get('place_id', None),
         band_id=request_body.get('band_id', None)
@@ -611,6 +619,8 @@ def get_event_assistances(event_id):
     assistances = event.assistances
     assistances = list(map(lambda x: x.serialize(), assistances))
     return jsonify(assistances), 200
+
+
 
 @api.route('/events/<int:event_id>/reviews', methods=['GET'])
 def get_event_reviews(event_id):
@@ -816,9 +826,13 @@ def delete_review(review_id):
     review = Review.query.get(review_id)
     if review is None:
         raise APIException('Review not found', status_code=404)
+    
+    review_data = review.serialize()  
+
     db.session.delete(review)
     db.session.commit()
-    return jsonify(review.serialize()), 200
+
+    return jsonify(review_data), 200  
 
 #CATEGORIAS MUSICALES#
 
