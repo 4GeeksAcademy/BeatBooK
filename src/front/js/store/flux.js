@@ -108,6 +108,34 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getEventsByCategory: async (category_id) => {
+        try {
+            const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch events");
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
+    getCategory: async (category_id) => {
+      try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          if (!response.ok) {
+              throw new Error("Failed to fetch category");
+          }
+          const data = await response.json();
+          return data;
+      } catch (error) {
+          console.log(error);
+          return null;
+      }
+  },
+
       logIn: async (email, password) => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/log_in", {
