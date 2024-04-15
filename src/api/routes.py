@@ -279,8 +279,6 @@ def protected():
         }
     
  
-    
-
     return jsonify({
         "id": user.id, 
         "email": user.email,
@@ -914,3 +912,28 @@ def assign_category_to_user(user_id):
     db.session.commit()
 
     return jsonify({'message': 'Category assigned successfully'}), 200
+
+@api.route('/user/<int:user_id>/categories', methods=['DELETE'])
+def delete_category_from_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    data = request.json
+    if not data or 'category_id' not in data:
+        return jsonify({'message': 'Data format error'}), 400
+
+    category_id = data['category_id']
+    category = MusicalCategory.query.get(category_id)
+    if not category:
+        return jsonify({'message': 'Category not found'}), 404
+
+    # Verifica si la categoría está asignada al usuario
+    if category not in user.user_categories:
+        return jsonify({'message': 'Category is not assigned to the user'}), 400
+
+    # Elimina la categoría musical del usuario
+    user.user_categories.remove(category)
+    db.session.commit()
+
+    return jsonify({'message': 'Category removed successfully'}), 200

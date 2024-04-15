@@ -171,6 +171,7 @@ class Assistance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
+    
 
     # user = db.relationship('User', backref='assistances', lazy=True)
     # event = db.relationship('Event', backref='assistances', lazy=True)

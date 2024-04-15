@@ -8,10 +8,26 @@ export const ProfileBody = (props) => {
     const { store, actions } = useContext(Context);
     const [selectedCategories, setSelectedCategories] = useState([]);
     
-    //Manejo del modal//
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+ // Manejo del modal de agregar categorías
+const [showAddModal, setShowAddModal] = useState(false);
+const handleShowAddModal = () => setShowAddModal(true);
+const handleCloseAddModal = () => setShowAddModal(false);
+
+    // Manejo del modal de eliminar categorías
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+const handleShowDeleteModal = () => setShowDeleteModal(true);
+const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
+    const handleShow = () => {
+        const defaultSelectedCategories = store.currentUser.user_categories.map(category => category.id);
+        setSelectedCategories(defaultSelectedCategories);
+        setShow(true);
+    };
+    const handleShowDelete = () => {
+        const defaultSelectedCategories = store.currentUser.user_categories.map(category => category.id);
+        setSelectedCategories(defaultSelectedCategories);
+        setShow(true);
+    };
     
     // Función para formatear la fecha en el formato deseado
     const birthdate = store.currentUser?.birthdate;
@@ -25,6 +41,7 @@ export const ProfileBody = (props) => {
         actions.getAllEvents();
     }, [store.currentUser]);
 
+    
     const handleCategoryClick = (categoryId) => {
         // Toggle de selección de categorías
         if (selectedCategories.includes(categoryId)) {
@@ -36,22 +53,50 @@ export const ProfileBody = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(selectedCategories)
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/user/${store.currentUser.id}/categories`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ categories: selectedCategories })
+                body: JSON.stringify({ category_id: selectedCategories })
             });
             if (!response.ok) {
                 throw new Error('Error al enviar el formulario');
             }
-            handleClose(); // Cierra el modal después de enviar el formulario
-            // Actualizar estado de la aplicación o mostrar mensaje de éxito
+            handleCloseAddModal();
+            const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
+            const updatedUserData = await updatedUserResponse.json();
+            actions.getPrivateData(updatedUserData); 
+           
         } catch (error) {
             // Manejar errores de solicitud
             console.error('Error al enviar el formulario:', error);
+        }
+    };
+    const handleDeleteCategory = async (categoryId) => {
+        try {
+            const response = await fetch(`${process.env.BACKEND_URL}/api/user/${store.currentUser.id}/categories`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ category_id: categoryId }) // Usar categoryId en lugar de userId
+            });
+            if (!response.ok) {
+                throw new Error('Error al eliminar la categoría musical');
+            }
+            // Actualizar el estado o realizar cualquier acción adicional necesaria
+            console.log('Categoría musical eliminada exitosamente');
+            handleCloseDeleteModal();
+            const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
+            const updatedUserData = await updatedUserResponse.json();
+            actions.getPrivateData(updatedUserData); 
+           
+        } catch (error) {
+            // Manejar errores de solicitud
+            console.error('Error al eliminar la categoría musical:', error);
         }
     };
     
@@ -67,8 +112,8 @@ export const ProfileBody = (props) => {
                             <p className="card-text">{store.currentUser?.description}</p>
                         </div>
                             <div className= 'redes-footer'>
-                            <a href="{store.currentUser?.instagram}" className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
-                            <a href="{store.currentUser?.tiktok}" className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
+                            <a href={store.currentUser?.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
+                            <a href={store.currentUser?.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
                             </div>
                     </div>
                         {/* ---------------------------------- */}
@@ -87,10 +132,11 @@ export const ProfileBody = (props) => {
                       {/* Card que renderiza interes musical*/}
                     <div className="card-music mt-4">
                         <div className="card-music-detail">
-                            <div className="d-flex">
-                                <h5 className="card-title">Interes musical</h5>
-                                <button className="btns-add" onClick={handleShow}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
-                            </div>
+                        <div className="d-flex">
+    <h5 className="card-title">Interes musical</h5>
+    <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
+    <button className="btns-add" onClick={handleShowDeleteModal}><i className="fas fa-minus" style={{ color: '#FFFFFF' }}></i></button>
+</div>
                             {/* Renderizar categorías musicales */}
                             <div className="d-flex flex-wrap grid gap-0 row-gap-2">
                                 {store.currentUser?.user_categories.map(category => (
@@ -131,7 +177,7 @@ export const ProfileBody = (props) => {
                     </div>
                 </div>
                 {/* Modal para editar categoria musical */}
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showAddModal} onHide={handleCloseAddModal}>
                     <Modal.Header closeButton>
                         <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
                     </Modal.Header>
@@ -155,6 +201,28 @@ export const ProfileBody = (props) => {
                 </Modal>
                 {/* ---------------------------------- */}
             </div>
+            <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={handleSubmit}>
+                            {store.allCategories.map(category => (
+                                <div key={category.id} className="category-item">
+                                    <input
+                                        type="checkbox"
+                                        id={category.id}
+                                        value={category.id}
+                                        checked={selectedCategories.includes(category.id)}
+                                        onChange={() => handleCategoryClick(category.id)}
+                                    />
+                                    <label htmlFor={category.id}>{category.name}</label>
+                                    <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                                </div>
+                            ))}
+                        </form>
+                    </Modal.Body>
+                </Modal>
         </div>
     );
 }

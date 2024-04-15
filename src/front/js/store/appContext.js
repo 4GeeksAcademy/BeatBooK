@@ -42,7 +42,7 @@ const injectContext = (PassedComponent) => {
       }
         state.actions.getAllPlaces();
         state.actions.getMusicalCategories();
-        state.actions.saveUserCategory();
+      
      
     }, []);
     
