@@ -250,7 +250,7 @@ def log_in():
         return jsonify("Invalid email or password"), 400
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id}), 200
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url }), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()

@@ -46,17 +46,29 @@ async function getCoordinates(address) {
 }
 
 export const Event = (props) => {
-  // Asegúrate de reemplazar 'eventData' con los datos de tu evento
+
   const { id } = useParams();
   const { actions } = useContext(Context);
   const [eventData, setEventData] = useState(null);
+  const [refreshComments, setRefreshComments] = useState(false);
+  const [refreshAssistances, setRefreshAssistances] = useState(false);
+
+
 
   useEffect(() => {
     actions.getEvent(id).then((data) => {
       setEventData(data);
       console.log("eventData", data);
     });
-  }, [id]);
+  }, [id, refreshComments, refreshAssistances]);
+
+  const handleNewComment = () => {
+    setRefreshComments(!refreshComments);
+  };
+
+  const handleAssistanceChange = () => {
+    setRefreshAssistances(!refreshAssistances);
+  };
 
   const [coordinates, setCoordinates] = useState(null);
 
@@ -73,12 +85,12 @@ export const Event = (props) => {
   }, [coordinates]);
 
   function isUserLoggedIn() {
-    // Comprueba si hay un token en el almacenamiento local
+
     const token = localStorage.getItem("jwt-token");
     return token !== null;
   }
   const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user.id; // Asegúrate de que 'id' es la propiedad correcta
+  const userId = user.id;
 
 
   if (!eventData) {
@@ -135,7 +147,7 @@ export const Event = (props) => {
             {" "}<h5>Asistentes <span>{eventData.assistances.length}</span></h5>{" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {" "}
-              <EventAssistance userId={userId} eventId={eventData.id} assistances={eventData.assistances} />
+              <EventAssistance userId={userId} eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />
               {/* <button className="asist-button">Asistir</button>{" "} */}
             </div>{" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
@@ -168,7 +180,7 @@ export const Event = (props) => {
       <hr className="mt-5" />
       <Row>
         <Col>
-          <EventComments eventData={eventData} />
+          <EventComments eventData={eventData} onNewComment={handleNewComment} />
         </Col>
       </Row>
     </Container>

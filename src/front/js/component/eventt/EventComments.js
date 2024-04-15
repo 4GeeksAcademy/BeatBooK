@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../store/appContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-export const EventComments = ({ eventData }) => {
+export const EventComments = ({ eventData, onNewComment }) => {
   const { store, actions } = useContext(Context);
   const [comment, setComment] = useState("");
 
@@ -27,7 +29,7 @@ export const EventComments = ({ eventData }) => {
     try {
       const response = await actions.createReview(reviewData);
       console.log(response);
-      window.location.reload();
+      onNewComment(); // Notificar al componente padre que se ha enviado un nuevo comentario
     } catch (error) {
       console.error("Error creating review", error);
     }
@@ -41,7 +43,11 @@ export const EventComments = ({ eventData }) => {
 
       {eventData.reviews.map((review, index) => (
         <div key={index} className="d-flex align-items-start mb-2">
-          <img src={review.user_profile_image || 'default-image-url'} alt={review.user} className="rounded-circle mr-2" width="30" height="30" />
+          {review.user_profile_image ? (
+            <img src={review.user_profile_image} alt={review.user} className="rounded-circle mr-2 me-1" width="30" height="30" />
+          ) : (
+            <FontAwesomeIcon icon={faUser} className="faUser me-1" />
+          )}
           <div>
             <h5 className="mb-0">{review.user}</h5>
             <p>{review.comment}</p>

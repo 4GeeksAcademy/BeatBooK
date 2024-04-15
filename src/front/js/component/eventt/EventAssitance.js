@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { Context } from '../../store/appContext'
 
-export const EventAssistance = ({ eventId, assistances }) => {
+export const EventAssistance = ({ eventId, assistances, onAssistanceChange }) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const userId = user.user_id; // Asegúrate de que 'id' es la propiedad correcta
 
@@ -26,6 +26,9 @@ export const EventAssistance = ({ eventId, assistances }) => {
         fetchAssistanceStatus();
     }, [eventId, userId, actions]);
 
+
+
+
     const handleButtonClick = async () => {
         if (isAttending) {
             await actions.removeAssistances(eventId, userId);
@@ -34,6 +37,7 @@ export const EventAssistance = ({ eventId, assistances }) => {
             await actions.addAssistances(eventId, userId);
             setIsAttending(true);
         }
+        onAssistanceChange(); // Notificar al componente padre que ha habido un cambio en la asistencia
     };
 
     return (

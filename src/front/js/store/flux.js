@@ -84,7 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error logging in", error);
           throw error; // Asegúrate de volver a lanzar el error para que pueda ser capturado en tu componente
         }
-        const user = setStore({ user }); // Obtén la información del usuario aquí...
+        // Obtén la información del usuario aquí...
       },
 
       logOut: () => {
@@ -106,7 +106,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         console.log("user", user);
         console.log("token", token);
-        console.log("user_id", user.id);
       },
 
 
