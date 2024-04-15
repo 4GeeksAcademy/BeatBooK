@@ -439,16 +439,21 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       createReview: async (reviewData) => {
         try {
+          const token = localStorage.getItem("jwt-token");
+
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
-          myHeaders.append("Cookie", ".Tunnels.Relay.WebForwarding.Cookies=CfDJ8Pjr1fvz4XtAuncu_xvzDVI7iHDJmu_gqZGcDudb6ZNmq-QOkM7O9bICnetvkogFByPc3NXlx10vjcoCR7T96n2b1npFkhRPbmQ_mRnPVbbtjScy1uYLoKSmSWJpJ1niOaTvMlB2PbgnLDQtsDFivO7iEo1FEe7CVd01s9yasrozoCeokWc7A5kz9NExeHt4fvpKWR0BpDIoVAnEP_Hw3WGFtXv5bdIetHUTHxUnGL5i69xhyEYmhWOYxvCfMMfp28ns74katHwGdrAy001DnYGRfbot3lrvJgHB8ID2cy1zKu7nJHHmHQaloyurchLxgzz-WTUU2HMPlYYoybUXKlvxUEPW2mZc19J8_9zr9WdvmmVHcJxXPVNaXQzEareD64bA_Qs8wuITUsqFqvfeS1gQ1HXRtZv9owR8_G4nppykn_H9h9Oft-0pjgB_WZrBcx2aDZbzXSgidcKv-mhukz8B1dWIyZx26UDPrTn4DFuo4OIlXCWYpyYDv0k4nwQ-A4gG0-LDwuHML457zhL9tLU-zf231na3ADo5AaucvHDVLcj8BbTsR83DfFwMa9iI7rj3AVGNYPwCB00JCKCcZGfhImfAMz-RKLtG1zVNDV0CFGITC6M2HuEnpNlB9xHPsAq09mDjFUyaCYtjbFbpFC7tuy80kecBXHZSfqEA82urMoMEd5DkhrCiUcAq9kV1IyTksf_lOHppR7Sc_2LQeh3CVlmA7TU7jJuAi90iY6nr-p0JYUlh1Hyo51fzmQa5ZTRgB6M22QOLye9cU5Y3Q74wEWgIURXxffj-fPd2eiqM4NW7AyQ5n7Amldm1Ry2zW-VdYM2t2UczY7vqXPGQ1c3rpD7mTJRHpmCIN8Rw5JcSiY6mPyKjJpS7LVHfmCaEmiJ8yMzBINQtQwcd5mhL-78Wr3tMVd7o5PQPnpgYuZM4aegRbAIl7mnGDD5CVDlh22sflqoA6N_WCjfIANX-IHo-v_Szt5lfgeUfkqtARzj1");
+          myHeaders.append("Authorization", `Bearer ${token}`);
 
-          const response = await fetch("https://bug-free-bassoon-69gq57r4pjr5fr96r-3001.app.github.dev/api/reviews", {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify(reviewData),
-            redirect: 'follow'
-          });
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/reviews`,
+            {
+              method: 'POST',
+              headers: myHeaders,
+              body: JSON.stringify(reviewData),
+              redirect: 'follow'
+            }
+          );
 
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -459,6 +464,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log("Error creating review", error);
           throw error;
+        }
+      },
+      deleteReview: async (reviewId) => {
+        try {
+          const response = await fetch(`/api/reviews/${reviewId}`, {
+            method: 'DELETE',
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          return response.json();
+        } catch (error) {
+          console.error('Error deleting review', error);
         }
       },
 
