@@ -44,19 +44,28 @@ export const Lugar = () => {
         <div className="container">
             {place && (
                 <div>
-                    <div className='placeBanner'>
-                        <img src={place.banner_picture} className='img-fluid' ></img>
-                    </div>
-                    <div class="container text-start placeData">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <img className='ProfilePicture' src={place.profile_picture} alt='perfil' />
+                    <div className="container text-center">
+                        <div className="row">
+                            <div className="col">
                             </div>
-                            <div class="col-8">
-                                <h1 className='ms-2'>{place.name}</h1>
-                                <p className='ms-2'>{place.description}</p>
+                            <div className="col-9">
+                                <div className="bannerContainer">
+                                    <img src={place.banner_picture} className="BannerPicture" alt="place_banner_picture" />
+                                </div>
+                                <div className="container">
+                                    <div className="row align-items-center borderBottom">
+                                        <div className="col-3 ">
+                                            <div className="ProfilePictureContainer">
+                                                <img src={place.profile_picture} className="ProfilePicture" alt="place_profile_picture" />
+                                            </div>
+                                        </div>
+                                        <div className="col text-start">
+                                            <h2>{place.name}</h2>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col">
+                            <div className="col">
                             </div>
                         </div>
                     </div>
