@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +51,9 @@ export const BandBanner = (props) => {
                     <div className="d-flex flrex-row">
                         {store.band.members && store.band.members.map((member, index) => (
                             <div className={classes.root} key={index}>
+                                <Link to={`/profile/${member.id}`}>
                                 <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
+                                </Link>
                             </div>
                         ))}
                     </div>
@@ -73,23 +75,26 @@ export const BandBanner = (props) => {
 
                 <div className="band-events">
                     <nav className="navba navbar-expand-lg bg-body-tertiary my-3">
-                        <div className="container-fluid d-flex justify-content-between align-items-center">
-                            <h5>Eventos</h5>
+                        <div className="container-fluid d-flex justify-content-center align-items-center">
+                            <h5>Proximos eventos</h5>
                         </div>
                     </nav>
                     <div className="wrapper-e">
                         {store.band.events && store.band.events.map((event, index) => (
-                        <ul className="carousel-e" key={index}>
-                            <li className="card-e">
-                                <div className="img">
-                                    <img src={event.picture_url} alt="img" draggable="false" className="img" />
-                                </div>
-                                <div className="card-c-content">
-                                    <h2 className="name">{event.name}</h2>
-                                    <span className="description">{event.description}</span>
-                                </div>
-                            </li>
-                        </ul>
+                            <ul className="carousel-e" key={index}>
+                                <li className="card-e">
+                                    <div className="img">
+                                        <Link to={`/events/${event.id}`}>
+                                            <img src={event.picture_url} alt="img" draggable="false" className="img" />
+                                        </Link>
+                                    </div>
+                                    <div className="card-c-content">
+                                        <h2 className="name">{event.name}</h2>
+                                        <span className="description">{event.description}</span>
+                                    </div>
+
+                                </li>
+                            </ul>
                         ))}
                     </div>
                 </div>

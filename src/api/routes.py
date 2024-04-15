@@ -277,6 +277,9 @@ def protected():
             "name": user.created_band.name,
             "profile_picture": user.created_band.profile_picture
         }
+    
+ 
+    
 
     return jsonify({
         "id": user.id, 

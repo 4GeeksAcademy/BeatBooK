@@ -111,7 +111,7 @@ export const ProfileBody = (props) => {
                 <div className="events col-7">
                     <nav className="navba navbar-expand-lg bg-body-tertiary my-3">
                         <div className="container-fluid d-flex justify-content-center align-items-center">
-                            <h5>Eventos</h5>
+                            <h5>¡Eventos en mi radar!</h5>
                         </div>
                     </nav>
                     <div className="wrapper-e">
