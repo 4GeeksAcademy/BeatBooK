@@ -61,8 +61,8 @@ export const EventComments = ({ eventData, onNewComment }) => {
             <h5 className="mb-0">{review.user}</h5>
             <p>{review.comment}</p>
             {review.user_id === userId && (
-              <button onClick={() => handleCommentDelete(review.id)}>
-                Eliminar comentario
+              <button className="comment-button" onClick={() => handleCommentDelete(review.id)}>
+                Del
               </button>
             )}
           </div>
