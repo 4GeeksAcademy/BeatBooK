@@ -49,7 +49,7 @@ export const Cards = () => {
 
 
   const handleLearnMore = (id) => {
-    navigate(`/api/bands/${id}`);
+    navigate(`/banda/${id}`);
   };
 
 

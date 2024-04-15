@@ -135,7 +135,6 @@ class Band(db.Model):
 
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
-
     members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
 
     def __repr__(self):
@@ -155,7 +154,8 @@ class Band(db.Model):
             'banner_picture': self.banner_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
-            'members': members
+            'members': members,
+            'events': [event.serialize() for event in self.events]
         }
 
 

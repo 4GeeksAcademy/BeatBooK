@@ -29,7 +29,7 @@ export const AppNavbar = () => {
       }}
     >
       {" "}
-      <div className="container-fluid">
+      <div className="container-fluid m-0 p-0">
         <div className="row ">
           <nav
             className="navbar navbar-expand bg-black rounded-top p-1 d-flex justify-content-between align-items-center"

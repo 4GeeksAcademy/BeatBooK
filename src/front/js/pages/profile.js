@@ -11,10 +11,11 @@ export const Profile = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("jwt-token");
-
+    
         if (token) {
             setIsLoggedIn(true);
         } else {
+            setIsLoggedIn(false);
             navigate("/");
         }
     }, []);

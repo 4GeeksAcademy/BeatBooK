@@ -12,9 +12,9 @@ export const LandingPage = () => {
 
 
     return (
-        <div className="container-fluid text-center">
+        <div className="container-fluid text-center m-0 p-0">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 m-0 p-0">
                     <video
                         autoPlay
                         muted

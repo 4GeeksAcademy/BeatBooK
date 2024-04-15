@@ -1,8 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
+
 
 video {
     position: relative;
@@ -16,7 +12,7 @@ video {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-140%, -110%);
+    transform: translate(-158%, -110%);
     height: 200px;
     width: 700px;
 }

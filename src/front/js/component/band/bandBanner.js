@@ -75,43 +75,22 @@ export const BandBanner = (props) => {
                     <nav className="navba navbar-expand-lg bg-body-tertiary my-3">
                         <div className="container-fluid d-flex justify-content-between align-items-center">
                             <h5>Eventos</h5>
-                            <button className="btns" type="submit">Filtrar</button>
                         </div>
                     </nav>
                     <div className="wrapper-e">
-                        <ul className="carousel-e">
+                        {store.band.events && store.band.events.map((event, index) => (
+                        <ul className="carousel-e" key={index}>
                             <li className="card-e">
                                 <div className="img">
-                                    <img src="https://i.pinimg.com/564x/97/0a/03/970a035f8595f1f1108262379c26a760.jpg" alt="img" draggable="false" className="img" />
+                                    <img src={event.picture_url} alt="img" draggable="false" className="img" />
                                 </div>
                                 <div className="card-c-content">
-                                    <h2 className="name">Conciertos a tutiplen</h2>
-                                    <span className="description">Mini Festival al aire libre</span>
+                                    <h2 className="name">{event.name}</h2>
+                                    <span className="description">{event.description}</span>
                                 </div>
                             </li>
                         </ul>
-                        <ul className="carousel-e">
-                            <li className="card-e">
-                                <div className="img">
-                                    <img src="https://i.pinimg.com/564x/97/0a/03/970a035f8595f1f1108262379c26a760.jpg" alt="img" draggable="false" className="img" />
-                                </div>
-                                <div className="card-c-content">
-                                    <h2 className="name">Conciertos a tutiplen</h2>
-                                    <span className="description">Mini Festival al aire libre</span>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul className="carousel-e">
-                            <li className="card-e">
-                                <div className="img">
-                                    <img src="https://i.pinimg.com/564x/97/0a/03/970a035f8595f1f1108262379c26a760.jpg" alt="img" draggable="false" className="img" />
-                                </div>
-                                <div className="card-c-content">
-                                    <h2 className="name">Conciertos a tutiplen</h2>
-                                    <span className="description">Mini Festival al aire libre</span>
-                                </div>
-                            </li>
-                        </ul>
+                        ))}
                     </div>
                 </div>
             </div>
