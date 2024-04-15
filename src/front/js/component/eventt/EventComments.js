@@ -6,15 +6,15 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 export const EventComments = ({ eventData, onNewComment }) => {
   const { store, actions } = useContext(Context);
   const [comment, setComment] = useState("");
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user ? user.user_id : null;
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
 
   const handleCommentSubmit = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user ? user.user_id : null;
+
 
     const username = localStorage.getItem("username");
     const reviewData = {
@@ -36,6 +36,14 @@ export const EventComments = ({ eventData, onNewComment }) => {
     }
   };
 
+  const handleCommentDelete = async (reviewId) => {
+    try {
+      await actions.deleteReview(reviewId);
+      onNewComment(); // para actualizar la lista de comentarios
+    } catch (error) {
+      console.error("Error deleting review", error);
+    }
+  };
 
 
   return (
@@ -52,6 +60,11 @@ export const EventComments = ({ eventData, onNewComment }) => {
           <div>
             <h5 className="mb-0">{review.user}</h5>
             <p>{review.comment}</p>
+            {review.user_id === userId && (
+              <button onClick={() => handleCommentDelete(review.id)}>
+                Eliminar comentario
+              </button>
+            )}
           </div>
         </div>
       ))}

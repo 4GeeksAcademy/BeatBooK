@@ -468,7 +468,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       deleteReview: async (reviewId) => {
         try {
-          const response = await fetch(`/api/reviews/${reviewId}`, {
+          const response = await fetch(process.env.BACKEND_URL + `/api/reviews/${reviewId}`, {
             method: 'DELETE',
           });
 

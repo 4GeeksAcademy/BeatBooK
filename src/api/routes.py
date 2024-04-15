@@ -791,9 +791,13 @@ def delete_review(review_id):
     review = Review.query.get(review_id)
     if review is None:
         raise APIException('Review not found', status_code=404)
+    
+    review_data = review.serialize()  
+
     db.session.delete(review)
     db.session.commit()
-    return jsonify(review.serialize()), 200
+
+    return jsonify(review_data), 200  
 
 #CATEGORIAS MUSICALES#
 
