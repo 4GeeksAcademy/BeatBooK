@@ -18,7 +18,8 @@ class User(db.Model):
     tiktok = db.Column(db.String(500), nullable=True)
     created_events = db.relationship('Event', backref='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user_assistances', lazy=True)
-    
+    created_band_id = db.Column(db.Integer, db.ForeignKey('band.id'), unique=True) #añado para poder alamacenar quien crea la banda
+    created_band = db.relationship('Band', backref='creator', uselist=False, foreign_keys='User.created_band_id') #añado para poder alamacenar quien crea la banda
 
 
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
