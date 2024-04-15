@@ -268,6 +268,16 @@ def protected():
             "name": category.name,
             
         })
+
+      # Serializar la banda creada por el usuario si existe
+    created_band_serialized = None
+    if user.created_band:
+        created_band_serialized = {
+            "id": user.created_band.id,
+            "name": user.created_band.name,
+            "profile_picture": user.created_band.profile_picture
+        }
+
     return jsonify({
         "id": user.id, 
         "email": user.email,
@@ -281,7 +291,8 @@ def protected():
         "banner_picture": user.banner_picture,
         "instagram": user.instagram,
         "tiktok": user.tiktok,
-        "user_categories": user_categories_serialized 
+        "user_categories": user_categories_serialized, 
+        "created_band": created_band_serialized
        
     }), 200
 
@@ -441,6 +452,7 @@ def create_band():
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
+        creator_id=data.get('creator_id')
     )
     db.session.add(band)
     db.session.commit()

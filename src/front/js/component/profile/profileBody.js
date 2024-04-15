@@ -65,9 +65,11 @@ export const ProfileBody = (props) => {
                         <div className="card-detail-content">
                             <h5 className="card-title">Detalles</h5>
                             <p className="card-text">{store.currentUser?.description}</p>
+                        </div>
+                            <div className= 'redes-footer'>
                             <a href="{store.currentUser?.instagram}" className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
                             <a href="{store.currentUser?.tiktok}" className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
-                        </div>
+                            </div>
                     </div>
                         {/* ---------------------------------- */}
 

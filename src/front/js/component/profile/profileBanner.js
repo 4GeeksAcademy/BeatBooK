@@ -4,12 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "../profile/profile.css"
 import { ProfileBody } from './profileBody';
+import { Link } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+
+const useStyles = makeStyles((theme) => ({
 
 
+    root: {
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(0.2),
+        },
+    },
+}));
 
 export const ProfileBanner = () => {
     const [show, setShow] = useState(false);
@@ -85,12 +97,12 @@ export const ProfileBanner = () => {
                 throw new Error('Error al enviar el formulario');
             }
             handleClose(); // Cierra el modal después de enviar el formulario
-    
+
             // Actualizar datos de usuario en el estado de la aplicación
             const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
             const updatedUserData = await updatedUserResponse.json();
             actions.getPrivateData(updatedUserData); // Esta función debe actualizar el estado del usuario en tu contexto
-    
+
             toast.success("Cambios guardados con éxito");
         } catch (error) {
             // Manejar errores de solicitud
@@ -110,6 +122,9 @@ export const ProfileBanner = () => {
         navigate('/band/registre')
     }
 
+
+    const classes = useStyles();
+
     return (
         <div className="container d-flex flex-column justify-content-center">
             <div className='row'>
@@ -127,6 +142,14 @@ export const ProfileBanner = () => {
                 <div className='col-12 col-md-4 col-xl-4 m-3 p-5 d-flex align-items-center justify-content-start' id='username'>
                     <div className=''>
                         <h1>{store.currentUser?.username}</h1>
+                        <div className='d-flex justify-content-start align-items-center my-3'>
+                            <div className={classes.root}>
+                                <Link to={`/banda/${store.currentUser?.created_band.id}`}>
+                                    <Avatar className="avatar" alt={store.currentUser?.username} src={store.currentUser?.created_band?.profile_picture} />
+                                </Link>
+                                <p className='mt-2'>{store.currentUser?.created_band.name}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className='col-12 col-md-4 col-xl-5 d-flex align-items-end justify-content-end' id="botones">
@@ -158,7 +181,7 @@ export const ProfileBanner = () => {
                                     type="file"
                                     onChange={handleFileChange}
                                     accept="image/*"
-                                    
+
                                 />
                             </div>
                             <div className='modal-img'>
@@ -179,7 +202,7 @@ export const ProfileBanner = () => {
                                     accept="image/*"
                                 />
                             </div>
-                           
+
                             <div className='banner-img'>
                                 <img src={store.currentUser?.banner_picture} className="img-fluid" alt="fotoBanner" />
                             </div>
