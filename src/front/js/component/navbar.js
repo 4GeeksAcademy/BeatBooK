@@ -8,7 +8,6 @@ import LogoHorizontal from "./navbar/beatBoxHorizontal.png";
 import LogoHorizontalBlanco from "./navbar/beatBoxHorizontalBlanco.png";
 import "./navbar/logo.css";
 import { SecondaryNavbar } from "./navbar/navbarSecondary";
-import { useEffect } from "react";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
