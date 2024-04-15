@@ -27,13 +27,25 @@ export const Lugar = () => {
                     <div className="container text-center">
                         <div className="row">
                             <div className="col">
-                                1 of 3
                             </div>
-                            <div className="col-9 bannerContainer">
-                                <img src={place.banner_picture} className="BannerPicture" alt="place_banner_picture" />
+                            <div className="col-9">
+                                <div className="bannerContainer">
+                                    <img src={place.banner_picture} className="BannerPicture" alt="place_banner_picture" />
+                                </div>
+                                <div className="container">
+                                    <div className="row align-items-center borderBottom">
+                                        <div className="col-3 ">
+                                            <div className="ProfilePictureContainer">
+                                                <img src={place.profile_picture} className="ProfilePicture" alt="place_profile_picture" />
+                                            </div>
+                                        </div>
+                                        <div className="col text-start">
+                                            <h2>{place.name}</h2>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="col">
-                                3 of 3
                             </div>
                         </div>
                     </div>
