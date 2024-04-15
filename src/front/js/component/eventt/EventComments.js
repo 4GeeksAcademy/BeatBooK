@@ -29,7 +29,8 @@ export const EventComments = ({ eventData, onNewComment }) => {
     try {
       const response = await actions.createReview(reviewData);
       console.log(response);
-      onNewComment(); // Notificar al componente padre que se ha enviado un nuevo comentario
+      onNewComment();
+      setComment('');
     } catch (error) {
       console.error("Error creating review", error);
     }
@@ -62,6 +63,7 @@ export const EventComments = ({ eventData, onNewComment }) => {
           value={comment}
           onChange={handleCommentChange}
         />
+        <div className="text-white pe-2">{comment.length}/500</div>
       </div>
       <div className="d-flex justify-content-center align-items-center text-center pt-3">
         <button className="comment-button" onClick={handleCommentSubmit}>
