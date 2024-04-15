@@ -1,0 +1,12 @@
+.BannerPicture {
+    width: 100%;
+    height: 35%;
+    object-fit: cover;
+}
+
+.ProfilePicture {
+    width: 10%;
+    height: 10%;
+    object-fit: cover;
+    border-radius: 50%;
+}

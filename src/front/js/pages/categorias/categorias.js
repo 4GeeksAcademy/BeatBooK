@@ -18,7 +18,7 @@ export const Categorias = () => {
       <br></br>
       <div className='bentobox'>
         {categories.map((category) => (
-          <div class="containerCard noselect item">
+          <div class="containerCard noselect item" onClick={() => window.location.href = `categoria/${category.id}/eventos`}>
             <div class="canvas">
               <div class="tracker tr-1"></div>
               <div class="tracker tr-2"></div>
