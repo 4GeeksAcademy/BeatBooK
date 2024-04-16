@@ -50,7 +50,7 @@ const Layout = () => {
   return (
     <div>
       <BrowserRouter basename={basename}>
-
+        <Background />
         <ToastContainer />
         <ScrollToTop>
           <AppNavbar />
