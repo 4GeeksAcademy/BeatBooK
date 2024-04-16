@@ -45,6 +45,7 @@ export const MapComponent = ({ coordinates }) => {
         .openPopup();
       setMarker(newMarker);
     }
+    console.log('Cordenadas', coordinates)
   }, [map, coordinates]);
 
   return (

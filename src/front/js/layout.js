@@ -29,7 +29,7 @@ import { ToastContainer } from "react-toastify";
 
 import { AppNavbar } from "./component/navbar";
 
-
+import Background from "./pages/background.js";
 
 import { Footer } from "./component/footer";
 
@@ -46,6 +46,7 @@ const Layout = () => {
   return (
     <div>
       <BrowserRouter basename={basename}>
+        <Background />
         <ToastContainer />
         <ScrollToTop>
           <AppNavbar />

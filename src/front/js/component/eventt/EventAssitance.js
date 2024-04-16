@@ -24,7 +24,7 @@ export const EventAssistance = ({ eventId, assistances, onAssistanceChange }) =>
         };
 
         fetchAssistanceStatus();
-    }, [eventId, userId, actions]);
+    }, []);
 
 
 

@@ -17,7 +17,7 @@ export const EventTeams = ({ eventData }) => {
         })
         .catch((error) => console.log("Error en getBand:", error)); // Modifica esto
     }
-  }, [eventData, actions]);
+  }, [1]);
 
   return (
     <div className="pt-3">
@@ -29,9 +29,8 @@ export const EventTeams = ({ eventData }) => {
         <div
           className="me-3 teams"
           style={{
-            backgroundImage: `url(${
-              band ? band.profile_picture : "defaultImage.jpg"
-            })`,
+            backgroundImage: `url(${band ? band.profile_picture : "defaultImage.jpg"
+              })`,
           }}
         >
           <p>{band ? band.name : "Cargando..."}</p>

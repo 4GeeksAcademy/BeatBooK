@@ -22,28 +22,7 @@ import { EventDescription } from "../component/eventt/EventDescription";
 import { EventAssistance } from "../component/eventt/EventAssitance";
 import L from "leaflet";
 
-async function getCoordinates(address) {
-  try {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    if (data[0]) {
-      return [data[0].lat, data[0].lon];
-    } else {
-      console.error(
-        `No se pudo encontrar ninguna ubicación para la dirección: ${address}`
-      );
-      return null;
-    }
-  } catch (error) {
-    console.error("Ha ocurrido un error:", error);
-    return null;
-  }
-}
+
 
 export const Event = (props) => {
 
@@ -61,6 +40,29 @@ export const Event = (props) => {
       console.log("eventData", data);
     });
   }, [id, refreshComments, refreshAssistances]);
+
+  async function getCoordinates(address) {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data[0]) {
+        return [data[0].lat, data[0].lon];
+      } else {
+        console.error(
+          `No se pudo encontrar ninguna ubicación para la dirección: ${address}`
+        );
+        return null;
+      }
+    } catch (error) {
+      console.error("Ha ocurrido un error:", error);
+      return null;
+    }
+  }
 
   const handleNewComment = () => {
     setRefreshComments(!refreshComments);
