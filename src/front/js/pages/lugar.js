@@ -28,7 +28,7 @@ export const Lugar = () => {
         actions.getPlaceEvents(place_id)
             .then((data) => {
                 if (Array.isArray(data)) {
-                    setEvents(data);
+                    setEvents(data); // Actualizar el estado de los eventos
                 } else {
                     console.error('Data is not an array:', data);
                     setEvents([]);
@@ -77,9 +77,18 @@ export const Lugar = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div className="col">
                                             <div className="container">
-                                                <div className="card"></div>
+                                                {/* Renderizar los eventos */}
+                                                {events.map((event) => (
+                                                    <div className="card" key={event.id}>
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">{event.title}</h5>
+                                                            <p className="card-text">{event.description}</p>
+                                                            <p className="card-text">{event.date}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
