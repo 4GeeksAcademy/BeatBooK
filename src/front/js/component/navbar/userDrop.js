@@ -75,7 +75,7 @@ export const UserDrop = () => {
             style={{ border: "none", backgroundColor: "transparent" }}
           >
             <span className="username text-light">
-              {store.user ? store.user.username : "Acceder"}
+              {store.user ? user.username : "Acceder"}
             </span>
             {store.user && store.user.profile_image_url ? (
               <img

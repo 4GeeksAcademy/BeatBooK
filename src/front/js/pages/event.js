@@ -82,9 +82,9 @@ export const Event = (props) => {
     getCoordinates(eventData.address).then(setCoordinates);
   }, [eventData]);
 
-  useEffect(() => {
-    console.log("coordinates2", coordinates);
-  }, [coordinates]);
+  // useEffect(() => {
+  //   console.log("coordinates2", coordinates);
+  // }, [coordinates]);
 
 
 
