@@ -27,11 +27,11 @@ export const UserDrop = () => {
 
   useEffect(() => {
     console.log("store.user", store.user);
-    console.log("store.currentUser", store.currentUser);
-    if (!store.user) {
-      actions.getUser(); // obtén los datos del usuario cuando el componente se monta
-    }
-    console.log("store.user", store.user.username);
+
+    // if (!store.user) {
+    //   actions.getUser(); // obtén los datos del usuario cuando el componente se monta
+    // }
+
   }, []); // pasa un array vacío como segundo argumento pa
 
 
