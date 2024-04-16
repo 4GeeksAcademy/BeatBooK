@@ -1,23 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "/workspaces/BeatBooK/src/front/styles/lugar.css";
 import { useParams } from "react-router-dom";
+import { Context } from "/workspaces/BeatBooK/src/front/js/store/appContext.js";
 
 export const Lugar = () => {
     const [place, setPlace] = useState(null);
+    const [events, setEvents] = useState([]); // Definir el estado para los eventos
     const { place_id } = useParams();
+    const { actions } = useContext(Context);
 
     useEffect(() => {
-        if (place_id) {
-            fetch(process.env.BACKEND_URL + `/api/places/${place_id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch place');
-                    }
-                    return response.json();
-                })
-                .then(data => setPlace(data))
-                .catch(error => console.error(error));
-        }
+        actions.getPlace(place_id)
+            .then((data) => {
+                if (data) {
+                    setPlace(data);
+                } else {
+                    console.error(`Place with ID ${place_id} not found`);
+                    setPlace(null);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching place:', error);
+                setPlace(null);
+            });
+
+        actions.getPlaceEvents(place_id)
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setEvents(data); // Actualizar el estado de los eventos
+                } else {
+                    console.error('Data is not an array:', data);
+                    setEvents([]);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching events:', error);
+                setEvents([]);
+            });
     }, [place_id]);
 
     return (
@@ -57,9 +76,18 @@ export const Lugar = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div className="col">
                                             <div className="container">
-                                                <div className="card"></div>
+                                                {/* Renderizar los eventos */}
+                                                {events.map((event) => (
+                                                    <div className="card" key={event.id}>
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">{event.title}</h5>
+                                                            <p className="card-text">{event.description}</p>
+                                                            <p className="card-text">{event.date}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +97,6 @@ export const Lugar = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             )}
             <br></br>

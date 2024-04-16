@@ -48,6 +48,19 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error signing up", error);
         }
       },
+      getPlace: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch place');
+          }
+          const data = await response.json();
+          setStore({ place: data });
+          return data;
+        } catch (error) {
+          console.error(error);
+        }
+      },
 
       getPlaceEvents: async (place_id) => {
         try {
