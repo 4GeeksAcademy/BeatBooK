@@ -49,7 +49,6 @@ const Layout = () => {
         <ToastContainer />
         <ScrollToTop>
           <AppNavbar />
-
           <Routes>
             <Route element={<LandingPage />} path="/" />
             <Route element={<Home />} path="/home" />

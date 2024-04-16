@@ -1,0 +1,25 @@
+.background {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: #1F2937;
+    /* Equivalent to bg-slate-950 in Tailwind */
+}
+
+.circle {
+    position: absolute;
+    bottom: 0;
+    top: -10%;
+    height: 500px;
+    width: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle farthest-side, rgba(255, 0, 182, 0.15), rgba(255, 255, 255, 0));
+}
+
+.circle-left {
+    left: -20%;
+}
+
+.circle-right {
+    right: -20%;
+}

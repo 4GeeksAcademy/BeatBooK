@@ -27,6 +27,7 @@ export const UserDrop = () => {
 
   useEffect(() => {
     console.log("store.user", store.user);
+    console.log("store.currentUser", store.currentUser);
     if (!store.user) {
       actions.getUser(); // obtén los datos del usuario cuando el componente se monta
     }
