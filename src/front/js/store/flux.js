@@ -108,6 +108,19 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getPlaceEvents: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}/events`);
+          if (!response.ok) {
+            throw new Error("Place not found");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
       getEventsByCategory: async (category_id) => {
         try {
             const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);

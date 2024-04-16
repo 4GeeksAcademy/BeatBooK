@@ -12,7 +12,7 @@ export const CategoryEvents = () => {
 
     useEffect(() => {
 
-        actions.getEventsByCategory(category_id)
+        actions.getPlaceEvents(category_id)
             .then((data) => {
                 if (Array.isArray(data)) {
                     setEvents(data);
