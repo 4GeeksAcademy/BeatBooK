@@ -25,12 +25,16 @@ export const UserDrop = () => {
     navigate("/");
   };
 
+  const user = JSON.parse(localStorage.getItem('user'));
+
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('user from localStorage', user);
     console.log("store.user", store.user);
 
-    // if (!store.user) {
-    //   actions.getUser(); // obtén los datos del usuario cuando el componente se monta
-    // }
+    if (!store.user) {
+      actions.getUser(); // obtén los datos del usuario cuando el componente se monta
+    }
 
   }, []); // pasa un array vacío como segundo argumento pa
 
@@ -47,12 +51,12 @@ export const UserDrop = () => {
             style={{ border: "none", backgroundColor: "transparent" }}
           >
             <span className="username text-light">
-              {store.user ? store.user.username : "Acceder"}
+              {store.user ? user.username : "Acceder"}
             </span>
-            {store.user && store.user.profileimage ? (
+            {store.user && user.profileimage ? (
               <img
                 className="profile-image"
-                src={store.user.profileimage}
+                src={user.profileimage}
                 alt="Profile image"
               ></img>
             ) : (

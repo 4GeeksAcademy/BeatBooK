@@ -7,9 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       event: [],
       allEvents: [],
       allUsers: [],
-      bands:[],
+      bands: [],
       band: [],
-      places:[],
+      places: [],
       allCategories: [],
       userFavorite: [],
       demo: [
@@ -124,6 +124,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             // El token no es válido o ha expirado
             localStorage.removeItem("jwt-token");
             setStore({ currentUser: null });
+            setStore({ user: null });
             throw new Error("Token inválido o expirado");
           }
 
@@ -135,6 +136,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           // Actualiza el estado global con la información obtenida
           setStore({ currentUser: data });
+          setStore({ user: data });
+
 
           return data;
         } catch (error) {
@@ -362,7 +365,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error(`HTTP error! status: ${resp.status}`);
           }
           const data = await resp.json();
-          setStore({band: data})
+          setStore({ band: data })
           return data;
         } catch (error) {
           console.log("Error loading band from backend", error);
@@ -554,31 +557,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getMusicalCategories: async () => {
         try {
-            const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
-            if (!response.ok) {
-                throw new Error('Failed to fetch musical categories');
-            }
-            const data = await response.json();
-            setStore({ allCategories: data });
-            return data
+          const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
+          if (!response.ok) {
+            throw new Error('Failed to fetch musical categories');
+          }
+          const data = await response.json();
+          setStore({ allCategories: data });
+          return data
 
         } catch (error) {
-            console.error('Error fetching musical categories:', error);
-            // Manejar el error de acuerdo a tus necesidades
-        }  
-    },
-  
-  checkUser: async () => {
-  const token = localStorage.getItem("jwt-token");
-  const user = JSON.parse(localStorage.getItem("user"));
+          console.error('Error fetching musical categories:', error);
+          // Manejar el error de acuerdo a tus necesidades
+        }
+      },
 
-  if (token && user) {
-    setStore({ user: user });
-  }
-},
-}
+      checkUser: async () => {
+        const token = localStorage.getItem("jwt-token");
+        const user = JSON.parse(localStorage.getItem("user"));
 
-};
+        if (token && user) {
+          setStore({ user: user });
+        }
+      },
+    }
+
+  };
 };
 
 export default getState;
