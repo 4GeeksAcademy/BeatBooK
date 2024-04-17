@@ -457,6 +457,7 @@ def get_single_band(band_id):
 
 #-----------CREAR BANDAS------------------#
 
+
 @api.route('/bands', methods=['POST'])
 def create_band():
     data = request.json
