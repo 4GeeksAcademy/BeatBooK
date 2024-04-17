@@ -374,6 +374,22 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
+      getPlace: async (placeId) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/places/" + placeId
+          );
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const data = await resp.json();
+          setStore({ place: data })
+          return data;
+        } catch (error) {
+          console.log("Error loading place from backend", error);
+          throw error;
+        }
+      },
       uploadEventPicture: async (image, eventId) => {
         console.log("uploadEventPicture se ha llamado");
         try {

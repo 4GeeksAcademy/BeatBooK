@@ -15,7 +15,7 @@ import { MapComponent } from "../component/eventt/map";
 import "leaflet/dist/leaflet.css";
 import { EventDetails } from "../component/eventt/EventDetails";
 import { EventMedia } from "../component/eventt/EventMedia";
-import { EventMembers } from "../component/eventt/EventMembers";
+import { EventPlace } from "../component/eventt/EventPlace";
 import { EventTeams } from "../component/eventt/EventTeams";
 import { EventComments } from "../component/eventt/EventComments";
 import { EventDescription } from "../component/eventt/EventDescription";
@@ -106,9 +106,12 @@ export const Event = (props) => {
   return (
     <Container className="pt-5 evento">
       <Row>
+        <div className="d-flex justify-content-center pb-4">
+          <h1 className="text-center">{eventData.name.toUpperCase()}</h1>{" "}
+        </div>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center"
+          className="d-flex-column justify-content-center align-items-center text-center pt-2 pb-4"
         >
           <div className="img-container">
             {" "}
@@ -121,26 +124,32 @@ export const Event = (props) => {
           <EventDescription eventData={eventData} />
           <EventMedia eventData={eventData} />
           {/* <EventMembers eventData={eventData} /> */}
-          <EventTeams eventData={eventData} />
+          <Row>
+            <Col md={6} xs={12}>
+              <EventTeams eventData={eventData} />
+            </Col>
+            <Col md={6} xs={12}>
+              <EventPlace eventData={eventData} />
+            </Col>
+          </Row>
         </Col>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center pt-3"
+          className="d-flex-column justify-content-center align-items-center text-center "
         >
           {" "}
-          <h2>{eventData.name}</h2>{" "}
+
           <div className="d-flex justify-content-center align-items-center">
             {" "}
             <div className="event-details">
               {" "}
-              <h5 className="p-2">{eventData.date}</h5>{" "}
-              <h5 className="p-2">{eventData.location}</h5>{" "}
+              <h5 className="p-2">Fecha: {eventData.date}</h5>{" "}
               <h5 className="p-2">
-                {" "}
-                {eventData.price === "0" ? "Gratis" : eventData.price}{" "}
+                Precio:{" "}
+                {eventData.price === "0" ? "Gratis" : eventData.price}{" "}€
               </h5>{" "}
               <div className="event-map">
-                <h4>{eventData.address}</h4>
+                <h4>Ubicación: {eventData.address}</h4>
                 {coordinates && <MapComponent coordinates={coordinates} />}
               </div>
             </div>{" "}

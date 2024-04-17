@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from 'react-bootstrap/Modal';
 
 export const EventMedia = ({ eventData }) => {
+  const [show, setShow] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (url) => {
+    setSelectedImage(url);
+    setShow(true);
+  };
+
   return (
     <div className="pt-3">
       <h4>
@@ -11,12 +21,22 @@ export const EventMedia = ({ eventData }) => {
           <div className="img-media-container me-3" key={index}>
             <img
               className="img-media img-fluid"
-              src={mediaObject.url} // Accede a la propiedad 'url' aquí
+              src={mediaObject.url}
               alt="Imagen del evento"
+              onClick={() => handleShow(mediaObject.url)}
             />
           </div>
         ))}
       </div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Imagen del evento</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={selectedImage} alt="Imagen ampliada del evento" className="img-fluid" />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
