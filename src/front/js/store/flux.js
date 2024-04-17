@@ -52,6 +52,60 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error signing up", error);
         }
       },
+      getPlace: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch place');
+          }
+          const data = await response.json();
+          setStore({ place: data });
+          return data;
+        } catch (error) {
+          console.error(error);
+        }
+      },
+
+      getPlaceEvents: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}/events`);
+          if (!response.ok) {
+            throw new Error("Place not found");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
+      getEventsByCategory: async (category_id) => {
+        try {
+            const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch events");
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
+    getCategory: async (category_id) => {
+      try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          if (!response.ok) {
+              throw new Error("Failed to fetch category");
+          }
+          const data = await response.json();
+          return data;
+      } catch (error) {
+          console.log(error);
+          return null;
+      }
+  },
 
       logIn: async (email, password) => {
         try {
