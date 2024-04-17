@@ -97,9 +97,9 @@ export const Event = (props) => {
 
 
   if (!eventData) {
-    return <div class="text-center mt-5 pt-5 pb-5">
-      <div class="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
-        <span class="visually-hidden">Loading...</span>
+    return <div className="text-center mt-5 pt-5 pb-5">
+      <div className="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>;
   }
