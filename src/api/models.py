@@ -17,7 +17,7 @@ class User(db.Model):
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
     created_events = db.relationship('Event', backref='creator', lazy=True)
-    assistances = db.relationship('Assistance', backref='user_assistances', lazy=True)
+    assistances = db.relationship('Assistance', backref='user', lazy=True)
     created_band_id = db.Column(db.Integer, db.ForeignKey('band.id'), unique=True) #añado para poder alamacenar quien crea la banda
     created_band = db.relationship('Band', backref='creator', uselist=False, foreign_keys='User.created_band_id') #añado para poder alamacenar quien crea la banda
 
@@ -59,7 +59,7 @@ class Event(db.Model):
     instagram = db.Column(db.String(500), nullable=True)
     tiktok = db.Column(db.String(500), nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    assistances = db.relationship('Assistance', backref='event_assistances', lazy=True)
+    assistances = db.relationship('Assistance', backref='event', lazy=True)
     media = db.relationship('Media', backref='event', lazy=True)
     reviews = db.relationship('Review', back_populates='event')
     place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)

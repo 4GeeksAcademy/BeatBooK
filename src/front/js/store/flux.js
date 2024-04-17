@@ -191,6 +191,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (!response.ok) {
+            console.log('Código de estado:', response.status);
+            console.log('Cuerpo de la respuesta:', await response.text());
             throw new Error("Error al agregar asistencia");
           }
 

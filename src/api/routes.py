@@ -635,9 +635,9 @@ def get_event_reviews(event_id):
 def add_assistance(event_id):
     request_body = request.get_json()
     user_id = request_body['user_id']
-    existing_assistance = Assistance.query.filter_by(user_id=user_id).first()
+    existing_assistance = Assistance.query.filter_by(user_id=user_id, event_id=event_id).first()
     if existing_assistance:
-        return jsonify({"message": "User is already attending an event"}), 400
+        return jsonify({"message": "User is already attending this event"}), 400
     assistance = Assistance(user_id=user_id, event_id=event_id)
     db.session.add(assistance)
     db.session.commit()

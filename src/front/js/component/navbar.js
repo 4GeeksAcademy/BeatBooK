@@ -28,22 +28,26 @@ export const AppNavbar = () => {
     setAnchorEl(null);
   };
   return (
-    <div
+    <div className="hahahah"
       style={{
         position: "sticky",
         top: 0,
         zIndex: 1000,
+        maxWidth: "100vw",
       }}
     >
       {" "}
       <div className="container-fluid m-0 p-0">
-        <div className="row ">
+        <div className="" style={{ maxWidth: "100vw", }}>
           <nav
-            className="navbar navbar-expand bg-black rounded-top p-1 d-flex justify-content-between align-items-center"
+            className="navbar navbar-expand bg-black  d-flex justify-content-between align-items-center"
             style={{
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
               marginBottom: "0",
               paddingBottom: "0",
+              paddingRight: "0",
+              marginRight: "0",
+              maxWidth: "100vw",
             }}
           >
             {" "}
