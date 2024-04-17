@@ -81,7 +81,6 @@ export const Lugar = () => {
                                 <div className="cardContent">
                                     <h5>Próximos Eventos</h5>
                                 </div>
-                                {/*Card eventos*/}
                                 <div className="eventCardContent card mb-3">
                                     {events.map((event) => (
                                         <div key={event.id} className="position-relative">
@@ -97,7 +96,6 @@ export const Lugar = () => {
                                     ))}
                                 </div>
                             </div>
-                            {/*Fin Card eventos*/}
                         </div>
                     </div>
                 </div>
