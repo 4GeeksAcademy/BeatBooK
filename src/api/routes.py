@@ -296,42 +296,7 @@ def protected():
        
     }), 200
 
-@api.route('/upload_profile_image', methods=['POST'])
-@jwt_required()
-def upload_profile_image():
-    if 'image' not in request.files:
-        return jsonify({"error": "No image provided"}), 400
-    file = request.files['image']
-    upload_result = upload(file)
-    url = upload_result['url']
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    if user is None:
-        return jsonify({"error": "User not found"}), 404
-    user.profile_image_url = url
-    db.session.commit()
-    return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
 
-@api.route('/upload_banner_image', methods=['POST'])
-@jwt_required()
-def upload_banner_image():
-    if 'banner' not in request.files:
-        return jsonify({"error": "No image provided"}), 400
-    
-    file = request.files['banner']
-    upload_result = upload(file)
-    url = upload_result['url']
-    
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    
-    if user is None:
-        return jsonify({"error": "User not found"}), 404
-    
-    user.banner_picture = url
-    db.session.commit()
-    
-    return jsonify({"message": "Banner image uploaded successfully", "url": url}), 200
 
 #USER#
 
@@ -434,6 +399,43 @@ def remove_user_favorite_category(user_id, category_id):
     db.session.commit()
     return jsonify(user.serialize()), 200
 
+@api.route('/upload_profile_image', methods=['POST'])
+@jwt_required()
+def upload_profile_image():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    upload_result = upload(file)
+    url = upload_result['url']
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+    user.profile_image_url = url
+    db.session.commit()
+    return jsonify({"message": "Profile image uploaded successfully", "url": url}), 200
+
+@api.route('/upload_banner_image', methods=['POST'])
+@jwt_required()
+def upload_banner_image():
+    if 'banner' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    
+    file = request.files['banner']
+    upload_result = upload(file)
+    url = upload_result['url']
+    
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user is None:
+        return jsonify({"error": "User not found"}), 404
+    
+    user.banner_picture = url
+    db.session.commit()
+    
+    return jsonify({"message": "Banner image uploaded successfully", "url": url}), 200
+
 #BANDS#
 
 @api.route('/bands', methods=['GET']) 
@@ -452,6 +454,7 @@ def get_single_band(band_id):
     return jsonify(band.serialize(members_only=True)), 200
 
 
+
 @api.route('/bands', methods=['POST'])
 def create_band():
     data = request.json
@@ -462,11 +465,13 @@ def create_band():
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
-        creator_id=data.get('creator_id')
+        creator_id=data.get('creator_id'),
+        members=data.get('members')
     )
     db.session.add(band)
     db.session.commit()
     return jsonify(band.serialize()), 201
+
 
 @api.route('/bands/<int:band_id>', methods=['PUT'])
 def update_band(band_id):
@@ -539,6 +544,39 @@ def get_band_events(band_id):
     events = band.events
     events_data = [event.serialize() for event in events]
     return jsonify(events_data), 200
+
+@api.route('/upload_profile_band', methods=['POST'])
+@jwt_required()
+def upload_profile_band():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    band_id = request.form.get('band_id')  # Obtiene el ID de la banda desde el formulario
+    upload_result = upload(file)
+    url = upload_result['url']
+    band = Band.query.get(band_id)  # Busca la banda por ID
+    if band is None:
+        return jsonify({"error": "Event not found"}), 404
+    band.profile_picture = url
+    db.session.commit()
+    return jsonify({"message": "Event picture uploaded successfully", "url": url}), 200
+
+@api.route('/upload_banner_band', methods=['POST'])
+@jwt_required()
+def upload_banner_band():
+    if 'banner' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['banner']
+    band_id = request.form.get('band_id')  # Obtiene el ID de la banda desde el formulario
+    upload_result = upload(file)
+    url = upload_result['url']
+    band = Band.query.get(band_id)  # Busca la banda por ID
+
+    if band is None:
+        return jsonify({"error": "Event not found"}), 404
+    band.banner_picture = url
+    db.session.commit()
+    return jsonify({"message": "Event picture uploaded successfully", "url": url}), 200
 
 #EVENTOS#
 

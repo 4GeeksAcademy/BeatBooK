@@ -50,7 +50,7 @@ export const LandingPage = () => {
                                 <img src="https://images.pexels.com/photos/2883051/pexels-photo-2883051.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="card-img-l" alt="Eventos" />
                                 <div className="card-body">
                                     <h5 className="card-title">Una aplicación para organizar</h5>
-                                    <p className="card-text">Chatea con los asistentes, gestiona la asistencia y actualiza tus eventos.</p>
+                                    <p className="card-text"> Gestiona la asistencia y actualiza tus eventos.</p>
                                 </div>
                             </div>
                         </div>

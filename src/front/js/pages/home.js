@@ -21,12 +21,12 @@ export const Home = () => {
                 </div>
             </div>
             <div className="container">
-                <h1 className="locales text-start my-5">Mejores locales</h1>
+                <h1 className="locales text-start my-5"> Locales</h1>
                 <div className="row justify-content-center">
 					<CardPlaces/>
                     
                 </div>
-                <h1 className="locales text-start my-5">Mejores Bandas</h1>
+                <h1 className="locales text-start my-5">Bandas</h1>
                 <div className="row justify-content-center">
                     <Cards />
                 </div>
