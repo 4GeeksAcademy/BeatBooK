@@ -487,7 +487,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const token = localStorage.getItem("jwt-token");
           const formData = new FormData();
           formData.append("banner", banner);
-          formData.append("band_id", bandId); // Agrega el ID del band al formulario
+          formData.append("band_id", bandId);
 
           console.log("Subiendo imagen con token:", token);
 
@@ -715,6 +715,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         } catch (error) {
           console.error('Error fetching musical categories:', error);
+          // Manejar el error de acuerdo a tus necesidades
+        }
+      },
+      getUser: async (user_id) => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}/api/users/${user_id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch user');
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error('Error fetching user:', error);
           // Manejar el error de acuerdo a tus necesidades
         }
       },

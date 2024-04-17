@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
@@ -30,6 +30,23 @@ export const ProfileBanner = () => {
     const { id } = useParams();
     const [isImageSelected, setIsImageSelected] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchPrivateData = async () => {
+            try {
+                await actions.getPrivateData();
+                console.log("esta info esta actual ", store.currentUser);
+            } catch (error) {
+                console.error('Error al obtener datos privados:', error);
+            }
+        }
+        fetchPrivateData();
+    }, []);
+
+    useEffect(() => {
+        console.log("esta info esta actual2 ", store.currentUser);
+
+    }, [store.currentUser]);
 
     const handleFileChange = async (e) => {
         setIsLoading(true);
