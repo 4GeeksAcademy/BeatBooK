@@ -81,31 +81,31 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getEventsByCategory: async (category_id) => {
         try {
-            const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch events");
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.log(error);
-            return [];
-        }
-    },
-
-    getCategory: async (category_id) => {
-      try {
-          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
           if (!response.ok) {
-              throw new Error("Failed to fetch category");
+            throw new Error("Failed to fetch events");
           }
           const data = await response.json();
           return data;
-      } catch (error) {
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
+
+      getCategory: async (category_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch category");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
           console.log(error);
           return null;
-      }
-  },
+        }
+      },
 
       logIn: async (email, password) => {
         try {
@@ -228,6 +228,35 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error creating event", error);
         }
       },
+
+      createBand: async (bandData) => {
+        console.log(bandData)
+        try {
+          const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/bands",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`, // Incluye el token en los headers
+              },
+              body: JSON.stringify(bandData),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error creating band");
+          }
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log("Error creating band", error);
+        }
+      },
+
       addAssistances: async (eventId, userId) => {
         try {
           const token = localStorage.getItem("jwt-token"); // Obtén el token del almacenamiento local
@@ -311,7 +340,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      getEvents: async (searchTerm) => {
+      getEvents: async (searchTerm) => {  //Revisar!!!!
         const store = getStore();
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/events");
@@ -352,18 +381,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      getUser: async (id) => {
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + `/api/users/${id}`
-          );
-          const data = await resp.json();
-          setStore({ user: data });
-          return data;
-        } catch (error) {
-          console.log("Error user not found", error);
-        }
-      },
 
       getAllUsers: async () => {
         try {
@@ -396,7 +413,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading places from backend", error);
         }
       },
-
+      //---------------------- BANDAS ----------------------------------------------------//
       getAllBands: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
@@ -428,22 +445,78 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-      getPlace: async (placeId) => {
+
+      uploadBandPicture: async (image, bandId) => {
+        console.log("uploadBandPicture se ha llamado");
         try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/places/" + placeId
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("image", image);
+          formData.append("band_id", bandId); // Agrega el ID del band al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_profile_band",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
           );
-          if (!resp.ok) {
-            throw new Error(`HTTP error! status: ${resp.status}`);
+          console.log(image);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
           }
-          const data = await resp.json();
-          setStore({ place: data })
-          return data;
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
         } catch (error) {
-          console.log("Error loading place from backend", error);
-          throw error;
+          console.log("Error uploading user picture", error);
         }
       },
+
+      uploadBannerBand: async (banner, bandId) => {
+        console.log("uploadBandBanner se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("banner", banner);
+          formData.append("band_id", bandId); // Agrega el ID del band al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_banner_band",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(banner);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading Banner band picture", error);
+        }
+      },
+      //------------------------------------------------------------------------------------------//
+
       uploadEventPicture: async (image, eventId) => {
         console.log("uploadEventPicture se ha llamado");
         try {
@@ -476,74 +549,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           return { url: data.url };
         } catch (error) {
           console.log("Error uploading event picture", error);
-        }
-      },
-      uploadUserPicture: async (image, userId) => {
-        console.log("uploadUserPicture se ha llamado");
-        try {
-          const token = localStorage.getItem("jwt-token");
-          const formData = new FormData();
-          formData.append("image", image);
-          formData.append("user_id", userId); // Agrega el ID del user al formulario
-
-          console.log("Subiendo imagen con token:", token);
-
-          const response = await fetch(
-            process.env.BACKEND_URL + "/api/upload_profile_image",
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-              body: formData,
-            }
-          );
-          console.log(image);
-          if (!response.ok) {
-            throw new Error("Error uploading user picture");
-          }
-
-          const data = await response.json();
-          console.log("Respuesta del servidor:", data);
-          console.log("URL de la imagen:", data.url);
-
-          return { url: data.url };
-        } catch (error) {
-          console.log("Error uploading user picture", error);
-        }
-      },
-      uploadBannerPicture: async (banner, userId) => {
-        console.log("uploadUserPicture se ha llamado");
-        try {
-          const token = localStorage.getItem("jwt-token");
-          const formData = new FormData();
-          formData.append("banner", banner);
-          formData.append("user_id", userId); // Agrega el ID del user al formulario
-
-          console.log("Subiendo imagen con token:", token);
-
-          const response = await fetch(
-            process.env.BACKEND_URL + "/api/upload_banner_image",
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-              body: formData,
-            }
-          );
-          console.log(banner);
-          if (!response.ok) {
-            throw new Error("Error uploading user picture");
-          }
-
-          const data = await response.json();
-          console.log("Respuesta del servidor:", data);
-          console.log("URL de la imagen:", data.url);
-
-          return { url: data.url };
-        } catch (error) {
-          console.log("Error uploading user picture", error);
         }
       },
 
@@ -582,6 +587,77 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading event media", error);
         }
       },
+
+      uploadUserPicture: async (image, userId) => {
+        console.log("uploadUserPicture se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("image", image);
+          formData.append("user_id", userId); // Agrega el ID del user al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_profile_image",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(image);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading user picture", error);
+        }
+      },
+
+      uploadBannerPicture: async (banner, userId) => {
+        console.log("uploadUserPicture se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("banner", banner);
+          formData.append("user_id", userId); // Agrega el ID del user al formulario
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_banner_image",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+          console.log(banner);
+          if (!response.ok) {
+            throw new Error("Error uploading user picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading user picture", error);
+        }
+      },
+
       createReview: async (reviewData) => {
         try {
           const token = localStorage.getItem("jwt-token");
@@ -642,18 +718,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           // Manejar el error de acuerdo a tus necesidades
         }
       },
-
-      checkUser: async () => {
-        const token = localStorage.getItem("jwt-token");
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        if (token && user) {
-          setStore({ user: user });
-        }
-      },
     }
-
-  };
+  }
 };
 
 export default getState;

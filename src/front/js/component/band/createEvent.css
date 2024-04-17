@@ -1,0 +1,215 @@
+.create_event_container {
+  position: relative;
+  background-size: cover;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1);
+  overflow: hidden; /* Asegúrate de que el fondo no se desborde */
+}
+
+.create_event_container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url("https://images.pexels.com/photos/9005440/pexels-photo-9005440.jpeg?auto=compress&cs=tinysrgb&w=600");
+  background-size: cover;
+  z-index: -1; /* Asegúrate de que el fondo esté detrás del contenido */
+  transition: transform 0.5s; /* Añade una transición suave */
+}
+
+.create_event_container:hover::before {
+  transform: scale(1.2);
+}
+
+.title_inputs {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  padding-left: 14px;
+  padding-top: 10px;
+}
+
+.myFormControlClass {
+  width: 100%px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.myFormControlClass::placeholder {
+  text-align: center;
+  color: white;
+}
+
+.myFormControlClass:focus::placeholder {
+  color: black;
+}
+
+.myFormControlClass_textarea {
+  width: 100%;
+  height: 122px;
+  background-color: transparent;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.myFormControlClass_textarea::placeholder {
+  text-align: center;
+  color: white;
+}
+
+.myFormControlClass_textarea:focus::placeholder {
+  color: black;
+}
+
+.create_event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.create_event_button {
+  width: 300px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0, 7s;
+}
+
+.create_event_button:hover {
+  background-color: white;
+  color: black;
+}
+
+.mutliSelect {
+  font-weight: bold;
+}
+
+.title_input_group {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 14px;
+  padding-top: 10px;
+}
+
+.myFormControlClassGroup {
+  width: 100%;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.myFormControlClassGroup::placeholder {
+  text-align: center;
+  color: white;
+}
+
+.myFormControlClassGroup:focus::placeholder {
+  color: black;
+}
+
+.card_group {
+  display: flex;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: white;
+}
+
+.card_group_text {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+
+  padding: 10px;
+}
+
+.button_delete_group {
+  background-color: transparent;
+
+  border-radius: 100%;
+  margin-left: 10px;
+  padding: 3px;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0, 7s;
+}
+
+.button_delete_group:hover {
+  scale: 1.1;
+}
+
+.img_group {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.p_upload {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 14px;
+  padding-top: 12px;
+}
+
+.upload_selector {
+  width: 100%;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1px;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
