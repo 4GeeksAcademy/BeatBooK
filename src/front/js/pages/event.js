@@ -22,7 +22,28 @@ import { EventDescription } from "../component/eventt/EventDescription";
 import { EventAssistance } from "../component/eventt/EventAssitance";
 import L from "leaflet";
 
-
+async function getCoordinates(address) {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    if (data[0]) {
+      return [data[0].lat, data[0].lon];
+    } else {
+      console.error(
+        `No se pudo encontrar ninguna ubicación para la dirección: ${address}`
+      );
+      return null;
+    }
+  } catch (error) {
+    console.error("Ha ocurrido un error:", error);
+    return null;
+  }
+}
 
 export const Event = (props) => {
 
@@ -40,29 +61,6 @@ export const Event = (props) => {
       console.log("eventData", data);
     });
   }, [id, refreshComments, refreshAssistances]);
-
-  async function getCoordinates(address) {
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      if (data[0]) {
-        return [data[0].lat, data[0].lon];
-      } else {
-        console.error(
-          `No se pudo encontrar ninguna ubicación para la dirección: ${address}`
-        );
-        return null;
-      }
-    } catch (error) {
-      console.error("Ha ocurrido un error:", error);
-      return null;
-    }
-  }
 
   const handleNewComment = () => {
     setRefreshComments(!refreshComments);
@@ -82,9 +80,9 @@ export const Event = (props) => {
     getCoordinates(eventData.address).then(setCoordinates);
   }, [eventData]);
 
-  // useEffect(() => {
-  //   console.log("coordinates2", coordinates);
-  // }, [coordinates]);
+  useEffect(() => {
+    console.log("coordinates2", coordinates);
+  }, [coordinates]);
 
 
 
@@ -97,9 +95,9 @@ export const Event = (props) => {
 
 
   if (!eventData) {
-    return <div className="text-center mt-5 pt-5 pb-5">
-      <div className="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
-        <span className="visually-hidden">Loading...</span>
+    return <div class="text-center mt-5 pt-5 pb-5">
+      <div class="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
     </div>;
   }
@@ -107,12 +105,9 @@ export const Event = (props) => {
   return (
     <Container className="pt-5 evento">
       <Row>
-        <div className="d-flex justify-content-center pb-4">
-          <h1 className="text-center">{eventData.name.toUpperCase()}</h1>{" "}
-        </div>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center pt-2 pb-4"
+          className="d-flex-column justify-content-center align-items-center text-center"
         >
           <div className="img-container">
             {" "}
@@ -135,21 +130,22 @@ export const Event = (props) => {
         </Col>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center "
+          className="d-flex-column justify-content-center align-items-center text-center pt-3"
         >
           {" "}
-
+          <h2>{eventData.name}</h2>{" "}
           <div className="d-flex justify-content-center align-items-center">
             {" "}
             <div className="event-details">
               {" "}
-              <h5 className="p-2">Fecha: {eventData.date}</h5>{" "}
+              <h5 className="p-2">{eventData.date}</h5>{" "}
+              <h5 className="p-2">{eventData.location}</h5>{" "}
               <h5 className="p-2">
-                Precio:{" "}
-                {eventData.price === "0" ? "Gratis" : eventData.price}{" "}€
+                {" "}
+                {eventData.price === "0" ? "Gratis" : eventData.price}{" "}
               </h5>{" "}
               <div className="event-map">
-                <h4>Ubicación: {eventData.address}</h4>
+                <h4>{eventData.address}</h4>
                 {coordinates && <MapComponent coordinates={coordinates} />}
               </div>
             </div>{" "}

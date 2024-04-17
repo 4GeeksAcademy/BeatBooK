@@ -39,6 +39,7 @@ export const ProfileBody = (props) => {
 
     useEffect(() => {
         actions.getAllEvents();
+        console.log(store.currentUser);
     }, [store.currentUser]);
 
 
@@ -124,7 +125,7 @@ export const ProfileBody = (props) => {
                             <h5 className="card-title">Información</h5>
                             <p className="card-text"><strong>Ciudad:</strong> {store.currentUser?.city}</p>
                             <p className="card-text"><strong>Genero:</strong> {store.currentUser?.gender}</p>
-                            <p className="card-text"><strong>Cumpleaños:</strong> {formatBirthdate(birthdate)}</p>
+                            <p className="card-text"><strong>Cumpleaños:</strong> {store.currentUser?.birthdate}</p>
                         </div>
                     </div>
                     {/* ---------------------------------- */}
