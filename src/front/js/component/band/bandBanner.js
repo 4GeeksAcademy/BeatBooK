@@ -70,7 +70,7 @@ export const BandBanner = (props) => {
                         <a href={store.band.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
                     </div>
                     <h5>Categoria musical</h5>
-                    <button className="btns-music"><i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> Pop </button>
+                    <button className="btns-music"><i className="fas fa-music" style={{ color: '#FFFFFF' }}></i>{store.band.musical_categories}</button>
                 </div>
 
                 <div className="band-events">
