@@ -62,16 +62,18 @@ export const SearchResults = ({ isOpen, setIsOpen }) => {
 
       <div className="busqueda">
         <h3>Eventos</h3>
-        {searchTerm && // Solo muestra los eventos si searchTerm no está vacío
+        {searchTerm &&
           events
             .filter((event) =>
               event.address.toLowerCase().includes(searchTerm.toLowerCase())
-            ) // Filtra los eventos antes de mapearlos
+            )
+            .slice(0, 6)
             .map((event, index) => (
               <p key={index} onClick={() => handleAccessEvent(event)}>
-                <Link to={`/event/${event.name}`}>{event.name}</Link>
+                <Link className="text-black" to={`/event/${event.name}`}>{event.name}</Link>
               </p>
-            ))}
+            ))
+        }
         <h3>Accesos recientes</h3>
         {recentAccesses.map((event, index) => (
           <p key={index}>{event.name}</p>
