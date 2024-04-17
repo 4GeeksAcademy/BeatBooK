@@ -28,7 +28,7 @@ export const Lugar = () => {
         actions.getPlaceEvents(place_id)
             .then((data) => {
                 if (Array.isArray(data)) {
-                    setEvents(data); // Actualizar el estado de los eventos
+                    setEvents(data);
                 } else {
                     console.error('Data is not an array:', data);
                     setEvents([]);
@@ -44,57 +44,19 @@ export const Lugar = () => {
         <div className="container">
             {place && (
                 <div>
-                    <div className="container text-center">
-                        <div className="row">
-                            <div className="col">
+                    <div className='placeBanner'>
+                        <img src={place.banner_picture} className='img-fluid' ></img>
+                    </div>
+                    <div class="container text-start placeData">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <img className='ProfilePicture' src={place.profile_picture} alt='perfil' />
                             </div>
-                            <div className="col-9">
-                                <div className="bannerContainer">
-                                    <img src={place.banner_picture} className="BannerPicture" alt="place_banner_picture" />
-                                </div>
-                                <div className="container">
-                                    <div className="row align-items-center borderBottom">
-                                        <div className="col-3">
-                                            <div className="ProfilePictureContainer">
-                                                <img src={place.profile_picture} className="ProfilePicture" alt="place_profile_picture" />
-                                            </div>
-                                        </div>
-                                        <div className="col text-start">
-                                            <h1>{place.name}</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container text-center">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div className="card-band-content">
-                                                <h5 className="card-title">Detalles</h5>
-                                                <p className="card-text">{place.description}</p>
-                                                <h5>Redes sociales</h5>
-                                                <div className='social-network'>
-                                                    <a href={place.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
-                                                    <a href={place.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col">
-                                            <div className="container">
-                                                {/* Renderizar los eventos */}
-                                                {events.map((event) => (
-                                                    <div className="card" key={event.id}>
-                                                        <div className="card-body">
-                                                            <h5 className="card-title">{event.title}</h5>
-                                                            <p className="card-text">{event.description}</p>
-                                                            <p className="card-text">{event.date}</p>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-8">
+                                <h1 className='ms-2'>{place.name}</h1>
+                                <p className='ms-2'>{place.description}</p>
                             </div>
-                            <div className="col">
+                            <div class="col">
                             </div>
                         </div>
                     </div>
@@ -138,7 +100,6 @@ export const Lugar = () => {
                             {/*Fin Card eventos*/}
                         </div>
                     </div>
-
                 </div>
             )
             }
