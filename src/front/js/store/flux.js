@@ -7,9 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       event: [],
       allEvents: [],
       allUsers: [],
-      bands:[],
+      bands: [],
       band: [],
-      places:[],
+      places: [],
       allCategories: [],
       userFavorite: [],
       demo: [
@@ -50,6 +50,60 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error signing up", error);
+        }
+      },
+      getPlace: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch place');
+          }
+          const data = await response.json();
+          setStore({ place: data });
+          return data;
+        } catch (error) {
+          console.error(error);
+        }
+      },
+
+      getPlaceEvents: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}/events`);
+          if (!response.ok) {
+            throw new Error("Place not found");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
+      getEventsByCategory: async (category_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch events");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
+
+      getCategory: async (category_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch category");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log(error);
+          return null;
         }
       },
 
@@ -94,6 +148,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         // Borra el token del almacenamiento local
         localStorage.removeItem("jwt-token");
+        localStorage.removeItem("user");
 
         // Muestra un mensaje de éxito
         // toast.success("Has cerrado sesión correctamente");
@@ -105,8 +160,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (token && user) {
           setStore({ user: user });
         }
-        console.log("user", user);
-        console.log("token", token);
+        // console.log("user", user);
+        // console.log("token", token);
       },
 
 
@@ -124,6 +179,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             // El token no es válido o ha expirado
             localStorage.removeItem("jwt-token");
             setStore({ currentUser: null });
+            setStore({ user: null });
             throw new Error("Token inválido o expirado");
           }
 
@@ -135,6 +191,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           // Actualiza el estado global con la información obtenida
           setStore({ currentUser: data });
+          setStore({ user: data });
+
 
           return data;
         } catch (error) {
@@ -217,6 +275,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (!response.ok) {
+            console.log('Código de estado:', response.status);
+            console.log('Cuerpo de la respuesta:', await response.text());
             throw new Error("Error al agregar asistencia");
           }
 
@@ -379,7 +439,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             throw new Error(`HTTP error! status: ${resp.status}`);
           }
           const data = await resp.json();
-          setStore({band: data})
+          setStore({ band: data })
           return data;
         } catch (error) {
           console.log("Error loading band from backend", error);
@@ -646,19 +706,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getMusicalCategories: async () => {
         try {
-            const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
-            if (!response.ok) {
-                throw new Error('Failed to fetch musical categories');
-            }
-            const data = await response.json();
-            setStore({ allCategories: data });
-            return data
+          const response = await fetch(process.env.BACKEND_URL + '/api/musical_categories');
+          if (!response.ok) {
+            throw new Error('Failed to fetch musical categories');
+          }
+          const data = await response.json();
+          setStore({ allCategories: data });
+          return data
 
         } catch (error) {
-            console.error('Error fetching musical categories:', error);
-            // Manejar el error de acuerdo a tus necesidades
-        }  
-    },
+          console.error('Error fetching musical categories:', error);
+          // Manejar el error de acuerdo a tus necesidades
+        }
+      },
+      getUser: async (user_id) => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}/api/users/${user_id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch user');
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error('Error fetching user:', error);
+          // Manejar el error de acuerdo a tus necesidades
+        }
+      },
     }
   }
 };

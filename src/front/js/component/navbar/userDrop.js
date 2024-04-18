@@ -18,21 +18,50 @@ export const UserDrop = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
+
+
   const handleLogOut = () => {
     actions.logOut();
     localStorage.removeItem("jwt-token");
+    localStorage.removeItem("user");
     toast.success("Has cerrado sesión correctamente");
     navigate("/");
   };
 
-  useEffect(() => {
-    console.log("store.user", store.user);
-    if (!store.user) {
-      actions.getUser(); // obtén los datos del usuario cuando el componente se monta
-    }
-    console.log("store.user", store.user.username);
-  }, []); // pasa un array vacío como segundo argumento pa
+  // const user = JSON.parse(localStorage.getItem('user'));
 
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   console.log('user from localStorage', user);
+  //   console.log("store.user", store.user);
+
+  //   if (!store.user) {
+  //     actions.getUser(); // obtén los datos del usuario cuando el componente se monta
+  //   }
+
+  // }, []); // pasa un array vacío como segundo argumento pa
+
+  useEffect(() => {
+    const fetchPrivateData = async () => {
+      try {
+        await actions.getPrivateData();
+
+      } catch (error) {
+        console.error('Error al obtener datos privados:', error);
+      }
+    }
+    fetchPrivateData();
+  }, [store.user]);
+
+  // useEffect(() => {
+
+  //   console.log('store.User', store.User);
+  // }, [store.User]);
+
+  // useEffect(() => {
+
+  //   console.log('store.User2', store.User);
+  // }, [store.User]);
 
 
   return (
@@ -48,10 +77,10 @@ export const UserDrop = () => {
             <span className="username text-light">
               {store.user ? store.user.username : "Acceder"}
             </span>
-            {store.user && store.user.profileimage ? (
+            {store.user && store.user.profile_image_url ? (
               <img
                 className="profile-image"
-                src={store.user.profileimage}
+                src={store.user.profile_image_url}
                 alt="Profile image"
               ></img>
             ) : (

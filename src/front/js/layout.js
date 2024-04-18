@@ -22,6 +22,7 @@ import { Grupos } from "./pages/categorias/grupos.js";
 import { Lugares } from "./pages/categorias/lugares.js";
 import { PaginaFalsa } from "./pages/paginaFalsa.js";
 import { LandingPage } from "./pages/landingPage.js";
+import { Lugar } from "./pages/lugar.js";
 import { CreateBand } from "./pages/createBand.js";
 import { CreateBandMedia } from "./pages/createBandMedia.js";
 
@@ -31,7 +32,7 @@ import { ToastContainer } from "react-toastify";
 
 import { AppNavbar } from "./component/navbar";
 
-
+import Background from "./pages/background.js";
 
 import { Footer } from "./component/footer";
 
@@ -48,10 +49,10 @@ const Layout = () => {
   return (
     <div>
       <BrowserRouter basename={basename}>
+
         <ToastContainer />
         <ScrollToTop>
           <AppNavbar />
-
           <Routes>
             <Route element={<LandingPage />} path="/" />
             <Route element={<Home />} path="/home" />
@@ -67,12 +68,12 @@ const Layout = () => {
             <Route element={<Profile />} path="/profile" />
             <Route element={<BandPage />} path="/banda/:id" />
             <Route element={<Categorias />} path="/categorias" />
-            <Route element={<CategoryEvents />} path="/categoria/:id/eventos/" />
+            <Route element={<CategoryEvents />} path="/categoria/:category_id/eventos" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<Grupos />} path="/grupos" />
             <Route element={<Lugares />} path="/lugares" />
             <Route element={<PaginaFalsa />} path="/paginafalsa" />
-
+            <Route element={<Lugar />} path="/lugares/:place_id" />
           </Routes>
           <Footer />
         </ScrollToTop>

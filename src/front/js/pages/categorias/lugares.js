@@ -18,7 +18,7 @@ export const Lugares = () => {
             <br></br>
             <div className='bentobox'>
                 {places.map((place) => (
-                    <div class="containerCard noselect item">
+                    <div class="containerCard noselect item" onClick={() => window.location.href = `/lugares/${place.id}`} >
                         <div class="canvas">
                             <div class="tracker tr-1"></div>
                             <div class="tracker tr-2"></div>

@@ -18,7 +18,7 @@ export const Grupos = () => {
             <br></br>
             <div className='bentobox'>
                 {groups.map((band) => (
-                    <div class="containerCard noselect item">
+                    <div class="containerCard noselect item" onClick={() => window.location.href = `/grupos/${band.id}`}>
                         <div class="canvas">
                             <div class="tracker tr-1"></div>
                             <div class="tracker tr-2"></div>

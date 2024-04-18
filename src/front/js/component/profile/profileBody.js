@@ -39,6 +39,7 @@ export const ProfileBody = (props) => {
 
     useEffect(() => {
         actions.getAllEvents();
+        console.log(store.currentUser);
     }, [store.currentUser]);
 
 
@@ -99,6 +100,42 @@ export const ProfileBody = (props) => {
             console.error('Error al eliminar la categoría musical:', error);
         }
     };
+<<<<<<< HEAD
+=======
+    const User = JSON.parse(localStorage.getItem('user'));
+    const userId = User.user_id;
+
+
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        const fetchPrivateData = async () => {
+            try {
+                await actions.getPrivateData();
+                console.log("esta info esta actual ", store.currentUser);
+            } catch (error) {
+                console.error('Error al obtener datos privados:', error);
+            }
+        }
+        fetchPrivateData();
+    }, []);
+
+    useEffect(() => {
+        const fetchMusicalCategories = async () => {
+            try {
+                await actions.getMusicalCategories();
+            } catch (error) {
+                console.error('Error al obtener las categorías musicales:', error);
+            }
+        }
+        fetchMusicalCategories();
+    }, []);
+
+    useEffect(() => {
+        console.log("esta info esta actual2 ", store.currentUser);
+        console.log(store.allCategories);
+    }, [store.currentUser, store.allCategories]);
+>>>>>>> origin/union-Test-5.0
 
 
     return (
@@ -124,7 +161,7 @@ export const ProfileBody = (props) => {
                             <h5 className="card-title">Información</h5>
                             <p className="card-text"><strong>Ciudad:</strong> {store.currentUser?.city}</p>
                             <p className="card-text"><strong>Genero:</strong> {store.currentUser?.gender}</p>
-                            <p className="card-text"><strong>Cumpleaños:</strong> {formatBirthdate(birthdate)}</p>
+                            <p className="card-text"><strong>Cumpleaños:</strong> {store.currentUser?.birthdate}</p>
                         </div>
                     </div>
                     {/* ---------------------------------- */}

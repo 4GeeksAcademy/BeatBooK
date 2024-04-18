@@ -15,7 +15,7 @@ import { MapComponent } from "../component/eventt/map";
 import "leaflet/dist/leaflet.css";
 import { EventDetails } from "../component/eventt/EventDetails";
 import { EventMedia } from "../component/eventt/EventMedia";
-import { EventMembers } from "../component/eventt/EventMembers";
+import { EventPlace } from "../component/eventt/EventPlace";
 import { EventTeams } from "../component/eventt/EventTeams";
 import { EventComments } from "../component/eventt/EventComments";
 import { EventDescription } from "../component/eventt/EventDescription";
@@ -84,13 +84,14 @@ export const Event = (props) => {
     console.log("coordinates2", coordinates);
   }, [coordinates]);
 
-  function isUserLoggedIn() {
 
+
+  function isLoggedIn() {
     const token = localStorage.getItem("jwt-token");
-    return token !== null;
+    const user = JSON.parse(localStorage.getItem("user"));
+    return token !== null && user !== null;
   }
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user.id;
+
 
 
   if (!eventData) {
@@ -118,8 +119,15 @@ export const Event = (props) => {
           </div>
           <EventDescription eventData={eventData} />
           <EventMedia eventData={eventData} />
-          {/* <EventMembers eventData={eventData} /> */}
-          <EventTeams eventData={eventData} />
+
+          <Row>
+            <Col md={6} xs={12}>
+              <EventTeams eventData={eventData} />
+            </Col>
+            <Col md={6} xs={12}>
+              <EventPlace eventData={eventData} />
+            </Col>
+          </Row>
         </Col>
         <Col
           md={6}
@@ -146,10 +154,8 @@ export const Event = (props) => {
           <div className="d-flex-column justify-content-center align-items-center text-center mt-5">
             {" "}<h5>Asistentes <span>{eventData.assistances.length}</span></h5>{" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
-              {" "}
-              <EventAssistance userId={userId} eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />
-              {/* <button className="asist-button">Asistir</button>{" "} */}
-            </div>{" "}
+              {isLoggedIn() && eventData && <EventAssistance eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />}
+            </div>
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {" "}
               <button className="share-button">Compartir</button>{" "}
@@ -180,7 +186,7 @@ export const Event = (props) => {
       <hr className="mt-5" />
       <Row>
         <Col>
-          <EventComments eventData={eventData} onNewComment={handleNewComment} />
+          {isLoggedIn() && <EventComments eventData={eventData} onNewComment={handleNewComment} />}
         </Col>
       </Row>
     </Container>

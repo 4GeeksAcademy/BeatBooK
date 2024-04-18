@@ -59,6 +59,7 @@ export const CreateBand = () => {
 
 
   const handleChange = (e) => {
+<<<<<<< HEAD
     const value = e.target.value;
     setBandData({ ...bandData, [e.target.name]: value });
   };
@@ -89,6 +90,40 @@ export const CreateBand = () => {
       // Navegar a la siguiente página con el ID de la banda incluido en la URL
       navigate(nextPageUrl);
 
+=======
+    const value = e.target.value || null;
+    setBandData({ ...bandData, [e.target.name]: value });
+  };
+
+
+
+  const xcreateBand = async () => {
+    try {
+      const completeBandData = { ...bandData };
+      console.log("completeBandData:", completeBandData);
+      const data = await actions.createBand(completeBandData);
+      if (data && data.id) {
+        setBandData({ ...bandData, id: data.id });
+        console.log("Band data with ID:", bandData);
+        return data.id;
+      } else {
+        throw new Error("Los datos de la banda no son válidos");
+      }
+    } catch (error) {
+      console.error("Error al crear la banda: ", error);
+      throw error; // Propaga el error para que pueda ser manejado por la función handleSubmit
+    }
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const bandId = await xcreateBand();
+      console.log("Banda creada con éxito");
+      navigate(`/banda/registre/media/${bandId}`); // cambiar a register
+>>>>>>> origin/union-Test-5.0
       toast.success("Banda creada con éxito");
     } catch (error) {
       console.error("Error al crear la banda: ", error);
@@ -97,8 +132,11 @@ export const CreateBand = () => {
   };
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/union-Test-5.0
   return (
     <Container className="mt-5 create_event_container">
       <Form onSubmit={handleSubmit}>
@@ -135,6 +173,7 @@ export const CreateBand = () => {
             </Form.Group>
 
             <UserGet
+<<<<<<< HEAD
               onChange={(selected) => {
                 selected.map((member, index) => {
                   console.log(member.value)
@@ -153,6 +192,22 @@ export const CreateBand = () => {
               }
               }
             />
+=======
+  onChange={(selected) =>
+    setBandData({
+      ...bandData,
+      members: [
+        ...bandData.members,
+        {
+          user_id: selected.id,
+          user_username: selected.username,
+          user_profile_image_url: selected.profile_image_url
+        }
+      ]
+    })
+  }
+/>
+>>>>>>> origin/union-Test-5.0
           </Col>
 
           <Col xs={12} md={6}>
@@ -183,6 +238,7 @@ export const CreateBand = () => {
 
 
             <EventGet
+<<<<<<< HEAD
               onChange={(selected) => {
                 setBandData({
                   ...bandData,
@@ -203,18 +259,35 @@ export const CreateBand = () => {
             <CategoriesGet
                 onChange={(selected) => {
                 console.log(selected.value)
+=======
+              onChange={(selected) =>
+                setBandData({ ...bandData, events_id: selected.value })
+              }
+            />
+
+            <CategoriesGet
+              onChange={(selected) =>
+>>>>>>> origin/union-Test-5.0
                 setBandData({
                   ...bandData,
                   musical_categories: [
                     ...bandData.musical_categories,
                     {
+<<<<<<< HEAD
                       id: selected.value.id,
                       name: selected.value.name,
+=======
+                      musical_category_id: selected.value.id,
+                      musical_category_name: selected.value.name,
+>>>>>>> origin/union-Test-5.0
                     }
                   ]
                 })
               }
+<<<<<<< HEAD
             }
+=======
+>>>>>>> origin/union-Test-5.0
             />
 
           </Col>

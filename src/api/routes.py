@@ -69,6 +69,8 @@ def upload_users():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+    
 @api.route('/upload_bands', methods=['POST'])
 def upload_bands():
     try:
@@ -82,10 +84,10 @@ def upload_bands():
             band = Band(
                 name=band_data['name'],
                 description=band_data['description'],
-                profile_picture=band_data('profile_picture'),
-                banner_picture=band_data('banner_picture'),
-                instagram=band_data('instagram'),
-                tiktok=band_data('tiktok')
+                profile_picture=band_data['profile_picture'],
+                banner_picture=band_data['banner_picture'],
+                instagram=band_data['instagram'],
+                tiktok=band_data['tiktok']
             )
             db.session.add(band)
         db.session.commit()
@@ -93,7 +95,7 @@ def upload_bands():
     except KeyError as e:
         return jsonify({'error': f'Falta el campo requerido: {str(e)}'}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e)}), 500    
     
 @api.route('/upload_events', methods=['POST'])
 def upload_events():
@@ -250,7 +252,7 @@ def log_in():
         return jsonify("Invalid email or password"), 400
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url }), 200
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url ,}), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()
@@ -703,9 +705,9 @@ def get_event_reviews(event_id):
 def add_assistance(event_id):
     request_body = request.get_json()
     user_id = request_body['user_id']
-    existing_assistance = Assistance.query.filter_by(user_id=user_id).first()
+    existing_assistance = Assistance.query.filter_by(user_id=user_id, event_id=event_id).first()
     if existing_assistance:
-        return jsonify({"message": "User is already attending an event"}), 400
+        return jsonify({"message": "User is already attending this event"}), 400
     assistance = Assistance(user_id=user_id, event_id=event_id)
     db.session.add(assistance)
     db.session.commit()

@@ -30,7 +30,6 @@ export const PlacesGet = ({ onChange }) => {
     value: place.id,
     label: place.name,
   }));
-
   return (
     <div>
       <label className="title_inputs">Lugar del Evento</label>
