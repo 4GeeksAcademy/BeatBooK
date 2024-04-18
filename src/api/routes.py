@@ -458,7 +458,6 @@ def get_single_band(band_id):
 #-----------CREAR BANDAS------------------#
 
 @api.route('/bands', methods=['POST'])
-
 def create_band():
     data = request.json
     members_data = data.get('members', [])
@@ -475,10 +474,14 @@ def create_band():
         tiktok=data.get('tiktok'),
         creator_id=data.get('creator_id'),
     )
+    # Verificar si el usuario ya tiene una banda
+    existing_band = Band.query.filter_by(creator_id=band.creator_id).first()
+    print(existing_band)
+    if existing_band:
+        return jsonify({'error': 'El usuario ya tiene una banda asociada.'}), 400
 
     # Agregar los miembros a la banda
     for member_data in members_data:
-        
         member = User.query.get(member_data.get('id')) 
         if member:
             band.members.append(member)
@@ -486,14 +489,12 @@ def create_band():
     # Agregar los eventos a la banda
     for event_data in events_data:
         event = Event.query.get(event_data.get('id'))
-        print(event)
         if event:
             band.events.append(event)
 
     # Agregar las categorías musicales a la banda
     for category_data in musical_categories_data:
         category = MusicalCategory.query.get(category_data.get('id'))
-        print(category)
         if category:
             band.musical_categories.append(category)
 
@@ -501,7 +502,15 @@ def create_band():
     db.session.add(band)
     db.session.commit()
 
+    # Actualizar el campo created_band_id del usuario que creó la banda
+    user = User.query.get(band.creator_id)
+    if user:
+        user.created_band_id = band.id
+        db.session.commit()
+
     return jsonify(band.serialize()), 201
+
+
 
 #---------------------------------------------------------------------------#
 

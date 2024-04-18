@@ -49,7 +49,7 @@ class User(db.Model):
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(500), nullable=False)
+    name = db.Column(db.String(500), unique=True, nullable=False)
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(500), nullable=False)
     address = db.Column(db.String(500), nullable=False)
@@ -103,7 +103,7 @@ class Media(db.Model):
 
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(500), nullable=False)
+    name = db.Column(db.String(500), unique=True, nullable=False)
     description = db.Column(db.String(500), nullable=False)
     address = db.Column(db.String(500), nullable=False)
     phone = db.Column(db.String(500), unique=True, nullable=True)
@@ -132,8 +132,8 @@ class Place(db.Model):
 
 class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(500), nullable=False)
-    description = db.Column(db.String(500), nullable=False)
+    name = db.Column(db.String(500), unique=True, nullable=False)
+    description = db.Column(db.String(300), nullable=False)
     profile_picture = db.Column(db.String(500), nullable=True)
     banner_picture = db.Column(db.String(500), nullable=True)
     instagram = db.Column(db.String(500), nullable=True)
