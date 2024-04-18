@@ -140,7 +140,7 @@ class Band(db.Model):
     tiktok = db.Column(db.String(500), nullable=True)
     
     
-    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    founder_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
     members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
@@ -165,7 +165,7 @@ class Band(db.Model):
             'members': members,
             'events': [event.serialize() for event in self.events],
             'musical_categories': [musicalcategory.serialize() for musicalcategory in self.musical_categories],
-            'creator_id': self.creator_id
+            'founder_id': self.founder_id
             
         }
 
