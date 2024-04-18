@@ -25,6 +25,7 @@ import { LandingPage } from "./pages/landingPage.js";
 import { Lugar } from "./pages/lugar.js";
 import { CreateBand } from "./pages/createBand.js";
 import { CreateBandMedia } from "./pages/createBandMedia.js";
+import { ProfileGuest } from "./component/profile/profileGuest.js";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -66,6 +67,7 @@ const Layout = () => {
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
             <Route element={<Profile />} path="/profile" />
+            <Route element={<ProfileGuest />} path="/profile/:id" />
             <Route element={<BandPage />} path="/banda/:id" />
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<CategoryEvents />} path="/categoria/:category_id/eventos" />
