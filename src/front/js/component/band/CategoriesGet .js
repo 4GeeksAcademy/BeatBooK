@@ -33,8 +33,6 @@ export const CategoriesGet = ({ onChange }) => {
     value: { id: category.id, name: category.name },
     label: category.name,
   }));
-  console.log('AQUI ESTAN TUS DATOS de categorias!!!!!!!!!')
-  console.log(options);
   return (
     <div>
       <label className="title_inputs">Estilo musical</label>

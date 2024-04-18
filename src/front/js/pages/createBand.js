@@ -59,44 +59,44 @@ export const CreateBand = () => {
 
 
   const handleChange = (e) => {
-    const value = e.target.value || null;
+    const value = e.target.value;
     setBandData({ ...bandData, [e.target.name]: value });
   };
 
-
-
-  const xcreateBand = async () => {
-    try {
-      const completeBandData = { ...bandData };
-      console.log("completeBandData:", completeBandData);
-      const data = await actions.createBand(completeBandData);
-      if (data && data.id) {
-        setBandData({ ...bandData, id: data.id });
-        console.log("Band data with ID:", bandData);
-        return data.id;
-      } else {
-        throw new Error("Los datos de la banda no son válidos");
-      }
-    } catch (error) {
-      console.error("Error al crear la banda: ", error);
-      throw error; // Propaga el error para que pueda ser manejado por la función handleSubmit
-    }
-  };
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(bandData);
     try {
-      const bandId = await xcreateBand();
+      const response = await fetch(`${process.env.BACKEND_URL}/api/bands`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bandData)
+      });
+      if (!response.ok) {
+        throw new Error('Error al enviar el formulario');
+      }
+
+      // Extraer el ID de la banda de la respuesta del servidor
+      const { id } = await response.json();
+
+      // Construir la URL de la siguiente página con el ID de la banda incluido
+      const nextPageUrl = `/banda/registre/media/${id}`;
+
       console.log("Banda creada con éxito");
-      navigate(`/banda/registre/media/${bandId}`); // cambiar a register
+
+      // Navegar a la siguiente página con el ID de la banda incluido en la URL
+      navigate(nextPageUrl);
+
       toast.success("Banda creada con éxito");
     } catch (error) {
       console.error("Error al crear la banda: ", error);
       toast.error("Error al crear la banda");
     }
   };
+
+
 
 
   return (
@@ -135,20 +135,24 @@ export const CreateBand = () => {
             </Form.Group>
 
             <UserGet
-  onChange={(selected) =>
-    setBandData({
-      ...bandData,
-      members: [
-        ...bandData.members,
-        {
-          user_id: selected.id,
-          user_username: selected.username,
-          user_profile_image_url: selected.profile_image_url
-        }
-      ]
-    })
-  }
-/>
+              onChange={(selected) => {
+                selected.map((member, index) => {
+                  console.log(member.value)
+                  setBandData({
+                    ...bandData,
+                    members: [
+                      ...bandData.members,
+                      {
+                        id: member.value.id,
+                        username: member.value.username,
+                        profile_image_url: member.value.profile_image_url
+                      }
+                    ]
+                  })
+                })
+              }
+              }
+            />
           </Col>
 
           <Col xs={12} md={6}>
@@ -179,24 +183,38 @@ export const CreateBand = () => {
 
 
             <EventGet
-              onChange={(selected) =>
-                setBandData({ ...bandData, events_id: selected.value })
-              }
+              onChange={(selected) => {
+                setBandData({
+                  ...bandData,
+                  events: [
+                    ...bandData.events,
+                    {
+                      id: selected.value.id,
+                      name: selected.value.name,
+                      description: selected.value.description,
+                      picture_url: selected.value.picture_url
+                    }
+                  ]
+                });
+              }}
             />
 
+
             <CategoriesGet
-              onChange={(selected) =>
+                onChange={(selected) => {
+                console.log(selected.value)
                 setBandData({
                   ...bandData,
                   musical_categories: [
                     ...bandData.musical_categories,
                     {
-                      musical_category_id: selected.value.id,
-                      musical_category_name: selected.value.name,
+                      id: selected.value.id,
+                      name: selected.value.name,
                     }
                   ]
                 })
               }
+            }
             />
 
           </Col>

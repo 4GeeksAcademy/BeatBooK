@@ -453,11 +453,17 @@ def get_single_band(band_id):
         return jsonify({"message": "Banda no encontrada"}), 404
     return jsonify(band.serialize(members_only=True)), 200
 
-
+#-----------CREAR BANDAS------------------#
 
 @api.route('/bands', methods=['POST'])
+
 def create_band():
     data = request.json
+    members_data = data.get('members', [])
+    events_data = data.get('events', [])
+    musical_categories_data = data.get('musical_categories', [])
+
+    # Crear la banda
     band = Band(
         name=data.get('name'),
         description=data.get('description'),
@@ -466,12 +472,36 @@ def create_band():
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
         creator_id=data.get('creator_id'),
-        members=data.get('members')
     )
+
+    # Agregar los miembros a la banda
+    for member_data in members_data:
+        
+        member = User.query.get(member_data.get('id')) 
+        if member:
+            band.members.append(member)
+
+    # Agregar los eventos a la banda
+    for event_data in events_data:
+        event = Event.query.get(event_data.get('id'))
+        print(event)
+        if event:
+            band.events.append(event)
+
+    # Agregar las categorías musicales a la banda
+    for category_data in musical_categories_data:
+        category = MusicalCategory.query.get(category_data.get('id'))
+        print(category)
+        if category:
+            band.musical_categories.append(category)
+
+    # Guardar la banda en la base de datos
     db.session.add(band)
     db.session.commit()
+
     return jsonify(band.serialize()), 201
 
+#---------------------------------------------------------------------------#
 
 @api.route('/bands/<int:band_id>', methods=['PUT'])
 def update_band(band_id):

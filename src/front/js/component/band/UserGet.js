@@ -33,8 +33,6 @@ export const UserGet = ({ onChange }) => {
   value: { id: user.id, username: user.username, profile_image_url: user.profile_image_url },
   label: user.username,
 }));
-console.log('AQUI ESTAN TUS DATOS!!!!!!!!!')
-console.log(options);
   return (
     <div>
       <label className="title_inputs">Miembros</label>

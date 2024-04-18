@@ -7,16 +7,16 @@ import Modal from 'react-bootstrap/Modal';
 export const ProfileBody = (props) => {
     const { store, actions } = useContext(Context);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    
- // Manejo del modal de agregar categorías
-const [showAddModal, setShowAddModal] = useState(false);
-const handleShowAddModal = () => setShowAddModal(true);
-const handleCloseAddModal = () => setShowAddModal(false);
+
+    // Manejo del modal de agregar categorías
+    const [showAddModal, setShowAddModal] = useState(false);
+    const handleShowAddModal = () => setShowAddModal(true);
+    const handleCloseAddModal = () => setShowAddModal(false);
 
     // Manejo del modal de eliminar categorías
-const [showDeleteModal, setShowDeleteModal] = useState(false);
-const handleShowDeleteModal = () => setShowDeleteModal(true);
-const handleCloseDeleteModal = () => setShowDeleteModal(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const handleShowDeleteModal = () => setShowDeleteModal(true);
+    const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
     const handleShow = () => {
         const defaultSelectedCategories = store.currentUser.user_categories.map(category => category.id);
@@ -28,7 +28,7 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
         setSelectedCategories(defaultSelectedCategories);
         setShow(true);
     };
-    
+
     // Función para formatear la fecha en el formato deseado
     const birthdate = store.currentUser?.birthdate;
     const formatBirthdate = (birthdate) => {
@@ -41,7 +41,7 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
         actions.getAllEvents();
     }, [store.currentUser]);
 
-    
+
     const handleCategoryClick = (categoryId) => {
         // Toggle de selección de categorías
         if (selectedCategories.includes(categoryId)) {
@@ -68,8 +68,8 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
             handleCloseAddModal();
             const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
             const updatedUserData = await updatedUserResponse.json();
-            actions.getPrivateData(updatedUserData); 
-           
+            actions.getPrivateData(updatedUserData);
+
         } catch (error) {
             // Manejar errores de solicitud
             console.error('Error al enviar el formulario:', error);
@@ -92,33 +92,33 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
             handleCloseDeleteModal();
             const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
             const updatedUserData = await updatedUserResponse.json();
-            actions.getPrivateData(updatedUserData); 
-           
+            actions.getPrivateData(updatedUserData);
+
         } catch (error) {
             // Manejar errores de solicitud
             console.error('Error al eliminar la categoría musical:', error);
         }
     };
-    
+
 
     return (
         <div className="container p-0">
             <div className="container row">
                 <div className="details col-5">
-                        {/* Card que renderiza los detalles */}
+                    {/* Card que renderiza los detalles */}
                     <div className="card-detail my-4">
                         <div className="card-detail-content">
                             <h5 className="card-title">Detalles</h5>
                             <p className="card-text">{store.currentUser?.description}</p>
                         </div>
-                            <div className= 'redes-footer'>
+                        <div className='redes-footer'>
                             <a href={store.currentUser?.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
                             <a href={store.currentUser?.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
-                            </div>
+                        </div>
                     </div>
-                        {/* ---------------------------------- */}
+                    {/* ---------------------------------- */}
 
-                         {/* Card que renderiza la informacion*/}
+                    {/* Card que renderiza la informacion*/}
                     <div className="card-info my-4">
                         <div className="card-detail-info">
                             <h5 className="card-title">Información</h5>
@@ -127,16 +127,16 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
                             <p className="card-text"><strong>Cumpleaños:</strong> {formatBirthdate(birthdate)}</p>
                         </div>
                     </div>
-                     {/* ---------------------------------- */}
+                    {/* ---------------------------------- */}
 
-                      {/* Card que renderiza interes musical*/}
+                    {/* Card que renderiza interes musical*/}
                     <div className="card-music mt-4">
                         <div className="card-music-detail">
-                        <div className="d-flex">
-    <h5 className="card-title">Interes musical</h5>
-    <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
-    <button className="btns-add" onClick={handleShowDeleteModal}><i className="fas fa-minus" style={{ color: '#FFFFFF' }}></i></button>
-</div>
+                            <div className="d-flex">
+                                <h5 className="card-title">Interes musical</h5>
+                                <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
+                                <button className="btns-add" onClick={handleShowDeleteModal}><i className="fas fa-minus" style={{ color: '#FFFFFF' }}></i></button>
+                            </div>
                             {/* Renderizar categorías musicales */}
                             <div className="d-flex flex-wrap grid gap-0 row-gap-2">
                                 {store.currentUser?.user_categories.map(category => (
@@ -186,7 +186,7 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
                             {store.allCategories.map(category => (
                                 <div key={category.id} className="category-item">
                                     <input
-                                        type="checkbox"
+                                        type="radio"
                                         id={category.id}
                                         value={category.id}
                                         checked={selectedCategories.includes(category.id)}
@@ -202,27 +202,27 @@ const handleCloseDeleteModal = () => setShowDeleteModal(false);
                 {/* ---------------------------------- */}
             </div>
             <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <form onSubmit={handleSubmit}>
-                            {store.allCategories.map(category => (
-                                <div key={category.id} className="category-item">
-                                    <input
-                                        type="checkbox"
-                                        id={category.id}
-                                        value={category.id}
-                                        checked={selectedCategories.includes(category.id)}
-                                        onChange={() => handleCategoryClick(category.id)}
-                                    />
-                                    <label htmlFor={category.id}>{category.name}</label>
-                                    <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
-                                </div>
-                            ))}
-                        </form>
-                    </Modal.Body>
-                </Modal>
+                <Modal.Header closeButton>
+                    <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit}>
+                        {store.allCategories.map(category => (
+                            <div key={category.id} className="category-item">
+                                <input
+                                    type="checkbox"
+                                    id={category.id}
+                                    value={category.id}
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={() => handleCategoryClick(category.id)}
+                                />
+                                <label htmlFor={category.id}>{category.name}</label>
+                                <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                            </div>
+                        ))}
+                    </form>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }

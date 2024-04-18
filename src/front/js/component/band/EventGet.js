@@ -30,10 +30,9 @@ export const EventGet = ({ onChange }) => {
   };
 
   const options = allEvents.map((event) => ({
-  value: event.id,
+  value: { id: event.id, name: event.name, description: event.description, picture_url: event.picture_url },
   label: event.name,
 }));
-
   return (
     <div>
       <label className="title_inputs">Evento</label>
