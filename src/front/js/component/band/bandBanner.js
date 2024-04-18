@@ -34,9 +34,13 @@ export const BandBanner = (props) => {
 
     return (
         <div className='container'>
+
+            {/* ------------------Banner----------------------- */}
             <div className='banner-band'>
                 <img src={store.band.banner_picture} className='img-fluid' ></img>
             </div>
+            {/* ------------------------------------------------- */}
+             {/* ------------------Profile----------------------- */}
             <div className='band-data row'>
                 <div className='picture col-2'>
                     <img className='img' src={store.band.profile_picture} alt='perfil' />
@@ -52,14 +56,15 @@ export const BandBanner = (props) => {
                         {store.band.members && store.band.members.map((member, index) => (
                             <div className={classes.root} key={index}>
                                 <Link to={`/profile/${member.id}`}>
-                                <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
+                                    <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
                                 </Link>
                             </div>
                         ))}
                     </div>
-
                 </div>
             </div>
+            {/* ------------------------------------------------- */}
+            {/* -----------------Detalles y eventos-------------- */}            
             <div className="card-band-body container">
                 <div className="card-band-content">
                     <h5 className="card-title">Detalles</h5>
@@ -70,9 +75,13 @@ export const BandBanner = (props) => {
                         <a href={store.band.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
                     </div>
                     <h5>Categoria musical</h5>
-                    <button className="btns-music"><i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> Pop </button>
+                    <button className="btns-music">
+                        <i className="fas fa-music mx-1" style={{ color: '#FFFFFF' }}></i>
+                        {store.band.musical_categories && store.band.musical_categories.map(category => (
+                            <span key={category.id}>{category.name}</span>
+                        ))}
+                    </button>
                 </div>
-
                 <div className="band-events">
                     <nav className="navba navbar-expand-lg bg-body-tertiary my-3">
                         <div className="container-fluid d-flex justify-content-center align-items-center">
@@ -92,7 +101,6 @@ export const BandBanner = (props) => {
                                         <h2 className="name">{event.name}</h2>
                                         <span className="description">{event.description}</span>
                                     </div>
-
                                 </li>
                             </ul>
                         ))}
