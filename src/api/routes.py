@@ -476,9 +476,23 @@ def create_band():
     )
     # Verificar si el usuario ya tiene una banda
     existing_band = Band.query.filter_by(creator_id=band.creator_id).first()
-    print(existing_band)
     if existing_band:
         return jsonify({'error': 'El usuario ya tiene una banda asociada.'}), 400
+
+    # Lista para almacenar los IDs de los miembros que ya están en otras bandas
+    members_in_other_bands = []
+
+    # Verificar si los miembros ya están en otras bandas
+    for member_data in members_data:
+        member_id = member_data.get('id')
+        existing_member_band = Band.query.filter(Band.members.any(id=member_id)).first()
+        if existing_member_band:
+            members_in_other_bands.append(member_id)
+
+    # Si hay miembros que ya están en otras bandas, devolver un error
+    if members_in_other_bands:
+        error_message = 'Los siguientes usuarios ya están en otras bandas: {}'.format(members_in_other_bands)
+        return jsonify({'error': error_message}), 409
 
     # Agregar los miembros a la banda
     for member_data in members_data:

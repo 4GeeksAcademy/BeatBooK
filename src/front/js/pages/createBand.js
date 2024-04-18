@@ -75,9 +75,10 @@ export const CreateBand = () => {
         body: JSON.stringify(bandData)
       });
       
-      // Si ya tiene una banda creada, muestra una alerta
       if (response.status === 400) {
         toast.error("Ya tienes una banda creada.");
+      } else if (response.status === 409) {
+        toast.error('Miembros en otra banda.');
       } else {
         // Extraer el ID de la banda de la respuesta del servidor
         const { id } = await response.json();
