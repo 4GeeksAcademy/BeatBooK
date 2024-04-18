@@ -100,8 +100,6 @@ export const ProfileBody = (props) => {
             console.error('Error al eliminar la categoría musical:', error);
         }
     };
-<<<<<<< HEAD
-=======
     const User = JSON.parse(localStorage.getItem('user'));
     const userId = User.user_id;
 
@@ -135,7 +133,6 @@ export const ProfileBody = (props) => {
         console.log("esta info esta actual2 ", store.currentUser);
         console.log(store.allCategories);
     }, [store.currentUser, store.allCategories]);
->>>>>>> origin/union-Test-5.0
 
 
     return (
