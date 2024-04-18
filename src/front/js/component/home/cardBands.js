@@ -57,13 +57,12 @@ export const Cards = () => {
     <div className="wrapper">
       <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
         {store.bands.map((band, index) => (
-
          <li className="card-c" key={index} ref={firstCardRef}>
          <div className='img'>
            <img src={band.profile_picture} alt='img' draggable="false" className='img' />
          </div>
          <div className='card-c-content'>
-         <h2 className='name'>{band.name}</h2>
+         <h2>{band.name}</h2>
          <span className='description'>{band.description}</span>
          </div>
          <div className='card-c-footer'>

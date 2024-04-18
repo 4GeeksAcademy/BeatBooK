@@ -13,7 +13,7 @@ export const Carousel = () => {
     }, []);
 
     const handleLearnMore = (id) => {
-        navigate(`/events/${id}`); // Navega a la página de detalles del evento.
+        navigate(`/events/${id}`);
     };
 
     return (
@@ -24,7 +24,7 @@ export const Carousel = () => {
                         <a onClick={() => handleLearnMore(event.id)}><img src={event.picture_url} className="d-block w-100 c-img" alt="foto" /></a>
                         <div className="carousel-caption d-none d-md-block">
                             <h5 className='title'>{event.name}</h5>
-                            <p className='description'>{event.description}</p>
+                            <h5 className='description text-end'>{event.description}</h5>
                         </div>
                     </div>
                 ))}

@@ -1,4 +1,4 @@
-import React from "react"; // Importa useContext de 'react'
+import React from "react";
 import "../../styles/home.css";
 import { Carousel } from "../component/home/carousel";
 import { CardPlaces } from "../component/home/cardPlaces";
@@ -10,8 +10,8 @@ export const Home = () => {
     return (
         <div className="container">
             <div className="container text-center">
-                    <h1 className="display-2 fw-bold pt-5">Descubre nuestros eventos</h1>
-                <h6 className="mb-5">Elije el mejor</h6>
+                    <h1>Descubre nuestros eventos</h1>
+                <h6 className="mb-5">Elige el mejor plan</h6>
             </div>
             <div className="container">
                 <div className="row d-flex justify-content-center">
