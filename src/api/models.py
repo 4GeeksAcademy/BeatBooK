@@ -19,8 +19,6 @@ class User(db.Model):
 
     created_events = db.relationship('Event', backref='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user', lazy=True)
-    created_band_id = db.Column(db.Integer, db.ForeignKey('band.id'), unique=True) #añado para poder alamacenar quien crea la banda
-    created_band = db.relationship('Band', backref='creator', uselist=False, foreign_keys='User.created_band_id') #Relacion uno a uno con la banda
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
 
     def __repr__(self):
