@@ -148,6 +148,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         // Borra el token del almacenamiento local
         localStorage.removeItem("jwt-token");
+        localStorage.removeItem("user");
 
         // Muestra un mensaje de éxito
         // toast.success("Has cerrado sesión correctamente");
@@ -159,8 +160,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (token && user) {
           setStore({ user: user });
         }
-        console.log("user", user);
-        console.log("token", token);
+        // console.log("user", user);
+        // console.log("token", token);
       },
 
 

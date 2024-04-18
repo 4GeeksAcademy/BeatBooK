@@ -252,7 +252,7 @@ def log_in():
         return jsonify("Invalid email or password"), 400
     # Genera un token para el usuario que inició sesión
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url , 'birthdate': user.birthdate,'description': user.description,'profile_image_url': user.profile_image_url,'banner_picture': user.banner_picture,'instagram': user.instagram,'tiktok': user.tiktok,'city': user.city,'gender': user.gender,'user_categories': [category.serialize() for category in user.user_categories],'created_events': [event.serialize() for event in user.created_events],'assistances': [assistance.serialize() for assistance in user.assistances],'created_band': {'id': user.created_band.id, 'name': user.created_band.name, 'profile_picture': user.created_band.profile_picture} if user.created_band else None}), 200
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url ,}), 200
 
 @api.route("/private", methods=["GET"])
 @jwt_required()

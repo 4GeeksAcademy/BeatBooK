@@ -208,8 +208,8 @@ class Review(db.Model):
             'comment': self.comment,
             'user_id': self.user_id,
             'event_id': self.event_id,
-            'user': self.user.username,
-            'user_profile_image': self.user.profile_image_url,
+            'user': self.user.username if self.user else None,
+            'user_profile_image': self.user.profile_image_url if self.user else None,
         }
 
 class MusicalCategory(db.Model):

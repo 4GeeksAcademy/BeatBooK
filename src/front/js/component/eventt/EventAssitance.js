@@ -3,8 +3,9 @@ import { useContext } from 'react';
 import { Context } from '../../store/appContext'
 
 export const EventAssistance = ({ eventId, assistances, onAssistanceChange }) => {
+
     const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user.user_id; // Asegúrate de que 'id' es la propiedad correcta
+    const userId = user ? user.user_id : null;
 
     const [isAttending, setIsAttending] = useState(false);
     const { actions } = useContext(Context);

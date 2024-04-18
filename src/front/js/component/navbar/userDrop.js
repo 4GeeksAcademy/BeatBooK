@@ -18,26 +18,50 @@ export const UserDrop = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
+
+
   const handleLogOut = () => {
     actions.logOut();
     localStorage.removeItem("jwt-token");
+    localStorage.removeItem("user");
     toast.success("Has cerrado sesión correctamente");
     navigate("/");
   };
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  // const user = JSON.parse(localStorage.getItem('user'));
+
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   console.log('user from localStorage', user);
+  //   console.log("store.user", store.user);
+
+  //   if (!store.user) {
+  //     actions.getUser(); // obtén los datos del usuario cuando el componente se monta
+  //   }
+
+  // }, []); // pasa un array vacío como segundo argumento pa
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log('user from localStorage', user);
-    console.log("store.user", store.user);
+    const fetchPrivateData = async () => {
+      try {
+        await actions.getPrivateData();
 
-    if (!store.user) {
-      actions.getUser(); // obtén los datos del usuario cuando el componente se monta
+      } catch (error) {
+        console.error('Error al obtener datos privados:', error);
+      }
     }
+    fetchPrivateData();
+  }, [store.user]);
 
-  }, []); // pasa un array vacío como segundo argumento pa
+  // useEffect(() => {
 
+  //   console.log('store.User', store.User);
+  // }, [store.User]);
+
+  // useEffect(() => {
+
+  //   console.log('store.User2', store.User);
+  // }, [store.User]);
 
 
   return (
@@ -51,12 +75,12 @@ export const UserDrop = () => {
             style={{ border: "none", backgroundColor: "transparent" }}
           >
             <span className="username text-light">
-              {store.user ? user.username : "Acceder"}
+              {store.user ? store.user.username : "Acceder"}
             </span>
-            {store.user && user.profileimage ? (
+            {store.user && store.user.profile_image_url ? (
               <img
                 className="profile-image"
-                src={user.profileimage}
+                src={store.user.profile_image_url}
                 alt="Profile image"
               ></img>
             ) : (
