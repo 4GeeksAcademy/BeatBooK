@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       event: [],
       allEvents: [],
       allUsers: [],
-      bands: [],
+      singleUser: [],
+      bands:[],
       band: [],
       places: [],
       allCategories: [],
@@ -363,6 +364,19 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error loading event from backend", error);
+        }
+      },
+
+      getUser: async (id) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + `/api/users/${id}`
+          );
+          const data = await resp.json();
+          setStore({ singleUser: data})
+          return data;
+        } catch (error) {
+          console.log("Error loading user from backend", error);
         }
       },
 

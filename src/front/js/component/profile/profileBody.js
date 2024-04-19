@@ -177,7 +177,6 @@ export const ProfileBody = (props) => {
                                     <button
                                         key={category.id}
                                         className={`btns-music ${selectedCategories.includes(category.id) ? 'selected' : ''}`}
-                                        onClick={() => handleCategoryClick(category.id)}
                                     >
                                         <i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> {category.name}
                                     </button>

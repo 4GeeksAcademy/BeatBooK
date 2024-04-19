@@ -38,6 +38,11 @@
   color: black; /* Cambiar el color del texto */
 }
 
+.d-item:hover {
+  background: grey !important; /* Cambiar el color de fondo */
+  color: white; /* Cambiar el color del texto */
+}
+
 .btns-add:hover {
   background: grey; /* Cambiar el color de fondo */
   color: black; /* Cambiar el color del texto */

@@ -74,31 +74,24 @@ export const CreateBand = () => {
         },
         body: JSON.stringify(bandData)
       });
-      if (!response.ok) {
-        throw new Error('Error al enviar el formulario');
+      
+      if (response.status === 400) {
+        toast.error("Ya tienes una banda creada.");
+      } else if (response.status === 409) {
+        toast.error('Miembros en otra banda.');
+      } else {
+        // Extraer el ID de la banda de la respuesta del servidor
+        const { id } = await response.json();
+        const nextPageUrl = `/banda/registre/media/${id}`;
+        navigate(nextPageUrl);
+        toast.success("Banda creada con éxito");
       }
-
-      // Extraer el ID de la banda de la respuesta del servidor
-      const { id } = await response.json();
-
-      // Construir la URL de la siguiente página con el ID de la banda incluido
-      const nextPageUrl = `/banda/registre/media/${id}`;
-
-      console.log("Banda creada con éxito");
-
-      // Navegar a la siguiente página con el ID de la banda incluido en la URL
-      navigate(nextPageUrl);
-
-      toast.success("Banda creada con éxito");
     } catch (error) {
       console.error("Error al crear la banda: ", error);
       toast.error("Error al crear la banda");
     }
   };
-
-
-
-
+  
   return (
     <Container className="mt-5 create_event_container">
       <Form onSubmit={handleSubmit}>
