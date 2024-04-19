@@ -1,6 +1,6 @@
 body::before {
   content: "";
-  background: url("https://i.ibb.co/qd6dKpB/fondo-ondas.jpg") center/cover no-repeat fixed;
+  background: url("https://i.ibb.co/CBbZdD9/fondo-nubes.jpg") center/cover no-repeat fixed;
   position: fixed;
   top: 0;
   left: 0;
@@ -33,6 +33,12 @@ h2 {
   font-size: 30px;
 }
 
+h4 {
+  font-family: 'Dharma Punk';
+  color: white;
+  font-size: 30px;
+}
+
 h5 {
   font-family: 'Dharma Punk';
   color: white;
@@ -45,8 +51,24 @@ h6 {
 
 p {
   color: white;
+  font-family: monospace;
+}
+
+button {
+  font-family: monospace;
+  color: white;
+  font-size: 30px;
 }
 
 .icono {
+  color: white;
+}
+
+Link {
+  color: white;
+}
+
+a {
+  font-family: monospace;
   color: white;
 }

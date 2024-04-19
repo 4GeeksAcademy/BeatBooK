@@ -20,7 +20,7 @@ export const LandingPage = () => {
                     </video>
                     <img className="image-landing" src={beatBoxHorizontalBlanco} alt="superposición" />
                     <div className="overlay-text">
-                        <p>Conecta con músicos y locales, crea eventos y da vida a la música en tu comunidad.<br /> <strong>¡Sé parte del movimiento!</strong></p>
+                        <p>Conecta con músicos y locales, crea eventos y da vida a la música en tu comunidad.<br /> ¡Sé parte del movimiento!</p>
                         <Link to="/home">
                             <button className='btns-landing'>Hazte Escuchar</button>
                         </Link>

@@ -27,31 +27,6 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
 
-      signUp: async (username, email, password, passwordConfirmation) => {
-        try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: username,
-              email: email,
-              password: password,
-              password_confirmation: passwordConfirmation,
-            }),
-          });
-          const data = await resp.json();
-          console.log(data);
-
-          // Actualiza el estado global con la información del usuario
-          setStore({ user: data });
-
-          return data;
-        } catch (error) {
-          console.log("Error signing up", error);
-        }
-      },
       getPlace: async (place_id) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}`);
@@ -104,6 +79,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(error);
           return null;
+        }
+      },
+    
+      signUp: async (username, email, password, passwordConfirmation) => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+              email: email,
+              password: password,
+              password_confirmation: passwordConfirmation,
+            }),
+          });
+          const data = await resp.json();
+          console.log(data);
+
+          // Actualiza el estado global con la información del usuario
+          setStore({ user: data });
+
+          return data;
+        } catch (error) {
+          console.log("Error signing up", error);
         }
       },
 
@@ -719,9 +720,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           // Manejar el error de acuerdo a tus necesidades
         }
       },
+
       getUser: async (user_id) => {
         try {
-          const response = await fetch(`${process.env.BACKEND_URL}/api/users/${user_id}`);
+          const response = await fetch(`${process.env.BACKEND_URL}api/users/${user_id}`);
           if (!response.ok) {
             throw new Error('Failed to fetch user');
           }
@@ -729,7 +731,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.error('Error fetching user:', error);
-          // Manejar el error de acuerdo a tus necesidades
         }
       },
     }

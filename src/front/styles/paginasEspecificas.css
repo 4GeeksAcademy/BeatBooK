@@ -1,4 +1,4 @@
-.placeBanner .img-fluid{
+.Banner .img-fluid{
   width: 1272px;
   height:400px;
   object-fit: cover;
@@ -18,7 +18,7 @@
 .cardContent {
   border-radius: 10px;
   backdrop-filter: blur(30px);
-  background-color: rgba(255, 255, 255, 0.676);
+  background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -30,9 +30,8 @@
 }
 
 .cardContent h5 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
+  font-size: 35px;
+  font-family: 'Dharma Punk';
   text-align: center;
 }
 
@@ -40,7 +39,7 @@
   margin: 15px;
 }
  
-.placeData {
+.data {
   margin: 10px;
   padding: 10px;
   border-bottom: 1px solid black;
@@ -51,17 +50,4 @@
   height: 250px;
   object-fit: cover;
   border-radius: 10px;
-}
-
-.eventCardContent {
-  border-radius: 10px;
-  backdrop-filter: blur(30px);
-  background-color: rgba(255, 255, 255, 0.676);
-  border: 1px solid rgba(61, 59, 59, 0.089);
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 100px;
-  gap: 10px;
-  text-align: center;
-  margin: 10px;
 }

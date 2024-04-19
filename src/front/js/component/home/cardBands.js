@@ -63,7 +63,7 @@ export const Cards = () => {
          </div>
          <div className='card-c-content'>
          <h2>{band.name}</h2>
-         <span className='description'>{band.description}</span>
+         <p className='description'>{band.description}</p>
          </div>
          <div className='card-c-footer'>
          <button className='button' onClick={() => handleLearnMore(band.id)}>Saber mas</button>

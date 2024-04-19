@@ -143,12 +143,10 @@ export const ProfileBanner = () => {
     const classes = useStyles();
 
     return (
-        <div className="container d-flex flex-column justify-content-center">
-            <div className='row'>
-                <div className='banner-profile col-12 col-md-12 col-lx-12 '>
+        <div className="container">
+                <div className='Banner'>
                     <img src={store.currentUser?.banner_picture} className="img-fluid" alt="fotoBanner" />
                 </div>
-            </div>
             <div className='row profile-picture'>
                 {/* Foto de perfil */}
                 <div className='col-12 col-md-4 col-xl-2 picture'>
@@ -261,6 +259,3 @@ export const ProfileBanner = () => {
 
     );
 }
-
-
-
