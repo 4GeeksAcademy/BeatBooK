@@ -35,7 +35,7 @@ background-size: var(--s) calc(var(--s)*0.577);
 
 body::before {
   content: "";
-  background: url("https://res-console.cloudinary.com/daxbjkj1j/media_explorer_thumbnails/774d4af3e9a710471048888644ee88cf/detailed") center/cover no-repeat fixed;
+  background: url("https://res.cloudinary.com/daxbjkj1j/image/upload/v1713362216/k0cuqgdtdyil6xgsx2gx.jpg") center/cover no-repeat fixed;
   position: fixed;
   top: 0;
   left: 0;
