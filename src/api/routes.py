@@ -18,9 +18,11 @@ import os
 
 cloudinary.config( 
   cloud_name = "daxbjkj1j", 
- api_key = os.environ["CLOUDINARY_API_KEY"], 
+  api_key = os.environ["CLOUDINARY_API_KEY"], 
   api_secret = os.environ["CLOUDINARY_API_SECRET"]  
 )
+
+
   
 api = Blueprint('api', __name__)
 
@@ -272,13 +274,13 @@ def protected():
         })
 
       # Serializar la banda creada por el usuario si existe
-    created_band_serialized = None
-    if user.created_band:
-        created_band_serialized = {
-            "id": user.created_band.id,
-            "name": user.created_band.name,
-            "profile_picture": user.created_band.profile_picture
-        }
+    # created_band_serialized = None
+    # if user.created_band:
+    #     created_band_serialized = {
+    #         "id": user.created_band.id,
+    #         "name": user.created_band.name,
+    #         "profile_picture": user.created_band.profile_picture
+    #     }
     
  
     return jsonify({
