@@ -6,6 +6,15 @@ import { Context } from "../store/appContext";
 import { BandBanner } from "../component/band/bandBanner";
 
 export const BandPage = () => {
+    const navigate = useNavigate()
+
+     useEffect(() => {
+    const token = localStorage.getItem("jwt-token");
+
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
 
 
     return (
