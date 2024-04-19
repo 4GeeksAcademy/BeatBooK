@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
-import "/workspaces/BeatBooK/src/front/js/component/home/carousel.css";
+import "../home/carousel.css";
 import { useNavigate } from 'react-router-dom';
 import { Event2 } from '../../pages/event';
 

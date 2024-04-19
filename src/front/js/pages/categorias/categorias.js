@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "/workspaces/BeatBooK/src/front/styles/categorias.css";
+import "../../../styles/categorias.css";
 
 export const Categorias = () => {
   const [categories, setCategories] = useState([]);

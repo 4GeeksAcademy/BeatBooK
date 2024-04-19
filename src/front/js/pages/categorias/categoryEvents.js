@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import "/workspaces/BeatBooK/src/front/styles/categorias.css";
+import "../../../styles/categorias.css";
 import { useParams } from "react-router-dom";
 import { Context } from "../../store/appContext";
 
