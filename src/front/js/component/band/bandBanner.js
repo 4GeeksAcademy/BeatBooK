@@ -34,76 +34,73 @@ export const BandBanner = (props) => {
 
     return (
         <div className='container'>
-
-            {/* ------------------Banner----------------------- */}
             <div className='banner-band'>
                 <img src={store.band.banner_picture} className='img-fluid' ></img>
             </div>
-            {/* ------------------------------------------------- */}
-             {/* ------------------Profile----------------------- */}
-            <div className='band-data row'>
-                <div className='picture col-2'>
-                    <img className='img' src={store.band.profile_picture} alt='perfil' />
-                </div>
-                <div className='band-name col-6 d-flex justify-content-start align-items-center'>
-                    <h1 className='ms-2'>{store.band.name}</h1>
-                </div>
-                <div className='band-member col-4 d-flex flex-column align-items-end justify-content-end'>
-                    <div className='members'>
-                        <p className='me-5'><strong>Miembros</strong></p>
+            <div class="container container text-start data">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <img className='ProfilePicture' src={store.band.profile_picture} alt='perfil' />
                     </div>
-                    <div className="d-flex flrex-row">
-                        {store.band.members && store.band.members.map((member, index) => (
-                            <div className={classes.root} key={index}>
-                                <Link to={`/profile/${member.id}`}>
-                                    <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
-                                </Link>
-                            </div>
-                        ))}
+                    <div class="col">
+                        <h1 className='ms-2'>{store.band.name}</h1>
+                    </div>
+                    <div class="col">
+                        <div className='members'>
+                            <p className='me-5'><strong>Miembros</strong></p>
+                        </div>
+                        <div className="d-flex flrex-row">
+                            {store.band.members && store.band.members.map((member, index) => (
+                                <div className={classes.root} key={index}>
+                                    <Link to={`/profile/${member.id}`}>
+                                        <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* ------------------------------------------------- */}
-            {/* -----------------Detalles y eventos-------------- */}            
-            <div className="card-band-body container">
-                <div className="card-band-content">
-                    <h5 className="card-title">Detalles</h5>
-                    <p className="card-text">{store.band.description}</p>
-                    <h5>Redes sociales</h5>
-                    <div className='social-network'>
-                        <a href={store.band.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
-                        <a href={store.band.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
-                    </div>
-                    <h5>Categoria musical</h5>
-                    <button className="btns-music">
-                        <i className="fas fa-music mx-1" style={{ color: '#FFFFFF' }}></i>
-                        {store.band.musical_categories && store.band.musical_categories.map(category => (
-                            <span key={category.id}>{category.name}</span>
-                        ))}
-                    </button>
-                </div>
-                <div className="band-events">
-                    <nav className="navba navbar-expand-lg bg-body-tertiary my-3">
-                        <div className="container-fluid d-flex justify-content-center align-items-center">
-                            <h5>Proximos eventos</h5>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <div className="cardContent">
+                            <h5 className="card-title">Detalles</h5>
+                            <p className="card-text">{store.band.description}</p>
+                            <h5>Redes sociales</h5>
+                            <div className='social-network'>
+                                <a href={store.band.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
+                                <a href={store.band.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl icono"></i></a>
+                            </div>
                         </div>
-                    </nav>
-                    <div className="wrapper-e">
+                        <div className="cardContent">
+                            <h5>Categoria musical</h5>
+                            <button className="btns-music">
+                                <i className="fas fa-music mx-1" style={{ color: '#FFFFFF' }}></i>
+                                {store.band.musical_categories && store.band.musical_categories.map(category => (
+                                    <span key={category.id}>{category.name}</span>
+                                ))}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                    <div className="cardContent card mb-3">
                         {store.band.events && store.band.events.map((event, index) => (
-                            <ul className="carousel-e" key={index}>
-                                <li className="card-e">
+                            <div className="position-relative" key={index}>
+                                <div className="card-e">
                                     <div className="img">
                                         <Link to={`/events/${event.id}`}>
-                                            <img src={event.picture_url} alt="img" draggable="false" className="img" />
+                                            <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
                                         </Link>
                                     </div>
-                                    <div className="card-c-content">
+                                    <div className="card-body">
                                         <h2 className="name">{event.name}</h2>
-                                        <span className="description">{event.description}</span>
+                                        <p className="description">{event.description}</p>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         ))}
+                    </div>
                     </div>
                 </div>
             </div>

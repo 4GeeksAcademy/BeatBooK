@@ -197,7 +197,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getPrivateData: async () => {
         try {
           const token = localStorage.getItem("jwt-token");
-          const resp = await fetch(process.env.BACKEND_URL + "/api/private", {
+          const resp = await fetch(process.env.BACKEND_URL + "api/private", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
