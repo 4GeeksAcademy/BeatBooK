@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/footer.css";
-import beatBoxHorizontalBlanco from "./navbar/beatBoxHorizontalBlanco.jpg"
+import beatBoxHorizontalBlanco from "./navbar/beatBoxHorizontalBlanco.png"
 import Logo_Facebook from "../../../../docs/assets/Logo_Facebook.png"
 import Logo_Twitter from "../../../../docs/assets/Logo_Twitter.png"
 import Logo_Instagram from "../../../../docs/assets/Logo_Instagram.png"
