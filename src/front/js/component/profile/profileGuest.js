@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ProfileGuestBanner } from "./profileGuestBanner ";
 import { ProfileGuestBody } from "./profileGuestBody";
 import { useNavigate } from "react-router-dom";

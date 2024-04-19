@@ -39,7 +39,6 @@ export const ProfileBody = (props) => {
 
     useEffect(() => {
         actions.getAllEvents();
-        console.log(store.currentUser);
     }, [store.currentUser]);
 
 
@@ -48,7 +47,7 @@ export const ProfileBody = (props) => {
         if (selectedCategories.includes(categoryId)) {
             setSelectedCategories(selectedCategories.filter(id => id !== categoryId));
         } else {
-            setSelectedCategories([...selectedCategories, categoryId]);
+            setSelectedCategories([categoryId]);
         }
     }
 
@@ -100,39 +99,6 @@ export const ProfileBody = (props) => {
             console.error('Error al eliminar la categoría musical:', error);
         }
     };
-    const User = JSON.parse(localStorage.getItem('user'));
-    const userId = User.user_id;
-
-
-    const [user, setUser] = useState({});
-
-    useEffect(() => {
-        const fetchPrivateData = async () => {
-            try {
-                await actions.getPrivateData();
-                console.log("esta info esta actual ", store.currentUser);
-            } catch (error) {
-                console.error('Error al obtener datos privados:', error);
-            }
-        }
-        fetchPrivateData();
-    }, []);
-
-    useEffect(() => {
-        const fetchMusicalCategories = async () => {
-            try {
-                await actions.getMusicalCategories();
-            } catch (error) {
-                console.error('Error al obtener las categorías musicales:', error);
-            }
-        }
-        fetchMusicalCategories();
-    }, []);
-
-    useEffect(() => {
-        
-    }, [store.currentUser, store.allCategories]);
-    
 
 
     return (
@@ -158,7 +124,7 @@ export const ProfileBody = (props) => {
                             <h5 className="card-title">Información</h5>
                             <p className="card-text"><strong>Ciudad:</strong> {store.currentUser?.city}</p>
                             <p className="card-text"><strong>Genero:</strong> {store.currentUser?.gender}</p>
-                            <p className="card-text"><strong>Cumpleaños:</strong> {store.currentUser?.birthdate}</p>
+                            <p className="card-text"><strong>Cumpleaños:</strong> {formatBirthdate(birthdate)}</p>
                         </div>
                     </div>
                     {/* ---------------------------------- */}
@@ -177,6 +143,7 @@ export const ProfileBody = (props) => {
                                     <button
                                         key={category.id}
                                         className={`btns-music ${selectedCategories.includes(category.id) ? 'selected' : ''}`}
+                                        onClick={() => handleCategoryClick(category.id)}
                                     >
                                         <i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> {category.name}
                                     </button>
@@ -221,6 +188,7 @@ export const ProfileBody = (props) => {
                                     <input
                                         type="radio"
                                         id={category.id}
+                                        name={category.name}
                                         value={category.id}
                                         checked={selectedCategories.includes(category.id)}
                                         onChange={() => handleCategoryClick(category.id)}
@@ -241,16 +209,17 @@ export const ProfileBody = (props) => {
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
                         {store.allCategories.map(category => (
-                            <div key={category.id} className="category-item">
+                            <div key={category.id} className="category-item d-flex d-flex justify-content-between align-items-center">
                                 <input
-                                    type="checkbox"
+                                    type="radio"
                                     id={category.id}
+                                    name={category.name}
                                     value={category.id}
                                     checked={selectedCategories.includes(category.id)}
                                     onChange={() => handleCategoryClick(category.id)}
                                 />
                                 <label htmlFor={category.id}>{category.name}</label>
-                                <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                                <button className="btns" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
                             </div>
                         ))}
                     </form>

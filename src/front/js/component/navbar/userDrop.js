@@ -51,7 +51,7 @@ export const UserDrop = () => {
       }
     }
     fetchPrivateData();
-  }, [store.user]);
+  }, []);
 
   // useEffect(() => {
 
