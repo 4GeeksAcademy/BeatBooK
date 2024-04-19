@@ -119,7 +119,6 @@ export const Event = (props) => {
           </div>
           <EventDescription eventData={eventData} />
           <EventMedia eventData={eventData} />
-
           <Row>
             <Col md={6} xs={12}>
               <EventTeams eventData={eventData} />

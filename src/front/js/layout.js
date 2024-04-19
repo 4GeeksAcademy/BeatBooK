@@ -14,7 +14,7 @@ import { CreateEventMedia } from "./pages/createEventMedia";
 import { Private } from "./pages/private";
 import { Profile } from "./pages/profile";
 import { BandPage } from "./pages/bandPage";
-
+import { BandPageGuest } from "./component/band/BandPageGuest.js";
 import { Categorias } from "./pages/categorias/categorias.js";
 import { CategoryEvents } from "./pages/categorias/categoryEvents.js";
 import { Eventos } from "./pages/categorias/eventos.js";
@@ -69,6 +69,7 @@ const Layout = () => {
             <Route element={<Profile />} path="/profile" />
             <Route element={<ProfileGuest />} path="/profile/:id" />
             <Route element={<BandPage />} path="/banda/:id" />
+            <Route element={<BandPageGuest />} path="/band/:id" />
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<CategoryEvents />} path="/categoria/:category_id/eventos" />
             <Route element={<Eventos />} path="/eventos" />

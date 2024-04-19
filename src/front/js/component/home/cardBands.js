@@ -49,7 +49,7 @@ export const Cards = () => {
 
 
   const handleLearnMore = (id) => {
-    navigate(`/banda/${id}`);
+    navigate(`/band/${id}`);
   };
 
 

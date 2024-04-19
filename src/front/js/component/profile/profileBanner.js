@@ -3,12 +3,16 @@ import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "../profile/profile.css"
+import { ProfileBody } from './profileBody';
+import { Link } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -129,6 +133,15 @@ export const ProfileBanner = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const handleCreateEvent = () => {
+        navigate('/event/registre')
+    }
+
+    const handleCreateBand = () => {
+        navigate('/banda/registre')
+    }
+
+
     const classes = useStyles();
 
     return (
@@ -145,21 +158,21 @@ export const ProfileBanner = () => {
                         <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
                     </div>
                 </div>
-                <div className='col-12 col-md-4 col-xl-4 m-3 p-5 d-flex flex-column align-items-start justify-content-start' id='username'>
+                <div className='col-12 col-md-4 col-xl-3 m-3 p-5 d-flex align-items-center justify-content-start' id='username'>
                     <div className=''>
                         <h1>{store.currentUser?.username}</h1>
-                    </div>
-                    <div className='d-flex flex-column justify-content-start'>
-                            <p className='mb-0 ms-2 '><strong>Puedes escucharme</strong></p>
+                        <div className='d-flex flex-column justify-content-start'>
+                            <p className='mb-0 ms-2'><strong>Puedes escucharme</strong></p>
                             {store.currentUser && store.currentUser.created_band && (
                                 <div className={classes.root}>
                                     <Link to={`/banda/${store.currentUser.created_band.id}`}>
                                         <Avatar className="avatar ms-2" alt={store.currentUser.username} src={store.currentUser.created_band.profile_picture} />
                                     </Link>
-                                    <p className='mt-2'>{store.currentUser?.created_band.name}</p>
+                                    <p className='mt-1'>{store.currentUser?.created_band.name}</p>
                                 </div>
                             )}
                         </div>
+                    </div>
                 </div>
                 <div className='col-12 col-md-4 col-xl-5 d-flex align-items-end justify-content-end' id="botones">
 
@@ -171,6 +184,17 @@ export const ProfileBanner = () => {
                     <div className="dropup-center dropup">
                         <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Construye Tu Sueño
+                        </button>
+                        <ul className="dropdown-menu btns">
+                            <li><a className="dropdown-item d-item" href='/event/registre'>Crear un evento</a></li>
+                            <li><a className="dropdown-item d-item" href='/banda/registre'>Crear una banda</a></li>
+                            <li><a className="dropdown-item d-item" href="#">Crear un local</a></li>
+                        </ul>
+                    </div>
+
+                    <div className="dropup-center dropup">
+                        <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Construye Tu Sueño
                         </button>
                         <ul className="dropdown-menu btns">
                             <li><a className="dropdown-item d-item" href='/event/registre'>Crear un evento</a></li>

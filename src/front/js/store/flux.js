@@ -108,6 +108,47 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getPlaceEvents: async (place_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}/events`);
+          if (!response.ok) {
+            throw new Error("Place not found");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
+      getEventsByCategory: async (category_id) => {
+        try {
+            const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch events");
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
+    getCategory: async (category_id) => {
+      try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          if (!response.ok) {
+              throw new Error("Failed to fetch category");
+          }
+          const data = await response.json();
+          return data;
+      } catch (error) {
+          console.log(error);
+          return null;
+      }
+  },
+
       logIn: async (email, password) => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/log_in", {
@@ -502,7 +543,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const token = localStorage.getItem("jwt-token");
           const formData = new FormData();
           formData.append("banner", banner);
-          formData.append("band_id", bandId); // Agrega el ID del band al formulario
+          formData.append("band_id", bandId);
 
           console.log("Subiendo imagen con token:", token);
 
@@ -532,6 +573,22 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 //------------------------------------------------------------------------------------------//
 
+      getPlace: async (placeId) => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/places/" + placeId
+          );
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          const data = await resp.json();
+          setStore({ place: data })
+          return data;
+        } catch (error) {
+          console.log("Error loading place from backend", error);
+          throw error;
+        }
+      },
       uploadEventPicture: async (image, eventId) => {
         console.log("uploadEventPicture se ha llamado");
         try {
@@ -730,6 +787,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         } catch (error) {
           console.error('Error fetching musical categories:', error);
+          // Manejar el error de acuerdo a tus necesidades
+        }
+      },
+      getUser: async (user_id) => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}/api/users/${user_id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch user');
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error('Error fetching user:', error);
           // Manejar el error de acuerdo a tus necesidades
         }
       },

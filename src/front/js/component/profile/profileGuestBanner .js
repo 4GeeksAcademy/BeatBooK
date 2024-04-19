@@ -1,14 +1,8 @@
-import React, { useRef, useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
-import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "../profile/profile.css"
-import { ProfileBody } from './profileBody';
 import { Link } from 'react-router-dom';
-
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { toast } from "react-toastify";
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -24,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ProfileGuestBanner = () => {
-    const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const { id } = useParams();
     
