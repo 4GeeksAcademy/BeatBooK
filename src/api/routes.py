@@ -534,12 +534,12 @@ def update_band(band_id):
     if not band:
         return jsonify({"message": "Banda no encontrada"}), 404
     data = request.json
-    band.name = data.get('name')
-    band.description = data.get('description')
-    band.profile_picture = data.get('profile_picture')
-    band.banner_picture = data.get('banner_picture')
-    band.instagram = data.get('instagram')
-    band.tiktok = data.get('tiktok')
+    # band.name = data.get('name')
+    band.description = data.get('description') or band.description
+    band.profile_picture = data.get('profile_picture') or band.profile_picture
+    band.banner_picture = data.get('banner_picture') or band.banner_picture
+    band.instagram = data.get('instagram') or band.instagram
+    band.tiktok = data.get('tiktok') or band.tiktok
     db.session.commit()
     return jsonify(band.serialize()), 200
 
