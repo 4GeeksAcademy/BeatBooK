@@ -16,10 +16,10 @@ border-radius: 2%;
 }
 
 .title {
-    color: white; /* Color del texto blanco */
-    font-size: 30px; /* Tamaño de fuente */
-    font-weight: bold; /* Peso de la fuente en negrita */
-    padding: 10px; /* Espaciado interno */
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
