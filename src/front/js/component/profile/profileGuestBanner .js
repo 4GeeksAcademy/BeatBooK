@@ -35,6 +35,7 @@ export const ProfileGuestBanner = () => {
         });
       },[]);
 
+      const classes = useStyles();
 
     return (
         <div className="container d-flex flex-column justify-content-center">
@@ -50,24 +51,24 @@ export const ProfileGuestBanner = () => {
                         <img className='img' src={store.singleUser.profile_image_url} alt='perfil' />
                     </div>
                 </div>
-                <div className='col-12 col-md-4 col-xl-4 m-3 p-5 d-flex align-items-center justify-content-start' id='username'>
+                <div className='col-12 col-md-4 col-xl-4 m-3 p-5 d-flex flex-column align-items-start justify-content-start' id='username'>
                     <div className=''>
                         <h1>{store.singleUser.username}</h1>
-                        {/* <div className='d-flex flex-column justify-content-start'>
-                            <p className='mb-0 ms-2'><strong>Puedes escucharme</strong></p>
-                            {store.currentUser && store.currentUser.created_band && (
+                    </div>
+                    <div className='d-flex flex-column justify-content-start'>
+                            <p className='mb-0 ms-2 '><strong>Puedes escucharme</strong></p>
+                            {store.singleUser && store.singleUser.created_band && (
                                 <div className={classes.root}>
-                                    <Link to={`/banda/${store.currentUser.created_band.id}`}>
-                                        <Avatar className="avatar ms-2" alt={store.currentUser.username} src={store.currentUser.created_band.profile_picture} />
+                                    <Link to={`/banda/${store.singleUser.created_band.id}`}>
+                                        <Avatar className="avatar ms-2" alt={store.singleUser.username} src={store.singleUser.created_band.profile_picture} />
                                     </Link>
-                                    <p className='mt-1'>{store.currentUser?.created_band.name}</p>
+                                    <p className='mt-2'>{store.singleUser?.created_band.name}</p>
                                 </div>
                             )}
-                        </div> */}
-                    </div>
+                        </div>
                 </div>
-            </div>
-        </div>
+                    </div>
+                    </div>
 
     );
 }
