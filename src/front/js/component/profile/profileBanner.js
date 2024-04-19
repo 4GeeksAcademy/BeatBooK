@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import "../profile/profile.css"
 import { ProfileBody } from './profileBody';
 import { Link } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -156,26 +158,29 @@ export const ProfileBanner = () => {
                         <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
                     </div>
                 </div>
-                <div className='col-12 col-md-4 col-xl-4 m-3 p-5 d-flex align-items-center justify-content-start' id='username'>
+                <div className='col-12 col-md-4 col-xl-3 m-3 p-5 d-flex align-items-center justify-content-start' id='username'>
                     <div className=''>
                         <h1>{store.currentUser?.username}</h1>
                     </div>
                 </div>
-                <div className='col-12 col-md-4 col-xl-5 d-flex align-items-end justify-content-end' id="botones">
+                <div className='col-12 col-md-4 col-xl-6 d-flex align-items-end justify-content-end' id="botones">
+
                     <button className='btns'
                         onClick={handleShow}>
                         <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil
                     </button>
+                  
+                    <div className="dropup-center dropup">
+                        <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Construye Tu Sueño
+                        </button>
+                        <ul className="dropdown-menu btns">
+                            <li><a className="dropdown-item d-item" href='/event/registre'>Crear un evento</a></li>
+                            <li><a className="dropdown-item d-item" href='/banda/registre'>Crear una banda</a></li>
+                            <li><a className="dropdown-item d-item" href="#">Crear un local</a></li>
+                        </ul>
+                    </div>
 
-                    <button className='btns'
-                        onClick={() => { handleCreateEvent() }}>
-                        <i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear evento
-                    </button>
-
-                    <button className='btns'
-                        onClick={() => { handleCreateBand() }}>
-                        <i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear Banda
-                    </button>
                 </div>
                 {/* Modal para editar Información */}
                 <Modal show={show} onHide={handleClose} onSubmit={handleSubmit}>

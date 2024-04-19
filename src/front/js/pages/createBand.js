@@ -92,10 +92,6 @@ export const CreateBand = () => {
     }
   };
   
-
-
-
-
   return (
     <Container className="mt-5 create_event_container">
       <Form onSubmit={handleSubmit}>
