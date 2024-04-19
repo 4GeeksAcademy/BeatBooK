@@ -130,9 +130,9 @@ export const ProfileBody = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log("esta info esta actual2 ", store.currentUser);
-        console.log(store.allCategories);
+        
     }, [store.currentUser, store.allCategories]);
+    
 
 
     return (
