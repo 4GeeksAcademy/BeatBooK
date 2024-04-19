@@ -27,6 +27,34 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
 
+      createPlace: async (eventData) => {
+        try {
+          const token = localStorage.getItem("jwt-token");
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/places",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(eventData),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error creating event");
+          }
+
+          const data = await response.json();
+          
+          return data;
+        } catch (error) {
+          console.log("Error creating place", error);
+        }
+      },
+
       getPlace: async (place_id) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}`);

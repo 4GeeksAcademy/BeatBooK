@@ -25,6 +25,8 @@ import { LandingPage } from "./pages/landingPage.js";
 import { Lugar } from "./pages/lugar.js";
 import { CreateBand } from "./pages/createBand.js";
 import { CreateBandMedia } from "./pages/createBandMedia.js";
+import { CreatePlace } from "./pages/createPlace.js";
+import { CreatePlaceMedia } from "./pages/createPlaceMedia.js";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -59,8 +61,10 @@ const Layout = () => {
             <Route element={<Event />} path="/events/:id" />
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateBand />} path="/banda/registre" />
+            <Route element={<CreatePlace />} path="/place/registre" />
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<CreateBandMedia />} path="/banda/registre/media/:id" />
+            <Route element={<CreatePlaceMedia />} path="/place/registre/media/:id" />
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />
