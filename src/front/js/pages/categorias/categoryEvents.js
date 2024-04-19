@@ -12,7 +12,7 @@ export const CategoryEvents = () => {
 
     useEffect(() => {
 
-        actions.getPlaceEvents(category_id)
+        actions.getEventsByCategory(category_id)
             .then((data) => {
                 if (Array.isArray(data)) {
                     setEvents(data);
@@ -44,7 +44,7 @@ export const CategoryEvents = () => {
     return (
         <div className="container text-center">
             <br />
-            <h1>Eventos de música {categoryName}</h1>
+            <h1>Eventos de musica {categoryName}</h1>
             <br />
             <div className='bentobox'>
                 {events.map((event) => (

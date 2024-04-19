@@ -59,7 +59,7 @@ export const CardPlaces = () => {
           </div>
           <div className='card-c-content'>
           <h2 className='name'>{place.name}</h2>
-          <span className='description'>{place.description}</span>
+          <p className='description'>{place.description}</p>
           </div>
           <div className='card-c-footer'>
           <button className='button' onClick={() => handleLearnMore(place.id)}> Saber más </button>

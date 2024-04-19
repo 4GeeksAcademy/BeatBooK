@@ -90,8 +90,6 @@ export const UserDrop = () => {
 
           <Dropdown.Menu align="end">
             <Dropdown.Item href="/profile/">Perfil</Dropdown.Item>
-            <Dropdown.Item href="#action/3.2">Eventos</Dropdown.Item>
-            <Dropdown.Item href="#action/3.3">Something</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogOut}>Cerrar sesión</Dropdown.Item>
           </Dropdown.Menu>

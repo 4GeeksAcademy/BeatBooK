@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import "/workspaces/BeatBooK/src/front/styles/lugar.css";
+import "/workspaces/BeatBooK/src/front/styles/paginasEspecificas.css";
 import { useParams } from "react-router-dom";
 import { Context } from "/workspaces/BeatBooK/src/front/js/store/appContext.js";
 import { Link } from "react-router-dom";
@@ -44,31 +44,31 @@ export const Lugar = () => {
         <div className="container">
             {place && (
                 <div>
-                    <div className='placeBanner'>
+                    <div className='Banner'>
                         <img src={place.banner_picture} className='img-fluid' ></img>
                     </div>
-                    <div class="container text-start placeData">
-                        <div class="row align-items-center">
-                            <div class="col">
+                    <div className="container text-start data">
+                        <div className="row align-items-center">
+                            <div className="col">
                                 <img className='ProfilePicture' src={place.profile_picture} alt='perfil' />
                             </div>
-                            <div class="col-8">
+                            <div className="col-8">
                                 <h1 className='ms-2'>{place.name}</h1>
                                 <p className='ms-2'>{place.description}</p>
                             </div>
-                            <div class="col">
+                            <div className="col">
                             </div>
                         </div>
                     </div>
-                    <div class="container text-center align-items-center">
-                        <div class="row">
-                            <div class="col">
+                    <div className="container text-center align-items-center">
+                        <div className="row">
+                            <div className="col">
                                 <div className="cardContent">
-                                    <h5>Mapa</h5>
+                                    <h5>direccion</h5>
                                     <p>{place.address}</p>
                                 </div>
                                 <div className="cardContent">
-                                    <h5>Teléfono</h5>
+                                    <h5>Telefono</h5>
                                     <p>{place.phone}</p>
                                     <h5>Redes sociales</h5>
                                     <div className='socialNetwork'>
@@ -77,18 +77,18 @@ export const Lugar = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div className="col">
                                 <div className="cardContent">
-                                    <h5>Próximos Eventos</h5>
+                                    <h5>Proximos Eventos</h5>
                                 </div>
                                 {/*Card eventos*/}
-                                <div className="eventCardContent card mb-3">
+                                <div className="cardContent card mb-3">
                                     {events.map((event) => (
                                         <div key={event.id} className="position-relative">
                                             <Link to={`/eventos/${event.id}`}>
-                                                <img src={event.picture_url} className="card-img-top eventPicture" alt="event_picture"></img>
+                                                <img src={event.picture_url} className="card-img-top eventPicture" alt="event_picture" />
                                             </Link>
-                                            <div class="card-body">
+                                            <div className="card-body">
                                                 <h5>{event.name}</h5>
                                                 <p>{event.description}</p>
                                             </div>
