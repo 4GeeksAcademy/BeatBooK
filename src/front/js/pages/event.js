@@ -105,9 +105,13 @@ export const Event = (props) => {
   return (
     <Container className="pt-5 evento">
       <Row>
+        <div className="d-flex justify-content-center mb-3">
+          <h1>{eventData.name}</h1>{" "}
+        </div>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center"
+          className="d-flex-column justify-content-center align-items-center text-center pt-2
+          "
         >
           <div className="img-container">
             {" "}
@@ -130,22 +134,22 @@ export const Event = (props) => {
         </Col>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center pt-3"
+          className="d-flex-column justify-content-center align-items-center text-center"
         >
           {" "}
-          <h2>{eventData.name}</h2>{" "}
+
           <div className="d-flex justify-content-center align-items-center">
             {" "}
             <div className="event-details">
               {" "}
-              <h5 className="p-2">{eventData.date}</h5>{" "}
-              <h5 className="p-2">{eventData.location}</h5>{" "}
+              <h5 className="p-2"> Fecha: {eventData.date}</h5>{" "}
+
               <h5 className="p-2">
-                {" "}
-                {eventData.price === "0" ? "Gratis" : eventData.price}{" "}
+                Precio: {" "}
+                {eventData.price === "0" ? "Gratis" : eventData.price}{" "} €
               </h5>{" "}
               <div className="event-map">
-                <h4>{eventData.address}</h4>
+                <h4>Dirección: {eventData.address}</h4>
                 {coordinates && <MapComponent coordinates={coordinates} />}
               </div>
             </div>{" "}
