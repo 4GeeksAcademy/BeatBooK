@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/landingPage.css";
-import beatBoxHorizontalBlanco from "/workspaces/BeatBooK/src/front/js/component/navbar/beatBoxHorizontalBlanco.png"
+import beatBoxHorizontalBlanco from "../component/navbar/beatBoxHorizontalBlanco.png"
 
 
 export const LandingPage = () => {

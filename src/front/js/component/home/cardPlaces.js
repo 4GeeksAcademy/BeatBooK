@@ -1,7 +1,7 @@
-import React, { useRef, useState, useContext, useEffect} from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
-import "/workspaces/BeatBooK/src/front/js/component/home/card.css"
+import "../../styles/home/cardPlaces.css"
 
 
 
@@ -35,7 +35,7 @@ export const CardPlaces = () => {
     carouselRef.current.classList.remove('dragging');
   };
 
-  
+
   const handleTransitionEnd = () => {
     const cardWidth = firstCardRef.current.offsetWidth;
     if (carouselRef.current.scrollLeft === 0) {
@@ -51,21 +51,21 @@ export const CardPlaces = () => {
 
   return (
     <div className="wrapper">
-       <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
-       {store.places.map((place, index) => (
-        <li className="card-c" key={index} ref={firstCardRef}>
-          <div className='img'>
-            <img src={place.profile_picture} alt='img' draggable="false" className='img' />
-          </div>
-          <div className='card-c-content'>
-          <h2 className='name'>{place.name}</h2>
-          <p className='description'>{place.description}</p>
-          </div>
-          <div className='card-c-footer'>
-          <button className='button' onClick={() => handleLearnMore(place.id)}> Saber más </button>
-          </div>
-        </li>
-      ))}
+      <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
+        {store.places.map((place, index) => (
+          <li className="card-c" key={index} ref={firstCardRef}>
+            <div className='img'>
+              <img src={place.profile_picture} alt='img' draggable="false" className='img' />
+            </div>
+            <div className='card-c-content'>
+              <h2 className='name'>{place.name}</h2>
+              <p className='description'>{place.description}</p>
+            </div>
+            <div className='card-c-footer'>
+              <button className='button' onClick={() => handleLearnMore(place.id)}> Saber más </button>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );

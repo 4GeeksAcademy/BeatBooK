@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "/workspaces/BeatBooK/src/front/styles/categorias.css";
+import "../../styles/home/cardBands.css";
 
 export const Grupos = () => {
     const [groups, setGroups] = useState([]);
