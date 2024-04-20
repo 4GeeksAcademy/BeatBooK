@@ -274,13 +274,13 @@ def protected():
         })
 
       # Serializar la banda creada por el usuario si existe
-    # created_band_serialized = None
-    # if user.created_band:
-    #     created_band_serialized = {
-    #         "id": user.created_band.id,
-    #         "name": user.created_band.name,
-    #         "profile_picture": user.created_band.profile_picture
-    #     }
+    created_band_serialized = None
+    if user.created_band:
+        created_band_serialized = {
+            "id": user.created_band.id,
+            "name": user.created_band.name,
+            "profile_picture": user.created_band.profile_picture
+        }
     
  
     return jsonify({
@@ -296,7 +296,7 @@ def protected():
         "instagram": user.instagram,
         "tiktok": user.tiktok,
         "user_categories": user_categories_serialized, 
-        # "created_band": created_band_serialized
+        "created_band": created_band_serialized
        
     }), 200
 
@@ -543,6 +543,9 @@ def update_band(band_id):
     db.session.commit()
     return jsonify(band.serialize()), 200
 
+
+
+
 @api.route('/bands/<int:band_id>', methods=['DELETE'])
 def delete_band(band_id):
     band = Band.query.get(band_id)
@@ -599,6 +602,39 @@ def get_band_events(band_id):
     events = band.events
     events_data = [event.serialize() for event in events]
     return jsonify(events_data), 200
+
+@api.route('/upload_profile_band', methods=['POST'])
+@jwt_required()
+def upload_profile_band():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    band_id = request.form.get('band_id')  # Obtiene el ID de la banda desde el formulario
+    upload_result = upload(file)
+    url = upload_result['url']
+    band = Band.query.get(band_id)  # Busca la banda por ID
+    if band is None:
+        return jsonify({"error": "Event not found"}), 404
+    band.profile_picture = url
+    db.session.commit()
+    return jsonify({"message": "Event picture uploaded successfully", "url": url}), 200
+
+@api.route('/upload_banner_band', methods=['POST'])
+@jwt_required()
+def upload_banner_band():
+    if 'banner' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['banner']
+    band_id = request.form.get('band_id')  # Obtiene el ID de la banda desde el formulario
+    upload_result = upload(file)
+    url = upload_result['url']
+    band = Band.query.get(band_id)  # Busca la banda por ID
+
+    if band is None:
+        return jsonify({"error": "Event not found"}), 404
+    band.banner_picture = url
+    db.session.commit()
+    return jsonify({"message": "Event picture uploaded successfully", "url": url}), 200
 
 #EVENTOS#
 
