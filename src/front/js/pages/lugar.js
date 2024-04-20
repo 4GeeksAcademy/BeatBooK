@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import "../../styles/lugar.css";
+import "../../styles/paginasEspecificas.css";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ export const Lugar = () => {
         <div className="container">
             {place && (
                 <div>
-                    <div className='placeBanner'>
+                    <div className='Banner'>
                         <img src={place.banner_picture} className='img-fluid' ></img>
                     </div>
                     <div class="container text-start placeData">
@@ -68,7 +68,7 @@ export const Lugar = () => {
                                     <p>{place.address}</p>
                                 </div>
                                 <div className="cardContent">
-                                    <h5>Teléfono</h5>
+                                    <h5>Telefono</h5>
                                     <p>{place.phone}</p>
                                     <h5>Redes sociales</h5>
                                     <div className='socialNetwork'>
@@ -79,7 +79,7 @@ export const Lugar = () => {
                             </div>
                             <div class="col">
                                 <div className="cardContent">
-                                    <h5>Próximos Eventos</h5>
+                                    <h5>Proximos Eventos</h5>
                                 </div>
                                 {/*Card eventos*/}
                                 <div className="eventCardContent card mb-3">

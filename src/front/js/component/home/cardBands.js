@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
-import "../home/card.css"
+import "/workspaces/BeatBooK/src/front/js/component/home/card.css"
 
 
 
@@ -57,14 +57,13 @@ export const Cards = () => {
     <div className="wrapper">
       <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
         {store.bands.map((band, index) => (
-
          <li className="card-c" key={index} ref={firstCardRef}>
          <div className='img'>
            <img src={band.profile_picture} alt='img' draggable="false" className='img' />
          </div>
          <div className='card-c-content'>
-         <h2 className='name'>{band.name}</h2>
-         <span className='description'>{band.description}</span>
+         <h2>{band.name}</h2>
+         <p className='description'>{band.description}</p>
          </div>
          <div className='card-c-footer'>
          <button className='button' onClick={() => handleLearnMore(band.id)}>Saber mas</button>

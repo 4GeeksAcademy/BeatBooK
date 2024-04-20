@@ -5,20 +5,13 @@
     text-align: center;
 }
 
-li {
-    color: white;
-}
-
-h4 {
-    color: white;
-}
-
 .sinPuntos {
     list-style-type: none;
 }
 
 a {
     color: white;
+    text-decoration: none;
     font-size: 14px;
 }
 

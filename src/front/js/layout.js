@@ -57,26 +57,35 @@ const Layout = () => {
           <Routes>
             <Route element={<LandingPage />} path="/" />
             <Route element={<Home />} path="/home" />
+            <Route element={<Profile />} path="/profile" />
+
             <Route element={<Event />} path="/events/:id" />
+            <Route element={<BandPage />} path="/grupos/:id" />
+            <Route element={<Lugar />} path="/lugares/:place_id" />
+            <Route element={<CategoryEvents />} path="/categoria/:category_id/eventos" />
+
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateBand />} path="/banda/registre" />
+
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<CreateBandMedia />} path="/banda/registre/media/:id" />
+
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
+
             <Route element={<Profile />} path="/profile" />
+            
             <Route element={<ProfileGuest />} path="/profile/:id" />
-            <Route element={<BandPage />} path="/banda/:id" />
             <Route element={<BandPageGuest />} path="/band/:id" />
+            
             <Route element={<Categorias />} path="/categorias" />
-            <Route element={<CategoryEvents />} path="/categoria/:category_id/eventos" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<Grupos />} path="/grupos" />
             <Route element={<Lugares />} path="/lugares" />
             <Route element={<PaginaFalsa />} path="/paginafalsa" />
-            <Route element={<Lugar />} path="/lugares/:place_id" />
+
           </Routes>
           <Footer />
         </ScrollToTop>

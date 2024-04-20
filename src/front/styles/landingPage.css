@@ -1,8 +1,7 @@
-/* Estilos base */
 .video {
   position: relative;
   width: 100%;
-  height: auto; /* Para que el video sea responsive */
+  height: auto;
   z-index: -1;
 }
 
@@ -11,8 +10,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-90%, -90%);
-  max-width: 50%; /* Ajustar el tamaño máximo para todos los dispositivos */
-  height: auto; /* Para que la altura se ajuste automáticamente */
+  max-width: 50%;
+  height: auto;
 }
 
 .overlay-text {
@@ -25,10 +24,11 @@
   text-align: center;
   width: 34%;
   max-width: 800px;
-  background-color: rgba(252, 252, 252, 0.2);
+  background-color: rgba(32, 30, 30, 0.552);
   border-radius: 0px;
   padding: 10px;
 }
+
 .btns-landing  {
   border: 1px solid rgba(255, 255, 255, 0.089);
   font-size: 16px;
@@ -42,9 +42,6 @@
   background-color: rgba(65, 65, 65, 0.308) !important;
 }
 
-
-
-/* Media query para dispositivos con ancho de pantalla de hasta 576px (dispositivos móviles pequeños) */
 @media (min-width: 300px) and (max-width: 425px) {
   .image-landing {
     width: 300px;
@@ -69,13 +66,12 @@
     margin: 0 0px 2px 7px;
   }
 }
+
 .btns-landing:hover {
-  background: grey !important; /* Cambiar el color de fondo */
-  color: black; /* Cambiar el color del texto */
+  background: grey !important; 
+  color: black; 
 }
 
-
-/* Media query para dispositivos con ancho de pantalla de hasta 768px (tablets) */
 @media (max-width: 768px) {
   .image-landing {
     position: absolute;
@@ -101,7 +97,6 @@
   }
 }
 
-/* Media query para dispositivos con ancho de pantalla de hasta 1200px (escritorios grandes) */
 @media (max-width: 1200px) {
   .overlay-text {
     width: 270px;
@@ -111,8 +106,8 @@
     left: 50%;
     transform: translate(-96%, -6%);
     padding: 10px;
-    
   }
+
   .btns-landing {
     font-size: 10px;
     padding:  7px 16px;
@@ -120,19 +115,14 @@
   }
 }
 
-
-
 .card-l {
-    width: 300px; /* Ancho fijo de la tarjeta */
-  height: 380px; /* Altura fija de la tarjeta */
-  overflow: hidden; /* Para que la imagen no se salga de la tarjeta */
+    width: 300px;
+  height: 380px;
+  overflow: hidden;
   }
 
   .card-l h5{
-font-weight: bold;
-  font-size: 20px;
   margin: 0 10px 10px 10px;
-  color: black;
   }
 
   .card-l p {
@@ -140,8 +130,8 @@ font-weight: bold;
   }
   
   .card-img-l {
-    width: 100%; /* La imagen ocupa el 100% del ancho de la tarjeta */
-    height: 50%; /* La imagen ocupa el 100% de la altura de la tarjeta */
+    width: 100%;
+    height: 50%;
     object-fit:cover; 
     object-position: center;
     overflow: hidden;
@@ -149,8 +139,8 @@ font-weight: bold;
   }
   
   .card-body {
-    padding: 20px; /* Ajusta el relleno interno según tus necesidades */
-    margin-top: auto;; /* Ajusta el relleno interno según tus necesidades */
+    padding: 20px;
+    margin-top: auto;
   }
 
   
