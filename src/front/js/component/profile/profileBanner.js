@@ -155,7 +155,7 @@ export const ProfileBanner = () => {
                     <div className="col">
                         <img className='ProfilePicture' src={store.currentUser?.profile_image_url} alt='perfil' />
                     </div>
-                    <div className="col-6">
+                    <div className="col">
                         <h1>{store.currentUser?.username}</h1>
                         <p>Puedes escucharme en:</p>
                         {store.currentUser && store.currentUser.created_band && (
@@ -167,7 +167,7 @@ export const ProfileBanner = () => {
                             </div>
                         )}
                     </div>
-                    <div className="col d-flex">
+                    <div className="col-6 d-flex">
                         <button className='btns' onClick={handleShow}>
                             <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil
                         </button>

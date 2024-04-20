@@ -100,27 +100,22 @@ export const BandBanner = (props) => {
                         <div className="cardContent">
                             <h5>Proximos Eventos</h5>
                         </div>
-                        <div className="cardContent">
-                        {store.band.events && store.band.events.map((event, index) => (
-                            <div className="position-relative" key={index}>
-                                <div className="card-e">
-                                    <div className="img">
-                                        <Link to={`/events/${event.id}`}>
-                                            <img src={event.picture_url} alt="Imagen del evento" draggable="false" className="card-img-top eventPicture" />
-                                        </Link>
-                                    </div>
+                        <div className="cardContent card mb-3">
+                            {store.band.events && store.band.events.map((event, index) => (
+                                <div className="position-relative" key={index}>
+                                    <Link to={`/events/${event.id}`}>
+                                        <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
+                                    </Link>
                                     <div className="card-body">
-                                        <h2 className="name">{event.name}</h2>
-                                        <a className="description">{event.description}</a>
+                                        <h5>{event.name}</h5>
+                                        <p>{event.description}</p>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

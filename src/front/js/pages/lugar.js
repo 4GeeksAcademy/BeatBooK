@@ -82,13 +82,13 @@ export const Lugar = () => {
                                     <h5>Proximos Eventos</h5>
                                 </div>
                                 {/*Card eventos*/}
-                                <div className="eventCardContent card mb-3">
+                                <div className="cardContent card mb-3">
                                     {events.map((event) => (
                                         <div key={event.id} className="position-relative">
                                             <Link to={`/eventos/${event.id}`}>
-                                                <img src={event.picture_url} className="card-img-top eventPicture" alt="event_picture"></img>
+                                                <img src={event.picture_url} className="card-img-top eventPicture" alt="event_picture" />
                                             </Link>
-                                            <div class="card-body">
+                                            <div className="card-body">
                                                 <h5>{event.name}</h5>
                                                 <p>{event.description}</p>
                                             </div>
