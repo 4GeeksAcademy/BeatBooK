@@ -6,7 +6,7 @@ export const EventDetails = ({ eventData, coordinates }) => {
     <div>
       <h2>{eventData.name}</h2>
       <div className="d-flex justify-content-center align-items-center">
-        <div className="event-details">
+        <div className="event-details responsive-div">
           <h5 className="p-2">{eventData.date}</h5>
           <h5 className="p-2">{eventData.location}</h5>
           <h5 className="p-2">

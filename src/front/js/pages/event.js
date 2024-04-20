@@ -110,7 +110,7 @@ export const Event = (props) => {
         </div>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center pt-2
+          className="d-flex-column justify-content-center align-items-center text-center pt-2 pb-5
           "
         >
           <div className="img-container">

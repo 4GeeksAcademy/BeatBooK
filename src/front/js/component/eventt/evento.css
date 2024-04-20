@@ -80,6 +80,14 @@
   backdrop-filter: blur(50px);
   border-radius: 20px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1);
+
+
+}
+
+@media (max-width: 760px) {
+  .event-details {
+    width: 100%;
+  }
 }
 
 .event-map {
