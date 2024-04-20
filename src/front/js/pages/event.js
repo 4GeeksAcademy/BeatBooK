@@ -160,10 +160,7 @@ export const Event = (props) => {
               <button className="share-button">Compartir</button>{" "}
             </div>{" "}
             <hr className="mt-5 " />{" "}
-            <div className="d-flex justify-content-center align-items-center text-center pt-3">
-              {" "}
-              <button className="chat-button">Chat de evento</button>{" "}
-            </div>{" "}
+
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {" "}
               <button className="report-button">Reportar evento</button>{" "}
