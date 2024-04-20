@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/categorias.css";
+import "../../../styles/categorias.css";
 
 export const Grupos = () => {
     const [groups, setGroups] = useState([]);

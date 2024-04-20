@@ -1,7 +1,8 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import "../profile/profile.css";
-import "../../styles/home/card.css";
+import "../../../styles/paginasEspecificas.css";
+
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 
