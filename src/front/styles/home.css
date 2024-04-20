@@ -18,7 +18,7 @@ body {
 
 @font-face {
   font-family: 'Dharma Punk';
-  src: url('/workspaces/BeatBooK/docs/assets/Dharma_Punk_2.ttf') format('truetype');
+  src: url('../../../docs/assets/Dharma_Punk_2.ttf') format('truetype');
 }
 
 h1 {
