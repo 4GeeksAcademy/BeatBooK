@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
-import "../../styles/home/cardPlaces.css"
+import "./card.css"
 
 
 
