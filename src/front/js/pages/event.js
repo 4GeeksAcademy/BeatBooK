@@ -27,6 +27,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -81,12 +82,23 @@ async function getCoordinates(address) {
 export const Event = (props) => {
 
   const { id } = useParams();
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const [eventData, setEventData] = useState(null);
   const [refreshComments, setRefreshComments] = useState(false);
   const [refreshAssistances, setRefreshAssistances] = useState(false);
 
 
+  useEffect(() => {
+    const fetchPrivateData = async () => {
+      try {
+        await actions.getPrivateData();
+
+      } catch (error) {
+        console.error('Error al obtener datos privados:', error);
+      }
+    }
+    fetchPrivateData();
+  }, []);
 
   useEffect(() => {
     actions.getEvent(id).then((data) => {
@@ -94,6 +106,10 @@ export const Event = (props) => {
       console.log("eventData", data);
     });
   }, [id, refreshComments, refreshAssistances]);
+
+  const navigate = useNavigate();
+
+
 
   const handleNewComment = () => {
     setRefreshComments(!refreshComments);
@@ -109,13 +125,11 @@ export const Event = (props) => {
     if (!eventData) {
       return;
     }
+    console.log("currentUser", store.currentUser);
 
-    getCoordinates(eventData.address).then(setCoordinates);
   }, [eventData]);
 
-  useEffect(() => {
-    console.log("coordinates2", coordinates);
-  }, [coordinates]);
+
 
 
 
@@ -137,18 +151,37 @@ export const Event = (props) => {
     });
   };
 
-
   const [showModal, setShowModal] = useState(false);
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleDeleteEvent = async () => {
+    try {
+      await actions.deleteEvent(eventData.id);
+      navigate('/home');
+      toast.success('Evento borrado correctamente');
+    } catch (error) {
+      console.error('Error al borrar el evento:', error);
 
+    }
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleConfirmDelete = () => {
+    handleDeleteEvent();
+    setShowModal(false);
+  };
 
 
   if (!eventData) {
-    return <div class="text-center mt-5 pt-5 pb-5">
-      <div class="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
-        <span class="visually-hidden">Loading...</span>
+    return <div className="text-center mt-5 pt-5 pb-5">
+      <div className="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>;
   }
@@ -156,8 +189,31 @@ export const Event = (props) => {
   return (
     <Container className="pt-5 evento">
       <Row>
+        <div className="d-flex justify-content-center align-items-center text-center pt-3">
+          {store.user && eventData.creator_id === store.user.id && (
+            <button onClick={handleOpenModal} className="report-button">Borrar evento</button>
+          )}
+
+        </div>
+
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmar borrado</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>¿Estás seguro de que quieres borrar tu evento?</Modal.Body>
+          <Modal.Footer>
+            <button type="button" className="btn btn-primary text-black" onClick={handleCloseModal}>
+              No
+            </button>
+            <button type="button" className="btn btn-danger text-black" onClick={handleConfirmDelete}>
+              Sí
+            </button>
+          </Modal.Footer>
+        </Modal>
+
+
         <div className="d-flex justify-content-center mb-3">
-          <h1>{eventData.name}</h1>{" "}
+          <h1>{eventData.name}</h1>
         </div>
         <Col
           md={6}
@@ -233,8 +289,9 @@ export const Event = (props) => {
             <hr className="mt-5 " />{" "}
 
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
+
               {" "}
-              <Link to="/paginafalsa" className="report-button">
+              <Link to="/paginafalsa" className="report-button fs-3">
                 Reportar evento
               </Link>
             </div>{" "}

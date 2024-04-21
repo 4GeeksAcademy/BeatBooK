@@ -790,6 +790,26 @@ def upload_event_media():
     db.session.commit()
     print("Database commit successful")  # Debug print
     return jsonify({"message": "Upload successful"}), 200
+
+@api.route('/eventdelete/<int:event_id>', methods=['DELETE'])
+def delete_all_event_data(event_id):
+    # Borrar asistencias
+    Assistance.query.filter_by(event_id=event_id).delete()
+
+    # Borrar reviews
+    Review.query.filter_by(event_id=event_id).delete()
+
+    # Borrar media
+    Media.query.filter_by(event_id=event_id).delete()
+
+    # Borrar evento
+    event = Event.query.get(event_id)
+    if event is None:
+        raise APIException('Event not found', status_code=404)
+    db.session.delete(event)
+
+    db.session.commit()
+    return jsonify({"message": "Event and all related data deleted successfully"}), 200
 #PLACES#
 
 @api.route('/places', methods=['GET'])
