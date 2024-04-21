@@ -88,6 +88,9 @@ export const AppNavbar = () => {
                   <MenuItem onClick={handleClose}>
                     <Link to="/lugares" className="text-black">Lugares</Link>
                   </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Search />
+                  </MenuItem>
                 </Menu>
               </Hidden>
 
@@ -110,13 +113,15 @@ export const AppNavbar = () => {
                 <Link to="/lugares" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Lugares
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+                <Search />
               </Hidden>
             </div>
             {/* Barra de búsqueda */}
             <div className="d-flex justify-content-center"></div>
             {/* Botones de registro e inicio de sesión */}
             <div className="d-flex">
-              <Search />
+
               <Login />
             </div>
           </nav>
