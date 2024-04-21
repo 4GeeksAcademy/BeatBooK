@@ -4,6 +4,9 @@ import beatBoxHorizontalBlanco from "./navbar/beatBoxHorizontalBlanco.png"
 import Logo_Facebook from "../../../../docs/assets/Logo_Facebook.png"
 import Logo_Twitter from "../../../../docs/assets/Logo_Twitter.png"
 import Logo_Instagram from "../../../../docs/assets/Logo_Instagram.png"
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
+
 
 export const Footer = () => {
     return (
@@ -58,6 +61,46 @@ export const Footer = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="row d-flex align-items-center justify-content-center">
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <hr className="text-white flex-grow-1" />
+                        <h5 className="px-2 text-white">Creado por: CtrlSonic</h5>
+                        <hr className="text-white flex-grow-1" />
+                    </div>
+                    <div>
+
+                        <div className="d-flex  align-items-center justify-content-center">
+                            <p className="p-3 d-flex  align-items-center justify-content-center">Luis Guilarte  <a href="https://www.linkedin.com/in/luisgr10/" target="_blank" rel="noopener noreferrer">
+                                <LinkedInIcon fontSize="large" className="px-1" />
+                            </a>
+                                <a href="https://github.com/Luisgr10" target="_blank" rel="noopener noreferrer">
+                                    <GitHubIcon />
+                                </a></p>
+                            <p className="p-3 d-flex  align-items-center justify-content-center">Miriam Asencio <a href="https://www.linkedin.com/in/miriam-asencio/" target="_blank" rel="noopener noreferrer">
+                                <LinkedInIcon fontSize="large" className="px-1" />
+                            </a>
+                                <a href="https://github.com/Miritzila" target="_blank" rel="noopener noreferrer">
+                                    <GitHubIcon />
+                                </a></p>
+                            <p className="p-3 d-flex align-items-center justify-content-center">
+                                Heyson Betancourt
+                                <a href="https://www.linkedin.com/in/heyson-betancourt-9b266a299/" target="_blank" rel="noopener noreferrer">
+                                    <LinkedInIcon fontSize="large" className="px-1" />
+                                </a>
+                                <a href="https://github.com/heysonbr" target="_blank" rel="noopener noreferrer">
+                                    <GitHubIcon />
+                                </a>
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div className="col d-flex align-items-center justify-content-center pt-5">
+
+                        <p className="text-white">© 2024 Beatbook. Todos los derechos reservados.</p>
                     </div>
                 </div>
             </div>
