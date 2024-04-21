@@ -26,6 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import { Link } from 'react-router-dom';
 
 
 
@@ -233,7 +234,9 @@ export const Event = (props) => {
 
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {" "}
-              <button className="report-button">Reportar evento</button>{" "}
+              <Link to="/paginafalsa" className="report-button">
+                Reportar evento
+              </Link>
             </div>{" "}
             <div className="pt-4">
               {" "}
