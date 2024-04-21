@@ -210,7 +210,7 @@ export const ProfileBody = (props) => {
                     <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
                         <Modal.Header className='modal-bg' closeButton>
                             <div className='delete-title'>
-                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                            <Modal.Title><h2>Selecciona tus categorias musicales favoritas</h2></Modal.Title>
                             </div>
                         </Modal.Header>
                         <Modal.Body className='modal-bg'>

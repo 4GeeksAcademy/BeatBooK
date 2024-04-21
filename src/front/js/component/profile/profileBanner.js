@@ -151,7 +151,7 @@ export const ProfileBanner = () => {
                         <ul className="dropdown-menu d-item">
                             <li><a className="dropdown-item" href='/event/registre'>Crear un evento</a></li>
                             <li><a className="dropdown-item" href='/banda/registre'>Crear una banda</a></li>
-                            <li><a className="dropdown-item" href="#">Crear un local</a></li>
+                            <li><a className="dropdown-item" href="/lugar/registre">Crear un local</a></li>
                         </ul>
                     
                         </div>
