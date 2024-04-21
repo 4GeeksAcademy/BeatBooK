@@ -813,7 +813,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        profile_image_url=request_body['profile_image_url'],
+        profile_picture=request_body['profile_picture'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']
@@ -873,6 +873,37 @@ def get_place_music_categories(place_id):
             unique_categories.update(categories)
     serialized_categories = [category.serialize() for category in unique_categories]
     return jsonify(serialized_categories), 200
+
+@api.route('/upload_banner_place', methods=['POST'])
+def upload_banner_place():
+    if 'banner' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['banner']
+    place_id = request.form.get('place_id')  # Obtiene el ID del lugar desde el formulario
+    upload_result = upload(file)
+    url = upload_result['url']
+    place = Place.query.get(place_id)  # Busca el lugar por ID
+
+    if place is None:
+        return jsonify({"error": "Place not found"}), 404
+    place.banner_picture = url
+    db.session.commit()
+    return jsonify({"message": "Place picture uploaded successfully", "url": url}), 200
+
+@api.route('/upload_profile_place', methods=['POST'])
+def upload_profile_place():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    place_id = request.form.get('place_id')
+    upload_result = upload(file)
+    url = upload_result['url']
+    place = Place.query.get(place_id)
+    if place is None:
+        return jsonify({"error": "Place not found"}), 404
+    place.profile_picture = url
+    db.session.commit()
+    return jsonify({"message": "Place picture uploaded successfully", "url": url}), 200
 
 #REVIEWS#
 

@@ -571,6 +571,76 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading Banner band picture", error);
         }
       },
+
+      uploadBannerPlace: async (banner, placeId) => {
+        console.log("uploadBannerPlace se ha llamado");
+        try {
+            const token = localStorage.getItem("jwt-token");
+            const formData = new FormData();
+            formData.append("banner", banner);
+            formData.append("place_id", placeId); // Corregido bandId a placeId
+    
+            console.log("Subiendo imagen con token:", token);
+    
+            const response = await fetch(
+                process.env.BACKEND_URL + "/api/upload_banner_place",
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: formData,
+                }
+            );
+    
+            console.log(banner);
+    
+            if (!response.ok) {
+                throw new Error("Error al cargar la imagen");
+            }
+    
+            const data = await response.json();
+            console.log("Respuesta del servidor:", data);
+            console.log("URL de la imagen:", data.url);
+    
+            return { url: data.url };
+        } catch (error) {
+            console.log("Error al cargar la imagen del lugar", error);
+        }
+    },
+    
+    uploadPlacePicture: async (image, placeId) => {
+      console.log("uploadPlacePicture se ha llamado");
+      try {
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("place_id", placeId);
+    
+        console.log("Subiendo imagen para lugar con ID:", placeId);
+    
+        const response = await fetch(
+          process.env.BACKEND_URL + "/api/upload_profile_place",
+          {
+            method: "POST",
+            headers: {},
+            body: formData,
+          }
+        );
+        console.log(image);
+        if (!response.ok) {
+          throw new Error("Error uploading picture");
+        }
+    
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data);
+        console.log("URL de la imagen:", data.url);
+    
+        return { url: data.url };
+      } catch (error) {
+        console.log("Error uploading place picture", error);
+      }
+    },
+    
 //------------------------------------------------------------------------------------------//
 
       getPlace: async (placeId) => {

@@ -26,6 +26,8 @@ import { Lugar } from "./pages/lugar.js";
 import { CreateBand } from "./pages/createBand.js";
 import { CreateBandMedia } from "./pages/createBandMedia.js";
 import { ProfileGuest } from "./component/profile/profileGuest.js";
+import { CreatePlace } from "./pages/createPlace.js";
+import { CreatePlaceMedia } from "./pages/createPlaceMedia.js";
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -66,9 +68,11 @@ const Layout = () => {
 
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateBand />} path="/banda/registre" />
+            <Route element={<CreatePlace />} path="/lugar/registre" />
 
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<CreateBandMedia />} path="/banda/registre/media/:id" />
+            <Route element={<CreatePlaceMedia />} path="/lugar/registre/media/:id" />
 
             <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single" />
