@@ -75,7 +75,7 @@ export const Login = ({ onClick }) => {
   };
 
   return (
-    <Container
+    <div
       className="login d-flex align-items-center justify-content-center"
       style={{ height: "100%" }}
     >
@@ -225,6 +225,6 @@ export const Login = ({ onClick }) => {
           </div>
         </div>
       </Modal>
-    </Container>
+    </div>
   );
 };
