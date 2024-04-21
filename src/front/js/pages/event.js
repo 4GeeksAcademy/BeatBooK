@@ -92,6 +92,18 @@ export const Event = (props) => {
     return token !== null && user !== null;
   }
 
+  const formatEventDate = (eventDate) => {
+    if (!eventDate) return "";
+    const date = new Date(eventDate);
+    return date.toLocaleString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
 
 
   if (!eventData) {
@@ -142,14 +154,14 @@ export const Event = (props) => {
             {" "}
             <div className="event-details">
               {" "}
-              <h5 className="p-2"> Fecha: {eventData.date}</h5>{" "}
+              <h5 className="p-2"> Fecha: {formatEventDate(eventData.date)}</h5>{" "}
 
               <h5 className="p-2">
                 Precio: {" "}
                 {eventData.price === "0" ? "Gratis" : eventData.price}{" "} €
               </h5>{" "}
               <div className="event-map">
-                <h4>Dirección: {eventData.address}</h4>
+                <h4 className="pb-1">Dirección: {eventData.address}</h4>
                 {coordinates && <MapComponent coordinates={coordinates} />}
               </div>
             </div>{" "}

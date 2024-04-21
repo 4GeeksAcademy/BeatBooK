@@ -39,6 +39,19 @@ export const ProfileBody = (props) => {
         return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
+    const formatEventDate = (eventDate) => {
+        if (!eventDate) return "";
+        const date = new Date(eventDate);
+        return date.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+
     useEffect(() => {
         actions.getAllEvents();
         console.log(store.currentUser);
@@ -233,6 +246,7 @@ export const ProfileBody = (props) => {
                             <div>
                                 <h2>{event.name}</h2>
                                 <p>{event.description}</p>
+                                <p>{formatEventDate(event.date)}</p>
                             </div>
                         </div>
                     ))}
