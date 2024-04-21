@@ -65,41 +65,43 @@ export const Footer = () => {
                 </div>
 
                 <div className="row d-flex align-items-center justify-content-center">
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div className="col-12" style={{ display: 'flex', alignItems: 'center' }}>
                         <hr className="text-white flex-grow-1" />
                         <h5 className="px-2 text-white">Creado por: CtrlSonic</h5>
                         <hr className="text-white flex-grow-1" />
                     </div>
-                    <div>
-
-                        <div className="d-flex  align-items-center justify-content-center">
-                            <p className="p-3 d-flex  align-items-center justify-content-center">Luis Guilarte  <a href="https://www.linkedin.com/in/luisgr10/" target="_blank" rel="noopener noreferrer">
+                    <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
+                        <p className="p-3 d-flex align-items-center justify-content-center">Luis Guilarte
+                            <a href="https://www.linkedin.com/in/luisgr10/" target="_blank" rel="noopener noreferrer">
                                 <LinkedInIcon fontSize="large" className="px-1" />
                             </a>
-                                <a href="https://github.com/Luisgr10" target="_blank" rel="noopener noreferrer">
-                                    <GitHubIcon />
-                                </a></p>
-                            <p className="p-3 d-flex  align-items-center justify-content-center">Miriam Asencio <a href="https://www.linkedin.com/in/miriam-asencio/" target="_blank" rel="noopener noreferrer">
-                                <LinkedInIcon fontSize="large" className="px-1" />
+                            <a href="https://github.com/Luisgr10" target="_blank" rel="noopener noreferrer">
+                                <GitHubIcon />
                             </a>
-                                <a href="https://github.com/Miritzila" target="_blank" rel="noopener noreferrer">
-                                    <GitHubIcon />
-                                </a></p>
-                            <p className="p-3 d-flex align-items-center justify-content-center">
-                                Heyson Betancourt
-                                <a href="https://www.linkedin.com/in/heyson-betancourt-9b266a299/" target="_blank" rel="noopener noreferrer">
-                                    <LinkedInIcon fontSize="large" className="px-1" />
-                                </a>
-                                <a href="https://github.com/heysonbr" target="_blank" rel="noopener noreferrer">
-                                    <GitHubIcon />
-                                </a>
-                            </p>
-                        </div>
-
+                        </p>
                     </div>
-
-                    <div className="col d-flex align-items-center justify-content-center pt-5">
-
+                    <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
+                        <p className="p-3 d-flex align-items-center justify-content-center">Miriam Asencio
+                            <a href="https://www.linkedin.com/in/miriam-asencio/" target="_blank" rel="noopener noreferrer">
+                                <LinkedInIcon fontSize="large" className="px-1" />
+                            </a>
+                            <a href="https://github.com/Miritzila" target="_blank" rel="noopener noreferrer">
+                                <GitHubIcon />
+                            </a>
+                        </p>
+                    </div>
+                    <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
+                        <p className="p-3 d-flex align-items-center justify-content-center">
+                            Heyson Betancourt
+                            <a href="https://www.linkedin.com/in/heyson-betancourt-9b266a299/" target="_blank" rel="noopener noreferrer">
+                                <LinkedInIcon fontSize="large" className="px-1" />
+                            </a>
+                            <a href="https://github.com/heysonbr" target="_blank" rel="noopener noreferrer">
+                                <GitHubIcon />
+                            </a>
+                        </p>
+                    </div>
+                    <div className="col-12 d-flex align-items-center justify-content-center pt-5">
                         <p className="text-white">© 2024 Beatbook. Todos los derechos reservados.</p>
                     </div>
                 </div>
