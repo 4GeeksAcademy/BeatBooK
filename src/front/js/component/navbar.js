@@ -57,7 +57,7 @@ export const AppNavbar = () => {
             {" "}
             <div className="d-flex justify-content-start ps-3">
               {/* Logo o nombre de la aplicación */}
-              <Link to="/home" className="ps-3">
+              <Link to="/home" >
                 <img
                   src={LogoHorizontalBlanco}
                   alt="My Image"

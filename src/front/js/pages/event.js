@@ -154,7 +154,7 @@ export const Event = (props) => {
               </div>
             </div>{" "}
           </div>{" "}
-          <div className="d-flex-column justify-content-center align-items-center text-center mt-5">
+          <div className="d-flex-column justify-content-center align-items-center text-center mt-5  pt-5">
             {" "}<h5>Asistentes <span>{eventData.assistances.length}</span></h5>{" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {isLoggedIn() && eventData && <EventAssistance eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />}
