@@ -12,6 +12,8 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Menu, MenuItem, Button, Hidden } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 export const AppNavbar = () => {
   const { store, actions } = useContext(Context);
@@ -27,6 +29,8 @@ export const AppNavbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
   return (
     <div className="hahahah"
       style={{
@@ -60,7 +64,7 @@ export const AppNavbar = () => {
                   className="logoHorizontal"
                 />
               </Link>
-              <Hidden smUp>
+              <Hidden lgUp>
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} style={{ color: 'white', backgroundColor: 'black' }}>
 
                   <MenuIcon />
@@ -87,16 +91,22 @@ export const AppNavbar = () => {
                 </Menu>
               </Hidden>
 
-              <Hidden xsDown>
+              <Hidden mdDown className="d-flex align-items-center justify-content-center">
                 <Link to="/categorias" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Categorías
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+
                 <Link to="/eventos" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Eventos
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+
                 <Link to="/grupos" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Grupos
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+
                 <Link to="/lugares" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Lugares
                 </Link>

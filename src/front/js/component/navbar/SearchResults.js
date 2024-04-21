@@ -22,7 +22,7 @@ export const SearchResults = ({ handleClose }) => {
         style={{ width: '100%' }}
       />
 
-      <div className="busqueda">
+      <div className="busqueda pt-3">
         <h3>Eventos</h3>
         <ul>
           {events
