@@ -117,9 +117,9 @@ export const ProfileBody = (props) => {
 
    
     return (
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
+        <div className="container text-center">
+            <div className="row">
+                <div className="col">
                     <div className="cardContent">
                         <h5>Descripcion</h5>
                         <p>{store.currentUser?.description}</p>
@@ -158,7 +158,7 @@ export const ProfileBody = (props) => {
 
                     </div>
                 </div>
-                <div class="col">
+                <div className="col">
                     <div className="cardContent">
                         <h5>Proximos Eventos</h5>
                     </div>
@@ -180,10 +180,12 @@ export const ProfileBody = (props) => {
                 </div>
             </div>
             <Modal show={showAddModal} onHide={handleCloseAddModal}>
-                        <Modal.Header closeButton>
+                        <Modal.Header className='modal-bg' closeButton>
+                        <div className='delete-title'>
                             <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                            </div>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className='modal-bg'>
                             <form onSubmit={handleSubmit}>
                                 {store.allCategories.map(category => (
                                     <div key={category.id} className="category-item">
@@ -195,7 +197,7 @@ export const ProfileBody = (props) => {
                                             checked={selectedCategories.includes(category.id)}
                                             onChange={() => handleCategoryClick(category.id)}
                                         />
-                                        <label htmlFor={category.id}>{category.name}</label>
+                                        <label className="ms-3" htmlFor={category.id}> {category.name}</label>
                                     </div>
                                 ))}
                                 <Button className='btns' type="submit">Guardar</Button>
@@ -203,14 +205,17 @@ export const ProfileBody = (props) => {
                         </Modal.Body>
                     </Modal>
                     <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-                        <Modal.Header closeButton>
+                        <Modal.Header className='modal-bg' closeButton>
+                            <div className='delete-title'>
                             <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                            </div>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className='modal-bg'>
                             <form onSubmit={handleSubmit}>
                                 {store.allCategories.map(category => (
                                     
-                                    <div key={category.id} className="category-item">
+                                    <div key={category.id} className="category-item d-flex justify-content-between align-items-center
+                                    ">
                                         <input
                                             type="checkbox"
                                             id={category.id}
@@ -219,7 +224,7 @@ export const ProfileBody = (props) => {
                                             onChange={() => handleCategoryClick(category.id)}
                                         />
                                         <label htmlFor={category.id}>{category.name}</label>
-                                        <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                                        <button className="btns" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
                                     </div>
                                 ))}
                             </form>

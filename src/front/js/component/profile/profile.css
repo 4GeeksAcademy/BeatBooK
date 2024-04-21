@@ -80,7 +80,7 @@
  height: 30px;
 }
 .image-title h6 {
-  color: black;
+  color: white;
   font-weight: bold;
   font-family: sans-serif;
 }
@@ -389,6 +389,15 @@ width: 49%;
   backdrop-filter: blur(10px);
 }
 
+.delete-title h2{
+  color:#fff;
+  text-align: center;
+  font-size: 20px;
+display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 @media screen and (max-width: 900px) {
   .wrapper-e .carousel-e {
@@ -401,4 +410,9 @@ width: 49%;
   .wrapper-e .carousel-e {
     grid-auto-columns: calc((100%) - 10px);
   }
+}
+
+.modal-bg{
+  background-color: rgba(43, 57, 62);
+  color: #f3f3f4;
 }
