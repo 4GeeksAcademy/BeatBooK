@@ -7,7 +7,7 @@ export const Carousel = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [index, setIndex] = useState(0);
-
+// const
     const handleLearnMore = (id) => {
         navigate(`/events/${id}`);
     };
