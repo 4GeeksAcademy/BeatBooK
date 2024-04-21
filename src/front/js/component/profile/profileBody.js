@@ -236,20 +236,23 @@ export const ProfileBody = (props) => {
                     <div className="cardContent">
                         <h5>Proximos Eventos</h5>
                     </div>
-                    {store.allEvents.map((event, index) => (
-                        <div className="cardContent card mb-3" key={index}>
-                            <div>
-                                <Link to={`/events/${event.id}`} className="card-link">
-                                    <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
-                                </Link>
+                    {store.allEvents
+                        .filter(event => event.assistances.some(assistance => assistance.user_id === userId))
+                        .sort((a, b) => new Date(a.date) - new Date(b.date))
+                        .map((event, index) => (
+                            <div className="cardContent card mb-3" key={index}>
+                                <div>
+                                    <Link to={`/events/${event.id}`} className="card-link">
+                                        <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
+                                    </Link>
+                                </div>
+                                <div>
+                                    <h2>{event.name}</h2>
+                                    <p>{event.description}</p>
+                                    <p>{formatEventDate(event.date)}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h2>{event.name}</h2>
-                                <p>{event.description}</p>
-                                <p>{formatEventDate(event.date)}</p>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
 
                 </div>
             </div>
