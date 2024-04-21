@@ -813,7 +813,7 @@ def create_place():
         description=request_body['description'],
         address=request_body['address'],
         phone=request_body['phone'],
-        profile_image_url=request_body['profile_image_url'],
+        profile_picture=request_body['profile_picture'],
         banner_picture=request_body['banner_picture'],
         instagram=request_body['instagram'],
         tiktok=request_body['tiktok']
