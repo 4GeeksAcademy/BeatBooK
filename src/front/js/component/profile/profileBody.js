@@ -1,8 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import "../profile/profile.css";
-import "../../../styles/paginasEspecificas.css";
-
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 
@@ -34,7 +33,7 @@ export const ProfileBody = (props) => {
     // Función para formatear la fecha en el formato deseado
     const birthdate = store.currentUser?.birthdate;
     const formatBirthdate = (birthdate) => {
-        if (!birthdate) return "";
+        if (!birthdate) return ""; // Manejar el caso de que birthdate sea null o undefined
         const date = new Date(birthdate);
         return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     }
@@ -63,7 +62,7 @@ export const ProfileBody = (props) => {
         if (selectedCategories.includes(categoryId)) {
             setSelectedCategories(selectedCategories.filter(id => id !== categoryId));
         } else {
-            setSelectedCategories([...selectedCategories, categoryId]);
+            setSelectedCategories([categoryId]);
         }
     }
 
@@ -87,6 +86,7 @@ export const ProfileBody = (props) => {
             actions.getPrivateData(updatedUserData);
 
         } catch (error) {
+            // Manejar errores de solicitud
             console.error('Error al enviar el formulario:', error);
         }
     };
@@ -97,11 +97,12 @@ export const ProfileBody = (props) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ category_id: categoryId })
+                body: JSON.stringify({ category_id: categoryId }) // Usar categoryId en lugar de userId
             });
             if (!response.ok) {
                 throw new Error('Error al eliminar la categoría musical');
             }
+            // Actualizar el estado o realizar cualquier acción adicional necesaria
             console.log('Categoría musical eliminada exitosamente');
             handleCloseDeleteModal();
             const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
@@ -109,45 +110,12 @@ export const ProfileBody = (props) => {
             actions.getPrivateData(updatedUserData);
 
         } catch (error) {
-
+            // Manejar errores de solicitud
             console.error('Error al eliminar la categoría musical:', error);
         }
     };
-    const User = JSON.parse(localStorage.getItem('user'));
-    const userId = User.user_id;
 
-
-    const [user, setUser] = useState({});
-
-    useEffect(() => {
-        const fetchPrivateData = async () => {
-            try {
-                await actions.getPrivateData();
-                console.log("esta info esta actual ", store.currentUser);
-            } catch (error) {
-                console.error('Error al obtener datos privados:', error);
-            }
-        }
-        fetchPrivateData();
-    }, []);
-
-    useEffect(() => {
-        const fetchMusicalCategories = async () => {
-            try {
-                await actions.getMusicalCategories();
-            } catch (error) {
-                console.error('Error al obtener las categorías musicales:', error);
-            }
-        }
-        fetchMusicalCategories();
-    }, []);
-
-    useEffect(() => {
-        console.log("esta info esta actual2 ", store.currentUser);
-        console.log(store.allCategories);
-    }, [store.currentUser, store.allCategories]);
-
-
+   
     return (
         <div class="container text-center">
             <div class="row">
@@ -156,27 +124,27 @@ export const ProfileBody = (props) => {
                         <h5>Descripcion</h5>
                         <p>{store.currentUser?.description}</p>
                         <div>
-                            <a href={store.currentUser?.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
-                            <a href={store.currentUser?.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl icono"></i></a>
+                            <a href={store.currentUser?.instagram} className="card-link" target="_blank"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
+                            <a href={store.currentUser?.tiktok} className="card-link" target="_blank"><i className="fa-brands fa-tiktok fa-2xl icono"></i></a>
                         </div>
                     </div>
                     <div className="cardContent">
                         <h5>Informacion</h5>
                         <p>Ciudad: {store.currentUser?.city}</p>
                         <p>Genero: {store.currentUser?.gender}</p>
-                        <p>Cumpleaños: {store.currentUser?.birthdate}</p>
+                        <p>Cumpleaños: {formatBirthdate(birthdate)}</p>
                     </div>
                     <div className="cardContent">
                         <h5>Interes musical</h5>
-                        <div className="container d-flex justify-content-center">
+                        <div className="container d-flex justify-content-center mb-3">
                             <div className="d-flex align-items-center">
                                 <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
                                 <button className="btns-add" onClick={handleShowDeleteModal}><i className="fas fa-minus" style={{ color: '#FFFFFF' }}></i></button>
                             </div>
                         </div>
-                    </div>
+
                     {/* Renderizar categorías musicales */}
-                    <div className="d-flex flex-wrap grid gap-0 row-gap-2">
+                    <div className="d-flex flex-wrap  grid gap-2 row-gap-2">
                         {store.currentUser?.user_categories.map(category => (
                             <button
                                 key={category.id}
@@ -187,50 +155,8 @@ export const ProfileBody = (props) => {
                             </button>
                         ))}
                     </div>
-                    <Modal show={showAddModal} onHide={handleCloseAddModal}>
-                        <Modal.Header closeButton>
-                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <form onSubmit={handleSubmit}>
-                                {store.allCategories.map(category => (
-                                    <div key={category.id} className="category-item">
-                                        <input
-                                            type="radio"
-                                            id={category.id}
-                                            value={category.id}
-                                            checked={selectedCategories.includes(category.id)}
-                                            onChange={() => handleCategoryClick(category.id)}
-                                        />
-                                        <label htmlFor={category.id}>{category.name}</label>
-                                    </div>
-                                ))}
-                                <button className='btns' type="submit">Guardar</button>
-                            </form>
-                        </Modal.Body>
-                    </Modal>
-                    <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-                        <Modal.Header closeButton>
-                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <form onSubmit={handleSubmit}>
-                                {store.allCategories.map(category => (
-                                    <div key={category.id} className="category-item">
-                                        <input
-                                            type="checkbox"
-                                            id={category.id}
-                                            value={category.id}
-                                            checked={selectedCategories.includes(category.id)}
-                                            onChange={() => handleCategoryClick(category.id)}
-                                        />
-                                        <label htmlFor={category.id}>{category.name}</label>
-                                        <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
-                                    </div>
-                                ))}
-                            </form>
-                        </Modal.Body>
-                    </Modal>
+
+                    </div>
                 </div>
                 <div class="col">
                     <div className="cardContent">
@@ -253,6 +179,52 @@ export const ProfileBody = (props) => {
 
                 </div>
             </div>
+            <Modal show={showAddModal} onHide={handleCloseAddModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form onSubmit={handleSubmit}>
+                                {store.allCategories.map(category => (
+                                    <div key={category.id} className="category-item">
+                                        <input
+                                            type="radio"
+                                            id={category.id}
+                                            name={category.name}
+                                            value={category.id}
+                                            checked={selectedCategories.includes(category.id)}
+                                            onChange={() => handleCategoryClick(category.id)}
+                                        />
+                                        <label htmlFor={category.id}>{category.name}</label>
+                                    </div>
+                                ))}
+                                <Button className='btns' type="submit">Guardar</Button>
+                            </form>
+                        </Modal.Body>
+                    </Modal>
+                    <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form onSubmit={handleSubmit}>
+                                {store.allCategories.map(category => (
+                                    
+                                    <div key={category.id} className="category-item">
+                                        <input
+                                            type="checkbox"
+                                            id={category.id}
+                                            value={category.id}
+                                            checked={selectedCategories.includes(category.id)}
+                                            onChange={() => handleCategoryClick(category.id)}
+                                        />
+                                        <label htmlFor={category.id}>{category.name}</label>
+                                        <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                                    </div>
+                                ))}
+                            </form>
+                        </Modal.Body>
+                    </Modal>
         </div>
     );
 }

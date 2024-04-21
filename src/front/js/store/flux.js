@@ -790,19 +790,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           // Manejar el error de acuerdo a tus necesidades
         }
       },
-      getUser: async (user_id) => {
-        try {
-          const response = await fetch(`${process.env.BACKEND_URL}/api/users/${user_id}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch user');
-          }
-          const data = await response.json();
-          return data;
-        } catch (error) {
-          console.error('Error fetching user:', error);
-          // Manejar el error de acuerdo a tus necesidades
-        }
-      },
+      
     }
   }
 };
