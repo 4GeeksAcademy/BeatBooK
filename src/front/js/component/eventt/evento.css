@@ -123,6 +123,26 @@
   color: black;
 }
 
+.cancel-asist-button {
+  width: 300px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border: 2px solid white;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0, 7s;
+}
+
+.cancel-asist-button:hover {
+  background-color: white;
+  color: black;
+}
+
 .share-button {
   width: 300px;
   height: 40px;
