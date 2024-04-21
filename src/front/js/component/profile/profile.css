@@ -31,6 +31,7 @@
   transition: all 0.3s ease;
   backdrop-filter: blur(30px) !important;
   background-color: rgba(65, 65, 65, 0.308) !important;
+  
 }
 
 .btns:hover {
@@ -38,9 +39,14 @@
   color: black; /* Cambiar el color del texto */
 }
 
-.d-item:hover {
-  background: grey !important; /* Cambiar el color de fondo */
-  color: white; /* Cambiar el color del texto */
+.d-item {
+  width: 95%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(30px) !important;
+  background-color: rgba(65, 65, 65, 0.308) !important;
+}
+.d-item a {
+  color: white;
 }
 
 .btns-add:hover {
@@ -104,8 +110,16 @@
 .modal-detail textarea {
   height: 100%;
   width: 100%;
-  border-radius: 10px;
-  padding: 10px;
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: .3s ease;
+
 }
 /*------------------------------Profile Banner---------------------------------------*/
 .inputGroup {
@@ -113,25 +127,35 @@
   flex-wrap: wrap;
   padding: 10px;
   align-items: center;
+  row-gap: 3px;
+  column-gap: 6px;
 }
-.input {
-  max-width: 300px;
-  min-height: 40px;
-  padding: 10px;
-  font-family: sans-serif;
-  outline: none;
-  background: #e8e8e8;
-  border: white;
-  border-radius: 10px;
-  transition: all .5s;
-  margin: 8px 4px 2px 3px;
+.inputGroup .input {
+width: 49%;
+ height: 40px;
+ line-height: 28px;
+ padding: 0 1rem;
+ padding-left: 2.5rem;
+ border: 2px solid transparent;
+ border-radius: 8px;
+ outline: none;
+ background-color: #f3f3f4;
+ color: #0d0c22;
+ transition: .3s ease;
 }
 
-.input:focus {
-  background: #e8e8e8;
-  box-shadow: inset 5px 5px 17px #c8c8c8,
-            inset -5px -5px 17px #ffffff;
-}
+.input::placeholder {
+  color: #9e9ea7;
+ }
+
+.input:focus, input:hover {
+  outline: none;
+  border-color: rgba(234,76,137,0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+ }
+
+
 
 /*------------------------------Profile----------------------------------------------*/
 
@@ -359,6 +383,12 @@
   padding: 5px;
  
 }
+
+/* Modal editar información banner  */
+.custom-modal {
+  backdrop-filter: blur(10px);
+}
+
 
 @media screen and (max-width: 900px) {
   .wrapper-e .carousel-e {

@@ -1,13 +1,9 @@
-import React, { useRef, useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "../profile/profile.css"
-import { ProfileBody } from './profileBody';
 import { Link } from 'react-router-dom';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
@@ -32,23 +28,17 @@ export const ProfileBanner = () => {
     const { id } = useParams();
     const [isImageSelected, setIsImageSelected] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        birthdate: '',
+        description: '',
+        gender: '',
+        city: '',
+        profile_image_url: '',
+        banner_picture: '',
+        instagram: '',
+        tiktok: '',
+    });
 
-    useEffect(() => {
-        const fetchPrivateData = async () => {
-            try {
-                await actions.getPrivateData();
-                console.log("esta info esta actual ", store.currentUser);
-            } catch (error) {
-                console.error('Error al obtener datos privados:', error);
-            }
-        }
-        fetchPrivateData();
-    }, []);
-
-    useEffect(() => {
-        console.log("esta info esta actual2 ", store.currentUser);
-
-    }, [store.currentUser]);
 
     const handleFileChange = async (e) => {
         setIsLoading(true);
@@ -67,6 +57,7 @@ export const ProfileBanner = () => {
         }
         setIsLoading(false);
     };
+
     const handleBannerChange = async (e) => {
         setIsLoading(true);
         const file = e.target.files[0];
@@ -85,16 +76,6 @@ export const ProfileBanner = () => {
         setIsLoading(false);
     };
 
-    const [formData, setFormData] = useState({
-        birthdate: '',
-        description: '',
-        gender: '',
-        city: '',
-        profile_image_url: '',
-        banner_picture: '',
-        instagram: '',
-        tiktok: '',
-    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -132,16 +113,6 @@ export const ProfileBanner = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const handleCreateEvent = () => {
-        navigate('/event/registre')
-    }
-
-    const handleCreateBand = () => {
-        navigate('/banda/registre')
-    }
-
-
     const classes = useStyles();
 
     return (
@@ -151,44 +122,46 @@ export const ProfileBanner = () => {
                 <img src={store.currentUser?.banner_picture} className='img-fluid' ></img>
             </div>
             <div className="container">
-                <div className="row align-items-center text-start data">
-                    <div className="col">
+                <div className="row  text-start data">
+                    <div className="col-12 col-md-4 col-xl-2">
                         <img className='ProfilePicture' src={store.currentUser?.profile_image_url} alt='perfil' />
                     </div>
-                    <div className="col">
+                    <div className="col-12 col-md-8 col-xl-4 align-items-center">
                         <h1>{store.currentUser?.username}</h1>
                         <p>Puedes escucharme en:</p>
                         {store.currentUser && store.currentUser.created_band && (
                             <div className={classes.root}>
-                                <Link to={`/banda/${store.currentUser.created_band.id}`}>
+                                <Link to={`/banda/${store.currentUser?.created_band.id}`}>
                                     <Avatar className="avatar ms-2" alt={store.currentUser.username} src={store.currentUser.created_band.profile_picture} />
                                 </Link>
-                                <p className='mt-1'>{store.currentUser?.created_band.name}</p>
+                                <p className=' ms-1 mt-2'>{store.currentUser?.created_band.name}</p>
                             </div>
                         )}
                     </div>
-                    <div className="col-6 d-flex">
+                    <div className="col-12 col-md-12 col-l-6 d-flex align-items-end justify-content-end my-3">
+                        
                         <button className='btns' onClick={handleShow}>
                             <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil
                         </button>
 
-                        <button className='btns' onClick={() => { handleCreateEvent() }}>
-                            <i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear evento
+                        <div className="dropup-center dropup">
+                        <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Construye Tu Sueño
                         </button>
-
-                        <button className='btns' onClick={() => { handleCreateBand() }}>
-                            <i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear Banda
-                        </button>
-
-                        <button className='btns' onClick={() => { handleCreateBand() }}>
-                            <i className="fa-solid fa-plus" style={{ color: '#ffffff' }}></i> Crear Lugar
-                        </button>
-
-                        <Modal show={show} onHide={handleClose} onSubmit={handleSubmit}>
-                            <Modal.Header closeButton>
+                        <ul className="dropdown-menu d-item">
+                            <li><a className="dropdown-item" href='/event/registre'>Crear un evento</a></li>
+                            <li><a className="dropdown-item" href='/banda/registre'>Crear una banda</a></li>
+                            <li><a className="dropdown-item" href="#">Crear un local</a></li>
+                        </ul>
+                    
+                        </div>
+                        </div>
+                        {/* Modal para editar Información */}
+                        <Modal show={show} onHide={handleClose} onSubmit={handleSubmit} className="custom-modal" >
+                            <Modal.Header closeButton >
                                 <Modal.Title className='modal-title'>Editar perfil</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>
+                            <Modal.Body className='bg-modal' >
                                 <div className='edit-image'>
                                     <div className='image-title'>
                                         <h6>Foto de perfil</h6>
@@ -251,7 +224,7 @@ export const ProfileBanner = () => {
                                 </form>
                             </Modal.Body>
                         </Modal>
-                    </div>
+                    
                 </div>
             </div>
         </div>

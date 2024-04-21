@@ -91,3 +91,8 @@
    backdrop-filter: blur(30px);
    background-color: rgba(65, 65, 65, 0.308);
  }
+
+ /* Modal editar información banner  */
+.custom-modal {
+  backdrop-filter: blur(10px);
+}

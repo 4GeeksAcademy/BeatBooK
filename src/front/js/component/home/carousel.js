@@ -1,29 +1,32 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../store/appContext';
 import "./carousel.css";
 import { useNavigate } from 'react-router-dom';
-import { Event2 } from '../../pages/event';
 
 export const Carousel = () => {
     const { store, actions } = useContext(Context);
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        actions.getAllEvents();
-    }, []);
+    const navigate = useNavigate();
+    const [index, setIndex] = useState(0);
 
     const handleLearnMore = (id) => {
         navigate(`/events/${id}`);
     };
 
+    useEffect(() => {
+        actions.getAllEvents();
+    }, []);
+
+
+
     return (
-        <div id="carouselExampleIndicators" className="carousel slide">
+        <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
-                {store.allEvents.map((event, index) => (
-                    <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''} c-item`}>
+                {store.allEvents.map((event, idx) => (
+                    <div key={idx} className={`carousel-item ${idx === index ? 'active' : ''} c-item`}>
                         <a onClick={() => handleLearnMore(event.id)}><img src={event.picture_url} className="d-block w-100 c-img" alt="foto" /></a>
                         <div className="carousel-caption d-none d-md-block">
-                            <h5 className='text-end'>{event.name}</h5>
+                            <h5 className='text-center my-3'>{event.name}</h5>
+                            <p className='text-center'>{event.description} </p>
                         </div>
                     </div>
                 ))}

@@ -74,12 +74,9 @@ const Layout = () => {
             <Route element={<Single />} path="/single" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Private />} path="/private" />
-
-            <Route element={<Profile />} path="/profile" />
-            
             <Route element={<ProfileGuest />} path="/profile/:id" />
             <Route element={<BandPageGuest />} path="/band/:id" />
-            
+            <Route element={<BandPage />} path="/banda/:id" />
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<Grupos />} path="/grupos" />
