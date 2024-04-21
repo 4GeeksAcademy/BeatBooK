@@ -158,13 +158,13 @@ export const ProfileBanner = () => {
                         </div>
                         {/* Modal para editar Información */}
                         <Modal show={show} onHide={handleClose} onSubmit={handleSubmit} className="custom-modal" >
-                            <Modal.Header closeButton >
+                            <Modal.Header className='modal-bg' closeButton >
                                 <Modal.Title className='modal-title'>Editar perfil</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body className='bg-modal' >
+                            <Modal.Body className='modal-bg' >
                                 <div className='edit-image'>
                                     <div className='image-title'>
-                                        <h6>Foto de perfil</h6>
+                                        <h6 className='text-light-emphasis'>Foto de perfil</h6>
                                         <input
                                             type="file"
                                             onChange={handleFileChange}

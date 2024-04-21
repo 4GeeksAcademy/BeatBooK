@@ -8,9 +8,9 @@ export const LandingPage = () => {
     const [videoUrl, setVideoUrl] = useState("https://videos.pexels.com/video-files/7722744/7722744-uhd_3840_2160_25fps.mp4");
 
     return (
-        <div className="container-fluid text-center m-0 p-0">
+        <div className="container-fluid text-center">
             <div className="row">
-                <div className=" col-12 position-relative">
+                <div className=" col-12 position-relative p-0">
                     <video
                         autoPlay
                         muted
