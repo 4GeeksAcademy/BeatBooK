@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import ImagenPrueba from "../component/eventt/imagenEventoPrueba.png";
 import "../component/eventt/evento.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,38 @@ import { EventComments } from "../component/eventt/EventComments";
 import { EventDescription } from "../component/eventt/EventDescription";
 import { EventAssistance } from "../component/eventt/EventAssitance";
 import L from "leaflet";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import FacebookIcon from '@material-ui/icons/Facebook';
+
+
+
+const shareUrl = window.location.href;
+const shareText = 'Mira este increíble evento!';
+
+const shareOnWhatsApp = () => {
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(shareUrl)}`;
+  window.open(whatsappUrl);
+};
+
+function shareOnFacebook() {
+  const url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL);
+  window.open(url, '_blank');
+}
+
+function copyToClipboard() {
+  const dummy = document.createElement('input');
+  document.body.appendChild(dummy);
+  dummy.value = window.location.href;
+  dummy.select();
+  document.execCommand('copy');
+  document.body.removeChild(dummy);
+  toast('Enlace copiado al portapapeles. Pégalo en tu publicación de Instagram o Donde tu quieras.');
+}
+
+
 
 async function getCoordinates(address) {
   try {
@@ -105,6 +137,12 @@ export const Event = (props) => {
   };
 
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+
 
   if (!eventData) {
     return <div class="text-center mt-5 pt-5 pb-5">
@@ -172,9 +210,25 @@ export const Event = (props) => {
               {isLoggedIn() && eventData && <EventAssistance eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />}
             </div>
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
-              {" "}
-              <button className="share-button">Compartir</button>{" "}
-            </div>{" "}
+              <h5  >Compartir en:</h5>
+            </div>
+            <button style={{ background: 'none', border: 'none' }} onClick={shareOnWhatsApp}>
+              <div style={{ color: '#25D366', transition: 'color 0.3s ease-in-out' }} onMouseOver={(e) => e.currentTarget.style.color = '#128C7E'} onMouseOut={(e) => e.currentTarget.style.color = '#25D366'}>
+                <WhatsAppIcon style={{ fontSize: 40 }} />
+              </div>
+            </button>
+            <button style={{ background: 'none', border: 'none' }} onClick={shareOnFacebook} className="p-2">
+              <div style={{ color: '#3b5998', transition: 'color 0.3s ease-in-out' }} onMouseOver={(e) => e.currentTarget.style.color = '#8b9dc3'} onMouseOut={(e) => e.currentTarget.style.color = '#3b5998'}>
+                <FacebookIcon style={{ fontSize: 40 }} />
+              </div>
+            </button>
+            <button style={{ background: 'none', border: 'none' }} onClick={copyToClipboard}>
+              <div style={{ color: '#C13584', transition: 'color 0.3s ease-in-out' }} onMouseOver={(e) => e.currentTarget.style.color = '#E1306C'} onMouseOut={(e) => e.currentTarget.style.color = '#C13584'}>
+                <InstagramIcon style={{ fontSize: 40 }} />
+              </div>
+            </button>
+
+
             <hr className="mt-5 " />{" "}
 
             <div className="d-flex justify-content-center align-items-center text-center pt-3">

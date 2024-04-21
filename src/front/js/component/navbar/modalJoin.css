@@ -37,16 +37,26 @@
   height: 50px;
   display: flex;
   align-items: center;
-  padding-left: 10px;
-  transition: 0.2s ease-in-out;
 }
 
 .inputx {
-  margin-left: 10px;
+
   border-radius: 10px;
   border: none;
-  width: 85%;
+  width: 100%;
   height: 100%;
+  padding-left: 10px;
+}
+
+.inputx::placeholder {
+  padding-left: 10px;
+}
+
+.inputx:hover {
+  outline: none;
+  border-color: initial;
+  background-color: initial;
+  box-shadow: none;
 }
 
 .inputx:focus {
@@ -56,6 +66,7 @@
 .inputForm:focus-within {
   border: 1.5px solid #2d79f3;
 }
+
 
 .flex-row {
   display: flex;
@@ -90,7 +101,7 @@
   height: 50px;
   width: 100%;
   cursor: pointer;
-  --timing: 2s;
+  --timing: 4s;
   width: var(--width);
   --width: 380px;
 }
@@ -109,11 +120,14 @@
 
 .button-submit:hover {
   background-image: radial-gradient(circle,
-      rgb(25, 25, 112),
-      rgb(0, 0, 128),
-      rgb(0, 0, 139),
-      rgb(0, 0, 205),
-      rgb(0, 0, 255));
+      #006880,
+      #005f76,
+      #00536b,
+      #004860,
+      #003d56,
+      #00324b,
+      #002740,
+      #00252d);
   animation: var(--timing) linear dance6123 infinite;
   transform: scale(1.1) translateY(-1px);
 }

@@ -55,7 +55,7 @@ export const EventComments = ({ eventData, onNewComment }) => {
           {review.user_profile_image ? (
             <img src={review.user_profile_image} alt={review.user} className="rounded-circle mr-2 me-1" width="30" height="30" />
           ) : (
-            <FontAwesomeIcon icon={faUser} className="faUser me-1" />
+            <FontAwesomeIcon icon={faUser} className="faUser  pt-2 pe-3" />
           )}
           <div>
             <h5 className="mb-0">{review.user}</h5>
@@ -76,7 +76,7 @@ export const EventComments = ({ eventData, onNewComment }) => {
           value={comment}
           onChange={handleCommentChange}
         />
-        <div className="text-white pe-2">{comment.length}/500</div>
+        <div className="text-white "><p className="ps-3">{comment.length}/500</p></div>
       </div>
       <div className="d-flex justify-content-center align-items-center text-center pt-3">
         <button className="comment-button" onClick={handleCommentSubmit}>
