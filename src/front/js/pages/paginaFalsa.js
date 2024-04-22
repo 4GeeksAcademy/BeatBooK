@@ -6,7 +6,7 @@ export const PaginaFalsa = () => {
     return (
         <div className="container text-center">
             <br></br>
-            <h1>Bienvenido a la página falsa</h1>
+            <h1>Bienvenido a la pagina falsa</h1>
             <br></br>
             <div class="row align-items-center">
                 <div class="col">
