@@ -52,6 +52,7 @@ export const ProfileBody = (props) => {
 
 
     useEffect(() => {
+        actions.getPrivateData();
         actions.getAllEvents();
         console.log(store.currentUser);
     }, [store.currentUser]);
@@ -115,7 +116,7 @@ export const ProfileBody = (props) => {
         }
     };
 
-   
+
     return (
         <div className="container text-center">
             <div className="row">
@@ -143,18 +144,18 @@ export const ProfileBody = (props) => {
                             </div>
                         </div>
 
-                    {/* Renderizar categorías musicales */}
-                    <div className="d-flex flex-wrap  grid gap-2 row-gap-2">
-                        {store.currentUser?.user_categories.map(category => (
-                            <button
-                                key={category.id}
-                                className={`btns-music ${selectedCategories.includes(category.id) ? 'selected' : ''}`}
-                                onClick={() => handleCategoryClick(category.id)}
-                            >
-                                <i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> {category.name}
-                            </button>
-                        ))}
-                    </div>
+                        {/* Renderizar categorías musicales */}
+                        <div className="d-flex flex-wrap  grid gap-2 row-gap-2">
+                            {store.currentUser?.user_categories.map(category => (
+                                <button
+                                    key={category.id}
+                                    className={`btns-music ${selectedCategories.includes(category.id) ? 'selected' : ''}`}
+                                    onClick={() => handleCategoryClick(category.id)}
+                                >
+                                    <i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> {category.name}
+                                </button>
+                            ))}
+                        </div>
 
                     </div>
                 </div>
@@ -183,56 +184,56 @@ export const ProfileBody = (props) => {
                 </div>
             </div>
             <Modal show={showAddModal} onHide={handleCloseAddModal}>
-                        <Modal.Header className='modal-bg' closeButton>
-                        <div className='delete-title'>
-                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                <Modal.Header className='modal-bg' closeButton>
+                    <div className='delete-title'>
+                        <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                    </div>
+                </Modal.Header>
+                <Modal.Body className='modal-bg'>
+                    <form onSubmit={handleSubmit}>
+                        {store.allCategories.map(category => (
+                            <div key={category.id} className="category-item">
+                                <input
+                                    type="radio"
+                                    id={category.id}
+                                    name={category.name}
+                                    value={category.id}
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={() => handleCategoryClick(category.id)}
+                                />
+                                <label className="ms-3" htmlFor={category.id}> {category.name}</label>
                             </div>
-                        </Modal.Header>
-                        <Modal.Body className='modal-bg'>
-                            <form onSubmit={handleSubmit}>
-                                {store.allCategories.map(category => (
-                                    <div key={category.id} className="category-item">
-                                        <input
-                                            type="radio"
-                                            id={category.id}
-                                            name={category.name}
-                                            value={category.id}
-                                            checked={selectedCategories.includes(category.id)}
-                                            onChange={() => handleCategoryClick(category.id)}
-                                        />
-                                        <label className="ms-3" htmlFor={category.id}> {category.name}</label>
-                                    </div>
-                                ))}
-                                <Button className='btns' type="submit">Guardar</Button>
-                            </form>
-                        </Modal.Body>
-                    </Modal>
-                    <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-                        <Modal.Header className='modal-bg' closeButton>
-                            <div className='delete-title'>
-                            <Modal.Title><h2>Selecciona tus categorias musicales favoritas</h2></Modal.Title>
-                            </div>
-                        </Modal.Header>
-                        <Modal.Body className='modal-bg'>
-                            <form onSubmit={handleSubmit}>
-                                {store.allCategories.map(category => (
-                                    
-                                    <div key={category.id} className="category-item d-flex justify-content-between align-items-center
+                        ))}
+                        <Button className='btns' type="submit">Guardar</Button>
+                    </form>
+                </Modal.Body>
+            </Modal>
+            <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+                <Modal.Header className='modal-bg' closeButton>
+                    <div className='delete-title'>
+                        <Modal.Title><h2>Selecciona tus categorias musicales favoritas</h2></Modal.Title>
+                    </div>
+                </Modal.Header>
+                <Modal.Body className='modal-bg'>
+                    <form onSubmit={handleSubmit}>
+                        {store.allCategories.map(category => (
+
+                            <div key={category.id} className="category-item d-flex justify-content-between align-items-center
                                     ">
-                                        <input
-                                            type="checkbox"
-                                            id={category.id}
-                                            value={category.id}
-                                            checked={selectedCategories.includes(category.id)}
-                                            onChange={() => handleCategoryClick(category.id)}
-                                        />
-                                        <label htmlFor={category.id}>{category.name}</label>
-                                        <button className="btns" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
-                                    </div>
-                                ))}
-                            </form>
-                        </Modal.Body>
-                    </Modal>
+                                <input
+                                    type="checkbox"
+                                    id={category.id}
+                                    value={category.id}
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={() => handleCategoryClick(category.id)}
+                                />
+                                <label htmlFor={category.id}>{category.name}</label>
+                                <button className="btns" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                            </div>
+                        ))}
+                    </form>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }
