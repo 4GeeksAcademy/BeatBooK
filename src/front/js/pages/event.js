@@ -125,8 +125,7 @@ export const Event = (props) => {
     if (!eventData) {
       return;
     }
-    console.log("currentUser", store.currentUser);
-
+    getCoordinates(eventData.address).then(setCoordinates);
   }, [eventData]);
 
 

@@ -120,7 +120,7 @@ export const AppNavbar = () => {
             {/* Barra de búsqueda */}
             <div className="d-flex justify-content-center"></div>
             {/* Botones de registro e inicio de sesión */}
-            <div className="d-flex">
+            <div className="d-flex pe-3">
 
               <Login />
             </div>
