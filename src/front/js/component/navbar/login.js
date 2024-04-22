@@ -121,7 +121,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type="text"
                     className="inputx bg-transparent "
-                    placeholder="pon tu Email"
+                    placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -134,7 +134,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="inputx"
-                    placeholder="Pon tu contraseña"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -170,7 +170,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type="text"
                     className="inputx bg-transparent "
-                    placeholder="pon tu Username"
+                    placeholder=" Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
@@ -182,7 +182,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type="text"
                     className="inputx bg-transparent "
-                    placeholder="pon tu Email"
+                    placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -194,7 +194,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type={showPassword2 ? "text" : "password"}
                     className="inputx"
-                    placeholder="Pon tu contraseña"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
