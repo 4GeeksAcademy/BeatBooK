@@ -46,7 +46,7 @@ export const CardPlaces = () => {
   };
 
   const handleLearnMore = (id) => {
-    navigate(`/api/places/${id}`); // Navega a la página de detalles del evento utilizando useNavigate
+    navigate(`/lugares/${id}`); // Navega a la página de detalles del evento utilizando useNavigate
   };
 
   return (
