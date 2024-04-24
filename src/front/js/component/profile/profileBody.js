@@ -9,6 +9,8 @@ export const ProfileBody = (props) => {
     const { store, actions } = useContext(Context);
     const [selectedCategories, setSelectedCategories] = useState([]);
 
+    useEffect(() => { actions.getPrivateData(); }, []);
+
     // Manejo del modal de agregar categorías
     const [showAddModal, setShowAddModal] = useState(false);
     const handleShowAddModal = () => setShowAddModal(true);
@@ -52,7 +54,7 @@ export const ProfileBody = (props) => {
 
 
     useEffect(() => {
-        actions.getPrivateData();
+
         actions.getAllEvents();
         console.log(store.currentUser);
     }, [store.currentUser]);
@@ -164,7 +166,7 @@ export const ProfileBody = (props) => {
                         <h5>Proximos Eventos</h5>
                     </div>
                     {store.allEvents
-                        .filter(event => event.assistances.some(assistance => assistance.user_id === userId))
+                        .filter(event => event.assistances.some(assistance => store.currentUser && assistance.user_id === store.currentUser.id))
                         .sort((a, b) => new Date(a.date) - new Date(b.date))
                         .map((event, index) => (
                             <div className="cardContent card mb-3" key={index}>
