@@ -3,6 +3,7 @@ import { Context } from '../../store/appContext';
 import "../profile/profile.css";
 import "../../../styles/paginasEspecificas.css";
 import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
 export const ProfileBody = (props) => {
