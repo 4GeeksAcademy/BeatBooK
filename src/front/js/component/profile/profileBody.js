@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import "../profile/profile.css";
-import "/workspaces/BeatBooK/src/front/styles/paginasEspecificas.css";
+import "../../../styles/paginasEspecificas.css";
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 

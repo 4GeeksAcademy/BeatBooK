@@ -4,12 +4,13 @@ import { ProfileBanner } from "../component/profile/profileBanner";
 import { ProfileBody } from "../component/profile/profileBody";
 import { Context } from "../store/appContext";
 import { BandBanner } from "../component/band/bandBanner";
-import "/workspaces/BeatBooK/src/front/styles/paginasEspecificas.css";
+import "../../styles/paginasEspecificas.css";
+
 
 export const BandPage = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-     useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("jwt-token");
 
     if (!token) {
@@ -18,9 +19,9 @@ export const BandPage = () => {
   }, []);
 
 
-    return (
-        <div>
-               <BandBanner/>
-        </div>
-    );
+  return (
+    <div>
+      <BandBanner />
+    </div>
+  );
 };
