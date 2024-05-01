@@ -28,34 +28,31 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
 
-      createPlace: async (eventData) => {
+      signUp: async (username, email, password, passwordConfirmation) => {
         try {
-          const token = localStorage.getItem("jwt-token");
+          const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+              email: email,
+              password: password,
+              password_confirmation: passwordConfirmation,
+            }),
+          });
+          const data = await resp.json();
+          console.log(data);
 
-          const response = await fetch(
-            process.env.BACKEND_URL + "/api/places",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(eventData),
-            }
-          );
+          // Actualiza el estado global con la información del usuario
+          setStore({ user: data });
 
-          if (!response.ok) {
-            throw new Error("Error creating event");
-          }
-
-          const data = await response.json();
-          
           return data;
         } catch (error) {
-          console.log("Error creating place", error);
+          console.log("Error signing up", error);
         }
       },
-
       getPlace: async (place_id) => {
         try {
           const response = await fetch(process.env.BACKEND_URL + `/api/places/${place_id}`);
@@ -108,32 +105,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(error);
           return null;
-        }
-      },
-    
-      signUp: async (username, email, password, passwordConfirmation) => {
-        try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: username,
-              email: email,
-              password: password,
-              password_confirmation: passwordConfirmation,
-            }),
-          });
-          const data = await resp.json();
-          console.log(data);
-
-          // Actualiza el estado global con la información del usuario
-          setStore({ user: data });
-
-          return data;
-        } catch (error) {
-          console.log("Error signing up", error);
         }
       },
 
@@ -239,7 +210,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getPrivateData: async () => {
         try {
           const token = localStorage.getItem("jwt-token");
-          const resp = await fetch(process.env.BACKEND_URL + "api/private", {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/private", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -889,7 +860,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           // Manejar el error de acuerdo a tus necesidades
         }
       },
-
       deleteEvent: async (id) => {
         try {
           const resp = await fetch(
@@ -899,16 +869,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (!resp.ok) {
             throw new Error("Error al borrar el evento");
-
           }
 
           const data = await resp.json();
           return data;
         } catch (error) {
-
           console.log("Error al borrar el evento", error);
           throw error;
-
         }
       },
 

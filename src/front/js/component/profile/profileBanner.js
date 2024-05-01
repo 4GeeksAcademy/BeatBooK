@@ -2,10 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-
 import "../profile/profile.css"
 import { Link } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
@@ -46,6 +44,7 @@ export const ProfileBanner = () => {
         setIsLoading(true);
         const file = e.target.files[0];
 
+        // Pasa el ID del evento al método uploadEventPicture
         const data = await actions.uploadUserPicture(file, id);
 
         if (data) {
@@ -97,14 +96,16 @@ export const ProfileBanner = () => {
             if (!response.ok) {
                 throw new Error('Error al enviar el formulario');
             }
-            handleClose();
+            handleClose(); // Cierra el modal después de enviar el formulario
 
+            // Actualizar datos de usuario en el estado de la aplicación
             const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
             const updatedUserData = await updatedUserResponse.json();
-            actions.getPrivateData(updatedUserData);
+            actions.getPrivateData(updatedUserData); // Esta función debe actualizar el estado del usuario en tu contexto
 
             toast.success("Cambios guardados con éxito");
         } catch (error) {
+            // Manejar errores de solicitud
             console.error('Error al enviar el formulario:', error);
             toast.error("Error al guardar los cambios");
         }
@@ -121,18 +122,15 @@ export const ProfileBanner = () => {
                 <img src={store.currentUser?.banner_picture} className='img-fluid' ></img>
             </div>
             <div className="container">
-
                 <div className="row  text-start data">
                     <div className="col-12 col-md-4 col-xl-2">
                         <img className='ProfilePicture' src={store.currentUser?.profile_image_url} alt='perfil' />
                     </div>
                     <div className="col-12 col-md-8 col-xl-4 align-items-center">
-
                         <h1>{store.currentUser?.username}</h1>
                         <p>Puedes escucharme en:</p>
                         {store.currentUser && store.currentUser.created_band && (
                             <div className={classes.root}>
-
                                 <Link to={`/banda/${store.currentUser?.created_band.id}`}>
                                     <Avatar className="avatar ms-2" alt={store.currentUser.username} src={store.currentUser.created_band.profile_picture} />
                                 </Link>
@@ -141,96 +139,92 @@ export const ProfileBanner = () => {
                         )}
                     </div>
                     <div className="col-12 col-md-12 col-l-6 d-flex align-items-end justify-content-end my-3">
-
-
+                        
                         <button className='btns' onClick={handleShow}>
                             <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil
                         </button>
 
-
                         <div className="dropup-center dropup">
-                            <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Construye Tu Sueño
-                            </button>
-                            <ul className="dropdown-menu d-item">
-                                <li><a className="dropdown-item" href='/event/registre'>Crear un evento</a></li>
-                                <li><a className="dropdown-item" href='/banda/registre'>Crear una banda</a></li>
-                                <li><a className="dropdown-item" href="/lugar/registre">Crear un local</a></li>
-                            </ul>
-
+                        <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Construye Tu Sueño
+                        </button>
+                        <ul className="dropdown-menu d-item">
+                            <li><a className="dropdown-item" href='/event/registre'>Crear un evento</a></li>
+                            <li><a className="dropdown-item" href='/banda/registre'>Crear una banda</a></li>
+                            <li><a className="dropdown-item" href="/lugar/registre">Crear un local</a></li>
+                        </ul>
+                    
                         </div>
-                    </div>
-                    {/* Modal para editar Información */}
-                    <Modal show={show} onHide={handleClose} onSubmit={handleSubmit} className="custom-modal" >
-                        <Modal.Header className='modal-bg' closeButton >
-                            <Modal.Title className='modal-title'>Editar perfil</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body className='modal-bg' >
-                            <div className='edit-image'>
-                                <div className='image-title'>
-                                    <h6 className='text-light-emphasis'>Foto de perfil</h6>
-
-                                    <input
-                                        type="file"
-                                        onChange={handleFileChange}
-                                        accept="image/*"
-
-                                    />
-                                </div>
-                                <div className='modal-img'>
-                                    <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
-                                </div>
-                                {isLoading && <div className="text-center pt-2">
-                                    <div className="spinner-border" style={{ width: '2rem', height: '2rem' }} role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>}
-                            </div>
-                            <div className='edit-banner'>
-                                <div className='image-title'>
-                                    <h6>Foto de portada</h6>
-                                    <input
-                                        type="file"
-                                        onChange={handleBannerChange}
-                                        accept="image/*"
-                                    />
-                                </div>
-
-                                <div className='banner-img'>
-                                    <img src={store.currentUser?.banner_picture} className="img-fluid" alt="fotoBanner" />
-                                </div>
-                            </div>
-                            <form onSubmit={e => handleSubmit(e)}>
-                                <div className='edit-info'>
-                                    <div className='edit-detail'>
-                                        <div className='image-title'>
-                                            <h6>Detalles</h6>
-                                        </div>
-                                        <div className='modal-detail'>
-                                            <textarea name='description' value={formData.description} onChange={handleChange}></textarea>
-                                        </div>
-                                    </div>
+                        </div>
+                        {/* Modal para editar Información */}
+                        <Modal show={show} onHide={handleClose} onSubmit={handleSubmit} className="custom-modal" >
+                            <Modal.Header className='modal-bg' closeButton >
+                                <Modal.Title className='modal-title'>Editar perfil</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body className='modal-bg' >
+                                <div className='edit-image'>
                                     <div className='image-title'>
-                                        <h6>Información</h6>
+                                        <h6 className='text-light-emphasis'>Foto de perfil</h6>
+                                        <input
+                                            type="file"
+                                            onChange={handleFileChange}
+                                            accept="image/*"
+
+                                        />
                                     </div>
-                                    <div className='modal-info'>
-                                        <div className="inputGroup">
-                                            <input placeholder="Fecha de nacimiento" className="input" name="birthdate" type="date" value={formData.birthdate} onChange={handleChange} />
-                                            <input placeholder="Género" className="input" name="gender" type="text" value={formData.gender} onChange={handleChange} />
-                                            <input placeholder="Ciudad" className="input" name="city" type="text" value={formData.city} onChange={handleChange} />
-                                            <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
-                                            <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
+                                    <div className='modal-img'>
+                                        <img className='img' src={store.currentUser?.profile_image_url} alt='perfil' />
+                                    </div>
+                                    {isLoading && <div className="text-center pt-2">
+                                        <div className="spinner-border" style={{ width: '2rem', height: '2rem' }} role="status">
+                                            <span className="visually-hidden">Loading...</span>
                                         </div>
+                                    </div>}
+                                </div>
+                                <div className='edit-banner'>
+                                    <div className='image-title'>
+                                        <h6>Foto de portada</h6>
+                                        <input
+                                            type="file"
+                                            onChange={handleBannerChange}
+                                            accept="image/*"
+                                        />
+                                    </div>
+
+                                    <div className='banner-img'>
+                                        <img src={store.currentUser?.banner_picture} className="img-fluid" alt="fotoBanner" />
                                     </div>
                                 </div>
-                                <Modal.Footer>
-                                    <Button className='btns' type="submit">Guardar cambios</Button>
-                                </Modal.Footer>
-                            </form>
-                        </Modal.Body>
-                    </Modal>
-
-
+                                <form onSubmit={e => handleSubmit(e)}>
+                                    <div className='edit-info'>
+                                        <div className='edit-detail'>
+                                            <div className='image-title'>
+                                                <h6>Detalles</h6>
+                                            </div>
+                                            <div className='modal-detail'>
+                                                <textarea name='description' value={formData.description} onChange={handleChange}></textarea>
+                                            </div>
+                                        </div>
+                                        <div className='image-title'>
+                                            <h6>Información</h6>
+                                        </div>
+                                        <div className='modal-info'>
+                                            <div className="inputGroup">
+                                                <input placeholder="Fecha de nacimiento" className="input" name="birthdate" type="date" value={formData.birthdate} onChange={handleChange} />
+                                                <input placeholder="Género" className="input" name="gender" type="text" value={formData.gender} onChange={handleChange} />
+                                                <input placeholder="Ciudad" className="input" name="city" type="text" value={formData.city} onChange={handleChange} />
+                                                <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
+                                                <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Modal.Footer>
+                                        <Button className='btns' type="submit">Guardar cambios</Button>
+                                    </Modal.Footer>
+                                </form>
+                            </Modal.Body>
+                        </Modal>
+                    
                 </div>
             </div>
         </div>

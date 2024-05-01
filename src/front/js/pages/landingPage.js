@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/landingPage.css";
-
 import beatBoxHorizontalBlanco from "../component/navbar/beatBoxHorizontalBlanco.png"
-
 
 
 export const LandingPage = () => {
@@ -12,9 +10,7 @@ export const LandingPage = () => {
     return (
         <div className="container-fluid text-center">
             <div className="row">
-
                 <div className=" col-12 position-relative p-0">
-
                     <video
                         autoPlay
                         muted
@@ -22,15 +18,12 @@ export const LandingPage = () => {
                         className="w-100">
                         <source src={videoUrl} type="video/mp4" />
                     </video>
-
                         <Link to="/home">
                     <img className="image-landing" src={beatBoxHorizontalBlanco} alt="superposición" />
                         </Link>
                 </div>
-
                 <div className=" col-12 justify-content-center my-5">
                     <h1 className="title-l">Beatbook te permite crear una comunidad facilmente</h1>
-
                 </div>
                         <div className="col-10 col-sm-6 col-md-4 col-xl-4 d-flex justify-content-end align-items-center mb-2">
                             <div className="card-l">
@@ -60,9 +53,7 @@ export const LandingPage = () => {
                             </div>
                         </div>
                     </div>
-
                     
-
         </div>
     );
 };
