@@ -1,84 +1,43 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
-import { Context } from "../../store/appContext"; // Asegúrate de usar la ruta correcta a tu tienda
+import React, { useState, useContext } from "react";
+import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
-// ...
 
-export const SearchResults = ({ isOpen, setIsOpen }) => {
+export const SearchResults = ({ handleClose }) => {
   const { actions } = useContext(Context);
   const [events, setEvents] = useState([]);
-  const [recentAccesses, setRecentAccesses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // Añade esta línea
-  const inputRef = useRef(null);
-  // ...
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleGetEvents = async () => {
-    const data = await actions.getEvents(searchTerm); // Ahora puedes usar searchTerm aquí
+  const handleSearchChange = async (event) => {
+    setSearchTerm(event.target.value);
+    const data = await actions.getEvents(event.target.value);
     setEvents(data);
   };
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    handleGetEvents();
-  };
-
-  const handleAccessEvent = (event) => {
-    setRecentAccesses((prevAccesses) => [event, ...prevAccesses].slice(0, 3));
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      handleGetEvents();
-    }
-  }, [isOpen]);
-
-  const handleBlur = () => {
-    setIsOpen(false);
-  };
-  if (!isOpen) {
-    return null;
-  }
-
-  // ...
-
   return (
-    <form
-      style={{
-        position: "fixed",
-        top: "15%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "100%",
-      }}
-      className="total"
-    >
+    <div>
       <input
-        className="barraBusqueda1"
-        ref={inputRef}
         type="text"
-        placeholder="Buscar"
-        onBlur={handleBlur}
+        placeholder="Buscar por ciudad o dirección"
         onChange={handleSearchChange}
+        style={{ width: '100%' }}
       />
 
-      <div className="busqueda">
+      <div className="busqueda pt-3">
         <h3>Eventos</h3>
-        {searchTerm &&
-          events
+        <ul>
+          {events
             .filter((event) =>
               event.address.toLowerCase().includes(searchTerm.toLowerCase())
             )
             .slice(0, 6)
             .map((event, index) => (
-              <p key={index} onClick={() => handleAccessEvent(event)}>
-                <Link className="text-black" to={`/event/${event.name}`}>{event.name}</Link>
-              </p>
+              <li key={index} onClick={handleClose}>
+                <Link className="text-black" to={`/events/${event.id}`}>{event.name}</Link>
+              </li>
             ))
-        }
-        <h3>Accesos recientes</h3>
-        {recentAccesses.map((event, index) => (
-          <p key={index}>{event.name}</p>
-        ))}
+          }
+        </ul>
       </div>
-    </form>
+    </div>
   );
 };

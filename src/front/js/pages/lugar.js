@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import "/workspaces/BeatBooK/src/front/styles/paginasEspecificas.css";
+
+import "../../styles/paginasEspecificas.css";
+
 import { useParams } from "react-router-dom";
-import { Context } from "/workspaces/BeatBooK/src/front/js/store/appContext.js";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 export const Lugar = () => {

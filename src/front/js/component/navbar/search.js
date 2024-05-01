@@ -1,22 +1,19 @@
 import React, { useState } from "react";
-import { SearchBar } from "./searchBar";
-import { SearchResults } from "./SearchResults";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Modal } from "react-bootstrap";
+import { SearchResults } from "./SearchResults";
 import "./search.css";
 
 export const Search = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOutsideMousedown = (event) => {
-    if (event.target === event.currentTarget) {
-      setIsOpen(false);
-    }
+  const handleSearchClick = () => {
+    setIsOpen(true);
   };
 
-  const handleSearchxocus = (event) => {
-    event.stopPropagation();
-    setIsOpen(true);
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -27,21 +24,22 @@ export const Search = () => {
         alignItems: "center",
       }}
     >
-      <div
-        className={`overlay ${isOpen ? "show" : ""}`}
-        onMouseDown={handleOutsideMousedown}
-      >
-        <SearchResults isOpen={isOpen} setIsOpen={setIsOpen} />
-      </div>
       <div style={{ position: "relative" }}>
-        <div className="busqueda_lupa" onClick={handleSearchxocus}>
+        <div className="busqueda_lupa" onClick={handleSearchClick}>
           <FontAwesomeIcon
             className="lupa"
             icon={faSearch}
-            onClick={() => setIsOpen(true)}
           />
         </div>
       </div>
+      <Modal show={isOpen} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Search</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <SearchResults handleClose={handleClose} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

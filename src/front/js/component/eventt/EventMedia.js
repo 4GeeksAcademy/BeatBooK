@@ -14,7 +14,7 @@ export const EventMedia = ({ eventData }) => {
   return (
     <div className="pt-3">
       <h4>
-        Fotos y Videos(<span>{eventData.media.length}</span>)
+        Fotos (<span>{eventData.media.length}</span>)
       </h4>
       <div className="d-flex justify-content-start pt-3">
         {eventData.media.map((mediaObject, index) => (

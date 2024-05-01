@@ -9,6 +9,8 @@ export const ProfileBody = (props) => {
     const { store, actions } = useContext(Context);
     const [selectedCategories, setSelectedCategories] = useState([]);
 
+    useEffect(() => { actions.getPrivateData(); }, []);
+
     // Manejo del modal de agregar categorías
     const [showAddModal, setShowAddModal] = useState(false);
     const handleShowAddModal = () => setShowAddModal(true);
@@ -38,7 +40,21 @@ export const ProfileBody = (props) => {
         return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
+    const formatEventDate = (eventDate) => {
+        if (!eventDate) return "";
+        const date = new Date(eventDate);
+        return date.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+
     useEffect(() => {
+
         actions.getAllEvents();
         console.log(store.currentUser);
     }, [store.currentUser]);
@@ -135,92 +151,52 @@ export const ProfileBody = (props) => {
 
 
     return (
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
+
+        <div className="container text-center">
+            <div className="row">
+                <div className="col">
+
                     <div className="cardContent">
                         <h5>Descripcion</h5>
                         <p>{store.currentUser?.description}</p>
                         <div>
-                            <a href={store.currentUser?.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
-                            <a href={store.currentUser?.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl icono"></i></a>
+
+                            <a href={store.currentUser?.instagram} className="card-link" target="_blank"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
+                            <a href={store.currentUser?.tiktok} className="card-link" target="_blank"><i className="fa-brands fa-tiktok fa-2xl icono"></i></a>
+
                         </div>
                     </div>
                     <div className="cardContent">
                         <h5>Informacion</h5>
                         <p>Ciudad: {store.currentUser?.city}</p>
-                        <p>Genero:{store.currentUser?.gender}</p>
-                        <p>Cumpleaños: {store.currentUser?.birthdate}</p>
+
+                        <p>Genero: {store.currentUser?.gender}</p>
+                        <p>Cumpleaños: {formatBirthdate(birthdate)}</p>
                     </div>
                     <div className="cardContent">
                         <h5>Interes musical</h5>
-                        <div className="container d-flex justify-content-center">
+                        <div className="container d-flex justify-content-center mb-3">
+
                             <div className="d-flex align-items-center">
                                 <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
                                 <button className="btns-add" onClick={handleShowDeleteModal}><i className="fas fa-minus" style={{ color: '#FFFFFF' }}></i></button>
                             </div>
                         </div>
-                    </div>
-                    {/* Renderizar categorías musicales */}
-                    <div className="d-flex flex-wrap grid gap-0 row-gap-2">
-                        {store.currentUser?.user_categories.map(category => (
-                            <button
-                                key={category.id}
-                                className={`btns-music ${selectedCategories.includes(category.id) ? 'selected' : ''}`}
-                                onClick={() => handleCategoryClick(category.id)}
-                            >
-                                <i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> {category.name}
-                            </button>
-                        ))}
-                    </div>
-                    <Modal show={showAddModal} onHide={handleCloseAddModal}>
-                        <Modal.Header closeButton>
-                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <form onSubmit={handleSubmit}>
-                                {store.allCategories.map(category => (
-                                    <div key={category.id} className="category-item">
-                                        <input
-                                            type="radio"
-                                            id={category.id}
-                                            value={category.id}
-                                            checked={selectedCategories.includes(category.id)}
-                                            onChange={() => handleCategoryClick(category.id)}
-                                        />
-                                        <label htmlFor={category.id}>{category.name}</label>
-                                    </div>
-                                ))}
-                                <button className='btns' type="submit">Guardar</button>
-                            </form>
-                        </Modal.Body>
-                    </Modal>
-                    <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-                        <Modal.Header closeButton>
-                            <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <form onSubmit={handleSubmit}>
-                                {store.allCategories.map(category => (
-                                    <div key={category.id} className="category-item">
-                                        <input
-                                            type="checkbox"
-                                            id={category.id}
-                                            value={category.id}
-                                            checked={selectedCategories.includes(category.id)}
-                                            onChange={() => handleCategoryClick(category.id)}
-                                        />
-                                        <label htmlFor={category.id}>{category.name}</label>
-                                        <button className="btn" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
-                                    </div>
-                                ))}
-                            </form>
-                        </Modal.Body>
-                    </Modal>
-                </div>
-                <div class="col">
-                    <div className="cardContent">
-                        <h5>Proximos Eventos</h5>
+
+
+                        {/* Renderizar categorías musicales */}
+                        <div className="d-flex flex-wrap  grid gap-2 row-gap-2">
+                            {store.currentUser?.user_categories.map(category => (
+                                <button
+                                    key={category.id}
+                                    className={`btns-music ${selectedCategories.includes(category.id) ? 'selected' : ''}`}
+                                    onClick={() => handleCategoryClick(category.id)}
+                                >
+                                    <i className="fas fa-music" style={{ color: '#FFFFFF' }}></i> {category.name}
+                                </button>
+                            ))}
+                        </div>
+
                     </div>
                     {store.allEvents.map((event, index) => (
                         <div className="cardContent card mb-3" key={index}>
@@ -237,7 +213,83 @@ export const ProfileBody = (props) => {
                     ))}
 
                 </div>
+
+                <div className="col">
+                    <div className="cardContent">
+                        <h5>Proximos Eventos</h5>
+                    </div>
+                    {store.allEvents
+                        .filter(event => event.assistances.some(assistance => store.currentUser && assistance.user_id === store.currentUser.id))
+                        .sort((a, b) => new Date(a.date) - new Date(b.date))
+                        .map((event, index) => (
+                            <div className="cardContent card mb-3" key={index}>
+                                <div>
+                                    <Link to={`/events/${event.id}`} className="card-link">
+                                        <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
+                                    </Link>
+                                </div>
+                                <div>
+                                    <h2>{event.name}</h2>
+                                    <p>{event.description}</p>
+                                    <p>{formatEventDate(event.date)}</p>
+                                </div>
+                            </div>
+                        ))}
+
+                </div>
             </div>
+            <Modal show={showAddModal} onHide={handleCloseAddModal}>
+                <Modal.Header className='modal-bg' closeButton>
+                    <div className='delete-title'>
+                        <Modal.Title><h2>Selecciona tus categorías musicales favoritas</h2></Modal.Title>
+                    </div>
+                </Modal.Header>
+                <Modal.Body className='modal-bg'>
+                    <form onSubmit={handleSubmit}>
+                        {store.allCategories.map(category => (
+                            <div key={category.id} className="category-item">
+                                <input
+                                    type="radio"
+                                    id={category.id}
+                                    name={category.name}
+                                    value={category.id}
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={() => handleCategoryClick(category.id)}
+                                />
+                                <label className="ms-3" htmlFor={category.id}> {category.name}</label>
+                            </div>
+                        ))}
+                        <Button className='btns' type="submit">Guardar</Button>
+                    </form>
+                </Modal.Body>
+            </Modal>
+            <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+                <Modal.Header className='modal-bg' closeButton>
+                    <div className='delete-title'>
+                        <Modal.Title><h2>Selecciona tus categorias musicales favoritas</h2></Modal.Title>
+                    </div>
+                </Modal.Header>
+                <Modal.Body className='modal-bg'>
+                    <form onSubmit={handleSubmit}>
+                        {store.allCategories.map(category => (
+
+                            <div key={category.id} className="category-item d-flex justify-content-between align-items-center
+                                    ">
+                                <input
+                                    type="checkbox"
+                                    id={category.id}
+                                    value={category.id}
+                                    checked={selectedCategories.includes(category.id)}
+                                    onChange={() => handleCategoryClick(category.id)}
+                                />
+                                <label htmlFor={category.id}>{category.name}</label>
+                                <button className="btns" onClick={() => handleDeleteCategory(category.id)}>Eliminar</button>
+                            </div>
+                        ))}
+                    </form>
+                </Modal.Body>
+            </Modal>
+
         </div>
     );
 }

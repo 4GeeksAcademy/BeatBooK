@@ -43,7 +43,7 @@ export const EventAssistance = ({ eventId, assistances, onAssistanceChange }) =>
 
     return (
         isAttending ?
-            <button className="asist-button" onClick={handleButtonClick}>Cancelar asistencia</button> :
+            <button className="cancel-asist-button" onClick={handleButtonClick}>Cancelar asistencia</button> :
             <button className="asist-button" onClick={handleButtonClick}>Asistir</button>
     );
 }

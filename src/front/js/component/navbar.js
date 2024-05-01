@@ -12,6 +12,8 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Menu, MenuItem, Button, Hidden } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 export const AppNavbar = () => {
   const { store, actions } = useContext(Context);
@@ -27,6 +29,8 @@ export const AppNavbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
   return (
     <div className="hahahah"
       style={{
@@ -53,14 +57,14 @@ export const AppNavbar = () => {
             {" "}
             <div className="d-flex justify-content-start ps-3">
               {/* Logo o nombre de la aplicación */}
-              <Link to="/home" className="ps-3">
+              <Link to="/home" >
                 <img
                   src={LogoHorizontalBlanco}
                   alt="My Image"
                   className="logoHorizontal"
                 />
               </Link>
-              <Hidden smUp>
+              <Hidden lgUp>
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} style={{ color: 'white', backgroundColor: 'black' }}>
 
                   <MenuIcon />
@@ -84,29 +88,40 @@ export const AppNavbar = () => {
                   <MenuItem onClick={handleClose}>
                     <Link to="/lugares" className="text-black">Lugares</Link>
                   </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Search />
+                  </MenuItem>
                 </Menu>
               </Hidden>
 
-              <Hidden xsDown>
+              <Hidden mdDown className="d-flex align-items-center justify-content-center">
                 <Link to="/categorias" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Categorías
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+
                 <Link to="/eventos" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Eventos
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+
                 <Link to="/grupos" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Grupos
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+
                 <Link to="/lugares" style={{ textDecoration: 'none' }} className="white-button text-center text-nowrap">
                   Lugares
                 </Link>
+                <span className="text-white mx-2 align-self-center">|</span>
+                <Search />
               </Hidden>
             </div>
             {/* Barra de búsqueda */}
             <div className="d-flex justify-content-center"></div>
             {/* Botones de registro e inicio de sesión */}
-            <div className="d-flex">
-              <Search />
+            <div className="d-flex pe-3">
+
               <Login />
             </div>
           </nav>

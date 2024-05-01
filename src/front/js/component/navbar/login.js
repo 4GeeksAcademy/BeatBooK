@@ -10,6 +10,8 @@ import "./flipCard.css";
 import LogoVertical from "./beatBoxVertical.png";
 import "./logo.css";
 import "./modal.css";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 export const Login = ({ onClick }) => {
   const [show, setShow] = useState(false);
@@ -20,6 +22,8 @@ export const Login = ({ onClick }) => {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const { store, actions } = useContext(Context);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,7 +32,7 @@ export const Login = ({ onClick }) => {
     setIsFlipped(false);
   };
   const handleShow = (event) => {
-   event.stopPropagation();
+    event.stopPropagation();
     setShow(true);
   };
 
@@ -71,7 +75,7 @@ export const Login = ({ onClick }) => {
   };
 
   return (
-    <Container
+    <div
       className="login d-flex align-items-center justify-content-center"
       style={{ height: "100%" }}
     >
@@ -83,9 +87,9 @@ export const Login = ({ onClick }) => {
           onClick={
             onClick
               ? (event) => {
-                  event.stopPropagation();
-                  onClick(event);
-                }
+                event.stopPropagation();
+                onClick(event);
+              }
               : handleShow
           }
         >
@@ -117,7 +121,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type="text"
                     className="inputx bg-transparent "
-                    placeholder="pon tu Email"
+                    placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -130,13 +134,13 @@ export const Login = ({ onClick }) => {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="inputx"
-                    placeholder="Pon tu contraseña"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <i onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? "Ocultar" : "Mostrar"}
-                  </i>
+                  <i onClick={() => setShowPassword(!showPassword)} className="p-2">
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </i >
                 </div>
 
                 <button className="button-submit" type="submit">
@@ -166,7 +170,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type="text"
                     className="inputx bg-transparent "
-                    placeholder="pon tu Username"
+                    placeholder=" Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
@@ -178,7 +182,7 @@ export const Login = ({ onClick }) => {
                   <input
                     type="text"
                     className="inputx bg-transparent "
-                    placeholder="pon tu Email"
+                    placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -188,24 +192,30 @@ export const Login = ({ onClick }) => {
                 </div>
                 <div className="inputForm">
                   <input
-                    type="password"
+                    type={showPassword2 ? "text" : "password"}
                     className="inputx"
-                    placeholder="Pon tu contraseña"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <i onClick={() => setShowPassword2(!showPassword2)} className="p-2">
+                    {showPassword2 ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </i>
                 </div>
                 <div className="flex-column">
                   <label>Confirmar Contraseña </label>
                 </div>
                 <div className="inputForm">
                   <input
-                    type="password"
+                    type={showPasswordConfirmation ? "text" : "password"}
                     className="inputx"
                     placeholder="Confirma tu contraseña"
                     value={passwordConfirmation}
                     onChange={(e) => setPasswordConfirmation(e.target.value)}
                   />
+                  <i onClick={() => setShowPasswordConfirmation(!showPasswordConfirmation)} className="p-2">
+                    {showPasswordConfirmation ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </i>
                 </div>
                 <button className="button-submit" type="submit">
                   Registrar
@@ -215,6 +225,6 @@ export const Login = ({ onClick }) => {
           </div>
         </div>
       </Modal>
-    </Container>
+    </div>
   );
 };

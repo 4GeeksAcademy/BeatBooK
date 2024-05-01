@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import ImagenPrueba from "../component/eventt/imagenEventoPrueba.png";
 import "../component/eventt/evento.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,40 @@ import { EventComments } from "../component/eventt/EventComments";
 import { EventDescription } from "../component/eventt/EventDescription";
 import { EventAssistance } from "../component/eventt/EventAssitance";
 import L from "leaflet";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
+
+const shareUrl = window.location.href;
+const shareText = 'Mira este increíble evento!';
+
+const shareOnWhatsApp = () => {
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(shareUrl)}`;
+  window.open(whatsappUrl);
+};
+
+function shareOnFacebook() {
+  const url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL);
+  window.open(url, '_blank');
+}
+
+function copyToClipboard() {
+  const dummy = document.createElement('input');
+  document.body.appendChild(dummy);
+  dummy.value = window.location.href;
+  dummy.select();
+  document.execCommand('copy');
+  document.body.removeChild(dummy);
+  toast('Enlace copiado al portapapeles. Pégalo en tu publicación de Instagram o Donde tu quieras.');
+}
+
+
 
 async function getCoordinates(address) {
   try {
@@ -48,12 +82,23 @@ async function getCoordinates(address) {
 export const Event = (props) => {
 
   const { id } = useParams();
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const [eventData, setEventData] = useState(null);
   const [refreshComments, setRefreshComments] = useState(false);
   const [refreshAssistances, setRefreshAssistances] = useState(false);
 
 
+  useEffect(() => {
+    const fetchPrivateData = async () => {
+      try {
+        await actions.getPrivateData();
+
+      } catch (error) {
+        console.error('Error al obtener datos privados:', error);
+      }
+    }
+    fetchPrivateData();
+  }, []);
 
   useEffect(() => {
     actions.getEvent(id).then((data) => {
@@ -61,6 +106,10 @@ export const Event = (props) => {
       console.log("eventData", data);
     });
   }, [id, refreshComments, refreshAssistances]);
+
+  const navigate = useNavigate();
+
+
 
   const handleNewComment = () => {
     setRefreshComments(!refreshComments);
@@ -76,13 +125,10 @@ export const Event = (props) => {
     if (!eventData) {
       return;
     }
-
     getCoordinates(eventData.address).then(setCoordinates);
   }, [eventData]);
 
-  useEffect(() => {
-    console.log("coordinates2", coordinates);
-  }, [coordinates]);
+
 
 
 
@@ -92,12 +138,49 @@ export const Event = (props) => {
     return token !== null && user !== null;
   }
 
+  const formatEventDate = (eventDate) => {
+    if (!eventDate) return "";
+    const date = new Date(eventDate);
+    return date.toLocaleString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDeleteEvent = async () => {
+    try {
+      await actions.deleteEvent(eventData.id);
+      navigate('/home');
+      toast.success('Evento borrado correctamente');
+    } catch (error) {
+      console.error('Error al borrar el evento:', error);
+
+    }
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleConfirmDelete = () => {
+    handleDeleteEvent();
+    setShowModal(false);
+  };
 
 
   if (!eventData) {
-    return <div class="text-center mt-5 pt-5 pb-5">
-      <div class="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
-        <span class="visually-hidden">Loading...</span>
+    return <div className="text-center mt-5 pt-5 pb-5">
+      <div className="spinner-border" style={{ width: '5rem', height: '5rem' }} role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>;
   }
@@ -105,9 +188,36 @@ export const Event = (props) => {
   return (
     <Container className="pt-5 evento">
       <Row>
+        <div className="d-flex justify-content-center align-items-center text-center pt-3">
+          {store.user && eventData.creator_id === store.user.id && (
+            <button onClick={handleOpenModal} className="report-button">Borrar evento</button>
+          )}
+
+        </div>
+
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmar borrado</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>¿Estás seguro de que quieres borrar tu evento?</Modal.Body>
+          <Modal.Footer>
+            <button type="button" className="btn btn-primary text-black" onClick={handleCloseModal}>
+              No
+            </button>
+            <button type="button" className="btn btn-danger text-black" onClick={handleConfirmDelete}>
+              Sí
+            </button>
+          </Modal.Footer>
+        </Modal>
+
+
+        <div className="d-flex justify-content-center mb-3">
+          <h1>{eventData.name}</h1>
+        </div>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center"
+          className="d-flex-column justify-content-center align-items-center text-center pt-2 pb-5
+          "
         >
           <div className="img-container">
             {" "}
@@ -130,43 +240,59 @@ export const Event = (props) => {
         </Col>
         <Col
           md={6}
-          className="d-flex-column justify-content-center align-items-center text-center pt-3"
+          className="d-flex-column justify-content-center align-items-center text-center"
         >
           {" "}
-          <h2>{eventData.name}</h2>{" "}
+
           <div className="d-flex justify-content-center align-items-center">
             {" "}
             <div className="event-details">
               {" "}
-              <h5 className="p-2">{eventData.date}</h5>{" "}
-              <h5 className="p-2">{eventData.location}</h5>{" "}
+              <h5 className="p-2"> Fecha: {formatEventDate(eventData.date)}</h5>{" "}
+
               <h5 className="p-2">
-                {" "}
-                {eventData.price === "0" ? "Gratis" : eventData.price}{" "}
+                Precio: {" "}
+                {eventData.price === "0" ? "Gratis" : eventData.price}{" "} €
               </h5>{" "}
               <div className="event-map">
-                <h4>{eventData.address}</h4>
+                <h4 className="pb-1">Dirección: {eventData.address}</h4>
                 {coordinates && <MapComponent coordinates={coordinates} />}
               </div>
             </div>{" "}
           </div>{" "}
-          <div className="d-flex-column justify-content-center align-items-center text-center mt-5">
+          <div className="d-flex-column justify-content-center align-items-center text-center mt-5  pt-5">
             {" "}<h5>Asistentes <span>{eventData.assistances.length}</span></h5>{" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {isLoggedIn() && eventData && <EventAssistance eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />}
             </div>
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
-              {" "}
-              <button className="share-button">Compartir</button>{" "}
-            </div>{" "}
+              <h5  >Compartir en:</h5>
+            </div>
+            <button style={{ background: 'none', border: 'none' }} onClick={shareOnWhatsApp}>
+              <div style={{ color: '#25D366', transition: 'color 0.3s ease-in-out' }} onMouseOver={(e) => e.currentTarget.style.color = '#128C7E'} onMouseOut={(e) => e.currentTarget.style.color = '#25D366'}>
+                <WhatsAppIcon style={{ fontSize: 40 }} />
+              </div>
+            </button>
+            <button style={{ background: 'none', border: 'none' }} onClick={shareOnFacebook} className="p-2">
+              <div style={{ color: '#3b5998', transition: 'color 0.3s ease-in-out' }} onMouseOver={(e) => e.currentTarget.style.color = '#8b9dc3'} onMouseOut={(e) => e.currentTarget.style.color = '#3b5998'}>
+                <FacebookIcon style={{ fontSize: 40 }} />
+              </div>
+            </button>
+            <button style={{ background: 'none', border: 'none' }} onClick={copyToClipboard}>
+              <div style={{ color: '#C13584', transition: 'color 0.3s ease-in-out' }} onMouseOver={(e) => e.currentTarget.style.color = '#E1306C'} onMouseOut={(e) => e.currentTarget.style.color = '#C13584'}>
+                <InstagramIcon style={{ fontSize: 40 }} />
+              </div>
+            </button>
+
+
             <hr className="mt-5 " />{" "}
+
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
+
               {" "}
-              <button className="chat-button">Chat de evento</button>{" "}
-            </div>{" "}
-            <div className="d-flex justify-content-center align-items-center text-center pt-3">
-              {" "}
-              <button className="report-button">Reportar evento</button>{" "}
+              <Link to="/paginafalsa" className="report-button fs-3">
+                Reportar evento
+              </Link>
             </div>{" "}
             <div className="pt-4">
               {" "}

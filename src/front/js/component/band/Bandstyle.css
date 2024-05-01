@@ -91,3 +91,25 @@
    backdrop-filter: blur(30px);
    background-color: rgba(65, 65, 65, 0.308);
  }
+
+ /* Modal editar información banner  */
+.custom-modal {
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) { 
+
+  .username {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0px;
+    
+  }
+  .username h1 {
+    font-size: 30px;
+    margin: 10px;
+  }
+
+}

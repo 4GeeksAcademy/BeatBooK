@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       allEvents: [],
       allUsers: [],
       singleUser: [],
-      bands:[],
+      bands: [],
       band: [],
       places: [],
       allCategories: [],
@@ -152,31 +152,31 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getEventsByCategory: async (category_id) => {
         try {
-            const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch events");
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.log(error);
-            return [];
-        }
-    },
-
-    getCategory: async (category_id) => {
-      try {
-          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}/events`);
           if (!response.ok) {
-              throw new Error("Failed to fetch category");
+            throw new Error("Failed to fetch events");
           }
           const data = await response.json();
           return data;
-      } catch (error) {
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      },
+
+      getCategory: async (category_id) => {
+        try {
+          const response = await fetch(process.env.BACKEND_URL + `/api/musical_categories/${category_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch category");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
           console.log(error);
           return null;
-      }
-  },
+        }
+      },
 
       logIn: async (email, password) => {
         try {
@@ -443,7 +443,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             process.env.BACKEND_URL + `/api/users/${id}`
           );
           const data = await resp.json();
-          setStore({ singleUser: data})
+          setStore({ singleUser: data })
           return data;
         } catch (error) {
           console.log("Error loading user from backend", error);
@@ -466,7 +466,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           throw error;
         }
       },
-    
+
       getAllUsers: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/users");
@@ -498,7 +498,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading places from backend", error);
         }
       },
-//---------------------- BANDAS ----------------------------------------------------//
+      //---------------------- BANDAS ----------------------------------------------------//
       getAllBands: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
@@ -600,7 +600,77 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading Banner band picture", error);
         }
       },
-//------------------------------------------------------------------------------------------//
+
+      uploadBannerPlace: async (banner, placeId) => {
+        console.log("uploadBannerPlace se ha llamado");
+        try {
+          const token = localStorage.getItem("jwt-token");
+          const formData = new FormData();
+          formData.append("banner", banner);
+          formData.append("place_id", placeId); // Corregido bandId a placeId
+
+          console.log("Subiendo imagen con token:", token);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_banner_place",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
+            }
+          );
+
+          console.log(banner);
+
+          if (!response.ok) {
+            throw new Error("Error al cargar la imagen");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error al cargar la imagen del lugar", error);
+        }
+      },
+
+      uploadPlacePicture: async (image, placeId) => {
+        console.log("uploadPlacePicture se ha llamado");
+        try {
+          const formData = new FormData();
+          formData.append("image", image);
+          formData.append("place_id", placeId);
+
+          console.log("Subiendo imagen para lugar con ID:", placeId);
+
+          const response = await fetch(
+            process.env.BACKEND_URL + "/api/upload_profile_place",
+            {
+              method: "POST",
+              headers: {},
+              body: formData,
+            }
+          );
+          console.log(image);
+          if (!response.ok) {
+            throw new Error("Error uploading picture");
+          }
+
+          const data = await response.json();
+          console.log("Respuesta del servidor:", data);
+          console.log("URL de la imagen:", data.url);
+
+          return { url: data.url };
+        } catch (error) {
+          console.log("Error uploading place picture", error);
+        }
+      },
+
+      //------------------------------------------------------------------------------------------//
 
       getPlace: async (placeId) => {
         try {
@@ -652,7 +722,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error uploading event picture", error);
         }
       },
-      
+
       uploadEventMedia: async (files, eventId) => {
         try {
           const token = localStorage.getItem("jwt-token");
@@ -820,18 +890,28 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      getUser: async (user_id) => {
+      deleteEvent: async (id) => {
         try {
-          const response = await fetch(`${process.env.BACKEND_URL}api/users/${user_id}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch user');
+          const resp = await fetch(
+            process.env.BACKEND_URL + `/api/eventdelete/${id}`,
+            { method: 'DELETE' }
+          );
+
+          if (!resp.ok) {
+            throw new Error("Error al borrar el evento");
+
           }
-          const data = await response.json();
+
+          const data = await resp.json();
           return data;
         } catch (error) {
-          console.error('Error fetching user:', error);
+
+          console.log("Error al borrar el evento", error);
+          throw error;
+
         }
       },
+
     }
   }
 };
