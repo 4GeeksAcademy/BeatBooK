@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Col, Row, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+
 import { UploadPlaceProfile } from "../component/createPlace/uploadPlaceProfile";
 import { UploadPlaceBanner } from "../component/createPlace/uploadPlaceBanner";
+
 
 import { toast } from 'react-toastify';
 
@@ -29,21 +31,25 @@ export const CreatePlaceMedia = () => {
     const handleSubmit = (place) => {
         place.preventDefault();
         if (uploadSuccessful) {
+
             navigate(`/lugares/${id}`);
+
         }
     };
 
     return (
-        <Container className="mt-5 create_event_container">
+
+        <Container className="mt-5 create_place_container">
             <Form onSubmit={handleSubmit}>
                 <Row>
                     <Col xs={12} md={12}>
-                        <UploadPlaceProfile onUpload={handleUpload} />
-                        <UploadPlaceBanner onUpload={handleUpload} setUploadSuccessful={setUploadSuccessful} />
+                        <UploadMainImage onUpload={handleUpload} />
+                        <UploadMedia onUpload={handleUpload} setUploadSuccessful={setUploadSuccessful} />
                     </Col>
                 </Row>
-                <div className="create_event">
-                    <button className="create_event_button" type="submit" disabled={!uploadSuccessful}  >
+                <div className="create_place">
+                    <button className="create_place_button" type="submit" disabled={!uploadSuccessful}  >
+
                         Subir Media
                     </button>
                 </div>

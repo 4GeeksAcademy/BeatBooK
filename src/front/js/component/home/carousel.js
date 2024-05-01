@@ -25,8 +25,10 @@ export const Carousel = () => {
                     <div key={idx} className={`carousel-item ${idx === index ? 'active' : ''} c-item`}>
                         <a onClick={() => handleLearnMore(event.id)}><img src={event.picture_url} className="d-block w-100 c-img" alt="foto" /></a>
                         <div className="carousel-caption d-none d-md-block">
+
                             <h5 className='text-center my-3'>{event.name}</h5>
                             <p className='text-center'>{event.description} </p>
+
                         </div>
                     </div>
                 ))}

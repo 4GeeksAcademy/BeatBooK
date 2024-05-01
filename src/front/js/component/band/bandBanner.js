@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import "../band/Bandstyle.css"
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +20,7 @@ export const BandBanner = (props) => {
     const navigate = useNavigate()
     const { actions, store } = useContext(Context);
     const [bandData, setbandData] = useState(null);
+
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -36,12 +34,14 @@ export const BandBanner = (props) => {
         tiktok: '',
     });
 
+
     useEffect(() => {
         actions.getBand(id).then((data) => {
             setbandData(data);
             console.log("bandData", data);
         });
     }, [id]);
+
 
     // Handlers para mostrar y ocultar los modales respectivos
     const handleShowEditModal = () => setShowEditModal(true);
@@ -136,6 +136,7 @@ export const BandBanner = (props) => {
         }
     };
 
+
     const classes = useStyles();
 
     return (
@@ -143,6 +144,7 @@ export const BandBanner = (props) => {
             <div className='banner-band'>
                 <img src={store.band.banner_picture} className='img-fluid' alt='Banner'></img>
             </div>
+
             <div className="container container text-start data">
                 <div className="row align-items-center">
                 <div className="col-12 col-md-4 col-xl-2">
@@ -159,6 +161,7 @@ export const BandBanner = (props) => {
                     <div className="col-12 col-md-12 col-xl-5 d-flex flex-column align-items-end justify-content-center my-3">
                         <div className='members'>
                             <p className='me-5 '><strong>Miembros</strong></p>
+
                         </div>
                         <div className="d-flex flrex-row">
                             {store.band.members && store.band.members.map((member, index) => (
@@ -172,16 +175,20 @@ export const BandBanner = (props) => {
                     </div>
                 </div>
             </div>
+
             <div className="container text-center">
                 <div className="row">
                     <div className="col">
+
                         <div className="cardContent">
                             <h5 className="card-title">Detalles</h5>
                             <p className="card-text">{store.band.description}</p>
                             <h5>Redes sociales</h5>
                             <div className='social-network'>
+
                                 <a href={store.band.instagram} className="card-link" target='_blank'> <i className="fa-brands  fa-instagram icono fa-2xl"></i></a>
                                 <a href={store.band.tiktok} className="card-link" target='_blank'><i className="fa-brands fa-tiktok icono fa-2xl"></i></a>
+
                             </div>
                         </div>
                         <div className="cardContent">
@@ -194,6 +201,7 @@ export const BandBanner = (props) => {
                             </button>
                         </div>
                     </div>
+
                     <div className="col">
                         <div className="cardContent">
                             <h5>Proximos Eventos</h5>
@@ -210,10 +218,12 @@ export const BandBanner = (props) => {
                                     </div>
                                 </div>
                             ))}
+
                         </div>
                     </div>
                 </div>
             </div>
+
             {/* Modal para editar Información */}
             <Modal show={showEditModal} onHide={handleCloseEditModal} onSubmit={handleSubmit} className="custom-modal">
                 <Modal.Header className='modal-bg' closeButton>
@@ -294,6 +304,7 @@ export const BandBanner = (props) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+
         </div>
     );
 }

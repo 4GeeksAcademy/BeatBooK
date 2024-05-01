@@ -68,7 +68,9 @@ const Layout = () => {
 
             <Route element={<CreateEvent />} path="/event/registre" />
             <Route element={<CreateBand />} path="/banda/registre" />
+
             <Route element={<CreatePlace />} path="/lugar/registre" />
+
 
             <Route element={<CreateEventMedia />} path="/event/registre/media/:id" />
             <Route element={<CreateBandMedia />} path="/banda/registre/media/:id" />
@@ -80,7 +82,9 @@ const Layout = () => {
             <Route element={<Private />} path="/private" />
             <Route element={<ProfileGuest />} path="/profile/:id" />
             <Route element={<BandPageGuest />} path="/band/:id" />
+
             <Route element={<BandPage />} path="/banda/:id" />
+
             <Route element={<Categorias />} path="/categorias" />
             <Route element={<Eventos />} path="/eventos" />
             <Route element={<Grupos />} path="/grupos" />

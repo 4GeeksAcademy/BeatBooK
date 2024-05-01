@@ -1,7 +1,9 @@
+
 @font-face {
   font-family: 'Dharma Punk';
   src: url('../../../docs/assets/Dharma_Punk_2.ttf') format('truetype');
 }
+
 
 .video {
   position: relative;
@@ -75,11 +77,13 @@
 .btns-landing:hover {
   background: grey !important; 
   color: black; 
+
 }
 .title-l{
   font-family: 'Dharma Punk';
   color: white;
   font-size: 60px;
+
 }
 
 @media (max-width: 768px) {
@@ -138,8 +142,10 @@
 }
 
 .card-l {
+
    width: 300px;
   height: 400px;
+
   overflow: hidden;
   }
 
