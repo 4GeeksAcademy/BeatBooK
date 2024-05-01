@@ -2,10 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-
 import "../profile/profile.css"
 import { Link } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
@@ -46,6 +44,7 @@ export const ProfileBanner = () => {
         setIsLoading(true);
         const file = e.target.files[0];
 
+        // Pasa el ID del evento al método uploadEventPicture
         const data = await actions.uploadUserPicture(file, id);
 
         if (data) {
@@ -97,14 +96,16 @@ export const ProfileBanner = () => {
             if (!response.ok) {
                 throw new Error('Error al enviar el formulario');
             }
-            handleClose();
+            handleClose(); // Cierra el modal después de enviar el formulario
 
+            // Actualizar datos de usuario en el estado de la aplicación
             const updatedUserResponse = await fetch(`${process.env.BACKEND_URL}/api/users/${store.currentUser.id}`);
             const updatedUserData = await updatedUserResponse.json();
-            actions.getPrivateData(updatedUserData);
+            actions.getPrivateData(updatedUserData); // Esta función debe actualizar el estado del usuario en tu contexto
 
             toast.success("Cambios guardados con éxito");
         } catch (error) {
+            // Manejar errores de solicitud
             console.error('Error al enviar el formulario:', error);
             toast.error("Error al guardar los cambios");
         }
@@ -121,18 +122,15 @@ export const ProfileBanner = () => {
                 <img src={store.currentUser?.banner_picture} className='img-fluid' ></img>
             </div>
             <div className="container">
-
                 <div className="row  text-start data">
                     <div className="col-12 col-md-4 col-xl-2">
                         <img className='ProfilePicture' src={store.currentUser?.profile_image_url} alt='perfil' />
                     </div>
                     <div className="col-12 col-md-8 col-xl-4 align-items-center">
-
                         <h1>{store.currentUser?.username}</h1>
                         <p>Puedes escucharme en:</p>
                         {store.currentUser && store.currentUser.created_band && (
                             <div className={classes.root}>
-
                                 <Link to={`/banda/${store.currentUser?.created_band.id}`}>
                                     <Avatar className="avatar ms-2" alt={store.currentUser.username} src={store.currentUser.created_band.profile_picture} />
                                 </Link>
@@ -142,11 +140,9 @@ export const ProfileBanner = () => {
                     </div>
                     <div className="col-12 col-md-12 col-l-6 d-flex align-items-end justify-content-end my-3">
                         
-
                         <button className='btns' onClick={handleShow}>
                             <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i> Editar perfil
                         </button>
-
 
                         <div className="dropup-center dropup">
                         <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -169,7 +165,6 @@ export const ProfileBanner = () => {
                                 <div className='edit-image'>
                                     <div className='image-title'>
                                         <h6 className='text-light-emphasis'>Foto de perfil</h6>
-
                                         <input
                                             type="file"
                                             onChange={handleFileChange}
@@ -228,9 +223,8 @@ export const ProfileBanner = () => {
                                     </Modal.Footer>
                                 </form>
                             </Modal.Body>
-
+                        </Modal>
                     
-
                 </div>
             </div>
         </div>

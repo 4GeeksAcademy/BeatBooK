@@ -1,11 +1,8 @@
-
 import React, { useState, useContext } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import "../component/createEvent/createEvent.css";
-
 import { toast } from "react-toastify";
 
 export const CreatePlace = () => {
@@ -142,6 +139,4 @@ export const CreatePlace = () => {
             </Form>
         </Container>
     );
-
-
 };

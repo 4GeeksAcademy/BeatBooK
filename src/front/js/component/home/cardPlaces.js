@@ -51,7 +51,6 @@ export const CardPlaces = () => {
 
   return (
     <div className="wrapper">
-
       <ul className='carousel' onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onTransitionEnd={handleTransitionEnd} ref={carouselRef}>
         {store.places.map((place, index) => (
           <li className="card-c" key={index} ref={firstCardRef}>
@@ -67,7 +66,6 @@ export const CardPlaces = () => {
             </div>
           </li>
         ))}
-
       </ul>
     </div>
   );

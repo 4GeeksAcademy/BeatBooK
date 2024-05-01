@@ -4,7 +4,6 @@ import { ProfileBanner } from "../component/profile/profileBanner";
 import { ProfileBody } from "../component/profile/profileBody";
 import { Context } from "../store/appContext";
 import { BandBanner } from "../component/band/bandBanner";
-import "/workspaces/BeatBooK/src/front/styles/paginasEspecificas.css";
 
 export const BandPage = () => {
     const navigate = useNavigate()
@@ -19,8 +18,13 @@ export const BandPage = () => {
 
 
     return (
-        <div>
+        <div className="container">
+            <div>
                <BandBanner/>
+            </div>
+            <div className="container">
+                
+            </div>
         </div>
     );
 };
