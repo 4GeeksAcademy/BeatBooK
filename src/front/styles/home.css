@@ -54,6 +54,11 @@ p {
   font-family: monospace;
 }
 
+modal p {
+  color: black;
+  font-family: monospace;
+}
+
 button {
   font-family: monospace;
   color: white;
