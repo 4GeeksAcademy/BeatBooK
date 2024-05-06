@@ -9,7 +9,7 @@ export const Home = () => {
 
     return (
         <div className="container">
-            <div className="container text-center">
+            <div className="text-center">
                 <h1>Descubre nuestros eventos</h1>
                 <p>Elige el mejor plan</p>
             </div>

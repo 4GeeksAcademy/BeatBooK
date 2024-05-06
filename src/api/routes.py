@@ -17,19 +17,19 @@ import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-message = Mail(
-    from_email='from_email@example.com',
-    to_emails='to@example.com',
-    subject='Sending with Twilio SendGrid is Fun',
-    html_content='<strong>and easy to do anywhere, even with Python</strong>')
-try:
-    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-    response = sg.send(message)
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
-except Exception as e:
-    print(e.message)
+# message = Mail(
+#     from_email='from_email@example.com',
+#     to_emails='to@example.com',
+#     subject='Sending with Twilio SendGrid is Fun',
+#     html_content='<strong>and easy to do anywhere, even with Python</strong>')
+# try:
+#     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+#     response = sg.send(message)
+#     print(response.status_code)
+#     print(response.body)
+#     print(response.headers)
+# except Exception as e:
+#     print(e.message)
 
 
 cloudinary.config( 
@@ -289,14 +289,14 @@ def protected():
             
         })
 
-      # Serializar la banda creada por el usuario si existe
-    created_band_serialized = None
-    if user.created_band:
-        created_band_serialized = {
-            "id": user.created_band.id,
-            "name": user.created_band.name,
-            "profile_picture": user.created_band.profile_picture
-        }
+    #   # Serializar la banda creada por el usuario si existe
+    # created_band_serialized = None
+    # if user.created_band:
+    #     created_band_serialized = {
+    #         "id": user.created_band.id,
+    #         "name": user.created_band.name,
+    #         "profile_picture": user.created_band.profile_picture
+    #     }
     
  
     return jsonify({
@@ -312,7 +312,7 @@ def protected():
         "instagram": user.instagram,
         "tiktok": user.tiktok,
         "user_categories": user_categories_serialized, 
-        "created_band": created_band_serialized
+        # "created_band": created_band_serialized
        
     }), 200
 

@@ -30,3 +30,20 @@ border-radius: 2%;
     padding: 10px; /* Espaciado interno */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
+
+@media screen and (max-width: 600px) {
+  
+    
+    .carousel-caption h5 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px; /* Puedes ajustar el margen según sea necesario */
+    }
+    
+    .carousel-caption p {
+        font-size: 12px;
+        margin-bottom: 0; /* Puedes ajustar el margen según sea necesario */
+    }
+    
+
+}
