@@ -313,7 +313,7 @@ def protected():
         "instagram": user.instagram,
         "tiktok": user.tiktok,
         "user_categories": user_categories_serialized, 
-        "created_band": created_band_serialized
+        # "created_band": created_band_serialized
        
     }), 200
 
