@@ -119,24 +119,6 @@
 
 }
 
-@media (max-width: 1200px) {
-  .overlay-text {
-    width: 270px;
-    max-width: 40%;
-    font-size: 14px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-96%, -6%);
-    padding: 10px;
-  }
-
-  .btns-landing {
-    font-size: 10px;
-    padding:  7px 16px;
-    margin: 0 0px 2px 7px;
-  }
-}
-
 .card-l {
    width: 300px;
   height: 400px;
@@ -163,6 +145,14 @@
   .card-body {
     padding: 20px;
     margin-top: auto;
+  }
+
+  @media screen and (max-width: 600px) {
+    .div-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   
