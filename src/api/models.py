@@ -171,7 +171,7 @@ class Band(db.Model):
             'members': members,
             'events': [event.serialize() for event in self.events],
             'musical_categories': [musicalcategory.serialize() for musicalcategory in self.musical_categories],
-            'creator_id': self.creator_id
+            # 'creator_id': self.creator_id
             
         }
 
