@@ -375,7 +375,7 @@ def update_user(user_id):
         raise APIException('User not found', status_code=404)
     request_body = request.get_json()
     # user.email = request_body['email'] or user.email # ctrl + c + k para comentar multiples lineas
-    # user.username = request_body['username'] or user.username # se debe mantener asi para que no de conflicto con la edicion del perfil!!!!!!
+    user.username = request_body['username'] or user.username # se debe mantener asi para que no de conflicto con la edicion del perfil!!!!!!
     user.birthdate = request_body['birthdate'] or user.birthdate
     user.description = request_body['description'] or user.description
     user.gender = request_body['gender'] or user.gender
@@ -488,12 +488,12 @@ def create_band():
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
-        creator_id=data.get('creator_id'),
+        # creator_id=data.get('creator_id'),
     )
     # Verificar si el usuario ya tiene una banda
-    existing_band = Band.query.filter_by(creator_id=band.creator_id).first()
-    if existing_band:
-        return jsonify({'error': 'El usuario ya tiene una banda asociada.'}), 400
+    # existing_band = Band.query.filter_by(creator_id=band.creator_id).first()
+    # if existing_band:
+    #     return jsonify({'error': 'El usuario ya tiene una banda asociada.'}), 400
 
     # Lista para almacenar los IDs de los miembros que ya están en otras bandas
     members_in_other_bands = []
