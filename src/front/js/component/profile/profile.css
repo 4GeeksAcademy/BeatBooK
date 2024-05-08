@@ -22,7 +22,7 @@
 
 .btns, .btns-add  {
   border: 1px solid rgba(255, 255, 255, 0.089);
-  font-size: 16px;
+  font-size: 15px;
   color: white;
   padding:  7px 16px;
   border-radius: 6px;
@@ -165,52 +165,103 @@ width: 49%;
   background-color: rgba(65, 65, 65, 0.308);
 }
 
-.card-detail {
-  width: 470px;
-  min-height: 320px;
+ .card-detail {
+  margin: 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   height: auto;
   border-radius: 10px;
   backdrop-filter: blur(30px);
-  background-color: rgba(255, 255, 255, 0.676);
+  background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: 6%; /* Establece la posición de arriba donde se quedará pegado el div */
+  top: 7%; /* Establece la posición de arriba donde se quedará pegado el div */
+  gap: 8px;
   z-index: 1000;
-}
+  color: white; 
+} 
+
+
 .card-info {
-  width: 470px;
+  margin: 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   height: auto;
   border-radius: 10px;
   backdrop-filter: blur(30px);
-  background-color: rgba(255, 255, 255, 0.676);
+  background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: 31%; /* Establece la posición de arriba donde se quedará pegado el div */
+  top: calc(8% + 20px + 8%);
+  gap: 3px;
   z-index: 1000;
+  color: white; 
+}
+.card-members {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: auto;
+  border-radius: 10px;
+  backdrop-filter: blur(30px);
+  background-color: rgba(120, 115, 115, 0.304);
+  border: 1px solid rgba(61, 59, 59, 0.089);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: calc(8% + 20px + 15%);
+  gap: 3px;
+  z-index: 1000;
+  color: white; 
 }
 
 .card-music {
-  width: 470px;
+  margin: 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   height: auto;
   border-radius: 10px;
   backdrop-filter: blur(30px);
-  background-color: rgba(255, 255, 255, 0.676);
-  border: 1px solid rgba(255, 255, 255, 0.089);
+  background-color: rgba(120, 115, 115, 0.304);
+  border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: 47%; /* Establece la posición de arriba donde se quedará pegado el div */
+  top: calc(8% + 20px + 8% + 8px + 20%);
+  gap: 10px;
   z-index: 1000;
+  color: white; 
+}
+.card-music-band {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: auto;
+  border-radius: 10px;
+  backdrop-filter: blur(30px);
+  background-color: rgba(120, 115, 115, 0.304);
+  border: 1px solid rgba(61, 59, 59, 0.089);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: calc(8% + 20px + 15% + 10px + 7%);
+  gap: 10px;
+  z-index: 1000;
+  color: white;
 }
  
 .card-music-detail, .card-detail-info {
@@ -238,6 +289,7 @@ width: 49%;
   font-family: sans-serif;
   text-align: start;
   margin-bottom: 15px;
+  color: white;
 }
 
 .card-detail-content p {
@@ -307,81 +359,16 @@ width: 49%;
 }
 
 /*------------------------------Card Event----------------------------------------------*/
-.card-e {
-  width: 650px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  
-}
-.wrapper-e{
-  max-width: 1100px;
-  width: 100%;
-  position: relative;
-}
-
-.wrapper-e .carousel-e{
-  display: grid;
-  grid-auto-flow: row;
-  gap: 16px;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: 0;
-}
-
-.carousel-e .card-e{
-  height: 410px;
-  list-style: none;
-  cursor: pointer;
+.cardEvent {
   border-radius: 10px;
   backdrop-filter: blur(30px);
-  background-color: rgba(255, 255, 255, 0.676);
-  border: 1px solid rgba(255, 255, 255, 0.089);
+  background-color: rgba(120, 115, 115, 0.304);
+  border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.card-e .img img {
-  width: 650px;
-  height: 255px;
-  object-fit: cover;
-  border-radius: 2%;
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  transition: transform 0.3s ease; /* Agregar transición suave al zoom */
-  overflow: hidden;
-
-}
-
-.card-e .img img:hover {
-  transform: scale(1.1); /* Aplicar un zoom del 10% al hacer hover */
-  
-}
-
-.card-e-content{
-  width: 100%;
-  height: 100%;
   text-align: center;
-  margin: 5px;
-}
-
-.card-e h2{
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 28px;
-  margin: 10px 10px 10px 10px;
-  color: black;
-}
-.card-e span {
-  color: black;
-  font-size: 15px;
-  color: black;
-}
-
-.card-e-footer {
-  padding: 5px;
- 
+  margin: 10px;
+  padding: 10px; 
+  color: white;
 }
 
 /* Modal editar información banner  */
@@ -398,10 +385,65 @@ display: flex;
   align-items: center;
 }
 
+@media screen and (max-width: 1199px) {
+  .wrapper-e .carousel-e {
+    grid-auto-columns: calc((100%) - 9px);
+  }
+  .card-detail {
+    position: static;
+    top: auto;
+  } 
+  .card-info {
+    position: static;
+    top: auto;
+  }
+  
+  .card-music {
+    position: static;
+    top: auto;
+  }
+  .cardEvent h2 {
+    font-size: 40px;
+    margin-top: 15px;
+   }
+   .cardEvent p {
+     font-size: 20px;
+     margin-top: 10px;
+    }
+    .card-music-band {
+      position: static;
+      top: auto;
+    }
+    .card-members {
+      position: static;
+      top: auto;
+    }
+}
 
 @media screen and (max-width: 900px) {
   .wrapper-e .carousel-e {
     grid-auto-columns: calc((100%) - 9px);
+  }
+  .card-detail {
+    position: static;
+    top: auto;
+  } 
+  .card-info {
+    position: static;
+    top: auto;
+  }
+  
+  .card-music {
+    position: static;
+    top: auto;
+  }
+  .card-music-band {
+    position: static;
+    top: auto;
+  }
+  .card-members {
+    position: static;
+    top: auto;
   }
 }
 
@@ -410,6 +452,84 @@ display: flex;
   .wrapper-e .carousel-e {
     grid-auto-columns: calc((100%) - 10px);
   }
+  .buttonEdit  .btns{
+    font-size: 14px;
+  }
+  .card-detail {
+    position: static;
+    top: auto;
+  } 
+  .card-info {
+    position: static;
+    top: auto;
+  }
+  
+  .card-music {
+    position: static;
+    top: auto;
+  }
+  .card-music-band {
+    position: static;
+    top: auto;
+  }
+  .card-members {
+    position: static;
+    top: auto;
+  }
+  
+}
+@media screen and (max-width: 426px) {
+  .wrapper-e .carousel-e {
+    grid-auto-columns: calc((100%) - 10px);
+  }
+  .buttonEdit  .btns{
+    font-size: 10px;
+  }
+  .profileName {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .profileName h1 {
+    font-size: 40px;
+  }
+  .cardContent h5 {
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: center;
+  } 
+  .cardContent p {
+    font-size: 15px;
+  } 
+  .card-detail {
+    position: static;
+    top: auto;
+  } 
+  .card-info {
+    position: static;
+    top: auto;
+  }
+  .card-music-band {
+    position: static;
+    top: auto;
+  }
+  .card-members {
+    position: static;
+    top: auto;
+  }
+  
+  .card-music {
+    position: static;
+    top: auto;
+  }
+  .cardEvent h2 {
+   font-size: 25px;
+   margin-top: 10px;
+  }
+  .cardEvent p {
+    font-size: 14px;
+    margin-top: 10px;
+   }
+
 }
 
 .modal-bg{
