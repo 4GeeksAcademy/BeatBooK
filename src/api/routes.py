@@ -296,7 +296,7 @@ def protected():
         "id": user.created_band[0].id,  # Acceder al primer elemento de la lista
         "name": user.created_band[0].name,
         "profile_picture": user.created_band[0].profile_picture
-        # Agrega aquí cualquier otro atributo que desees serializar
+    
     }
     
  
@@ -313,7 +313,7 @@ def protected():
         "instagram": user.instagram,
         "tiktok": user.tiktok,
         "user_categories": user_categories_serialized, 
-        # "created_band": created_band_serialized
+        "created_band": created_band_serialized
        
     }), 200
 
