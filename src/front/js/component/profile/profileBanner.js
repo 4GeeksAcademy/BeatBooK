@@ -170,12 +170,10 @@ export const ProfileBanner = () => {
     const classes = useStyles();
 
     return (
-
         <div className="container text-center">
             <div className='Banner'>
                 <img src={store.currentUser?.banner_picture} className='img-fluid' ></img>
             </div>
-            <div className="container">
                 <div className="row  text-start data">
                     <div className="col-12 col-md-4 col-xl-2 d-flex justify-content-center">
                         <img className='ProfilePicture' src={store.currentUser?.profile_image_url} alt='perfil' />
@@ -292,8 +290,6 @@ export const ProfileBanner = () => {
                     </Modal>
 
                 </div>
-            </div>
         </div>
-
     );
 }

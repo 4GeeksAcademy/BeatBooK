@@ -29,7 +29,6 @@ export const CreateBand = () => {
     members: [],
     events: [],
     musical_categories: [],
-    creator_id: "",
   });
 
   useEffect(() => {

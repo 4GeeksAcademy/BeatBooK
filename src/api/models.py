@@ -19,15 +19,20 @@ class User(db.Model):
 
     created_events = db.relationship('Event', backref='creator', lazy=True)
     assistances = db.relationship('Assistance', backref='user', lazy=True)
-    # created_band_id = db.Column(db.Integer, db.ForeignKey('band.id'), unique=True) #añado para poder alamacenar quien crea la banda
-    # created_band = db.relationship('Band', backref='creator', uselist=False, foreign_keys='User.created_band_id') #Relacion uno a uno con la banda!
+    created_band = db.relationship('Band', backref='creator', lazy=True)
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
 
     def __repr__(self):
         return '<User %r>' % self.username
     
+   
+        
 
     def serialize(self):
+        created_band_serialized = None
+        if self.created_band:
+         created_band_serialized = self.created_band[0].serialize()
+         
         return {
             'id': self.id,
             'is_active': self.is_active,
@@ -44,7 +49,7 @@ class User(db.Model):
             'user_categories': [category.serialize() for category in self.user_categories],
             'created_events': [event.serialize() for event in self.created_events],
             'assistances': [assistance.serialize() for assistance in self.assistances],
-            # 'created_band': {'id': self.created_band.id, 'name': self.created_band.name, 'profile_picture': self.created_band.profile_picture} if self.created_band else None #añado para poder alamacenar quien crea la banda
+            'created_band': created_band_serialized
         }
 
 
@@ -141,7 +146,7 @@ class Band(db.Model):
     tiktok = db.Column(db.String(500), nullable=True)
     
     
-    # creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
     members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
@@ -166,7 +171,7 @@ class Band(db.Model):
             'members': members,
             'events': [event.serialize() for event in self.events],
             'musical_categories': [musicalcategory.serialize() for musicalcategory in self.musical_categories],
-            # 'creator_id': self.creator_id
+            'creator_id': self.creator_id
             
         }
 

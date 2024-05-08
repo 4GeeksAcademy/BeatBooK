@@ -289,14 +289,15 @@ def protected():
             
         })
 
-    #   # Serializar la banda creada por el usuario si existe
-    # created_band_serialized = None
-    # if user.created_band:
-    #     created_band_serialized = {
-    #         "id": user.created_band.id,
-    #         "name": user.created_band.name,
-    #         "profile_picture": user.created_band.profile_picture
-    #     }
+    # Serializar la banda creada por el usuario si existe
+    created_band_serialized = None
+    if user.created_band:
+        created_band_serialized = {
+        "id": user.created_band[0].id,  # Acceder al primer elemento de la lista
+        "name": user.created_band[0].name,
+        "profile_picture": user.created_band[0].profile_picture
+        # Agrega aquí cualquier otro atributo que desees serializar
+    }
     
  
     return jsonify({
@@ -312,7 +313,7 @@ def protected():
         "instagram": user.instagram,
         "tiktok": user.tiktok,
         "user_categories": user_categories_serialized, 
-        # "created_band": created_band_serialized
+        "created_band": created_band_serialized
        
     }), 200
 
@@ -488,12 +489,12 @@ def create_band():
         banner_picture=data.get('banner_picture'),
         instagram=data.get('instagram'),
         tiktok=data.get('tiktok'),
-        # creator_id=data.get('creator_id'),
+        creator_id=data.get('creator_id'),
     )
     # Verificar si el usuario ya tiene una banda
-    # existing_band = Band.query.filter_by(creator_id=band.creator_id).first()
-    # if existing_band:
-    #     return jsonify({'error': 'El usuario ya tiene una banda asociada.'}), 400
+    existing_band = Band.query.filter_by(creator_id=band.creator_id).first()
+    if existing_band:
+        return jsonify({'error': 'El usuario ya tiene una banda asociada.'}), 400
 
     # Lista para almacenar los IDs de los miembros que ya están en otras bandas
     members_in_other_bands = []
