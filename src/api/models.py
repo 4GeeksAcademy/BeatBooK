@@ -21,6 +21,7 @@ class User(db.Model):
     assistances = db.relationship('Assistance', backref='user', lazy=True)
     created_band = db.relationship('Band', backref='creator', lazy=True)
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
+    
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -46,7 +47,8 @@ class User(db.Model):
             'user_categories': [category.serialize() for category in self.user_categories],
             'created_events': [event.serialize() for event in self.created_events],
             'assistances': [assistance.serialize() for assistance in self.assistances],
-            'created_band': created_band_serialized
+            'created_band': created_band_serialized,
+            
         }
 
 
@@ -168,7 +170,7 @@ class Band(db.Model):
             'members': members,
             'events': [event.serialize() for event in self.events],
             'musical_categories': [musicalcategory.serialize() for musicalcategory in self.musical_categories],
-            # 'creator_id': self.creator_id
+            'creator_id': self.creator_id
             
         }
 

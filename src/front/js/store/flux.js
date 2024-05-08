@@ -479,6 +479,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
 
           setStore({ bands: data });
+          
           return data;
         } catch (error) {
           console.log("Error loading bands from backend", error);

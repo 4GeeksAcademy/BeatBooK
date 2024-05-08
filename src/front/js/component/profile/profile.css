@@ -219,7 +219,7 @@ width: 49%;
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: calc(8% + 20px + 19%);
+  top: calc(8% + 20px + 15%);
   gap: 3px;
   z-index: 1000;
   color: white; 
@@ -258,7 +258,7 @@ width: 49%;
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   position: sticky;
-  top: calc(8% + 20px + 19% + 11px + 10%);
+  top: calc(8% + 20px + 15% + 10px + 7%);
   gap: 10px;
   z-index: 1000;
   color: white;
@@ -410,6 +410,14 @@ display: flex;
      font-size: 20px;
      margin-top: 10px;
     }
+    .card-music-band {
+      position: static;
+      top: auto;
+    }
+    .card-members {
+      position: static;
+      top: auto;
+    }
 }
 
 @media screen and (max-width: 900px) {
@@ -426,6 +434,14 @@ display: flex;
   }
   
   .card-music {
+    position: static;
+    top: auto;
+  }
+  .card-music-band {
+    position: static;
+    top: auto;
+  }
+  .card-members {
     position: static;
     top: auto;
   }
@@ -449,6 +465,14 @@ display: flex;
   }
   
   .card-music {
+    position: static;
+    top: auto;
+  }
+  .card-music-band {
+    position: static;
+    top: auto;
+  }
+  .card-members {
     position: static;
     top: auto;
   }
@@ -484,7 +508,11 @@ display: flex;
     position: static;
     top: auto;
   }
-  .card-members, .card-music-band {
+  .card-music-band {
+    position: static;
+    top: auto;
+  }
+  .card-members {
     position: static;
     top: auto;
   }

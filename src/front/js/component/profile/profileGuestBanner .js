@@ -33,13 +33,13 @@ export const ProfileGuestBanner = () => {
         <div className="container text-center">
               <div className="row  text-start">
                 <div className='col-12 Banner'>
-                    <img src={store.currentUser?.banner_picture} className='img-fluid' ></img>
+                    <img src={store.singleUser.banner_picture} className='img-fluid' ></img>
                 </div>
                 </div>
                 <div className="row mt-3 p-1" >
                 <div className=" profileName col-12 col-md-12 col-xl-12 d-flex justify-content-start align-items-center grid gap-3 mb-4">
-                    <img className='ProfilePicture p-3' src={store.currentUser?.profile_image_url} alt='perfil' />
-                    <h1>{store.currentUser?.username}</h1>
+                    <img className='ProfilePicture p-3' src={store.singleUser.profile_image_url} alt='perfil' />
+                    <h1>{store.singleUser.username}</h1>
                 </div>
                 </div>
             </div>
