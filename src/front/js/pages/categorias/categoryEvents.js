@@ -12,14 +12,9 @@ export const CategoryEvents = () => {
 
     useEffect(() => {
 
-        actions.getPlaceEvents(category_id)
-            .then((data) => {
-                if (Array.isArray(data)) {
-                    setEvents(data);
-                } else {
-                    console.error('Data is not an array:', data);
-                    setEvents([]);
-                }
+        actions.getEventsByCategory(category_id)
+            .then((events) => {
+                setEvents(events);
             })
             .catch((error) => {
                 console.error('Error fetching events:', error);

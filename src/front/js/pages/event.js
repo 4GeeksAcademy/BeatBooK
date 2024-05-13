@@ -244,24 +244,30 @@ export const Event = (props) => {
         >
           {" "}
 
-          <div className="d-flex justify-content-center align-items-center">
+          <div className="d-flex container justify-content-center align-items-center">
             {" "}
             <div className="event-details">
               {" "}
-              <h5 className="p-2"> Fecha: {formatEventDate(eventData.date)}</h5>{" "}
-
-              <h5 className="p-2">
-                Precio: {" "}
+              <h4>Fecha</h4>
+              <p className="p-2"> {formatEventDate(eventData.date)}</p>{" "}
+              <h4>Precio</h4>
+              <p className="p-2">
+                 {" "}
                 {eventData.price === "0" ? "Gratis" : eventData.price}{" "} €
-              </h5>{" "}
+              </p>{" "}
               <div className="event-map">
-                <h4 className="pb-1">Dirección: {eventData.address}</h4>
+              <h4>Dirección</h4>
+                <p className="p-2"> {eventData.address}</p>{" "}
                 {coordinates && <MapComponent coordinates={coordinates} />}
               </div>
             </div>{" "}
           </div>{" "}
           <div className="d-flex-column justify-content-center align-items-center text-center mt-5  pt-5">
-            {" "}<h5>Asistentes <span>{eventData.assistances.length}</span></h5>{" "}
+            <br></br>
+            <br></br>
+            <br></br>
+            <h4>Asistentes</h4>
+            {" "}<p>{eventData.assistances.length}</p>{" "}
             <div className="d-flex justify-content-center align-items-center text-center pt-3">
               {isLoggedIn() && eventData && <EventAssistance eventId={eventData.id} assistances={eventData.assistances} onAssistanceChange={handleAssistanceChange} />}
             </div>

@@ -181,7 +181,7 @@ export const BandBanner = (props) => {
                         </div>
                         </div>
                         <div className="card-music-band">
-                            <h5>Categoria musical</h5>
+                            <h5>Categoría musical</h5>
                                 {store.band.musical_categories && store.band.musical_categories.map(category => (
                             <button className="btns-music">
                                 <i className="fas fa-music mx-1" style={{ color: '#FFFFFF' }}></i>
@@ -192,7 +192,7 @@ export const BandBanner = (props) => {
                     </div>
                     <div className="col-12 col-md-12 col-xl-6">
                         <div className="cardEvent">
-                            <h5>Proximos Eventos</h5>
+                            <h5>Próximos Eventos</h5>
                         </div>
                             {store.band.events && store.band.events.map((event, index) => (
                         <div className="cardEvent">

@@ -110,33 +110,5 @@
         "instagram": "https://www.instagram.com/AnaPianist",
         "tiktok": "https://www.tiktok.com/AnaPianist",
         "is_active": true
-    },
-    {
-        "email": "juan@4geeks.com",
-        "username": "JuanMusicProducer",
-        "password": "juan789",
-        "birthdate": "Mon, 15 Feb 1988 00:00:00 GMT",
-        "description": "Productor musical creativo, fusionando diferentes estilos y sonidos",
-        "gender": "Hombre",
-        "city": "Barcelona",
-        "profile_image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713797237/w83vdgmvubyybn8fwckn.jpg",
-        "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715425308/qsihfz4qqe2sz6masnrd.jpg",
-        "instagram": "https://www.instagram.com/JuanMusicProducer",
-        "tiktok": "https://www.tiktok.com/JuanMusicProducer",
-        "is_active": true
-    },
-    {
-        "email": "maria@4geeks.com",
-        "username": "MariaRocker",
-        "password": "maria789",
-        "birthdate": "Thu, 30 Apr 1992 00:00:00 GMT",
-        "description": "Amante del rock, asistiendo a conciertos y festivales en toda España",
-        "gender": "Mujer",
-        "city": "Granada",
-        "profile_image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713797165/thblepnxw5abawg32enp.jpg",
-        "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715425519/dwxkgfm25elyiikfy2jz.jpg",
-        "instagram": "https://www.instagram.com/MariaRocker",
-        "tiktok": "https://www.tiktok.com/MariaRocker",
-        "is_active": true
     }
 ]

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
+
+
 export const Lugar = () => {
     const [place, setPlace] = useState(null);
     const [events, setEvents] = useState([]);
@@ -68,7 +70,7 @@ export const Lugar = () => {
                                     <p>{place.address}</p>
                                 </div>
                                 <div className="cardContent">
-                                    <h5>Telefono</h5>
+                                    <h5>Teléfono</h5>
                                     <p>{place.phone}</p>
                                     <h5>Redes sociales</h5>
                                     <div className='socialNetwork'>
@@ -79,7 +81,7 @@ export const Lugar = () => {
                             </div>
                             <div class="col">
                                 <div className="cardContent">
-                                    <h5>Proximos Eventos</h5>
+                                    <h5>Próximos Eventos</h5>
                                 </div>
                                 {/*Card eventos*/}
                                 <div className="cardContent card mb-3">

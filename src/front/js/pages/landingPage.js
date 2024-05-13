@@ -23,7 +23,7 @@ export const LandingPage = () => {
                     </Link>
                 </div>
                 <div className=" col-12 justify-content-center my-5">
-                    <h1 className="title-l">Beatbook te permite crear una comunidad facilmente</h1>
+                    <h1 className="title-l">Beatbook te permite crear una comunidad fácilmente</h1>
                 </div>
                 <div className="col-12 col-md-4 col-xl-4 d-flex justify-content-center align-items-center mb-2">
                     <div className="card-l">
@@ -38,7 +38,7 @@ export const LandingPage = () => {
                     <div className="card-l">
                         <img src="https://images.pexels.com/photos/2883051/pexels-photo-2883051.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="card-img-l" alt="Eventos" />
                         <div className="card-body">
-                            <h5 className="card-title">Una aplicacion para organizar</h5>
+                            <h5 className="card-title">Una aplicación para organizar</h5>
                             <p className="card-text"> Gestiona la asistencia y actualiza tus eventos.</p>
                         </div>
                     </div>

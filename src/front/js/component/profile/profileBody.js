@@ -124,7 +124,7 @@ export const ProfileBody = (props) => {
             <div className="row">
                 <div className="col-12 col-md-12 col-xl-6">
                     <div className="card-detail">
-                        <h5>Descripcion</h5>
+                        <h5>Descripción</h5>
                         <p>{store.currentUser?.description}</p>
                         <div>
                             <a href={store.currentUser?.instagram} className="card-link" target="_blank"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
@@ -132,7 +132,7 @@ export const ProfileBody = (props) => {
                         </div>
                     </div>
                     <div className="card-info">
-                        <h5>Informacion</h5>
+                        <h5>Información</h5>
                         <p>Ciudad: {store.currentUser?.city}</p>
                         <p>Genero: {store.currentUser?.gender}</p>
                         <p>Cumpleaños: {formatBirthdate(birthdate)}</p>
@@ -144,7 +144,7 @@ export const ProfileBody = (props) => {
                     )}
                     </div>
                     <div className="card-music">
-                        <h5>Interes musical</h5>
+                        <h5>Interés musical</h5>
                         <div className="container d-flex justify-content-center mb-3">
                             <div className="d-flex align-items-center">
                                 <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
@@ -169,7 +169,7 @@ export const ProfileBody = (props) => {
                 </div>
                 <div className="col-12 col-md-12 col-xl-6">
                     <div className="cardEvent">
-                        <h5>Proximos Eventos</h5>
+                        <h5>Próximos Eventos</h5>
                     </div>
                     {store.allEvents
                         .filter(event => event.assistances.some(assistance => store.currentUser && assistance.user_id === store.currentUser.id))
