@@ -75,8 +75,8 @@ export const Lugar = () => {
                                     <p>{place.phone}</p>
                                     <h5>Redes sociales</h5>
                                     <div className='socialNetwork'>
-                                        <a href={place.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
-                                        <a href={place.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
+                                        <a href={place.instagram} className="card-link"> <i className="fa-brands icono fa-instagram fa-2xl"></i></a>
+                                        <a href={place.tiktok} className="card-link"><i className="fa-brands icono fa-tiktok fa-2xl"></i></a>
                                     </div>
                                 </div>
                             </div>
