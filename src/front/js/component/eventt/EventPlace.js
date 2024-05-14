@@ -50,11 +50,11 @@ export const EventPlace = ({ eventData }) => {
                     {place && (
                         <>
                             <img src={place.profile_picture} alt="Imagen del lugar" className="img-fluid" />
-                            <p>Descripción: {place.description}</p>
-                            <p>Dirección: {place.address}</p>
-                            <p>Telefono: {place.phone}</p>
-                            <p>Instagram: {place.instagram}</p>
-                            <p>Tiktok: {place.tiktok}</p>
+                            <p className="blacktext">Descripción: {place.description}</p>
+                            <p className="blacktext">Dirección: {place.address}</p>
+                            <p className="blacktext">Telefono: {place.phone}</p>
+                            <p className="blacktext">Instagram: {place.instagram}</p>
+                            <p className="blacktext">Tiktok: {place.tiktok}</p>
                         </>
                     )}
                 </Modal.Body>
