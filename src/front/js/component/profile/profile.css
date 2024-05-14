@@ -178,10 +178,10 @@ width: 49%;
   background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 7%; /* Establece la posición de arriba donde se quedará pegado el div */
-  gap: 8px;
-  z-index: 1000;
+  /* position: sticky;
+  top: 11%; /* Establece la posición de arriba donde se quedará pegado el div */
+  /* gap: 8px; */
+  /* z-index: 1000; */
   color: white; 
 } 
 
@@ -199,10 +199,10 @@ width: 49%;
   background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: calc(8% + 20px + 8%);
+  /* position: sticky;
+  top: calc(11% + 30px + 14%);
   gap: 3px;
-  z-index: 1000;
+  /* z-index: 1000; */
   color: white; 
 }
 .card-members {
@@ -218,10 +218,10 @@ width: 49%;
   background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  /* position: sticky;
   top: calc(8% + 20px + 15%);
   gap: 3px;
-  z-index: 1000;
+  z-index: 1000; */
   color: white; 
 }
 
@@ -238,10 +238,10 @@ width: 49%;
   background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: calc(8% + 20px + 8% + 8px + 20%);
+  /* position: sticky;
+  top: calc(11% + 30px + 14% + 8px + 20%);
   gap: 10px;
-  z-index: 1000;
+  z-index: 1000; */
   color: white; 
 }
 .card-music-band {
@@ -257,10 +257,10 @@ width: 49%;
   background-color: rgba(120, 115, 115, 0.304);
   border: 1px solid rgba(61, 59, 59, 0.089);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  /* position: sticky;
   top: calc(8% + 20px + 15% + 10px + 7%);
   gap: 10px;
-  z-index: 1000;
+  z-index: 1000; */
   color: white;
 }
  

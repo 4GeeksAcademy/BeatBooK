@@ -11,7 +11,6 @@ export const CategoriesGet = ({ onChange }) => {
     actions.getMusicalCategories().then((data) => {
       if (Array.isArray(data)) {
         setAllCategories(data);
-        console.log(data);
       } else {
         console.error("getMusicalCategories did not return an array:", data);
       }

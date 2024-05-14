@@ -56,7 +56,6 @@ export const ProfileBody = (props) => {
     useEffect(() => {
 
         actions.getAllEvents();
-        console.log(store.currentUser);
     }, [store.currentUser]);
 
 
