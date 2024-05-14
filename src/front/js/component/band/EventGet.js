@@ -11,7 +11,6 @@ export const EventGet = ({ onChange }) => {
     actions.getAllEvents().then((data) => {
       if (Array.isArray(data)) {
         setAllEvents(data);
-        console.log(data);
       } else {
         console.error("getAllEvents did not return an array:", data);
       }

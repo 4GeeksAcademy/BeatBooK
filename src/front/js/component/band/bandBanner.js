@@ -40,7 +40,7 @@ export const BandBanner = (props) => {
     useEffect(() => {
         actions.getBand(id).then((data) => {
             setbandData(data);
-            console.log("bandData", data);
+           
         });
     }, [id]);
 
@@ -93,7 +93,7 @@ export const BandBanner = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+       
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}`, {
                 method: 'PUT',
