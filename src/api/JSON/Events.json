@@ -5,7 +5,7 @@
         "description": "Mini Festival al aire libre",
         "address": "Av. Dr. Severo Ochoa, 6, 03503 Benidorm, Alicante",
         "price": 65,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626064/r9eqpzzdtvozp9tpbgtg.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/ConciertosATutiplen",
         "tiktok": "https://www.tiktok.com/@ConciertosATutiplen"
@@ -16,7 +16,7 @@
         "description": "Noche de música en vivo bajo las estrellas.",
         "address": "C. de Recoletos, 18, Salamanca, 28001 Madrid",
         "price": 50,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626058/cphp0tl024ir2diikdg1.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/ConciertoEnElParque",
         "tiktok": "https://www.tiktok.com/ConciertoEnElParque"
@@ -27,7 +27,7 @@
         "description": "Disfruta de una tarde de jazz en la plaza principal.",
         "address": "Carrer d'En Botella, 7, Ciutat Vella, 08001 Barcelona",
         "price": 40,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626077/aht2lpdp0thpksuvfpmk.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/JazzEnLaPlaza",
         "tiktok": "https://www.tiktok.com/JazzEnLaPlaza"
@@ -38,7 +38,7 @@
         "description": "¡El festival de rock más grande del año!",
         "address": "Cta. de Sta. Inés, 4, Albaicín, 18010 Granada",
         "price": 80,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626090/iybqdtkukggldllpzcxe.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/FestivalDeRockDelVerano",
         "tiktok": "https://www.tiktok.com/FestivalDeRockDelVerano"
@@ -49,7 +49,7 @@
         "description": "Una noche llena de ritmos electrónicos en el histórico teatro de la ciudad.",
         "address": "Carrer de Calçat, 5, Ponent, 07011 Palma, Illes Balears",
         "price": 55,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626097/utfoelvmxrsujz4ki0p1.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/NocheDeElectronicaEnElTeatro",
         "tiktok": "https://www.tiktok.com/NocheDeElectronicaEnElTeatro"
@@ -60,7 +60,7 @@
         "description": "Descubre las últimas bandas de música indie en este festival único.",
         "address": "C. Marqués de Zenete, 5, Extramurs, 46007 Valencia",
         "price": 40,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626070/mhainvnxzjkgodunowne.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/FestivalDeMusicaIndie",
         "tiktok": "https://www.tiktok.com/FestivalDeMusicaIndie"
@@ -71,7 +71,7 @@
         "description": "Disfruta de una noche íntima con música acústica en vivo y café.",
         "address": "C. de la Pl., 5, 28944 Fuenlabrada, Madrid",
         "price": 20,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626026/tn6ckrfzjmblkkzrxdb7.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/ConciertoAcusticoEnElCafe",
         "tiktok": "https://www.tiktok.com/ConciertoAcusticoEnElCafe"
@@ -82,7 +82,7 @@
         "description": "¡Baila al ritmo de la música latina en la arena y bajo las estrellas!",
         "address": "Calle de Covarrubias, 24, Chamberí, 28010 Madrid",
         "price": 25,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626103/mbdgkxtjpegi1bztmg1w.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/FiestaLatinaEnLaPlaya",
         "tiktok": "https://www.tiktok.com/FiestaLatinaEnLaPlaya"
@@ -93,7 +93,7 @@
         "description": "Revive los éxitos del rock clásico en esta noche llena de energía.",
         "address": "C. Patalón, 13, 10600 Plasencia, Cáceres",
         "price": 30,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626083/ppkbyczgtljf62z5gg0q.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/NocheDeRockClasico",
         "tiktok": "https://www.tiktok.com/NocheDeRockClasico"
@@ -104,7 +104,7 @@
         "description": "¡Disfruta de una noche llena de música clásica interpretada por la prestigiosa Orquesta Sinfónica! Un evento que te transportará a través de las emociones y los sonidos de los grandes maestros de la música. No te pierdas esta oportunidad única de experimentar la magia de la música en vivo.",
         "address": "Av. Libertad, 22, 28004 Madrid",
         "price": 50,
-        "picture_url": "",
+        "picture_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626051/aawwi4llmisb56urgjbe.jpg",
         "media": "",
         "instagram": "https://www.instagram.com/ConciertoDeOrquestaSinfonica",
         "tiktok": "https://www.tiktok.com/ConciertoDeOrquestaSinfonica"

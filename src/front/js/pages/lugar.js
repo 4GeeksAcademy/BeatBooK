@@ -52,6 +52,7 @@ export const Lugar = () => {
                     <div class="container text-start placeData">
                         <div class="row align-items-center">
                             <div class="col">
+                                <br></br>
                                 <img className='ProfilePicture' src={place.profile_picture} alt='perfil' />
                             </div>
                             <div class="col-8">
@@ -66,7 +67,7 @@ export const Lugar = () => {
                         <div class="row">
                             <div class="col">
                                 <div className="cardContent">
-                                    <h5>Mapa</h5>
+                                    <h5>Dirección</h5>
                                     <p>{place.address}</p>
                                 </div>
                                 <div className="cardContent">
