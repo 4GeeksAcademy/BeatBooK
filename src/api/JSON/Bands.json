@@ -1,90 +1,82 @@
 [
   {
-    "name": "The Time Travelers Trio",
-    "description": "Trío musical que se especializa en viajar en el tiempo a través de su música, interpretando versiones modernas de canciones clásicas y viceversa.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715526894/plwtaxsrlegr8dzjjpyc.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715429216/jul36aogbxn1iaiqtax2.jpg",
-    "instagram": "https://www.instagram.com/TheTimeTravelersTrio",
-    "tiktok": "https://www.tiktok.comTheTimeTravelersTrio"
-  },
-  {
-    "name": "Galactic Groovers",
-    "description": "Banda intergaláctica que mezcla sonidos de diferentes planetas para crear música única que trasciende las fronteras del universo.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713798401/ijnranipdrkjtm2kktna.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715429288/chetlddfq3szgkqeevmw.jpg",
-    "instagram": "https://www.instagram.com/GalacticGroovers",
-    "tiktok": "https://www.tiktok.com/GalacticGroovers"
-  },
+    "name": "Smooth Jazz Collective",
+    "description": "Una banda de jazz contemporáneo que te transporta a un viaje musical suave y relajante con sus melodías elegantes y sus arreglos sofisticados.",
+    "profile_picture": "",
+    "banner_picture": "",
+    "instagram": "https://www.instagram.com/smoothjazzcollective",
+    "tiktok": "https://www.tiktok.com/smoothjazzcollective"
+},
   {
     "name": "Neon Nights Ensemble",
     "description": "Grupo de música electrónica que fusiona elementos retro con sonidos futuristas para crear paisajes sonoros hipnóticos.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715527062/wnnmxndnl3ol5ilpu0kt.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715527097/ifrliln1ijudeagkqlrd.jpg",
+    "profile_picture": "",
+    "banner_picture": "",
     "instagram": "https://www.instagram.com/NeonNightsEnsemble",
     "tiktok": "https://www.tiktok.com/NeonNightsEnsemble"
   },
   {
     "name": "Rhythm Revolutionaries",
     "description": "Grupo de hip hop comprometido con la justicia social, utilizando sus rimas para concienciar sobre temas políticos y sociales.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715529265/flqnr7uhh4c1tif1gg9x.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713779061/ner0lxyezkoucce54l31.jpg",
+    "profile_picture": "",
+    "banner_picture": "",
     "instagram": "https://www.instagram.com/rhythmrevolutionaries",
     "tiktok": "https://www.tiktok.com/rhythmrevolution"
   },
   {
-    "name": "Vivid Vibes Collective",
-    "description": "Colectivo de artistas que exploran la conexión entre el arte visual y la música, creando experiencias sensoriales inmersivas.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715528259/pxonmcgohq1p1tlgvbxr.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713796573/huaqc6u9r5ojtgcvmjrd.jpg",
-    "instagram": "https://www.instagram.com/VividVibesCollective",
-    "tiktok": "https://www.tiktok.com/VividVibesCollective"
-  },
-  {
     "name": "The Rockin' Rollers",
     "description": "Banda de rock clásico con un toque moderno, conocida por sus potentes riffs de guitarra y letras pegajosas.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713803576/tzmdlvzsetq4zrxewwe3.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713803898/quygme8wfl1jpf40lilo.jpg",
+    "profile_picture": "",
+    "banner_picture": "",
     "instagram": "https://www.instagram.com/therockinrollers",
     "tiktok": "https://www.tiktok.com/therockinrollers"
   },
   {
     "name": "Pop Sensations",
     "description": "Grupo de pop electrónico que combina melodías pegajosas con elementos visuales futuristas en sus espectáculos en vivo.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715530154/vxughfbdp1nrtcfjyu38.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715530142/fffhpyyfqvmpkuzhtmu1.jpg",
+    "profile_picture": "",
+    "banner_picture": "",
     "instagram": "https://www.instagram.com/popsensations",
     "tiktok": "https://www.tiktok.com/popsensations"
   },
   {
-    "name": "Urban Groove Squad",
-    "description": "Colectivo de hip hop que representa la cultura urbana a través de letras ingeniosas y ritmos contagiosos.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715530347/rkqdo9szqql2mhyujbbt.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715530430/on98idks20icoktyagfi.jpg",
-    "instagram": "https://www.instagram.com/urbangroovesquad",
-    "tiktok": "https://www.tiktok.com/urbangroovesquad"
-  },
-  {
-    "name": "Jazz Fusion Masters",
-    "description": "Ensamble de jazz que fusiona elementos de diversos estilos musicales para crear un sonido único y experimental.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715530250/p9iqnzh5xokr2co5woir.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715536728/nqkhlvyv0sxrc95crz4m.jpg",
-    "instagram": "https://www.instagram.com/jazzfusionmasters",
-    "tiktok": "https://www.tiktok.com/jazzfusionmasters"
-  },
-  {
     "name": "Reggae Rhythms Collective",
     "description": "Colectivo de músicos comprometidos con difundir el mensaje positivo del reggae a través de su música y sus letras conscientes.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715537180/kq4jirduk0fxf02evgnj.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715537845/pstyejba6baxainip6kl.jpg",
+    "profile_picture": "",
+    "banner_picture": "",
     "instagram": "https://www.instagram.com/reggaerhythmscollective",
     "tiktok": "https://www.tiktok.com/reggaerhythmscollective"
   },
   {
     "name": "Salsa Kings Orchestra",
     "description": "Orquesta de salsa que hace honor a los ritmos latinos, con arreglos sofisticados y un ambiente festivo que hace bailar a todos.",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715528346/kueyats0k7dhsh84stxz.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715537951/b8t8ica8rkxia9shc0uz.jpg",
+    "profile_picture": "",
+    "banner_picture": "",
     "instagram": "https://www.instagram.com/salsakingsorchestra",
     "tiktok": "https://www.tiktok.com/salsakingsorchestra"
-  }
+  },
+  {
+    "name": "R&B Soul Masters",
+    "description": "Banda de R&B que fusiona la sensualidad del soul con los ritmos pegajosos del rhythm and blues, creando una experiencia auditiva inolvidable.",
+    "profile_picture": "",
+    "banner_picture": "",
+    "instagram": "https://www.instagram.com/rnbsoulmasters",
+    "tiktok": "https://www.tiktok.com/rnbsoulmasters"
+},
+{
+  "name": "Thunder Road Rebels",
+  "description": "Una banda de rock que domina el escenario con sus potentes guitarras, ritmos intensos y letras rebeldes que capturan el espíritu del rock 'n' roll.",
+  "profile_picture": "",
+  "banner_picture": "",
+  "instagram": "https://www.instagram.com/thunderroadrebels",
+  "tiktok": "https://www.tiktok.com/thunderroadrebels"
+},
+{
+  "name": "Starlight Echoes",
+  "description": "Una banda de indie que enciende el escenario con su energía contagiosa, melodías pegajosas y letras que hablan de amor, sueños y la vida cotidiana.",
+  "profile_picture": "",
+  "banner_picture": "",
+  "instagram": "https://www.instagram.com/starlightechoes",
+  "tiktok": "https://www.tiktok.com/starlightechoes"
+}
 ]

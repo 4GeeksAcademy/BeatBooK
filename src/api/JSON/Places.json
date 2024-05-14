@@ -1,102 +1,92 @@
 [
-  {
-      "name": "Rock & Roll Palace",
-      "description": "Un bar emblemático donde la música en vivo es la protagonista.",
-      "address": "Av. Dr. Severo Ochoa, 6, 03503 Benidorm, Alicante",
-      "phone": "5551234569",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715508839/qvlyxnmccrsbdffu1lpt.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715508746/gi3uxjs9xykwmifukng8.jpg",
-      "instagram": "https://www.instagram.com/rocknrollpalace",
-      "tiktok": "https://www.tiktok.com/rocknrollpalace"
-  },
-  {
-      "name": "Jazz Enclave",
-      "description": "Una sala íntima donde el jazz resuena en cada rincón.",
-      "address": "C. de Recoletos, 18, Salamanca, 28001 Madrid",
-      "phone": "5559876543",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715508970/jqucmwe3n913hy0df6cb.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715508973/ssdz5aav4ip13haiz68h.jpg",
-      "instagram": "https://www.instagram.com/jazzenclave",
-      "tiktok": "https://www.tiktok.com/jazzenclave"
-  },
-  {
-      "name": "Blues Alley",
-      "description": "Un rincón acogedor donde el blues fluye como el whisky.",
-      "address": "Carrer d'En Botella, 7, Ciutat Vella, 08001 Barcelona",
-      "phone": "5554567890",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715509721/lairgem2gnvnrhrmlfda.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715509874/rrqhamoiyu6ondgu3i2q.jpg",
-      "instagram": "https://www.instagram.com/bluesalley",
-      "tiktok": "https://www.tiktok.com/bluesalley"
-  },
-  {
-      "name": "ElectroBeat",
-      "description": "Una sala vibrante donde la música electrónica te lleva a otra dimensión.",
-      "address": "Cta. de Sta. Inés, 4, Albaicín, 18010 Granada",
-      "phone": "5557890123",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715510066/rlz3xqyaesss9d6iyg8r.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713803890/nseq8kkxc4qfddw1w66l.jpg",
-      "instagram": "https://www.instagram.com/electrobeat",
-      "tiktok": "https://www.tiktok.com/electrobeat"
-  },
-  {
-      "name": "Indie Oasis",
-      "description": "Un oasis para los amantes de la música indie y alternativa.",
-      "address": "Carrer de Calçat, 5, Ponent, 07011 Palma, Illes Balears",
-      "phone": "5552345670",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715509720/tix9r2ngmwdw2cvtngfd.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715510333/e1ym01fhwkxt1mt9jfje.jpg",
-      "instagram": "https://www.instagram.com/indieoasis",
-      "tiktok": "https://www.tiktok.com/indieoasis"
-  },
-  {
-      "name": "Funky Groove Lounge",
-      "description": "Un lugar donde la música funky y el buen ambiente se encuentran.",
-      "address": "C. Marqués de Zenete, 5, Extramurs, 46007 Valencia",
-      "phone": "5553456789",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715509721/eca44tjs9ossgijqzf3c.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715509722/afxfbsqsocz4fq7ebgkq.jpg",
-      "instagram": "https://www.instagram.com/funkygroovelounge",
-      "tiktok": "https://www.tiktok.com/funkygroovelounge"
-  },
-  {
-      "name": "Soulful",
-      "description": "Una sala dedicada a la música soul y sus derivados.",
-      "address": "C. de la Pl., 5, 28944 Fuenlabrada, Madrid",
-      "phone": "5556789012",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715511860/uszcyf6dms3zxn6e9lqw.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715511860/q3lsq6c3h47l1fufchck.jpg",
-      "instagram": "https://www.instagram.com/soulfulmusic",
-      "tiktok": "https://www.tiktok.com/soulfulmusic"
-  },
-  {
-      "name": "Country Junction",
-      "description": "Un rincón del país donde la música country es ley.",
-      "address": "Calle de Covarrubias, 24, Chamberí, 28010 Madrid",
-      "phone": "5559012345",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715512475/onqkqkccvgyscbg5xsd9.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715512536/gshbhkh5l5rm8dkcz4k2.jpg",
-      "instagram": "https://www.instagram.com/countryjunction",
-      "tiktok": "https://www.tiktok.com/countryjunction"
-  },
-  {
-      "name": "Alternative Underground",
-      "description": "Una sala que abraza la diversidad de la música alternativa.",
-      "address": "C. Patalón, 13, 10600 Plasencia, Cáceres",
-      "phone": "678950334",
-      "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715513256/wmc7cknnpehgmceyqia1.jpg",
-      "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1713796575/umoibrvjssikgpnn2svf.jpg",
-      "instagram": "https://www.instagram.com/alternativeunderground",
-      "tiktok": "https://www.tiktok.com/alternativeunderground"
-  },
-  {
-    "name": "Subterráneo Alternativo",
-    "description": "Un espacio dedicado a la música alternativa en todas sus formas.",
-    "address": "Av. Libertad, 22, 28004 Madrid",
-    "phone": "691 234 567",
-    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715513664/qeub1e8gbtqgie2nlcaz.jpg",
-    "banner_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715513600/o8m1xx0itv95bvnvt3of.jpg",
-    "instagram": "https://www.instagram.com/subterraneoalternativo",
-    "twitter": "https://www.twitter.com/subalternativo"
-  }  
+        {
+                "name": "Rock & Roll Palace",
+                "description": "Un bar emblemático donde la música en vivo es la protagonista.",
+                "address": "Av. Dr. Severo Ochoa, 6, 03503 Benidorm, Alicante",
+                "phone": "5551234569",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/rocknrollpalace",
+                "tiktok": "https://www.tiktok.com/rocknrollpalace"
+        },
+        {
+                "name": "Jazz Enclave",
+                "description": "Una sala íntima donde el jazz resuena en cada rincón.",
+                "address": "C. de Recoletos, 18, Salamanca, 28001 Madrid",
+                "phone": "5559876543",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/jazzenclave",
+                "tiktok": "https://www.tiktok.com/jazzenclave"
+        },
+        {
+                "name": "Blues Alley",
+                "description": "Un rincón acogedor donde el blues fluye como el whisky.",
+                "address": "Carrer d'En Botella, 7, Ciutat Vella, 08001 Barcelona",
+                "phone": "5554567890",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/bluesalley",
+                "tiktok": "https://www.tiktok.com/bluesalley"
+        },
+        {
+                "name": "ElectroBeat",
+                "description": "Una sala vibrante donde la música electrónica te lleva a otra dimensión.",
+                "address": "Cta. de Sta. Inés, 4, Albaicín, 18010 Granada",
+                "phone": "5557890123",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/electrobeat",
+                "tiktok": "https://www.tiktok.com/electrobeat"
+        },
+        {
+                "name": "Indie Oasis",
+                "description": "Un oasis para los amantes de la música indie y alternativa.",
+                "address": "Carrer de Calçat, 5, Ponent, 07011 Palma, Illes Balears",
+                "phone": "5552345670",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/indieoasis",
+                "tiktok": "https://www.tiktok.com/indieoasis"
+        },
+        {
+                "name": "Funky Groove Lounge",
+                "description": "Un lugar donde la música funky y el buen ambiente se encuentran.",
+                "address": "C. Marqués de Zenete, 5, Extramurs, 46007 Valencia",
+                "phone": "5553456789",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/funkygroovelounge",
+                "tiktok": "https://www.tiktok.com/funkygroovelounge"
+        },
+        {
+                "name": "Soulful",
+                "description": "Una sala dedicada a la música soul y sus derivados.",
+                "address": "C. de la Pl., 5, 28944 Fuenlabrada, Madrid",
+                "phone": "5556789012",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/soulfulmusic",
+                "tiktok": "https://www.tiktok.com/soulfulmusic"
+        },
+        {
+                "name": "Country Junction",
+                "description": "Un rincón del país donde la música country es ley.",
+                "address": "Calle de Covarrubias, 24, Chamberí, 28010 Madrid",
+                "phone": "5559012345",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/countryjunction",
+                "tiktok": "https://www.tiktok.com/countryjunction"
+        },
+        {
+                "name": "Alternative Underground",
+                "description": "Una sala que abraza la diversidad de la música alternativa.",
+                "address": "C. Patalón, 13, 10600 Plasencia, Cáceres",
+                "phone": "678950334",
+                "profile_picture": "",
+                "banner_picture": "",
+                "instagram": "https://www.instagram.com/alternativeunderground",
+                "tiktok": "https://www.tiktok.com/alternativeunderground"
+        }
 ]
