@@ -228,8 +228,9 @@ export const ProfileBody = (props) => {
                             <div key={category.id} className="category-item d-flex justify-content-between align-items-center
                                     ">
                                 <input
-                                    type="checkbox"
+                                    type="radio"
                                     id={category.id}
+                                    name={category.name}
                                     value={category.id}
                                     checked={selectedCategories.includes(category.id)}
                                     onChange={() => handleCategoryClick(category.id)}
