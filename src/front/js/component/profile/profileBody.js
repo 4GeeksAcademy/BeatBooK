@@ -56,7 +56,6 @@ export const ProfileBody = (props) => {
     useEffect(() => {
 
         actions.getAllEvents();
-        console.log(store.currentUser);
     }, [store.currentUser]);
 
 
@@ -122,23 +121,29 @@ export const ProfileBody = (props) => {
     return (
         <div className="container text-center">
             <div className="row">
-                <div className="col">
-                    <div className="cardContent">
-                        <h5>Descripcion</h5>
+                <div className="col-12 col-md-12 col-xl-6">
+                    <div className="card-detail">
+                        <h5>Descripción</h5>
                         <p>{store.currentUser?.description}</p>
                         <div>
                             <a href={store.currentUser?.instagram} className="card-link" target="_blank"> <i className="fa-brands  fa-instagram fa-2xl icono"></i></a>
                             <a href={store.currentUser?.tiktok} className="card-link" target="_blank"><i className="fa-brands fa-tiktok fa-2xl icono"></i></a>
                         </div>
                     </div>
-                    <div className="cardContent">
-                        <h5>Informacion</h5>
+                    <div className="card-info">
+                        <h5>Información</h5>
                         <p>Ciudad: {store.currentUser?.city}</p>
                         <p>Genero: {store.currentUser?.gender}</p>
                         <p>Cumpleaños: {formatBirthdate(birthdate)}</p>
+                        <p>Puedes escucharme en:</p>
+                    {store.currentUser && store.currentUser.created_band && (
+                            <Link to={`/banda/${store.currentUser?.created_band.id}`}>
+                                <button className='btns'>{store.currentUser?.created_band.name}</button>
+                            </Link>   
+                    )}
                     </div>
-                    <div className="cardContent">
-                        <h5>Interes musical</h5>
+                    <div className="card-music">
+                        <h5>Interés musical</h5>
                         <div className="container d-flex justify-content-center mb-3">
                             <div className="d-flex align-items-center">
                                 <button className="btns-add" onClick={handleShowAddModal}><i className="fas fa-plus" style={{ color: '#FFFFFF' }}></i></button>
@@ -161,15 +166,15 @@ export const ProfileBody = (props) => {
 
                     </div>
                 </div>
-                <div className="col">
-                    <div className="cardContent">
-                        <h5>Proximos Eventos</h5>
+                <div className="col-12 col-md-12 col-xl-6">
+                    <div className="cardEvent">
+                        <h5>Próximos Eventos</h5>
                     </div>
                     {store.allEvents
                         .filter(event => event.assistances.some(assistance => store.currentUser && assistance.user_id === store.currentUser.id))
                         .sort((a, b) => new Date(a.date) - new Date(b.date))
                         .map((event, index) => (
-                            <div className="cardContent card mb-3" key={index}>
+                            <div className="cardEvent card mb-3" key={index}>
                                 <div>
                                     <Link to={`/events/${event.id}`} className="card-link">
                                         <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
@@ -223,8 +228,9 @@ export const ProfileBody = (props) => {
                             <div key={category.id} className="category-item d-flex justify-content-between align-items-center
                                     ">
                                 <input
-                                    type="checkbox"
+                                    type="radio"
                                     id={category.id}
+                                    name={category.name}
                                     value={category.id}
                                     checked={selectedCategories.includes(category.id)}
                                     onChange={() => handleCategoryClick(category.id)}

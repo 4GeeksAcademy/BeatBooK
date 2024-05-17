@@ -17,30 +17,31 @@ body {
 /* Genericos puestos por Miriam que se pueden debatir */
 
 @font-face {
-  font-family: 'Dharma Punk';
-  src: url('../../../docs/assets/Dharma_Punk_2.ttf') format('truetype');
+  font-family: 'Permanent Marker';
+  src: url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap') format('truetype');
 }
 
+
 h1 {
-  font-family: 'Dharma Punk';
+  font-family: 'Permanent Marker';
   color: white;
   font-size: 60px;
 }
 
 h2 {
-  font-family: 'Dharma Punk';
+  font-family: 'Permanent Marker';
   color: white;
   font-size: 30px;
 }
 
 h4 {
-  font-family: 'Dharma Punk';
+  font-family: 'Permanent Marker';
   color: white;
   font-size: 30px;
 }
 
 h5 {
-  font-family: 'Dharma Punk';
+  font-family: 'Permanent Marker';
   color: white;
   font-size: 30px;
 }
@@ -51,6 +52,11 @@ h6 {
 
 p {
   color: white;
+  font-family: monospace;
+}
+
+modal p {
+  color: black;
   font-family: monospace;
 }
 

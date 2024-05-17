@@ -132,7 +132,7 @@ export const CreatePlace = () => {
                     </Col>
                 </Row>
                 <div className="create_event">
-                    <Button className="create_event_button" type="submit">
+                    <Button className="create_event_button" type="submit" style={{ color: "black" }}>
                         Crear lugar
                     </Button>
                 </div>

@@ -14,11 +14,11 @@ export const Categorias = () => {
   return (
     <div className="container text-center">
       <br></br>
-      <h1>Categorias</h1>
+      <h1>Categorías</h1>
       <br></br>
       <div className='bentobox'>
-        {categories.map((category) => (
-          <div className="containerCard noselect item" onClick={() => window.location.href = `categoria/${category.id}/eventos`}>
+        {categories.map((category, index) => (
+          <div key={index} className="containerCard noselect item" onClick={() => window.location.href = `categoria/${category.id}/eventos`}>
             <div className="canvas">
               <div className="tracker tr-1"></div>
               <div className="tracker tr-2"></div>

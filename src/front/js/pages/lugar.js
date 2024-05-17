@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
+
+
 export const Lugar = () => {
     const [place, setPlace] = useState(null);
     const [events, setEvents] = useState([]);
@@ -50,6 +52,7 @@ export const Lugar = () => {
                     <div class="container text-start placeData">
                         <div class="row align-items-center">
                             <div class="col">
+                                <br></br>
                                 <img className='ProfilePicture' src={place.profile_picture} alt='perfil' />
                             </div>
                             <div class="col-8">
@@ -64,22 +67,22 @@ export const Lugar = () => {
                         <div class="row">
                             <div class="col">
                                 <div className="cardContent">
-                                    <h5>Mapa</h5>
+                                    <h5>Dirección</h5>
                                     <p>{place.address}</p>
                                 </div>
                                 <div className="cardContent">
-                                    <h5>Telefono</h5>
+                                    <h5>Teléfono</h5>
                                     <p>{place.phone}</p>
                                     <h5>Redes sociales</h5>
                                     <div className='socialNetwork'>
-                                        <a href={place.instagram} className="card-link"> <i className="fa-brands  fa-instagram fa-2xl" style={{ color: "#000000" }}></i></a>
-                                        <a href={place.tiktok} className="card-link"><i className="fa-brands fa-tiktok fa-2xl" style={{ color: "#000000" }}></i></a>
+                                        <a href={place.instagram} className="card-link"> <i className="fa-brands icono fa-instagram fa-2xl"></i></a>
+                                        <a href={place.tiktok} className="card-link"><i className="fa-brands icono fa-tiktok fa-2xl"></i></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div className="cardContent">
-                                    <h5>Proximos Eventos</h5>
+                                    <h5>Próximos Eventos</h5>
                                 </div>
                                 {/*Card eventos*/}
                                 <div className="cardContent card mb-3">

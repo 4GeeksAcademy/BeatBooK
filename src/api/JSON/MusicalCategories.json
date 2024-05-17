@@ -2,51 +2,46 @@
     {
         "name": "Jazz",
         "description": "Un género de música que se originó en las comunidades afroamericanas de Nueva Orleans, Estados Unidos, a finales del siglo XIX y principios del XX. Surgió a partir de estilos de blues y ragtime.",
-        "image_url": "https://i.pinimg.com/564x/3e/70/43/3e7043fba9ef29ab0d94eec49109ecc4.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625964/b900mdsxtvwje1t4hks1.jpg"
     },
     {
         "name": "Rock",
         "description": "Un género amplio de música popular que se originó como 'rock and roll' en Estados Unidos a finales de la década de 1940 y principios de la década de 1950, desarrollándose en una variedad de estilos diferentes en la década de 1960 y posteriormente, incluyendo punk rock, rock alternativo e indie rock.",
-        "image_url": "https://i.pinimg.com/564x/4e/59/57/4e59570466f57cbe1b8fdec9c0d495d5.jpg"
-    },
-    {
-        "name": "Clásica",
-        "description": "Un género de música que abarca más de mil años y se caracteriza por su composición compleja, variedad instrumental y rica historia. Incluye varios periodos como el Barroco, Clásico, Romántico y Moderno.",
-        "image_url": "https://i.pinimg.com/564x/5a/12/92/5a1292bfc2e5314389b12b5d4a186945.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625989/fz8ogorzsdie16m1c24k.jpg"    
     },
     {
         "name": "Hip Hop",
         "description": "Un género de música que se originó en las comunidades afroamericanas y latinas del Bronx en la ciudad de Nueva York en la década de 1970. Se caracteriza por música rítmica acompañada de vocales de rap.",
-        "image_url": "https://i.pinimg.com/564x/8c/45/47/8c4547f2983c62ab3bab87d3c042e89f.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625936/qguzxzs2kewm6mwroct1.jpg"    
     },
     {
         "name": "Pop",
         "description": "Un género de música popular que se caracteriza por su enfoque en la melodía y la accesibilidad. Ha sido influenciado por una variedad de estilos musicales y es conocido por su apelación a un amplio público.",
-        "image_url": "https://i.pinimg.com/564x/f9/c4/3d/f9c43d44d6c29f960ef13a8a01c021b3.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625970/tmoa6afskm5hfyaulq1l.jpg"    
     },
     {
         "name": "Electrónica",
         "description": "Un género de música que utiliza instrumentos electrónicos y tecnología de producción para crear sonidos. Incluye subgéneros como techno, house, trance y dubstep.",
-        "image_url": "https://i.pinimg.com/564x/f2/ee/2f/f2ee2f25337573f4fac2ed15e5f2ac82.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625930/uhcz3eseqdpkog1jkxtl.jpg"    
     },
     {
         "name": "Reggae",
         "description": "Un género de música originario de Jamaica que se caracteriza por su ritmo distintivo y letras sociales o políticas. Es conocido por su influencia en la cultura popular mundial.",
-        "image_url": "https://i.pinimg.com/564x/96/78/55/9678552c87e1b9d67e3c2e3c76331578.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625976/hj3h072k6l1hpquwfsik.jpg"    
     },
     {
-        "name": "R&B (Rhythm and Blues)",
+        "name": "R&B",
         "description": "Un género de música afroamericana que combina elementos de jazz, blues y gospel. Se centra en la expresión emocional y a menudo se asocia con temas de amor y relaciones.",
-        "image_url": "https://i.pinimg.com/564x/2c/2e/13/2c2e1345ffac08351f03eb1a76e73093.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625982/vm0innee5uny5siqvutn.jpg"    
     },
     {
         "name": "Salsa",
         "description": "Un género de música y baile originario de Cuba que combina elementos de música africana, caribeña y española. Es conocido por su energía contagiosa y ritmos vibrantes.",
-        "image_url": "https://i.pinimg.com/564x/39/2b/20/392b20bff2c0b6557655dfe83d8b5cd9.jpg"
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626001/plyoqdp1pkzxhwckgpzi.jpg"    
     },
     {
-        "name": "Metal",
-        "description": "Un género de música que se caracteriza por su énfasis en la distorsión, la velocidad y la agresión. Incluye subgéneros como heavy metal, thrash metal y death metal.",
-        "image_url": "https://i.pinimg.com/564x/42/ca/bd/42cabd4006153a3856f7a5863dff8549.jpg"
+        "name": "Indie",
+        "description": "Un género de música que se caracteriza por su enfoque en la creatividad y la originalidad, a menudo asociado con artistas independientes y sellos discográficos. Puede abarcar una variedad de estilos musicales.",
+        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625942/k7w1ab52ohffjctwfqhn.jpg"    
     }
 ]

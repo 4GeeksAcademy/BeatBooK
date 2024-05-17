@@ -50,12 +50,12 @@ export const EventTeams = ({ eventData }) => {
           {band && (
             <>
               <img src={band.profile_picture} alt="Imagen del grupo" className="img-fluid" />
-              <p>Descripción: {band.description}</p>
-              <p>Instagram: {band.instagram}</p>
-              <p>TikTok: {band.tiktok}</p>
-              <p>Categoría musical: {band.music_category}</p>
+              <p className="blacktext">Descripción: {band.description}</p>
+              <p className="blacktext">Instagram: {band.instagram}</p>
+              <p className="blacktext">TikTok: {band.tiktok}</p>
+              <p className="blacktext">Categoría musical: {band.music_category}</p>
               <div className="d-flex flex-row flex-wrap">
-                <h5>Miembros:</h5>
+                <h5 className="blacktext">Miembros:</h5>
                 {band.members.map(member => (
                   <div key={member.id} className="me-3" style={{ flex: '0 0 calc(33.33% - 1rem)' }}>
                     <img
@@ -63,7 +63,7 @@ export const EventTeams = ({ eventData }) => {
                       alt={member.username}
                       style={{ width: '50px', height: '50px' }}
                     />
-                    <p className="mt-2">{member.username}</p>
+                    <p className="mt-2 blacktext">{member.username}</p>
                   </div>
                 ))}
               </div>

@@ -54,19 +54,5 @@
     "rating": 8,
     "comment": "Un concierto que superó todas las expectativas. La pasión y el compromiso de los músicos se reflejaban en cada acorde. Salí del lugar con una sensación de euforia que aún perdura.",
     "title": "Concierto que superó expectativas"
-  },
-  {
-    "user_id": 9,
-    "event_id": 9,
-    "rating": 9,
-    "comment": "Una noche mágica e inolvidable. La música envolvía el ambiente y creaba una atmósfera de pura felicidad. Los artistas conectaron con el público de una manera extraordinaria, dejándonos a todos con ganas de más.",
-    "title": "Noche mágica e inolvidable"
-  },
-  {
-    "user_id": 10,
-    "event_id": 10,
-    "rating": 9,
-    "comment": "¡Simplemente espectacular! La banda entregó una actuación impecable y su entusiasmo era contagioso. Cada canción era una obra maestra y el público respondía con aplausos y vítores. Sin duda, un concierto que nunca olvidaré.",
-    "title": "Actuación espectacular"
   }
 ]

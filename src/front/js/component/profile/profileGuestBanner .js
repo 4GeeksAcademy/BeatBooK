@@ -27,31 +27,20 @@ export const ProfileGuestBanner = () => {
         });
       },[]);
 
-    const classes = useStyles();
+
     
     return (
         <div className="container text-center">
-            <div className='Banner'>
-                <img src={store.singleUser.banner_picture} className='img-fluid' ></img>
-            </div>
-            <div className="container">
-                <div className="row  text-start data">
-                    <div className="col-12 col-md-4 col-xl-2">
-                        <img className='ProfilePicture' src={store.singleUser.profile_image_url} alt='perfil' />
-                    </div>
-                    <div className="col-12 col-md-8 col-xl-4 align-items-center">
-                        <h1>{store.singleUser.username}</h1>
-                        <p>Puedes escucharme en:</p>
-                        {store.singleUser && store.singleUser.created_band && (
-                            <div className={classes.root}>
-                                <Link to={`/banda/${store.singleUser.created_band.id}`}>
-                                    <Avatar className="avatar ms-2" alt={store.singleUser.username} src={store.singleUser.created_band.profile_picture} />
-                                </Link>
-                                <p className=' ms-1 mt-2'>{store.singleUser.created_band.name}</p>
-                            </div>
-                        )}
-                    </div>
-                        </div>
+              <div className="row  text-start">
+                <div className='col-12 Banner'>
+                    <img src={store.singleUser.banner_picture} className='img-fluid' ></img>
+                </div>
+                </div>
+                <div className="row mt-3 p-1" >
+                <div className=" profileName col-12 col-md-12 col-xl-12 d-flex justify-content-start align-items-center grid gap-3 mb-4">
+                    <img className='ProfilePicture p-3' src={store.singleUser.profile_image_url} alt='perfil' />
+                    <h1>{store.singleUser.username}</h1>
+                </div>
                 </div>
             </div>
 

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Context } from '../../store/appContext';
 import { useNavigate } from 'react-router-dom';
 import "../band/Bandstyle.css"
+import "../profile/profile.css"
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from 'react-bootstrap/Button';
@@ -39,7 +40,7 @@ export const BandBanner = (props) => {
     useEffect(() => {
         actions.getBand(id).then((data) => {
             setbandData(data);
-            console.log("bandData", data);
+           
         });
     }, [id]);
 
@@ -92,7 +93,7 @@ export const BandBanner = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+       
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}`, {
                 method: 'PUT',
@@ -140,42 +141,26 @@ export const BandBanner = (props) => {
 
     return (
         <div className='container'>
-            <div className='banner-band'>
+            <div className="row  text-start">
+                <div className='col-12 Banner'>
                 <img src={store.band.banner_picture} className='img-fluid' alt='Banner'></img>
             </div>
-            <div className="container container text-start data">
-                <div className="row align-items-center">
-                <div className="col-12 col-md-4 col-xl-2">
-                        <div className='picture col-12 col-md-2 col-xl-2'>
-                            <img className='img' src={store.band.profile_picture} alt='Perfil' />
-                        </div>
-                    </div>
-                    <div className=" username col-12 col-md-8 col-xl-4 d-flex align-items-center">
+            </div>
+            <div className="row mt-3 p-1" >
+                <div className=" profileName col-12 col-md-12 col-xl-12 d-flex justify-content-start align-items-center grid gap-3 mb-4">
+                        <img className='ProfilePicture p-3' src={store.band.profile_picture} alt='Perfil' />
+
                         <h1>{store.band.name}</h1>
                         <button className='btns ms-3' onClick={handleShowEditModal}>
                             <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i>
                         </button>
                     </div>
-                    <div className="col-12 col-md-12 col-xl-5 d-flex flex-column align-items-end justify-content-center my-3">
-                        <div className='members'>
-                            <p className='me-5 '><strong>Miembros</strong></p>
-                        </div>
-                        <div className="d-flex flrex-row">
-                            {store.band.members && store.band.members.map((member, index) => (
-                                <div className={classes.root} key={index}>
-                                    <Link to={`/profile/${member.id}`}>
-                                        <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
-                                    </Link>
-                                </div>
-                            ))}
-                        </div>
                     </div>
-                </div>
-            </div>
+    
             <div className="container text-center">
                 <div className="row">
-                    <div className="col">
-                        <div className="cardContent">
+                <div className="col-12 col-md-12 col-xl-6">
+                        <div className="card-detail">
                             <h5 className="card-title">Detalles</h5>
                             <p className="card-text">{store.band.description}</p>
                             <h5>Redes sociales</h5>
@@ -184,22 +169,34 @@ export const BandBanner = (props) => {
                                 <a href={store.band.tiktok} className="card-link" target='_blank'><i className="fa-brands fa-tiktok icono fa-2xl"></i></a>
                             </div>
                         </div>
-                        <div className="cardContent">
-                            <h5>Categoria musical</h5>
+                        <div className="card-members">
+                            <h5 className="card-title">Miembros</h5>
+                            <div className="d-flex flrex-row justify-content-center align-items-center flex-wrap ">
+                            {store.band.members && store.band.members.map((member, index) => (
+                                <div className={classes.root} key={index}>
+                                    <Link to={`/profile/${member.id}`}>
+                                        <Avatar className="avatar" alt={member.username} src={member.profile_image_url} />
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                        </div>
+                        <div className="card-music-band">
+                            <h5>Categoría musical</h5>
+                                {store.band.musical_categories && store.band.musical_categories.map(category => (
                             <button className="btns-music">
                                 <i className="fas fa-music mx-1" style={{ color: '#FFFFFF' }}></i>
-                                {store.band.musical_categories && store.band.musical_categories.map(category => (
                                     <span key={category.id}>{category.name}</span>
-                                ))}
                             </button>
+                                ))}
                         </div>
                     </div>
-                    <div className="col">
-                        <div className="cardContent">
-                            <h5>Proximos Eventos</h5>
+                    <div className="col-12 col-md-12 col-xl-6">
+                        <div className="cardEvent">
+                            <h5>Próximos Eventos</h5>
                         </div>
-                        <div className="cardContent card mb-3">
                             {store.band.events && store.band.events.map((event, index) => (
+                        <div className="cardEvent">
                                 <div className="position-relative" key={index}>
                                     <Link to={`/events/${event.id}`}>
                                         <img src={event.picture_url} alt="img" draggable="false" className="card-img-top eventPicture" />
@@ -209,8 +206,8 @@ export const BandBanner = (props) => {
                                         <p>{event.description}</p>
                                     </div>
                                 </div>
-                            ))}
                         </div>
+                            ))}
                     </div>
                 </div>
             </div>

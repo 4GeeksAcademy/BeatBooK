@@ -14,6 +14,22 @@ import cloudinary
 from cloudinary.uploader import upload
 import cloudinary.api
 import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+# message = Mail(
+#     from_email='from_email@example.com',
+#     to_emails='to@example.com',
+#     subject='Sending with Twilio SendGrid is Fun',
+#     html_content='<strong>and easy to do anywhere, even with Python</strong>')
+# try:
+#     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+#     response = sg.send(message)
+#     print(response.status_code)
+#     print(response.body)
+#     print(response.headers)
+# except Exception as e:
+#     print(e.message)
 
 
 cloudinary.config( 
@@ -273,14 +289,15 @@ def protected():
             
         })
 
-      # Serializar la banda creada por el usuario si existe
+    # Serializar la banda creada por el usuario si existe
     created_band_serialized = None
     if user.created_band:
         created_band_serialized = {
-            "id": user.created_band.id,
-            "name": user.created_band.name,
-            "profile_picture": user.created_band.profile_picture
-        }
+        "id": user.created_band[0].id,  # Acceder al primer elemento de la lista
+        "name": user.created_band[0].name,
+        "profile_picture": user.created_band[0].profile_picture
+    
+    }
     
  
     return jsonify({
@@ -359,7 +376,7 @@ def update_user(user_id):
         raise APIException('User not found', status_code=404)
     request_body = request.get_json()
     # user.email = request_body['email'] or user.email # ctrl + c + k para comentar multiples lineas
-    # user.username = request_body['username'] or user.username # se debe mantener asi para que no de conflicto con la edicion del perfil!!!!!!
+    user.username = request_body['username'] or user.username # se debe mantener asi para que no de conflicto con la edicion del perfil!!!!!!
     user.birthdate = request_body['birthdate'] or user.birthdate
     user.description = request_body['description'] or user.description
     user.gender = request_body['gender'] or user.gender
