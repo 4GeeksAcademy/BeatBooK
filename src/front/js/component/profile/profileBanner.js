@@ -189,6 +189,7 @@ export const ProfileBanner = () => {
                     </button>
 
                     <div className="dropdown">
+
                         <button className="btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Construye Tu Sueño
                         </button>
@@ -273,7 +274,6 @@ export const ProfileBanner = () => {
                                         <input placeholder="Instagram" className="input" name="instagram" type="text" value={formData.instagram} onChange={handleChange} />
                                         <input placeholder="Tiktok" className="input" name="tiktok" type="text" value={formData.tiktok} onChange={handleChange} />
                                     </div>
-
                                 </div>
                             </div>
                             <Modal.Footer>
@@ -282,8 +282,6 @@ export const ProfileBanner = () => {
                         </form>
                     </Modal.Body>
                 </Modal>
-
-            
         </div>
     );
 }

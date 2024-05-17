@@ -53,7 +53,6 @@ export const LandingPage = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };

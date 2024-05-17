@@ -149,13 +149,14 @@ export const BandBanner = (props) => {
             <div className="row mt-3 p-1" >
                 <div className=" profileName col-12 col-md-12 col-xl-12 d-flex justify-content-start align-items-center grid gap-3 mb-4">
                         <img className='ProfilePicture p-3' src={store.band.profile_picture} alt='Perfil' />
+
                         <h1>{store.band.name}</h1>
                         <button className='btns ms-3' onClick={handleShowEditModal}>
                             <i className="fa-solid fa-user-pen" style={{ color: '#ffffff' }}></i>
                         </button>
                     </div>
                     </div>
-                
+    
             <div className="container text-center">
                 <div className="row">
                 <div className="col-12 col-md-12 col-xl-6">

@@ -11,7 +11,6 @@ export const CategoryEvents = () => {
     const { category_id } = useParams();
 
     useEffect(() => {
-
         actions.getEventsByCategory(category_id)
             .then((events) => {
                 setEvents(events);

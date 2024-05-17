@@ -164,7 +164,6 @@ width: 49%;
   backdrop-filter: blur(30px);
   background-color: rgba(65, 65, 65, 0.308);
 }
-
  .card-detail {
   margin: 10px;
   padding: 10px;
@@ -290,6 +289,7 @@ width: 49%;
   text-align: start;
   margin-bottom: 15px;
   color: white;
+
 }
 
 .card-detail-content p {
